@@ -13,9 +13,12 @@ import { LoginComponent } from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AuthService} from './auth.service';
 import {ApiService} from './api.service';
+import {AuthguardGuard} from './authguard.guard';
+import { UsercardComponent } from './dashboard/usercard/usercard.component';
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent},
+  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'meteo', component: MeteoComponent},
   {path: '**', component: NotfoundComponent}
@@ -30,6 +33,7 @@ const routes: Routes = [
     MeteoComponent,
     NotfoundComponent,
     LoginComponent,
+    UsercardComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -38,7 +42,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthService,
-    ApiService
+    ApiService,
+    AuthguardGuard,
   ],
   bootstrap: [AppComponent]
 })
