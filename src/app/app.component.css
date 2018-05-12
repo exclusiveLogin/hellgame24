@@ -1,0 +1,15 @@
+
+.main_container{
+  display: flex;
+  height: 100%;
+}
+.mainmenu{
+  flex-direction: row;
+  flex-basis: 75px;
+  min-width: 75px;
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+.workplace{
+  background: #dddddd;
+}
