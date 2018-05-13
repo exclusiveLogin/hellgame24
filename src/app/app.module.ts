@@ -21,7 +21,6 @@ const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'meteo', component: MeteoComponent},
   {path: '**', component: NotfoundComponent}
 ];
 
@@ -29,12 +28,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     MenuComponent,
-    DashboardComponent,
-    MapComponent,
-    MeteoComponent,
-    NotfoundComponent,
     LoginComponent,
-    UsercardComponent,
+    NotfoundComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
