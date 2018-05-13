@@ -11,5 +11,6 @@
   color: #ddd;
 }
 .workplace{
-  background: #dddddd;
+  background: #222;
+  flex-grow: 1;
 }

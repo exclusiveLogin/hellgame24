@@ -15,6 +15,7 @@ import {AuthService} from './auth.service';
 import {ApiService} from './api.service';
 import {AuthguardGuard} from './authguard.guard';
 import { UsercardComponent } from './dashboard/usercard/usercard.component';
+import {DashboardModule} from './dashboard/dashboard.module';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -38,7 +39,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    DashboardModule
   ],
   providers: [
     AuthService,
