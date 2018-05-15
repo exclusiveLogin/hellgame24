@@ -1,0 +1,8 @@
+.usercard_led{
+  height: 5px;
+  width: 100%;
+}
+.usercard_led.ok{
+  background-color: greenyellow;
+  box-shadow: 0 0 5px rgba(50, 250, 0, 0.7);
+}

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {UsercardComponent} from './usercard/usercard.component';
 import {DashboardComponent} from './dashboard.component';
 import {RouterModule} from '@angular/router';
+import { UsercardledComponent } from './usercard/usercardled/usercardled.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import {RouterModule} from '@angular/router';
   ],
   declarations: [
     DashboardComponent,
-    UsercardComponent
+    UsercardComponent,
+    UsercardledComponent
   ]
 })
 export class DashboardModule { }
