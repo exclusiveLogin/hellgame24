@@ -1,5 +1,9 @@
 <div class="card_panel">
-  <app-usercard></app-usercard>
-  <app-usercard></app-usercard>
+  <ng-container *ngIf="v_users.length; else emptyUserList">
+    <app-usercard *ngFor="let user of v_users" [_user]="user"></app-usercard>
+  </ng-container>
+  <ng-template #emptyUserList>
+    <span>Не удалось загрузить список пользователей</span>
+  </ng-template>
 </div>
 <router-outlet name="dashwidget"></router-outlet>

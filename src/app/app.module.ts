@@ -16,6 +16,7 @@ import {ApiService} from './api.service';
 import {AuthguardGuard} from './authguard.guard';
 import { UsercardComponent } from './dashboard/usercard/usercard.component';
 import {DashboardModule} from './dashboard/dashboard.module';
+import {UserServiceService} from './user-service.service';
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -41,6 +42,7 @@ const routes: Routes = [
     AuthService,
     ApiService,
     AuthguardGuard,
+    UserServiceService
   ],
   bootstrap: [AppComponent]
 })
