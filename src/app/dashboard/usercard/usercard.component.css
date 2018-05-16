@@ -76,4 +76,8 @@
 .usercard_panel_item{
   cursor: pointer;
   text-align: center;
+  transition: color ease-in-out 0.3s;
+}
+.usercard_panel_item:hover{
+  color: #ffb500;
 }

@@ -13,4 +13,8 @@ app-usercard{
   width: 250px;
   margin: 10px 15px;
   box-shadow: 8px 8px 0 #222;
+  transition: box-shadow ease 0.5s;
+}
+app-usercard:hover{
+  box-shadow: 3px 3px 0 #282828;
 }
