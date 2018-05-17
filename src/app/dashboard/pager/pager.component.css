@@ -9,9 +9,13 @@
   padding: 20px;
   flex-grow: 1;
   background-color: #444;
+  transition: all ease 1s;
+  width: 0;
 }
 .page_add{
   padding: 20px;
   flex-grow: 1;
   background-color: #222;
+  transition: all ease 1s;
+  width: 0;
 }
