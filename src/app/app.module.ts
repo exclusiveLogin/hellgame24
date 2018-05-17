@@ -17,10 +17,15 @@ import {AuthguardGuard} from './authguard.guard';
 import { UsercardComponent } from './dashboard/usercard/usercard.component';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {UserServiceService} from './user-service.service';
+import { PagerComponent } from './dashboard/pager/pager.component';
+
+const dashboardRoutes: Routes = [
+  {path: 'pager', component: PagerComponent}
+];
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardGuard]},
+  {path: 'dashboard', component: DashboardComponent, /*canActivate: [AuthguardGuard],*/ children: dashboardRoutes},
   {path: 'login', component: LoginComponent},
   {path: '**', component: NotfoundComponent}
 ];

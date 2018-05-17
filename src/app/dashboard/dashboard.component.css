@@ -1,4 +1,10 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .card_panel{
+  flex-grow: 0;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
@@ -8,6 +14,7 @@
   width: 100%;
   color: #dddddd;
   box-shadow: 0 2px 15px #111;
+  z-index: 20;
 }
 app-usercard{
   width: 250px;
@@ -17,4 +24,9 @@ app-usercard{
 }
 app-usercard:hover{
   box-shadow: 3px 3px 0 #282828;
+}
+.dashboard_workplace{
+  flex-grow: 1;
+  display: flex;
+  z-index: 10;
 }

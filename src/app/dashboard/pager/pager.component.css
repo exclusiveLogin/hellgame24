@@ -1,0 +1,17 @@
+:host{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: #dddddd;
+  flex-grow: 1;
+}
+.page_half{
+  padding: 20px;
+  flex-grow: 1;
+  background-color: #444;
+}
+.page_add{
+  padding: 20px;
+  flex-grow: 1;
+  background-color: #222;
+}

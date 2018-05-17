@@ -9,6 +9,6 @@ import {AuthService} from './auth.service';
 export class AppComponent implements OnInit {
   constructor(private auth: AuthService) {}
   public ngOnInit(): void {
-    this.auth.login({login: 'ssv', password: 'ddd'});
+    //this.auth.login({login: 'ssv', password: 'ddd'});
   }
 }
