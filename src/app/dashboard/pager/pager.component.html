@@ -1,9 +1,13 @@
-<div class="page_half">
-  <span>Первая страница</span>
-  <ng-content select=".odd-content"></ng-content>
+<div class="page_info">
+  <span>Страница информации</span>
+  <ng-content select=".info-content"></ng-content>
 
 </div>
-<div class="page_add">
-  <span>вторая страница</span>
-  <ng-content select=".even-content"></ng-content>
+<div class="page_accessory">
+  <span>Страница инвентаря</span>
+  <ng-content select=".accessory-content"></ng-content>
+</div>
+<div class="page_map">
+  <span>Страница карты</span>
+  <ng-content select=".map-content"></ng-content>
 </div>

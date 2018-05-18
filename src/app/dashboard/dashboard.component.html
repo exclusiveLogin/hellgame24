@@ -8,7 +8,21 @@
 </div>
 <div class="dashboard_workplace">
   <app-pager>
-    <app-messanger class="odd-content"></app-messanger>
-    <app-map class="even-content"></app-map>
+    <div class="info-content">
+      <app-user-info-card></app-user-info-card>
+      <app-messanger></app-messanger>
+      <app-user-notyfier></app-user-notyfier>
+    </div>
+    <div class="map-content">
+      <app-dash-map></app-dash-map>
+    </div>
+    <div class="accessory-content">
+      <app-accessory-header></app-accessory-header>
+      <app-accessory-scope-list>
+        <app-accessory-scope-list-item></app-accessory-scope-list-item>
+      </app-accessory-scope-list>
+      <app-accessory-card></app-accessory-card>
+      <app-accessory-crafter></app-accessory-crafter>
+    </div>
   </app-pager>
 </div>

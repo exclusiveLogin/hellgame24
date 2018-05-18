@@ -5,17 +5,19 @@
   color: #dddddd;
   flex-grow: 1;
 }
-.page_half{
+.page_info, .page_map, .page_accessory{
   padding: 20px;
   flex-grow: 1;
   background-color: #444;
   transition: all ease 1s;
   width: 0;
 }
-.page_add{
-  padding: 20px;
-  flex-grow: 1;
+.page_info {
   background-color: #222;
-  transition: all ease 1s;
-  width: 0;
+}
+.page_accessory {
+  background-color: #444;
+}
+.page_map {
+  background-color: #333;
 }
