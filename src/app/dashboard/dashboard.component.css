@@ -1,26 +1,24 @@
 :host{
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex-grow: 1;
+  overflow: auto;
 }
 .card_panel{
-  flex-grow: 0;
   display: flex;
   flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-items: center;
   background-color: #333;
-  width: 100%;
   color: #dddddd;
   box-shadow: 0 2px 15px #111;
   z-index: 20;
+  overflow: auto;
 }
 app-usercard{
   width: 250px;
   margin: 10px 15px;
   box-shadow: 8px 8px 0 #222;
   transition: box-shadow ease 0.5s;
+  flex: 0 0 auto;
 }
 app-usercard:hover{
   box-shadow: 3px 3px 0 #282828;
@@ -29,4 +27,5 @@ app-usercard:hover{
   flex-grow: 1;
   display: flex;
   z-index: 10;
+  overflow: auto;
 }

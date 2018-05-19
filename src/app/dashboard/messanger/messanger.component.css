@@ -1,0 +1,27 @@
+:host{
+
+}
+.messager_container{
+  display:  flex;
+  flex-grow: 1;
+  flex-direction: row;
+}
+.messager_input{
+  flex-grow: 1;
+  height: 28px;
+  font-size: 12pt;
+  color: #dddddd;
+  background-color: #282828;
+  border: 1px solid #444444;
+  width: 100%;
+  padding: 5px 10px;
+}
+.messager_sendbtn{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  flex-basis: 35px;
+  cursor: pointer;
+  padding: 5px;
+}

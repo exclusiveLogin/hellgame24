@@ -1,0 +1,54 @@
+:host{
+
+}
+.sys_code{
+  font-size: 90%;
+  color: #bbb;
+  width: 100%;
+}
+.sys_code_btns{
+  display: flex;
+  flex-direction: row;
+}
+.notyfier_system_status{
+  border: 1px solid #555555;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.sys_code_btns .sys_btn{
+  text-align: center;
+  flex-grow:  1;
+  border: 1px grey solid;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 4px 4px 0 #282828;
+  transition: box-shadow ease .5s, background-color ease .5s;
+  user-select: none;
+}
+.sys_btn.sys_rc_btn:hover{
+  box-shadow: 0 0 3px #be412f;
+  background-color: #be412f;
+}
+.sys_btn.sys_oc_btn:hover{
+  box-shadow: 0 0 3px #cf9324;
+  background-color: #cf9324;
+}
+.sys_btn.sys_gc_btn:hover{
+  box-shadow: 0 0 3px #343133;
+  background-color: #343133;
+}
+.sys_btn.sys_rc_btn{
+  background-color: #995555;
+}
+.sys_btn.sys_oc_btn{
+  background-color: #997755;
+
+}
+.sys_btn.sys_gc_btn{
+  background-color: #555555;
+
+}

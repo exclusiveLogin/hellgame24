@@ -1,5 +1,5 @@
 <div class="main_container">
-  <app-menu class="mainmenu"></app-menu>
+  <app-menu [ngClass]="{'hidemenu': hidemenu}" class="mainmenu"></app-menu>
   <div class="workplace">
     <router-outlet></router-outlet>
   </div>

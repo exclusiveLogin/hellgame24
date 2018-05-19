@@ -4,7 +4,7 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class ApiService {
-  private MAINAPI = 'http://localhost/backend/';
+  private MAINAPI = 'http://beta.hellgame24.ru/backend/';
   constructor() { }
   public getApi(): string {
     return this.MAINAPI;

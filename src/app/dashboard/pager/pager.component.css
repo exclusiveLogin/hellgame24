@@ -4,13 +4,13 @@
   justify-content: center;
   color: #dddddd;
   flex-grow: 1;
+  flex-wrap: wrap;
 }
 .page_info, .page_map, .page_accessory{
-  padding: 20px;
+  padding: 10px;
   flex-grow: 1;
   background-color: #444;
   transition: all ease 1s;
-  width: 0;
 }
 .page_info {
   background-color: #222;
