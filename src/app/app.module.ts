@@ -15,6 +15,7 @@ import {AuthguardGuard} from './authguard.guard';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {UserServiceService} from './user-service.service';
 import { PagerComponent } from './dashboard/pager/pager.component';
+import {ChartModule} from 'angular-highcharts';
 
 const dashboardRoutes: Routes = [
   {path: 'pager', component: PagerComponent}
@@ -38,7 +39,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
-    DashboardModule
+    DashboardModule,
   ],
   providers: [
     AuthService,

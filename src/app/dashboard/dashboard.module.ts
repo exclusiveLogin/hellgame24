@@ -12,12 +12,14 @@ import { UserNotyfierComponent } from './user-notyfier/user-notyfier.component';
 import { DashMapComponent } from './dash-map/dash-map.component';
 import { UserEmotionTrendComponent } from './user-emotion-trend/user-emotion-trend.component';
 import { UserBlogComponent } from './user-blog/user-blog.component';
+import {ChartModule} from 'angular-highcharts';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    AccessoryModule
+    AccessoryModule,
+    ChartModule
   ],
   exports: [
     UsercardComponent,

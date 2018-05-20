@@ -14,6 +14,7 @@
 }
 .page_info {
   background-color: #222;
+  flex: 0 1 auto;
 }
 .page_accessory {
   background-color: #444;
