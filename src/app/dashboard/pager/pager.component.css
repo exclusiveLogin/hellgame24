@@ -9,11 +9,10 @@
 .page_info, .page_map, .page_accessory{
   padding: 10px;
   flex-grow: 1;
-  background-color: #444;
   transition: all ease 1s;
 }
 .page_info {
-  background-color: #222;
+  background-color: #353535;
   flex: 0 1 auto;
 }
 .page_accessory {
