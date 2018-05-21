@@ -15,7 +15,8 @@ import {AuthguardGuard} from './authguard.guard';
 import {DashboardModule} from './dashboard/dashboard.module';
 import {UserServiceService} from './user-service.service';
 import { PagerComponent } from './dashboard/pager/pager.component';
-import {ChartModule} from 'angular-highcharts';
+import {TopeventsService} from './topevents.service';
+import {ChartReflowerService} from './chart-reflower.service';
 
 const dashboardRoutes: Routes = [
   {path: 'pager', component: PagerComponent}
@@ -45,7 +46,9 @@ const routes: Routes = [
     AuthService,
     ApiService,
     AuthguardGuard,
-    UserServiceService
+    UserServiceService,
+    TopeventsService,
+    ChartReflowerService
   ],
   bootstrap: [AppComponent]
 })

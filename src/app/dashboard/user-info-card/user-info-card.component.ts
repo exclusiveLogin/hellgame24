@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ChartObject} from 'highcharts';
+import {TopeventsService} from "../../topevents.service";
 const HC = require('highcharts');
 
 @Component({
@@ -9,7 +10,9 @@ const HC = require('highcharts');
 })
 export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
-  constructor() { }
+  constructor(
+    private tes: TopeventsService
+  ) { }
 
   ngOnInit() {
     HC.theme = {
@@ -209,47 +212,48 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.emoChart = HC.chart('infocardEmo_hc', {
-        chart: {
-          height: '75px',
+    this.emoChart = HC.chart('infocardEmo_hc', {
+      chart: {
+        height: '75px',
+      },
+      legend: {
+        enabled: false
+      },
+      yAxis: {
+        visible: false,
+      },
+      xAxis: {
+        visible: false
+      },
+      credits: {
+        enabled: false
+      },
+      title: {
+        text: '',
+        style: {
+          'display': 'none'
+        }
+      },
+      plotOptions: {
+        series: {
+          pointStart: 2010,
         },
-        legend: {
-          enabled: false
-        },
-        yAxis: {
-          visible: false,
-        },
-        xAxis: {
-          visible: false
-        },
-        credits: {
-          enabled: false
-        },
-        title: {
-          text: '',
-          style: {
-            'display': 'none'
-          }
-        },
-        plotOptions: {
-          series: {
-            pointStart: 2010,
+        line: {
+          marker: {
+            enabled: false,
           },
-          line: {
-            marker: {
-              enabled: false,
-            },
-            color: '#995555'
-          }
-        },
-        series: [{
-          type: 'line',
-          name: 'Installation',
-          data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-        }]
+          color: '#995555'
+        }
+      },
+      series: [{
+        type: 'line',
+        name: 'Installation',
+        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+      }]
+    });
+    this.tes.getMenuEvent()
+      .subscribe(() => {
+        this.emoChart.reflow();
       });
-      console.log(this.emoChart);
-    }, 100);
   }
 }

@@ -19,7 +19,8 @@
   flex-basis: 50%;
 }
 .userinfo_right #infocardEmo_hc{
-  max-width: 300px;
+  flex: 1 0 auto;
+  display: none;
 }
 .userinfo_right .user_title{
   font-size: 200%;
@@ -44,7 +45,4 @@
 }
 .userinfo_send_notify{
 
-}
-.emo_dinamic_container{
-  align-self: flex-end;
 }
