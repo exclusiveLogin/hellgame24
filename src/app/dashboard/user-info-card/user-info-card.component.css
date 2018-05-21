@@ -20,7 +20,6 @@
 }
 .userinfo_right #infocardEmo_hc{
   flex: 1 0 auto;
-  display: none;
 }
 .userinfo_right .user_title{
   font-size: 200%;
