@@ -1,0 +1,12 @@
+:host{
+  height: 20px;
+  color: #dddddd;
+  flex: 0 0;
+  text-align: center;
+  line-height: 20px;
+  transition: margin-top ease 1s, opacity ease 1s;
+}
+:host.hide{
+  margin-top: -20px;
+  opacity: 0;
+}

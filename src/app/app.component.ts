@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   ) {}
   public hidemenu = false;
   public hidemenuToggler = false;
+  public __type = 'red';
   @HostListener('document:scroll')
   private winScroll(): void {
     // избегаем не нужного перезаписывания и обновления события
@@ -26,6 +27,12 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    setTimeout(() => {
+      this.__type = 'orange';
+    }, 2000);
+    setTimeout(() => {
+      this.__type = '';
+    }, 5000);
     // this.auth.login({login: 'ssv', password: 'ddd'});
     if (window && window.matchMedia) {
       window.matchMedia('(max-width: 470px)')

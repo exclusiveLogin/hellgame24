@@ -17,6 +17,7 @@ import {UserServiceService} from './user-service.service';
 import { PagerComponent } from './dashboard/pager/pager.component';
 import {TopeventsService} from './topevents.service';
 import {ChartReflowerService} from './chart-reflower.service';
+import { SystemCodeComponent } from './system-code/system-code.component';
 
 const dashboardRoutes: Routes = [
   {path: 'pager', component: PagerComponent}
@@ -34,7 +35,8 @@ const routes: Routes = [
     AppComponent,
     MenuComponent,
     LoginComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    SystemCodeComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
