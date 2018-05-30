@@ -8,6 +8,7 @@ import {IUser} from '../../models/user-interface';
 })
 export class UsercardComponent implements OnInit {
   @Input() _user: IUser;
+  @Input() _owner = false;
   public user: IUser;
   constructor() { }
 

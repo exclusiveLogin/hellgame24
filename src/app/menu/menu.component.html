@@ -1,11 +1,11 @@
 <div class="menu_container">
   <div class="logo"></div>
   <div class="menu_list">
-    <div class="menu_item"><i class="fas fa-users fa-2x" aria-hidden="true"></i></div>
-    <div class="menu_item"><i class="fas fa-globe fa-2x" aria-hidden="true"></i></div>
-    <div class="menu_item"><i class="fas fa-newspaper fa-2x" aria-hidden="true"></i></div>
-    <div class="menu_item"><i class="fas fa-cloud fa-2x" aria-hidden="true"></i></div>
-    <div class="menu_item"><i class="fas fa-cog fa-2x" aria-hidden="true"></i></div>
+    <div class="menu_item" [ngClass]="{'updated': menuStateUpd.dashboard_upd}"><i class="fas fa-users fa-2x" aria-hidden="true"></i></div>
+    <div class="menu_item" [ngClass]="{'updated': menuStateUpd.map_upd}"><i class="fas fa-globe fa-2x" aria-hidden="true"></i></div>
+    <div class="menu_item" [ngClass]="{'updated': menuStateUpd.news_upd}"><i class="fas fa-newspaper fa-2x" aria-hidden="true"></i></div>
+    <div class="menu_item" [ngClass]="{'updated': menuStateUpd.meteo_upd}"><i class="fas fa-cloud fa-2x" aria-hidden="true"></i></div>
+    <div class="menu_item" [ngClass]="{'updated': menuStateUpd.settings_upd}"><i class="fas fa-cog fa-2x" aria-hidden="true"></i></div>
     <div class="menu_item"><i class="fas fa-sign-out-alt fa-2x"></i></div>
 
   </div>

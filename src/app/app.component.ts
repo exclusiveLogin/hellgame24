@@ -33,6 +33,12 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.__type = '';
     }, 5000);
+    setTimeout(() => {
+      this.tes.setMenuStateUpdates({'dashboard_upd': true});
+    }, 5000);
+    setTimeout(() => {
+      this.tes.setMenuStateUpdates({'meteo_upd': true});
+    }, 7000);
     // this.auth.login({login: 'ssv', password: 'ddd'});
     if (window && window.matchMedia) {
       window.matchMedia('(max-width: 470px)')

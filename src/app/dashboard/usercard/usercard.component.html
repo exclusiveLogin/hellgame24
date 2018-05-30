@@ -10,10 +10,16 @@
       <div class="usercard_message__datetime">{{user.message.datetime}}</div>
     </div>
     <div class="usercard_panel">
-      <div class="usercard_panel_item"><i class="fas fa-envelope"></i></div>
-      <div class="usercard_panel_item"><i class="fas fa-sign-in-alt"></i></div>
-      <div class="usercard_panel_item"><i class="fas fa-map-marker-alt"></i></div>
-      <div class="usercard_panel_item"><i class="fas fa-chart-bar"></i></div>
+      <ng-container *ngIf="_owner;then owner else default"></ng-container>
+      <ng-template #default>
+        <div class="usercard_panel_item"><i class="fas fa-envelope"></i></div>
+        <div class="usercard_panel_item"><i class="fas fa-sign-in-alt"></i></div>
+        <div class="usercard_panel_item"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="usercard_panel_item"><i class="fas fa-chart-bar"></i></div>
+      </ng-template>
+      <ng-template #owner>
+        <span class="owner">Ты</span>
+      </ng-template>
     </div>
   </div>
   <div class="usercard_footer">

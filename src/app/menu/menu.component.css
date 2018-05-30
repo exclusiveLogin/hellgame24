@@ -35,3 +35,14 @@
   box-shadow: 5px 5px 0 #ffb500;
   border: 1px solid #ffb500;
 }
+.menu_item.updated:after{
+  content: "";
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  background-color: red;
+  position: relative;
+  margin: -7px;
+  right: -10px;
+  float: left;
+}

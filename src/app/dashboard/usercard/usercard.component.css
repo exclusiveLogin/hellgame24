@@ -85,3 +85,8 @@
 .usercard_panel_item.active{
   color: #dddddd;
 }
+.owner{
+  text-orientation: upright;
+  transform: rotate(90deg);
+
+}
