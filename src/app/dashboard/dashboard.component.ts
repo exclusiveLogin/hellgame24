@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserServiceService} from '../user-service.service';
 import {IUser} from '../models/user-interface';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,15 +10,22 @@ import {IUser} from '../models/user-interface';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private users: UserServiceService) { }
+  constructor(
+    private users: UserServiceService,
+    private auth: AuthService,
+    ) { }
   public v_users: IUser[] = [];
 
   ngOnInit() {
     this.users.getUsersInit()
-      .subscribe(users => {
+      .subscribe((users: IUser[]) => {
         console.log('users:', users);
         this.v_users = users;
       });
+  }
+
+  public isUserOwner(user: IUser): boolean{
+    return user.login === this.auth.authorizedAs();
   }
 
 }

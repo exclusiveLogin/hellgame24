@@ -1,6 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthService} from './auth.service';
 import {TopeventsService} from './topevents.service';
+import { GlobalService } from './global.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,12 @@ import {TopeventsService} from './topevents.service';
 export class AppComponent implements OnInit {
   constructor(
     private auth: AuthService,
-    private tes: TopeventsService
+    private tes: TopeventsService,
+    private global: GlobalService,
   ) {}
   public hidemenu = false;
   public hidemenuToggler = false;
-  public __type = 'red';
+  public global_status = '';
   @HostListener('document:scroll')
   private winScroll(): void {
     // избегаем не нужного перезаписывания и обновления события
@@ -27,6 +29,10 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.global.getGlobalState().subscribe((state)=>{
+      this.global_status = state.global_code;
+    });
+    /*
     setTimeout(() => {
       this.__type = 'orange';
     }, 2000);
@@ -39,13 +45,28 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.tes.setMenuStateUpdates({'meteo_upd': true});
     }, 7000);
-    // this.auth.login({login: 'ssv', password: 'ddd'});
+    */
+   
+    this.refreshGlobalStatus();
+    
+    this.auth.login({login: 'ssv', password: 'ddd'});
+   
     if (window && window.matchMedia) {
+      let that = this;
       window.matchMedia('(max-width: 470px)')
         .addListener((match: MediaQueryList) => {
           this.hidemenuToggler = match.matches;
         });
       this.hidemenuToggler = window.matchMedia('(max-width: 470px)').matches;
     }
+
+
+  }
+
+  private refreshGlobalStatus(): void{
+    this.global.getState().subscribe((global)=>{
+      if(global && global.global_code)
+        this.global_status = global.global_code;
+    },(e)=> console.log('error State: ', global));
   }
 }

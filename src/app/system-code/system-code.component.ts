@@ -14,6 +14,7 @@ export class SystemCodeComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.calculate(this._type);
+    console.log('devss system:', this);
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes && changes['_type']) {

@@ -1,6 +1,6 @@
 <div class="card_panel">
   <ng-container *ngIf="v_users.length; else emptyUserList">
-    <app-usercard *ngFor="let user of v_users; let i = index" [_user]="user" [_owner]="i === 0"></app-usercard>
+    <app-usercard *ngFor="let user of v_users; let i = index" [_user]="user" [_owner]="isUserOwner(user)"></app-usercard>
   </ng-container>
   <ng-template #emptyUserList>
     <span>Не удалось загрузить список пользователей</span>

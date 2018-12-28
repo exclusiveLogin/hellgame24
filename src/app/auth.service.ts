@@ -17,8 +17,12 @@ interface ILoginResponse {
 @Injectable()
 export class AuthService {
 
-  constructor(public http: HttpClient, public api: ApiService, private router: Router) { }
+  constructor(public http: HttpClient, public api: ApiService, private router: Router) { 
+    console.log('AUTH SERVICE', this);
+  }
   private isLoggedSuccess = false;
+  private currentAuthorizedLogin: string = null;
+
   public login(login: ILogin) {
     if (login && login.login && login.password) {
       const api: string = this.api.getApi();
@@ -32,6 +36,7 @@ export class AuthService {
           console.log('response login: ', response);
           if (response) {
             this.isLoggedSuccess = response.auth;
+            this.currentAuthorizedLogin = response && response.login;
           }
           if (response.auth) {
             this.router.navigate(['dashboard']);
@@ -44,5 +49,8 @@ export class AuthService {
   }
   public isAuthorized(): boolean {
     return this.isLoggedSuccess;
+  }
+  public authorizedAs(): string {
+    return this.currentAuthorizedLogin;
   }
 }

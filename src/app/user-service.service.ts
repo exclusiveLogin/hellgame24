@@ -28,6 +28,7 @@ export class UserServiceService {
             }
           }
           return <IUser>{
+            login: user.login,
             title: user.title,
             message: {
               text: user.status_msg,

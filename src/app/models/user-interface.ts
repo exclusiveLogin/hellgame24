@@ -1,6 +1,7 @@
 import {SafeStyle} from '@angular/platform-browser';
 
 export interface IUser {
+  login: string;
   name?: string;
   title?: string;
   status?: string;

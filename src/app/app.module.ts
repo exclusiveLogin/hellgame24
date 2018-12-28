@@ -18,6 +18,7 @@ import { PagerComponent } from './dashboard/pager/pager.component';
 import {TopeventsService} from './topevents.service';
 import {ChartReflowerService} from './chart-reflower.service';
 import { SystemCodeComponent } from './system-code/system-code.component';
+import { GlobalService } from './global.service';
 
 const dashboardRoutes: Routes = [
   {path: 'pager', component: PagerComponent}
@@ -50,7 +51,8 @@ const routes: Routes = [
     AuthguardGuard,
     UserServiceService,
     TopeventsService,
-    ChartReflowerService
+    ChartReflowerService,
+    GlobalService,
   ],
   bootstrap: [AppComponent]
 })
