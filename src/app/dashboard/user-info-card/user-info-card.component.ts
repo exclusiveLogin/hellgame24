@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ChartObject} from 'highcharts';
-import {TopeventsService} from "../../topevents.service";
+import {TopEventsService} from "../../topevents.service";
 const HC = require('highcharts');
 
 @Component({
@@ -11,7 +11,7 @@ const HC = require('highcharts');
 export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
   constructor(
-    private tes: TopeventsService
+    private tes: TopEventsService
   ) { }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ChartObject} from 'highcharts';
 import {Observable} from 'rxjs/Observable';
-import {TopeventsService} from '../../topevents.service';
+import {TopEventsService} from '../../topevents.service';
 import {ChartReflowerService} from "../../chart-reflower.service";
 const HC = require('highcharts');
 
@@ -14,7 +14,7 @@ export class UserEmotionTrendComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
   @ViewChild('trend') private trendRefEl: ElementRef;
   constructor(
-    private menuEventServise: TopeventsService,
+    private menuEventServise: TopEventsService,
     private reflower: ChartReflowerService
   ) { }
 

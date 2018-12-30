@@ -1,6 +1,6 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthService} from './auth.service';
-import {TopeventsService} from './topevents.service';
+import {TopEventsService} from './topevents.service';
 import { GlobalService } from './global.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { GlobalService } from './global.service';
 export class AppComponent implements OnInit {
   constructor(
     private auth: AuthService,
-    private tes: TopeventsService,
+    private tes: TopEventsService,
     private global: GlobalService,
   ) {}
   public hidemenu = false;

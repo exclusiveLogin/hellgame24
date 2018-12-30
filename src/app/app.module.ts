@@ -5,20 +5,21 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
-import {HttpClientModule} from '@angular/common/http';
-import {AuthService} from './auth.service';
-import {ApiService} from './api.service';
-import {AuthguardGuard} from './authguard.guard';
-import {DashboardModule} from './dashboard/dashboard.module';
-import {UserServiceService} from './user-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { ApiService } from './api.service';
+import { AuthguardGuard } from './authguard.guard';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { UserServiceService } from './user-service.service';
 import { PagerComponent } from './dashboard/pager/pager.component';
-import {TopeventsService} from './topevents.service';
-import {ChartReflowerService} from './chart-reflower.service';
+import { TopEventsService } from './topevents.service';
+import { ChartReflowerService } from './chart-reflower.service';
 import { SystemCodeComponent } from './system-code/system-code.component';
 import { GlobalService } from './global.service';
+import { StateService } from './services/state.service';
 
 const dashboardRoutes: Routes = [
   {path: 'pager', component: PagerComponent}
@@ -50,9 +51,10 @@ const routes: Routes = [
     ApiService,
     AuthguardGuard,
     UserServiceService,
-    TopeventsService,
+    TopEventsService,
     ChartReflowerService,
     GlobalService,
+    StateService,
   ],
   bootstrap: [AppComponent]
 })

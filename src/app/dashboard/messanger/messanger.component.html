@@ -1,4 +1,5 @@
-<div class="messager_container">
+<div class="messager_title"><span>{{title || 'Сообщение'}}</span><span *ngIf="debug">{{' #segment: ' + path.segment + ' #script: ' + path.script }}</span></div>
+<div class="messager_container">  
   <input class="messager_input" placeholder="Введите сообщение"/>
   <div class="messager_sendbtn"><i class="fas fa-comment fa-2x"></i></div>
 </div>

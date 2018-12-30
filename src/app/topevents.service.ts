@@ -4,7 +4,7 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {IMenustate, MenuStateInterface} from './models/menu-state-interface';
 
 @Injectable()
-export class TopeventsService {
+export class TopEventsService {
   private mainMenuToggleStateEvent: BehaviorSubject<boolean> = new BehaviorSubject(true);
   private menuUpdateState: BehaviorSubject<MenuStateInterface> = new BehaviorSubject<MenuStateInterface>({
     dashboard_upd: false,

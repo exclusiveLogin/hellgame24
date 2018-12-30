@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TopeventsService} from '../topevents.service';
+import {TopEventsService} from '../topevents.service';
 import {MenuStateInterface} from '../models/menu-state-interface';
 
 @Component({
@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
   };
 
   constructor(
-    private tes: TopeventsService
+    private tes: TopEventsService
   ) { }
 
   ngOnInit() {
