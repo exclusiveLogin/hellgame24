@@ -24,10 +24,22 @@ body{
   margin: 15px 0;
   display: flex;
   flex-wrap: wrap;
+  flex-grow: 1;
   text-align: center;
   background-color: #333;
   box-shadow: 8px 8px 0 #272727;
   border: 1px #252525 solid;
   padding: 10px;
   justify-content: center;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+  background: #ddd;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #666; 
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
 import { IGlobalState } from './models/global-state-interface';
 import { Observable, Subject } from 'rxjs';
 import { ApiService } from './api.service';
@@ -11,7 +10,6 @@ export class GlobalService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService,
     private api: ApiService,
   ) { }
 

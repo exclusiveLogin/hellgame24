@@ -1,0 +1,41 @@
+:host{
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+.blog_header{
+    height: 15px;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid grey;
+    display: flex;
+    align-items: baseline;
+}
+
+.blog_body{
+    display: flex;
+    flex-grow: 1;
+    align-items: baseline;
+}
+
+.blog_info{
+    border: 1px solid gray;
+    flex-grow: 3;
+}
+
+.blog_text{
+    flex-grow: 8;
+    text-align: right;
+}
+
+.blog_header_title{
+    text-align: left;
+    font-size: 120%;
+    flex-grow: 1;
+}
+
+.blog_header_date{
+    text-align: right;
+    font-size: 70%;
+    flex-grow: 2;
+}

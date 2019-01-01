@@ -13,6 +13,7 @@ import { DashMapComponent } from './dash-map/dash-map.component';
 import { UserEmotionTrendComponent } from './user-emotion-trend/user-emotion-trend.component';
 import { UserBlogComponent } from './user-blog/user-blog.component';
 import {ChartModule} from 'angular-highcharts';
+import { UserBlogItemComponent } from './user-blog/user-blog-item/user-blog-item.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {ChartModule} from 'angular-highcharts';
     UserNotyfierComponent,
     DashMapComponent,
     UserEmotionTrendComponent,
-    UserBlogComponent
+    UserBlogComponent,
+    UserBlogItemComponent,
   ]
 })
 export class DashboardModule { }

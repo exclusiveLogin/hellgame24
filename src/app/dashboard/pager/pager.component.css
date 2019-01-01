@@ -13,7 +13,7 @@
 }
 .page_info {
   background-color: #353535;
-  flex: 0 1 auto;
+  flex: 1 1 30%;
 }
 .page_accessory {
   background-color: #444;

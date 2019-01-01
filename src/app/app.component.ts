@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
     if (window && window.matchMedia) {
       let that = this;
       window.matchMedia('(max-width: 470px)')
-        .addListener((match: MediaQueryList) => {
+        .addListener((match) => {
           this.hidemenuToggler = match.matches;
         });
       this.hidemenuToggler = window.matchMedia('(max-width: 470px)').matches;
@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  private refreshGlobalStatus(): void{
+  private refreshGlobalStatus(): void {
     this.global.getState().subscribe((global)=>{
       if(global && global.global_code)
         this.global_status = global.global_code;

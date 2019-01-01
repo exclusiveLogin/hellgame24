@@ -1,0 +1,8 @@
+.blog_title{
+    flex-grow: 1;
+    width: 100%;
+}
+.blog_container{
+    overflow-y: scroll;
+    max-height: 400px;
+}

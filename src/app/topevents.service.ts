@@ -6,6 +6,7 @@ import {IMenustate, MenuStateInterface} from './models/menu-state-interface';
 @Injectable()
 export class TopEventsService {
   private mainMenuToggleStateEvent: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  
   private menuUpdateState: BehaviorSubject<MenuStateInterface> = new BehaviorSubject<MenuStateInterface>({
     dashboard_upd: false,
     meteo_upd: false,
@@ -13,7 +14,14 @@ export class TopEventsService {
     settings_upd: false,
     map_upd: false
   });
-  constructor() { }
+
+  private segmentsNeedRefresh = {
+    blog: new BehaviorSubject<boolean>(false)
+  };
+  
+  constructor() {
+  
+   }
   public getMenuEvent(): Observable<boolean> {
     return this.mainMenuToggleStateEvent.asObservable();
   }
@@ -30,6 +38,14 @@ export class TopEventsService {
     _oldval.news_upd = (newstate['news_upd']) ? newstate['news_upd'] : _oldval.news_upd;
     _oldval.meteo_upd = (newstate['meteo_upd']) ? newstate['meteo_upd'] : _oldval.meteo_upd;
     _oldval.map_upd = (newstate['map_upd']) ? newstate['map_upd'] : _oldval.map_upd;
-    this.menuUpdateState.next(_oldval);
+    this.menuUpdateState.next( _oldval );
   }
+
+  public getSegmentRefreshSignal( segment: string ): BehaviorSubject<boolean>{
+    return this.segmentsNeedRefresh[ segment ];
+  }
+
+  public refreshSegment( segment: string ): void {
+    this.segmentsNeedRefresh && this.segmentsNeedRefresh[ segment ] && this.segmentsNeedRefresh[ segment ].next(true);
+  } 
 }

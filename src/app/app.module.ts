@@ -20,6 +20,10 @@ import { ChartReflowerService } from './chart-reflower.service';
 import { SystemCodeComponent } from './system-code/system-code.component';
 import { GlobalService } from './global.service';
 import { StateService } from './services/state.service';
+import { ConnectorService } from './services/connector.service';
+import { ServicesService } from './services.service';
+import { BlogService } from './services/blog.service';
+
 
 const dashboardRoutes: Routes = [
   {path: 'pager', component: PagerComponent}
@@ -38,7 +42,7 @@ const routes: Routes = [
     MenuComponent,
     LoginComponent,
     NotfoundComponent,
-    SystemCodeComponent
+    SystemCodeComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
@@ -55,6 +59,9 @@ const routes: Routes = [
     ChartReflowerService,
     GlobalService,
     StateService,
+    ConnectorService,
+    ServicesService,
+    BlogService
   ],
   bootstrap: [AppComponent]
 })
