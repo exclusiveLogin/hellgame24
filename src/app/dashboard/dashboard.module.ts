@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {UsercardComponent} from './usercard/usercard.component';
 import {DashboardComponent} from './dashboard.component';
-import {RouterModule} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { UsercardledComponent } from './usercard/usercardled/usercardled.component';
 import { MessangerComponent } from './messanger/messanger.component';
 import {AccessoryModule} from '../accessory/accessory.module';
@@ -15,12 +15,14 @@ import { UserBlogComponent } from './user-blog/user-blog.component';
 import {ChartModule} from 'angular-highcharts';
 import { UserBlogItemComponent } from './user-blog/user-blog-item/user-blog-item.component';
 
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     AccessoryModule,
-    ChartModule
+    ChartModule,
+    //RouterModule.forChild(routes),
   ],
   exports: [
     UsercardComponent,

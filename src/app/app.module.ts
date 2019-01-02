@@ -25,14 +25,15 @@ import { ServicesService } from './services.service';
 import { BlogService } from './services/blog.service';
 import { UiService } from './services/ui.service';
 
-
-const dashboardRoutes: Routes = [
-  {path: 'pager', component: PagerComponent}
+let dashboardRoutes: Routes = [
+  { path: '', redirectTo:'default', pathMatch: 'full' },
+  { path: ':user', component: DashboardComponent },
 ];
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent, /*canActivate: [AuthguardGuard],*/ children: dashboardRoutes},
+  {path: '', redirectTo: 'dashboard/default', pathMatch: 'full'},
+  {path: 'dashboard/:user', component: DashboardComponent},
+  //{path: 'dashboard', component: DashboardComponent, /*canActivate: [AuthguardGuard],*/ children: dashboardRoutes},
   {path: 'login', component: LoginComponent},
   {path: '**', component: NotfoundComponent}
 ];
