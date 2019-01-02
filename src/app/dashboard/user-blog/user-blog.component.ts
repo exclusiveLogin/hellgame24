@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BlogService, IBlogData } from '../../services/blog.service';
 import { TopEventsService } from '../../topevents.service';
 import { ThrowStmt } from '@angular/compiler';
@@ -8,7 +8,7 @@ import { ThrowStmt } from '@angular/compiler';
   templateUrl: './user-blog.component.html',
   styleUrls: ['./user-blog.component.css']
 })
-export class UserBlogComponent implements OnInit {
+export class UserBlogComponent implements OnInit, OnChanges {
 
   public _blogItems: IBlogData[] = [];
 
@@ -26,7 +26,7 @@ export class UserBlogComponent implements OnInit {
     this.tes.getSegmentRefreshSignal( 'blog' )
       .subscribe( refreshFlag => {
         console.log('devss REFRESH FLAG', refreshFlag);
-        this.refreshBlog();
+        Promise.resolve().then(()=>this.refreshBlog());
       } )
     
     this.refreshBlog();
@@ -39,4 +39,9 @@ export class UserBlogComponent implements OnInit {
     });
   }
 
+  ngOnChanges(sc: SimpleChanges){
+    if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
+      this.refreshBlog();
+    }
+  }
 }

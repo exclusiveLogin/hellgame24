@@ -29,6 +29,7 @@ export class BlogService implements IService {
   ) { }
 
   public getData<T>(params?: any){
+    console.log('blog service getData', params);
     return this.con.getData(this.path, params) as Observable<T>;
   }
 

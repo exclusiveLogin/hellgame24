@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
    
     this.refreshGlobalStatus();
     
-    this.auth.login({login: 'msn', password: 'ddd'});
+    this.auth.login({login: 'ssv', password: 'ddd'});
    
     if (window && window.matchMedia) {
       let that = this;

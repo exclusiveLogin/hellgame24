@@ -18,7 +18,7 @@
       <app-messanger class="microcard" [useServices]="true" [service4Work]="'blog'" [path]="{segment: 'blog', script: 'bloghandler.php'}"></app-messanger>
       <app-user-notyfier class="microcard"></app-user-notyfier>
       <!--app-user-emotion-trend class="microcard"></app-user-emotion-trend>-->
-      <app-user-blog class="microcard"></app-user-blog>
+      <app-user-blog class="microcard" [author]="cur_user && cur_user.login"></app-user-blog>
     </div>
     <div class="map-content">
       <app-dash-map></app-dash-map>
