@@ -61,6 +61,9 @@ export class DashboardComponent implements OnInit {
     this.ui.setCurrentUserSelect(user);
   }
   
+  public forMe( user: IUser ): boolean{
+    return this.auth.authorizedAs() === (user && user.login);
+  }
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
