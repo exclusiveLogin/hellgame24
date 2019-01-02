@@ -1,6 +1,7 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import {ChartObject} from 'highcharts';
 import {TopEventsService} from "../../topevents.service";
+import { IUser } from '../../models/user-interface';
 const HC = require('highcharts');
 
 @Component({
@@ -10,6 +11,9 @@ const HC = require('highcharts');
 })
 export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
+  @Input() public user: IUser;
+  @ViewChild('trend') private trend: ElementRef;
+
   constructor(
     private tes: TopEventsService
   ) { }
@@ -207,53 +211,57 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
       contrastTextColor: '#F0F0F3',
       maskColor: 'rgba(255,255,255,0.3)'
     };
-
     HC.setOptions(HC.theme);
   }
 
+
   ngAfterViewInit(): void {
-    this.emoChart = HC.chart('infocardEmo_hc', {
-      chart: {
-        height: '75px',
-      },
-      legend: {
-        enabled: false
-      },
-      yAxis: {
-        visible: false,
-      },
-      xAxis: {
-        visible: false
-      },
-      credits: {
-        enabled: false
-      },
-      title: {
-        text: '',
-        style: {
-          'display': 'none'
-        }
-      },
-      plotOptions: {
-        series: {
-          pointStart: 2010,
-        },
-        line: {
-          marker: {
-            enabled: false,
-          },
-          color: '#995555'
-        }
-      },
-      series: [{
-        type: 'line',
-        name: 'Installation',
-        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-      }]
-    });
+    if( this.emoChart ) this.emoChart.destroy();
+        if( !!this.user && this.trend )
+          this.emoChart = HC.chart('infocardEmo_hc', {
+            chart: {
+              height: '75px',
+            },
+            legend: {
+              enabled: false
+            },
+            yAxis: {
+              visible: false,
+            },
+            xAxis: {
+              visible: false
+            },
+            credits: {
+              enabled: false
+            },
+            title: {
+              text: '',
+              style: {
+                'display': 'none'
+              }
+            },
+            plotOptions: {
+              series: {
+                pointStart: 2010,
+              },
+              line: {
+                marker: {
+                  enabled: false,
+                },
+                color: '#995555'
+              }
+            },
+            series: [{
+              type: 'line',
+              name: 'Installation',
+              data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+            }]
+          });
+
+
     this.tes.getMenuEvent()
       .subscribe(() => {
-        this.emoChart.reflow();
+        if( this.emoChart ) this.emoChart.reflow();
       });
   }
 }

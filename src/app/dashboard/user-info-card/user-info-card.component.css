@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 0;
+  flex-basis: 40%;
 }
 .userinfo_left .userinfo_avatar{
   width: 100%;
@@ -16,7 +17,8 @@
   flex-direction: column;
   display: flex;
   justify-content: space-between;
-  flex-basis: 50%;
+  flex-basis: 40%;
+  flex-grow: 0;
 }
 .userinfo_right #infocardEmo_hc{
   flex: 1 0 auto;
@@ -44,4 +46,7 @@
 }
 .userinfo_send_notify{
 
+}
+.user_emotrend{
+  max-width: 100%;
 }

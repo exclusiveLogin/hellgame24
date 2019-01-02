@@ -37,7 +37,12 @@ export class UserServiceService {
             },
             name: user.name,
             status: st,
-            avatar_min: this.sanitizer.bypassSecurityTrustStyle(`url(assets/${user.img_min})`)
+            avatar_min: this.sanitizer.bypassSecurityTrustStyle(`url(assets/${user.img_min})`),
+            avatar_big: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_big}`),
+            emotion_current: user.emotion,
+            emotion_last: user.old_emotion,
+            last_change_datetime: user.upd,
+            last_change_status_datetime: user.upd_status,
           };
         });
         return users_result;

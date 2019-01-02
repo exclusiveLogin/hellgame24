@@ -1,21 +1,19 @@
 <div class="userinfo_left">
-  <img src="/assets/ssv_big.jpg" class="userinfo_avatar"/>
+  <img [attr.src]="user.avatar_big" class="userinfo_avatar"/>
   <div class="userinfo_emotion_block">
     <div class="usercard_emotion_led"></div>
   </div>
-  <button class="userinfo_send_msg btn">Cообщение</button>
-  <button class="userinfo_send_notify btn">Уведомление</button>
+  <!--button class="userinfo_send_msg btn">Кнопка 1</button>
+  <button class="userinfo_send_notify btn">Кнопка 2</button-->
 </div>
 <div class="userinfo_right">
-  <span class="user_title">*SSV*</span>
-  <span class="user_description">*Developer*</span>
-  <span class="user_lastlogin">Заходил *2 дня назад*</span>
-  <span class="user_lastsystem">c *Система*</span>
-  <span class="user_lastip">ip: *IP Address*</span>
-  <span class="user_lastregion">*Region*</span>
-  <span class="user_lastcity">*City*</span>
-  <span class="user_lastlocation">*Location coordinates*</span>
-  <span class="user_lastaccuracy">*Accuracy*</span>
+  <span class="user_title">{{user.login}}</span>
+  <span class="user_description">{{user.title}}</span>
+  <span class="user_lastlogin">Последние изменения:<br><strong>{{user.last_change_datetime}}</strong></span>
+  <span class="user_lastsystem">Последние изменения статуса:<br><strong>{{user.last_change_status_datetime}}</strong></span>
+  <div class="user_lastsystem">Статус:<br><span>{{user.message.text}}</span>(<i [ngClass]="user.message.icon" class="fas"></i>)</div>
   <span>Динамика настроения:</span>
-  <div id="infocardEmo_hc" class="user_emotrend"></div>
 </div>
+<div id="infocardEmo_hc" class="user_emotrend" #trend></div>
+<div class="userinfo_left">Настроение: 69</div>
+<div class="userinfo_right">Было: 47</div>

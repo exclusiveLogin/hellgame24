@@ -1,6 +1,11 @@
 <div class="card_panel">
   <ng-container *ngIf="v_users.length; else emptyUserList">
-    <app-usercard *ngFor="let user of v_users; let i = index" [_user]="user" [_owner]="isUserOwner(user)"></app-usercard>
+    <app-usercard 
+    *ngFor="let user of v_users; let i = index" 
+    [_user]="user" 
+    [_owner]="isUserOwner(user)"
+    (click)="selectUser(user)"
+    ></app-usercard>
   </ng-container>
   <ng-template #emptyUserList>
     <span>Не удалось загрузить список пользователей</span>
@@ -9,7 +14,7 @@
 <div class="dashboard_workplace">
   <app-pager>
     <div class="info-content">
-      <app-user-info-card class="microcard"></app-user-info-card>
+      <app-user-info-card class="microcard" *ngIf="cur_user; else emptyuser" [user]="cur_user"></app-user-info-card>
       <app-messanger class="microcard" [useServices]="true" [service4Work]="'blog'" [path]="{segment: 'blog', script: 'bloghandler.php'}"></app-messanger>
       <app-user-notyfier class="microcard"></app-user-notyfier>
       <!--app-user-emotion-trend class="microcard"></app-user-emotion-trend>-->
@@ -28,3 +33,7 @@
     </div>
   </app-pager>
 </div>
+
+<ng-template #emptyuser>
+  <div class="microcard">Пользователь не определен</div>
+</ng-template>

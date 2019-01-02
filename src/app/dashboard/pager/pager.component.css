@@ -14,6 +14,7 @@
 .page_info {
   background-color: #353535;
   flex: 1 1 30%;
+  max-width: 550px;
 }
 .page_accessory {
   background-color: #444;

@@ -1,6 +1,6 @@
 <div class="page_info">
   <div class="microcard">
-    <span>Страница информации</span>
+    <span>Страница информации {{currentUser && currentUser.name || ' *пользователь не задан*'}}</span>
   </div>
   <ng-content select=".info-content"></ng-content>
 </div>

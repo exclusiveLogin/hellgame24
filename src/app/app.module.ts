@@ -23,6 +23,7 @@ import { StateService } from './services/state.service';
 import { ConnectorService } from './services/connector.service';
 import { ServicesService } from './services.service';
 import { BlogService } from './services/blog.service';
+import { UiService } from './services/ui.service';
 
 
 const dashboardRoutes: Routes = [
@@ -61,7 +62,8 @@ const routes: Routes = [
     StateService,
     ConnectorService,
     ServicesService,
-    BlogService
+    BlogService,
+    UiService,
   ],
   bootstrap: [AppComponent]
 })
