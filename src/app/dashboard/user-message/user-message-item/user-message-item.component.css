@@ -1,0 +1,51 @@
+:host{
+    display: flex;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+}
+.message_header{
+    height: 15px;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid grey;
+    display: flex;
+    align-items: baseline;
+}
+
+.message_body{
+    display: flex;
+    flex-grow: 1;
+    align-items: baseline;
+}
+
+.message_info{
+    border: 1px solid gray;
+    flex-grow: 3;
+}
+
+.message_text{
+    flex-grow: 8;
+    text-align: right;
+}
+
+.message_header_title{
+    text-align: left;
+    font-size: 120%;
+    flex-grow: 1;
+}
+
+.message_header_date{
+    text-align: right;
+    font-size: 70%;
+    flex-grow: 2;
+}
+.message_footer{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn.btn_ireadit{
+  font-size: 70%;
+  margin-top: 10px;
+}

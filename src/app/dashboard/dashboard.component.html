@@ -15,14 +15,29 @@
   <app-pager>
     <div class="info-content">
       <app-user-info-card class="microcard" *ngIf="cur_user; else emptyuser" [user]="cur_user"></app-user-info-card>
+
       <app-messanger class="microcard" 
         [useServices]="true" 
         [service4Work]="'blog'" 
         [path]="{segment: 'blog', script: 'bloghandler.php'}"
         *ngIf="forMe(cur_user)"
         ></app-messanger>
+
+        <app-messanger class="microcard" 
+        [useServices]="true" 
+        [service4Work]="'message'" 
+        [path]="{segment: 'message', script: 'messagehandler.php'}"
+        *ngIf="!forMe(cur_user)"
+        ></app-messanger>
+
       <app-user-notyfier class="microcard"></app-user-notyfier>
+
       <!--app-user-emotion-trend class="microcard"></app-user-emotion-trend>-->
+
+      <app-user-message class="microcard" 
+      [to_user]="cur_user && cur_user.login" 
+      *ngIf="forMe( cur_user )"></app-user-message>
+      
       <app-user-blog class="microcard" [author]="cur_user && cur_user.login"></app-user-blog>
     </div>
     <div class="map-content">

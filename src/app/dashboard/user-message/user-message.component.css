@@ -1,9 +1,9 @@
-.blog_title{
+.message_title{
     flex-grow: 1;
     width: 100%;
     font-weight: bold;
 }
-.blog_container{
+.message_container{
     overflow-y: auto;
     max-height: 400px;
     flex-grow: 1;

@@ -16,7 +16,8 @@ export class TopEventsService {
   });
 
   private segmentsNeedRefresh = {
-    blog: new BehaviorSubject<boolean>(false)
+    blog: new BehaviorSubject<boolean>(false),
+    message: new BehaviorSubject<boolean>(false),
   };
   
   constructor() {

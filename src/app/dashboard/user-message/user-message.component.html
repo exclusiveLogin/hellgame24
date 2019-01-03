@@ -1,0 +1,14 @@
+<div class="message_title">{{title}}({{_messageItems && _messageItems.length ? _messageItems.length : 'нет'}}) - {{to_user}}</div>
+<div class="message_container">
+  <ng-container *ngIf="_messageItems && _messageItems.length; else empty">
+    <app-user-message-item class="microcard"
+    *ngFor="let mi of _messageItems"
+    [item]="mi"
+    (readThisMessage)="checkMessageAsReaded(mi.id)"
+    ></app-user-message-item>
+  </ng-container>
+</div>
+<ng-template #empty>
+  <div class="microcard">Сообщений нет</div>
+</ng-template>
+

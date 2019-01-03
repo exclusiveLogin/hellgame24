@@ -1,0 +1,11 @@
+<div class="message_header">
+  <span class="message_header_title">{{item.subject}} [{{item.id}}]</span>
+  <span class="message_header_date">{{item.datetime}}</span>
+</div>
+<div class="message_body">
+  <div class="message_info"></div>
+  <div class="message_text">{{item.text_field}}</div>
+</div>
+<div class="message_footer">
+  <button class="btn btn_warning btn_ireadit" (click)="i_read_it()">Я прочитал это сообщение</button>
+</div>

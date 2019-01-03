@@ -24,6 +24,7 @@ import { ConnectorService } from './services/connector.service';
 import { ServicesService } from './services.service';
 import { BlogService } from './services/blog.service';
 import { UiService } from './services/ui.service';
+import { MessageService } from './services/message.service';
 
 let dashboardRoutes: Routes = [
   { path: '', redirectTo:'default', pathMatch: 'full' },
@@ -31,7 +32,8 @@ let dashboardRoutes: Routes = [
 ];
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard/default', pathMatch: 'full'},
+  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'dashboard/:user', component: DashboardComponent},
   //{path: 'dashboard', component: DashboardComponent, /*canActivate: [AuthguardGuard],*/ children: dashboardRoutes},
   {path: 'login', component: LoginComponent},
@@ -64,6 +66,7 @@ const routes: Routes = [
     ConnectorService,
     ServicesService,
     BlogService,
+    MessageService,
     UiService,
   ],
   bootstrap: [AppComponent]

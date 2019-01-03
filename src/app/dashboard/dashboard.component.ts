@@ -44,8 +44,10 @@ export class DashboardComponent implements OnInit {
         
       });
     this.ui.getCurrentUserChangeEvent().subscribe(user => {
-      this.cur_user = user;
+      if( user ){
+        this.cur_user = user;
       console.log('devss user changed on:', user.login);
+      }
     });
     /*if( !this.routerParamsSub ) this.routerParamsSub = this.router.params.subscribe(params=>{
           console.log('routerParams:', params);

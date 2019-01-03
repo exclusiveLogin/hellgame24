@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { BlogService, IBlogData } from '../../services/blog.service';
 import { TopEventsService } from '../../topevents.service';
 import { ThrowStmt } from '@angular/compiler';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-blog',
@@ -11,6 +12,7 @@ import { ThrowStmt } from '@angular/compiler';
 export class UserBlogComponent implements OnInit, OnChanges {
 
   public _blogItems: IBlogData[] = [];
+  private _blogSubscripton: Subscription;
 
   @Input() public blogHeight: number = 400;
 
@@ -23,12 +25,12 @@ export class UserBlogComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    this.tes.getSegmentRefreshSignal( 'blog' )
+    this._blogSubscripton = this.tes.getSegmentRefreshSignal( 'blog' )
       .subscribe( refreshFlag => {
         console.log('devss REFRESH FLAG', refreshFlag);
         Promise.resolve().then(()=>this.refreshBlog());
       } )
-    
+
     this.refreshBlog();
   }
 
@@ -43,5 +45,11 @@ export class UserBlogComponent implements OnInit, OnChanges {
     if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
       this.refreshBlog();
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    if( this._blogSubscripton ) this._blogSubscripton.unsubscribe();
   }
 }

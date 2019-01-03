@@ -14,6 +14,8 @@ import { UserEmotionTrendComponent } from './user-emotion-trend/user-emotion-tre
 import { UserBlogComponent } from './user-blog/user-blog.component';
 import {ChartModule} from 'angular-highcharts';
 import { UserBlogItemComponent } from './user-blog/user-blog-item/user-blog-item.component';
+import { UserMessageComponent } from './user-message/user-message.component';
+import { UserMessageItemComponent } from './user-message/user-message-item/user-message-item.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { UserBlogItemComponent } from './user-blog/user-blog-item/user-blog-item
     UserEmotionTrendComponent,
     UserBlogComponent,
     UserBlogItemComponent,
+    UserMessageComponent,
+    UserMessageItemComponent,
   ]
 })
 export class DashboardModule { }
