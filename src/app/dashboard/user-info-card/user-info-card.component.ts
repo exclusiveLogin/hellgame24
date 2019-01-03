@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
+import { AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import {ChartObject} from 'highcharts';
 import {TopEventsService} from "../../topevents.service";
-import { IUser } from '../../models/user-interface';
+import { IUser, ITrendItem } from '../../models/user-interface';
 const HC = require('highcharts');
 
 @Component({
@@ -214,54 +214,76 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     HC.setOptions(HC.theme);
   }
 
+  private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[]{
+    return trend.map((it:ITrendItem) => Number(it.value));
+  }
+
+  private renderTrend(){
+    if( this.emoChart ) this.emoChart.destroy();
+    if( !!this.user && this.trend && this.user.emo_trend && this.user.emo_trend.length ){
+      let tr: number[] = this.prepareQuickUserEmoTrend( this.user.emo_trend );
+      this.emoChart = HC.chart('infocardEmo_hc', {
+        chart: {
+          height: '125px',
+        },
+        legend: {
+          enabled: false
+        },
+        yAxis: {
+          visible: false,
+        },
+        xAxis: {
+          visible: false
+        },
+        credits: {
+          enabled: false
+        },
+        title: {
+          text: '',
+          style: {
+            'display': 'none'
+          }
+        },
+        plotOptions: {
+          series: {
+            //pointStart: 2010,
+          },
+          line: {
+            marker: {
+              enabled: false,
+            },
+            color: '#995555'
+          }
+        },
+        series: [{
+          type: 'line',
+          name: 'Настроение пользователя',
+          data: tr,
+        }]
+      });
+    }
+
+
+  }
 
   ngAfterViewInit(): void {
-    if( this.emoChart ) this.emoChart.destroy();
-        if( !!this.user && this.trend )
-          this.emoChart = HC.chart('infocardEmo_hc', {
-            chart: {
-              height: '75px',
-            },
-            legend: {
-              enabled: false
-            },
-            yAxis: {
-              visible: false,
-            },
-            xAxis: {
-              visible: false
-            },
-            credits: {
-              enabled: false
-            },
-            title: {
-              text: '',
-              style: {
-                'display': 'none'
-              }
-            },
-            plotOptions: {
-              series: {
-                pointStart: 2010,
-              },
-              line: {
-                marker: {
-                  enabled: false,
-                },
-                color: '#995555'
-              }
-            },
-            series: [{
-              type: 'line',
-              name: 'Installation',
-              data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-            }]
-          });
-
+    this.renderTrend();
 
     this.tes.getMenuEvent()
       .subscribe(() => {
         if( this.emoChart ) this.emoChart.reflow();
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    if(changes['user'] && changes['user'].previousValue !== changes['user'].currentValue){
+      let newTrend = changes['user'].currentValue.emo_trend;
+      if( newTrend && this.emoChart && this.emoChart.series.length ){
+        this.emoChart.series[0].setData(this.prepareQuickUserEmoTrend(changes['user'].currentValue.emo_trend));
+        this.emoChart.redraw();
+      }
+    }
   }
 }

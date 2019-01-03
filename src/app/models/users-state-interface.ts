@@ -1,3 +1,4 @@
+import { ITrendItem } from './user-interface';
 export interface IUserState {
   id_user: string;
   name: string;
@@ -18,4 +19,5 @@ export interface IUserState {
   code_msg: string;
   img_big: string;
   img_min: string;
+  emo_trend: ITrendItem[];
 }

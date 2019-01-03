@@ -18,4 +18,13 @@ export interface IUser {
   state_icon?: SafeStyle,
   emotion_current?: string,
   emotion_last?: string,
+  emo_trend?: ITrendItem[]
+}
+
+export interface ITrendItem{
+  id: string,
+  value: string,
+  datetime: string,
+  emo_title: string,
+  emo_desc: string,
 }

@@ -27,6 +27,13 @@ export class UserServiceService {
               st = 'играет';
             }
           }
+
+          let quickEmo = user.emo_trend && user.emo_trend.length ? [].concat(user.emo_trend).sort((p, n) => Number(p.id) - Number(n.id)) : [];
+          if( quickEmo.length > 1 ) {
+            user.emotion = user.emo_trend[0].value;
+            user.old_emotion = user.emo_trend[1].value;
+          }
+
           return <IUser>{
             login: user.login,
             title: user.title,
@@ -43,6 +50,7 @@ export class UserServiceService {
             emotion_last: user.old_emotion,
             last_change_datetime: user.upd,
             last_change_status_datetime: user.upd_status,
+            emo_trend: user.emo_trend && user.emo_trend.length ? user.emo_trend.sort((p, n) => Number(p.id) - Number(n.id)) : [],
           };
         });
         return users_result;
