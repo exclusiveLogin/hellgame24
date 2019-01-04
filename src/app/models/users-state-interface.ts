@@ -20,4 +20,6 @@ export interface IUserState {
   img_big: string;
   img_min: string;
   emo_trend: ITrendItem[];
+  emo_last_datetime: string;
+  emo_current_datetime: string;
 }

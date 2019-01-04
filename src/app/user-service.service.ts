@@ -31,7 +31,9 @@ export class UserServiceService {
           let quickEmo = user.emo_trend && user.emo_trend.length ? [].concat(user.emo_trend).sort((p, n) => Number(p.id) - Number(n.id)) : [];
           if( quickEmo.length > 1 ) {
             user.emotion = user.emo_trend[0].value;
+            user.emo_current_datetime = user.emo_trend[0].datetime;
             user.old_emotion = user.emo_trend[1].value;
+            user.emo_last_datetime = user.emo_trend[1].datetime;
           }
 
           return <IUser>{
@@ -48,9 +50,11 @@ export class UserServiceService {
             avatar_big: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_big}`),
             emotion_current: user.emotion,
             emotion_last: user.old_emotion,
+            emotion_current_datetime: user.emo_current_datetime,
+            emotion_last_datetime: user.emo_last_datetime,
             last_change_datetime: user.upd,
             last_change_status_datetime: user.upd_status,
-            emo_trend: user.emo_trend && user.emo_trend.length ? user.emo_trend.sort((p, n) => Number(p.id) - Number(n.id)) : [],
+            emo_trend: quickEmo,
           };
         });
         return users_result;

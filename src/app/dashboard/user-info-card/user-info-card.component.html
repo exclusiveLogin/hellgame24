@@ -12,8 +12,8 @@
   <span class="user_lastlogin">Последние изменения:<br><strong>{{user.last_change_datetime}}</strong></span>
   <span class="user_lastsystem">Последние изменения статуса:<br><strong>{{user.last_change_status_datetime}}</strong></span>
   <div class="user_lastsystem">Статус:<br><span>{{user.message.text}}</span>(<i [ngClass]="user.message.icon" class="fas"></i>)</div>
-  <span>Динамика настроения:</span>
+
 </div>
 <div id="infocardEmo_hc" class="user_emotrend" #trend></div>
-<div class="userinfo_left">Настроение: {{user.emotion_current}}</div>
-<div class="userinfo_right">Было: {{user.emotion_last}}</div>
+<div class="userinfo_left">Настроение: {{user.emotion_current}} <br> {{user.emotion_current_datetime}}</div>
+<div class="userinfo_right">Было: {{user.emotion_last}} <br> {{user.emotion_last_datetime}}</div>

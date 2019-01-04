@@ -214,14 +214,14 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     HC.setOptions(HC.theme);
   }
 
-  private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[]{
-    return trend.map((it:ITrendItem) => Number(it.value));
+  private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[][]{
+    return trend.map((it:ITrendItem) => [Number(it.utc), Number(it.value)]);
   }
 
   private renderTrend(){
     if( this.emoChart ) this.emoChart.destroy();
     if( !!this.user && this.trend && this.user.emo_trend && this.user.emo_trend.length ){
-      let tr: number[] = this.prepareQuickUserEmoTrend( this.user.emo_trend );
+      let tr: number[][] = this.prepareQuickUserEmoTrend( this.user.emo_trend );
       this.emoChart = HC.chart('infocardEmo_hc', {
         chart: {
           height: '125px',
@@ -233,22 +233,23 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
           visible: false,
         },
         xAxis: {
-          visible: false
+          //visible: false
+          type: 'datetime'
         },
         credits: {
           enabled: false
         },
         title: {
-          text: '',
+          text: 'Динамика настроения',
           style: {
-            'display': 'none'
+            'font-size': '12px'
           }
         },
         plotOptions: {
           series: {
             //pointStart: 2010,
           },
-          line: {
+          spline: {
             marker: {
               enabled: false,
             },
@@ -256,7 +257,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
           }
         },
         series: [{
-          type: 'line',
+          type: 'spline',
           name: 'Настроение пользователя',
           data: tr,
         }]

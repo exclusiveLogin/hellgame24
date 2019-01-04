@@ -17,7 +17,7 @@ $row = $res->fetch_assoc();
 
 while($row){
 
-    $trendQuery = "SELECT * FROM `$row[login]_emo` ORDER BY `id` DESC LIMIT 10;";
+    $trendQuery = "SELECT `id`, `value`, `datetime`, UNIX_TIMESTAMP(`datetime`)*1000 AS `utc`, `emo_title`, `emo_desc` FROM `$row[login]_emo` ORDER BY `id` DESC LIMIT 15;";
 
     //echo $trendQuery.'<br>';
 
