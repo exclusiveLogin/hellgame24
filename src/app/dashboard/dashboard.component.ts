@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
   private routerParamsSub;
 
   ngOnInit() {
+    console.log('DASHBOARD INIT:');
     this.users.getUsersInit()
       .subscribe((users: IUser[]) => {
         console.log('users:', users);
@@ -36,12 +37,14 @@ export class DashboardComponent implements OnInit {
         if( this.router.snapshot.params['user'] ) {
           this.cur_user = users.find(u => u.login === this.router.snapshot.params['user']);
           if( this.cur_user ) this.ui.setCurrentUserSelect( this.cur_user );
-        } else{
-          this.cur_user = users.find(u => u.login === this.auth.authorizedAs());
-          if( this.cur_user ) this.ui.setCurrentUserSelect( this.cur_user );
+        } else {
+          this.cur_user = users.find( u => u.login === this.auth.authorizedAs() );
+          if( this.cur_user && !this.ui.getCurrentUserSelect()) {
+            this.ui.setCurrentUserSelect( this.cur_user );
+          }
         }
 
-        
+
       });
     this.ui.getCurrentUserChangeEvent().subscribe(user => {
       if( user ){
@@ -62,7 +65,7 @@ export class DashboardComponent implements OnInit {
   public selectUser( user: IUser ){
     this.ui.setCurrentUserSelect(user);
   }
-  
+
   public forMe( user: IUser ): boolean{
     return this.auth.authorizedAs() === (user && user.login);
   }
