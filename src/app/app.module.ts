@@ -14,7 +14,6 @@ import { ApiService } from './api.service';
 import { AuthguardGuard } from './authguard.guard';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { UserServiceService } from './user-service.service';
-import { PagerComponent } from './dashboard/pager/pager.component';
 import { TopEventsService } from './topevents.service';
 import { ChartReflowerService } from './chart-reflower.service';
 import { SystemCodeComponent } from './system-code/system-code.component';
@@ -25,6 +24,7 @@ import { ServicesService } from './services.service';
 import { BlogService } from './services/blog.service';
 import { UiService } from './services/ui.service';
 import { MessageService } from './services/message.service';
+import { MailServiceService } from './services/mail-service.service';
 
 let dashboardRoutes: Routes = [
   { path: '', redirectTo:'default', pathMatch: 'full' },
@@ -68,6 +68,7 @@ const routes: Routes = [
     BlogService,
     MessageService,
     UiService,
+    MailServiceService,
   ],
   bootstrap: [AppComponent]
 })

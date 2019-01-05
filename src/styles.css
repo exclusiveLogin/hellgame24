@@ -25,6 +25,19 @@ body{
   background-color: orange;
   color: #272727;
 }
+.btn.btn_danger{
+  background-color: brown;
+  color: #272727;
+}
+
+.btn.btn_toggler{
+  padding: 2px;
+  background-color: #333333;
+  width: 30px;
+  height: 30px;
+  color: #999999;
+  font-size: 11pt
+}
 .microcard{
   margin: 15px 0;
   display: flex;

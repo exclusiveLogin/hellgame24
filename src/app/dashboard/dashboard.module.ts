@@ -16,6 +16,7 @@ import {ChartModule} from 'angular-highcharts';
 import { UserBlogItemComponent } from './user-blog/user-blog-item/user-blog-item.component';
 import { UserMessageComponent } from './user-message/user-message.component';
 import { UserMessageItemComponent } from './user-message/user-message-item/user-message-item.component';
+import { UserMailComponent } from './user-mail/user-mail.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { UserMessageItemComponent } from './user-message/user-message-item/user-
     UserBlogItemComponent,
     UserMessageComponent,
     UserMessageItemComponent,
+    UserMailComponent,
   ]
 })
 export class DashboardModule { }

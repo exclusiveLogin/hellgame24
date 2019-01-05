@@ -1,0 +1,84 @@
+.usermail_author_icon{
+  max-height: 30px;
+}
+.usermail_container{
+  display: flex;
+  flex-grow: 1;
+  padding: 0;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 8px 8px 0 #272727;
+  background-color: #303030;
+}
+.usermail_author_name{
+  flex-grow: 2;
+  align-self: center;
+  flex-basis: 50%;
+}
+.usermail_title{
+  flex-grow: 1;
+  font-weight: bold;
+}
+.usermail_btn{
+  font-size: 60%;
+  margin: 2px;
+}
+
+
+.usermail_header{
+  height: 15px;
+  width: 100%;
+  padding: 0px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+  display: flex;
+  align-items: baseline;
+}
+
+.usermail_body{
+  display: flex;
+  flex-grow: 1;
+  align-items: baseline;
+}
+
+.usermail_info{
+  border: 1px solid gray;
+  flex-grow: 3;
+}
+
+.usermail_text{
+  flex-grow: 8;
+  text-align: right;
+  padding: 15px;
+}
+
+.usermail_header_title{
+  text-align: left;
+  font-size: 120%;
+  flex-grow: 1;
+}
+
+.usermail_header_date{
+  text-align: right;
+  font-size: 70%;
+  flex-grow: 2;
+}
+.usermail_footer{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border-top:1px dotted gray;
+}
+
+.usermail_mailbox{
+  flex-wrap: wrap;
+  width: 80%;
+  overflow-y: auto;
+  max-height: 460px;
+  margin-top: -15px;
+}
+.usermail_item{
+  z-index: 0;
+  margin: 5px;
+  padding: 5px;
+}
