@@ -9,6 +9,8 @@ export class UiService {
   private currentUserSelect: IUser;
   private currentUserSelectChanged: BehaviorSubject<IUser> = new BehaviorSubject(null);
 
+  private usermail_shownChanged: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private router: Router,
     private actRoutes: ActivatedRoute,
@@ -26,5 +28,17 @@ export class UiService {
 
   public getCurrentUserChangeEvent(): BehaviorSubject<IUser>{
     return this.currentUserSelectChanged;
+  }
+
+  public getUsermailShownChangeEvent(): BehaviorSubject<boolean>{
+    return this.usermail_shownChanged;
+  }
+
+  public openUsermail(): void{
+    this.usermail_shownChanged.next( true );
+  }
+
+  public closeUsermail(): void{
+    this.usermail_shownChanged.next( false );
   }
 }

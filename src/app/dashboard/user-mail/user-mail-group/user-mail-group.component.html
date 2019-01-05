@@ -1,0 +1,10 @@
+<div class="usermail_container">
+  <ng-container *ngIf="group.user | async as user" >
+    <div class="usermail_author_icon"><img [attr.src]="user.avatar_min_url" height="30px" /></div>
+    <div class="usermail_author_name">{{user.name}} ({{user.login}})</div>
+  </ng-container>
+  <div class="usermail_author_toggler"><button class="btn btn_toggler" (click)="toggleGroupShown()">{{_groupShown ? '-' : '+'}}</button></div>
+  </div>
+  <div class="usermail_mailbox" *ngIf="group.messages && group.messages.length && _groupShown">
+    <app-user-mail-item *ngFor="let message of group.messages"  [message]="message" [useIconInBtns]="true" ></app-user-mail-item>
+  </div>

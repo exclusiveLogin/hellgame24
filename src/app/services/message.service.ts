@@ -52,7 +52,7 @@ export class MessageService {
         );
     }
 
-    public markData(id: string, field: string, flag: string){
+    public markData(id: string, field: string, flag: string | boolean){
       let request: IDataRequest = {
         body:{
           id,

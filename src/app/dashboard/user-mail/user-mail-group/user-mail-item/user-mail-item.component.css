@@ -1,0 +1,60 @@
+.usermail_item{
+  z-index: 0;
+  margin: 5px;
+  padding: 5px;
+}
+.usermail_header_title{
+  text-align: left;
+  font-size: 120%;
+  flex-grow: 1;
+}
+
+.usermail_header_date{
+  text-align: right;
+  font-size: 70%;
+  flex-grow: 2;
+}
+.usermail_footer{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  border-top:1px dotted gray;
+}
+.usermail_body{
+  display: flex;
+  flex-grow: 1;
+  align-items: baseline;
+}
+.usermail_header{
+  height: 15px;
+  width: 100%;
+  padding: 0px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid grey;
+  display: flex;
+  align-items: baseline;
+}
+.usermail_info{
+  border: 1px solid gray;
+  flex-grow: 3;
+}
+
+.usermail_text{
+  flex-grow: 8;
+  text-align: right;
+  padding: 15px;
+}
+.usermail_info{
+  border: 1px solid gray;
+  flex-grow: 3;
+}
+
+.usermail_text{
+  flex-grow: 8;
+  text-align: right;
+  padding: 15px;
+}
+.usermail_btn{
+  font-size: 60%;
+  margin: 2px;
+}

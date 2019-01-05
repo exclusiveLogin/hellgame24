@@ -17,6 +17,8 @@ import { UserBlogItemComponent } from './user-blog/user-blog-item/user-blog-item
 import { UserMessageComponent } from './user-message/user-message.component';
 import { UserMessageItemComponent } from './user-message/user-message-item/user-message-item.component';
 import { UserMailComponent } from './user-mail/user-mail.component';
+import { UserMailGroupComponent } from './user-mail/user-mail-group/user-mail-group.component';
+import { UserMailItemComponent } from './user-mail/user-mail-group/user-mail-item/user-mail-item.component';
 
 
 @NgModule({
@@ -28,8 +30,7 @@ import { UserMailComponent } from './user-mail/user-mail.component';
     //RouterModule.forChild(routes),
   ],
   exports: [
-    UsercardComponent,
-    DashboardComponent
+    //DashboardComponent
   ],
   declarations: [
     DashboardComponent,
@@ -46,6 +47,8 @@ import { UserMailComponent } from './user-mail/user-mail.component';
     UserMessageComponent,
     UserMessageItemComponent,
     UserMailComponent,
+    UserMailGroupComponent,
+    UserMailItemComponent,
   ]
 })
 export class DashboardModule { }

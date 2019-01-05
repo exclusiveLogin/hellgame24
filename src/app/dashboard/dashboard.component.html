@@ -16,7 +16,7 @@
     <div class="info-content">
       <app-user-info-card class="microcard" *ngIf="cur_user; else emptyuser" [user]="cur_user"></app-user-info-card>
 
-      <app-user-mail class="microcard"></app-user-mail>
+      <app-user-mail *ngIf="usermail_shown"  class="microcard" [user]="cur_user && cur_user.login"></app-user-mail>
 
       <app-messanger class="microcard"
         [useServices]="true"

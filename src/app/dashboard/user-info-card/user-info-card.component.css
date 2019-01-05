@@ -1,12 +1,16 @@
 :host{
   flex-direction: row;
   padding: 5px;
+  justify-content: space-around;
 }
 .userinfo_left{
   display: flex;
   flex-direction: column;
   flex-grow: 0;
   flex-basis: 40%;
+}
+.icon{
+  color: grey;
 }
 .userinfo_left .userinfo_avatar{
   width: 100%;

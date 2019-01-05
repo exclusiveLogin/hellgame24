@@ -10,12 +10,17 @@ import {DomSanitizer} from '@angular/platform-browser';
 @Injectable()
 export class UserServiceService {
 
+  private fetchedUsers: IUser[];
+
   constructor(
     private http: HttpClient,
     private apiservice: ApiService,
     private sanitizer: DomSanitizer
   ) { }
   public getUsersInit(): Observable<IUser[]> {
+
+    if( this.fetchedUsers ) return Observable.of( this.fetchedUsers );
+
     return this.http.get<IUserState[]>(this.apiservice.getApi() + 'users_state.php')
       .map((users) => {
         const users_result: IUser[] = users.map((user: IUserState) => {
@@ -47,6 +52,7 @@ export class UserServiceService {
             name: user.name,
             status: st,
             avatar_min: this.sanitizer.bypassSecurityTrustStyle(`url(assets/${user.img_min})`),
+            avatar_min_url: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_min}`),
             avatar_big: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_big}`),
             emotion_current: user.emotion,
             emotion_last: user.old_emotion,
@@ -57,10 +63,13 @@ export class UserServiceService {
             emo_trend: quickEmo,
           };
         });
+        this.fetchedUsers = users_result;
         return users_result;
       });
   }
-  /*public getUser(id: string): IUser {
 
-  }*/
+  public getUser(id: string): Observable<IUser> {
+    if ( this.fetchedUsers ) return Observable.of( this.fetchedUsers.find( user => user.login === id) );
+    return this.getUsersInit().map(users => users.find(u => u.login === id));
+  }
 }

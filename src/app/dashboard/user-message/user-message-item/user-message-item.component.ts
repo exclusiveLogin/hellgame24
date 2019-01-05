@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IMessageData } from '../../../services/message.service';
+import { IMessageData, MessageService } from '../../../services/message.service';
+import { TopEventsService } from '../../../topevents.service';
 
 @Component({
   selector: 'app-user-message-item',
@@ -22,7 +23,7 @@ export class UserMessageItemComponent implements OnInit {
   }
 
   public i_read_it(): void {
-    if(confirm('Вы уверены что прочитали?')) this.readThisMessage.emit(true);
+    if( true || confirm('Вы уверены что прочитали?')) this.readThisMessage.emit(true);
   }
 
 }

@@ -21,6 +21,10 @@ body{
   border: 1px solid black;
 }
 
+.btn.pressed{
+  border: 1px inset black;
+  background-color: #252525;
+}
 .btn.btn_warning{
   background-color: orange;
   color: #272727;

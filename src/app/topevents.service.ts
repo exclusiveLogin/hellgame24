@@ -6,7 +6,7 @@ import {IMenustate, MenuStateInterface} from './models/menu-state-interface';
 @Injectable()
 export class TopEventsService {
   private mainMenuToggleStateEvent: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  
+
   private menuUpdateState: BehaviorSubject<MenuStateInterface> = new BehaviorSubject<MenuStateInterface>({
     dashboard_upd: false,
     meteo_upd: false,
@@ -18,10 +18,11 @@ export class TopEventsService {
   private segmentsNeedRefresh = {
     blog: new BehaviorSubject<boolean>(false),
     message: new BehaviorSubject<boolean>(false),
+    usermail: new BehaviorSubject<boolean>(false),
   };
-  
+
   constructor() {
-  
+
    }
   public getMenuEvent(): Observable<boolean> {
     return this.mainMenuToggleStateEvent.asObservable();
@@ -48,5 +49,5 @@ export class TopEventsService {
 
   public refreshSegment( segment: string ): void {
     this.segmentsNeedRefresh && this.segmentsNeedRefresh[ segment ] && this.segmentsNeedRefresh[ segment ].next(true);
-  } 
+  }
 }

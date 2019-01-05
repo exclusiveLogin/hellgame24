@@ -34,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $arr['field'] = isset($arr['field']) ? $arr['field'] : NULL;
       $arr['flag'] = isset($arr['flag']) ? $arr['flag'] : NULL;
 
-      if($arr['id'] && $arr['field'] && $arr['flag']){
-        $query = "UPDATE `messages` SET $arr[field] = \"$arr[flag]\" WHERE `id`= $arr[id]";
+      if($arr['id'] && $arr['field']){
+        if( $arr['flag']) $query = "UPDATE `messages` SET $arr[field] = \"$arr[flag]\" WHERE `id`= $arr[id]";
+        else $query = "UPDATE `messages` SET $arr[field] = NULL WHERE `id`= $arr[id]";
 
         array_push($arr, $query);
 
@@ -59,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     $where = ($to_user) ? 'WHERE '.$to_user : '';
 
-    $where = ( strlen($where)) ? $where.' AND '.$readed : $where;
+    //var_dump($where);
+
+    $where = ( strlen($where) && $readed) ? $where.' AND '.$readed : $where;
 
     $query = "SELECT * FROM `messages` $where ORDER BY `id` DESC";
 

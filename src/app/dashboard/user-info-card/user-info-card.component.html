@@ -1,3 +1,12 @@
+<div class="userinfo_btns">
+  <button
+    class="btn"
+    [ngClass]="{'pressed': usermail_shown}"
+    (click)="usermail_shown ? closeMail() : openMail()"
+    >
+      <i class="fas fa-envelope fa-2x icon"></i>
+  </button>
+</div>
 <div class="userinfo_left">
   <img [attr.src]="user.avatar_big" class="userinfo_avatar"/>
   <div class="userinfo_emotion_block">

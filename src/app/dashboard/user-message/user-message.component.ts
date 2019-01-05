@@ -31,7 +31,7 @@ export class UserMessageComponent implements OnInit {
     this._messageSubscripton = this.tes.getSegmentRefreshSignal( 'message' )
       .subscribe( refreshFlag => {
         console.log('devss message REFRESH FLAG', refreshFlag);
-        Promise.resolve().then(() => this.refreshMessages());
+        if( refreshFlag ) Promise.resolve().then(() => this.refreshMessages());
       });
     this.refreshMessages();
   }
@@ -54,6 +54,7 @@ export class UserMessageComponent implements OnInit {
       {
         console.log('mark to readed result', result);
         this.tes.refreshSegment( 'message' );
+        this.tes.refreshSegment( 'usermail' );
       });
 
   }

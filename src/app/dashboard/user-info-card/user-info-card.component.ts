@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef, SimpleC
 import {ChartObject} from 'highcharts';
 import {TopEventsService} from "../../topevents.service";
 import { IUser, ITrendItem } from '../../models/user-interface';
+import { UiService } from '../../services/ui.service';
 const HC = require('highcharts');
 
 @Component({
@@ -13,12 +14,17 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
   @Input() public user: IUser;
   @ViewChild('trend') private trend: ElementRef;
+  public usermail_shown: boolean = true;
 
   constructor(
-    private tes: TopEventsService
+    private tes: TopEventsService,
+    private ui: UiService,
   ) { }
 
   ngOnInit() {
+
+    this.ui.getUsermailShownChangeEvent().subscribe( state => this.usermail_shown = state);
+
     HC.theme = {
       colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
         '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
@@ -265,6 +271,14 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     }
 
 
+  }
+
+  public openMail(){
+    this.ui.openUsermail();
+  }
+
+  public closeMail(){
+    this.ui.closeUsermail();
   }
 
   ngAfterViewInit(): void {

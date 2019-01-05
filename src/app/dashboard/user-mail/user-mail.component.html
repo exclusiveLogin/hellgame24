@@ -1,106 +1,11 @@
-<div class="usermail_title">Личные сообщения</div>
-<div class="usermail_btns"><button class="btn btn_toggler"><i class="fas fa-times"></i></button></div>
 
-<div class="usermail_container microcard">
-  <div class="usermail_author_icon"><img src="/assets/ssv_min.jpg" height="30px" /></div>
-  <div class="usermail_author_name">SSV</div>
-  <div class="usermail_author_toggler"><button class="btn btn_toggler">+</button></div>
-</div>
-<div class="usermail_mailbox">
-  <!--SSV message 0-->
-  <div class="usermail_item microcard">
+<div class="usermail_title">{{ title ? title : 'Личные сообщения' }}</div>
+<div class="usermail_btns"><button class="btn btn_toggler" (click)="closeMail()"><i class="fas fa-times"></i></button></div>
 
-      <div class="usermail_header">
-        <span class="usermail_header_title">Заголовок - (прочитано)</span>
-        <span class="usermail_header_date">дата **/**/****</span>
-      </div>
-      <div class="usermail_body">
-        <div class="usermail_info"></div>
-        <div class="usermail_text">Сообщение, текст которого представлен как тестовый</div>
-      </div>
-      <div class="usermail_footer">
-        <button class="btn btn_warning usermail_btn"><i class="fas fa-eye-slash"></i></button>
-        <button class="btn btn_danger usermail_btn"><i class="fas fa-trash"></i></button>
-      </div>
+<ng-container *ngIf="useGroup && _groupedItems.length" >
+  <app-user-mail-group *ngFor="let group of _groupedItems"  [group]="group"></app-user-mail-group>
+</ng-container>
 
-    </div>
-  <!--SSV message 1-->
-  <div class="usermail_item microcard">
-
-    <div class="usermail_header">
-      <span class="usermail_header_title">Заголовок - (не прочитано)</span>
-      <span class="usermail_header_date">дата **/**/****</span>
-    </div>
-    <div class="usermail_body">
-      <div class="usermail_info"></div>
-      <div class="usermail_text">Сообщение, текст которого представлен как тестовый</div>
-    </div>
-    <div class="usermail_footer">
-      <button class="btn btn_warning usermail_btn"><i class="fas fa-eye"></i></button>
-      <button class="btn btn_danger usermail_btn"><i class="fas fa-trash"></i></button>
-    </div>
-
-  </div>
-  <!--SSV message 2-->
-  <div class="usermail_item microcard">
-
-    <div class="usermail_header">
-      <span class="usermail_header_title">Заголовок</span>
-      <span class="usermail_header_date">дата **/**/****</span>
-    </div>
-    <div class="usermail_body">
-      <div class="usermail_info"></div>
-      <div class="usermail_text">Сообщение, текст которого представлен как тестовый</div>
-    </div>
-    <div class="usermail_footer">
-      <button class="btn btn_warning usermail_btn">Я прочитал это сообщение</button>
-      <button class="btn btn_danger usermail_btn">Удалить это сообщение</button>
-    </div>
-
-  </div>
-
-</div>
-<!--MSN messages container-->
-<div class="usermail_container microcard">
-    <div class="usermail_author_icon"><img src="/assets/msn_min.jpg" height="30px" /></div>
-    <div class="usermail_author_name">MSN</div>
-    <div class="usermail_author_toggler"><button class="btn btn_toggler">-</button></div>
-  </div>
-  <div class="usermail_mailbox">
-    <!--MSN message 1-->
-    <div class="usermail_item microcard">
-
-      <div class="usermail_header">
-        <span class="usermail_header_title">Заголовок</span>
-        <span class="usermail_header_date">дата **/**/****</span>
-      </div>
-      <div class="usermail_body">
-        <div class="usermail_info"></div>
-        <div class="usermail_text">Сообщение, текст которого представлен как тестовый</div>
-      </div>
-      <div class="usermail_footer">
-        <button class="btn btn_warning usermail_btn">Я прочитал это сообщение</button>
-        <button class="btn btn_danger usermail_btn">Удалить это сообщение</button>
-      </div>
-
-    </div>
-    <!--MSN message 2-->
-    <div class="usermail_item microcard">
-
-      <div class="usermail_header">
-        <span class="usermail_header_title">Заголовок</span>
-        <span class="usermail_header_date">дата **/**/****</span>
-      </div>
-      <div class="usermail_body">
-        <div class="usermail_info"></div>
-        <div class="usermail_text">Сообщение, текст которого представлен как тестовый</div>
-      </div>
-      <div class="usermail_footer">
-        <button class="btn btn_warning usermail_btn">Я прочитал это сообщение</button>
-        <button class="btn btn_danger usermail_btn">Удалить это сообщение</button>
-      </div>
-
-    </div>
-
-  </div>
-
+<ng-container *ngIf="!useGroup && _messageItems.length" >
+    <app-user-mail-group  *ngFor="let group of _messageItems" [group]="group" [useGroup]="useGroup"></app-user-mail-group>
+  </ng-container>

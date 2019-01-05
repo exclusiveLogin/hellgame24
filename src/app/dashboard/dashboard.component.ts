@@ -21,10 +21,12 @@ export class DashboardComponent implements OnInit {
     private r: Router,
     private tes: TopEventsService,
     ) { }
+
   public v_users: IUser[] = [];
   public cur_user: IUser;
   private routerSub;
   private routerParamsSub;
+  public usermail_shown = false;
 
   ngOnInit() {
     console.log('DASHBOARD INIT:');
@@ -51,6 +53,10 @@ export class DashboardComponent implements OnInit {
         this.cur_user = user;
       console.log('devss user changed on:', user.login);
       }
+    });
+
+    this.ui.getUsermailShownChangeEvent().subscribe( state => {
+      this.usermail_shown = state;
     });
     /*if( !this.routerParamsSub ) this.routerParamsSub = this.router.params.subscribe(params=>{
           console.log('routerParams:', params);

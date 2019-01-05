@@ -1,0 +1,29 @@
+<div class="usermail_item microcard">
+
+    <div class="usermail_header">
+      <span class="usermail_header_title">{{message.subject ? message.subject : 'Без темы'}}</span>
+      <span class="usermail_header_date">{{message.datetime}}</span>
+    </div>
+    <div class="usermail_body">
+      <div class="usermail_info"></div>
+      <div class="usermail_text">{{message.text_field}}</div>
+    </div>
+    <div class="usermail_footer">
+
+      <button
+        *ngIf="message.readed"
+        class="btn btn_warning usermail_btn"
+        [innerHTML]="useIconInBtns ? _iconUnreadedBtn : 'Отметить непрочитанным'"
+        (click)="checkMessageAsUnReaded(message.id)"
+        ></button>
+
+      <button
+        *ngIf="!message.readed"
+        class="btn btn_warning usermail_btn"
+        [innerHTML]="useIconInBtns ? _iconReadedBtn : 'Отметить прочитанным'"
+        (click)="checkMessageAsReaded(message.id)"
+        ></button>
+      <button class="btn btn_danger usermail_btn" [innerHTML]="useIconInBtns ? _iconDeleteBtn : 'Удалить сообщение'"><i class="fas fa-trash"></i></button>
+    </div>
+
+</div>
