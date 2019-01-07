@@ -52,7 +52,7 @@ export class MessageService {
         );
     }
 
-    public markData(id: string, field: string, flag: string | boolean){
+    public markData( id: string, field: string, flag: string | boolean ){
       let request: IDataRequest = {
         body:{
           id,
@@ -65,6 +65,20 @@ export class MessageService {
       return this.con.setData(this.path, request)
       .pipe(
         tap( result => console.log('devss mark result: ', result))
+      );
+    }
+
+    public removeData( id: string ){
+      let request: IDataRequest = {
+        body:{
+          id,
+          operation: 'remove',
+        }
+      };
+
+      return this.con.setData(this.path, request)
+      .pipe(
+        tap( result => console.log('devss remove result: ', result))
       );
     }
 

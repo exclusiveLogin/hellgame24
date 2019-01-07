@@ -46,6 +46,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
 
+    if( isset($arr['operation']) && $arr['operation'] == 'remove' ){
+      $arr['id'] = isset($arr['id']) ? $arr['id'] : NULL;
+
+      if( $arr['id'] ){
+        $query = "DELETE FROM `messages` WHERE `id`= $arr[id]";
+
+        array_push($arr, $query);
+
+        $res = $mysql->query($query);
+
+        echo json_encode( $arr );
+      }
+    }
+
 
 }
 

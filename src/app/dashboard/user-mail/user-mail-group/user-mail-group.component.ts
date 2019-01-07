@@ -16,11 +16,17 @@ export class UserMailGroupComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('GROUP:', this.group);
+    console.log('GROUP INIT:', this.group);
     if( this.group && this.group.messages ) this._groupShown = this.group.messages.some(message => !message.readed);
   }
 
   public toggleGroupShown(): void{
     this._groupShown = !this._groupShown;
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    console.log('GROUP DESTROY:', this.group);
   }
 }

@@ -38,18 +38,12 @@
   text-decoration: underline;
   color: white;
 }
-.userinfo_right .user_emotrend{
-
-}
 .userinfo_right span{
   color: #999;
   font-size: 90%;
 }
 .userinfo_send_msg{
   margin: 5px 0;
-}
-.userinfo_send_notify{
-
 }
 .user_emotrend{
   max-width: 100%;

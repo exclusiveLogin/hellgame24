@@ -14,16 +14,21 @@
         *ngIf="message.readed"
         class="btn btn_warning usermail_btn"
         [innerHTML]="useIconInBtns ? _iconUnreadedBtn : 'Отметить непрочитанным'"
-        (click)="checkMessageAsUnReaded(message.id)"
+        (click)="checkMessageAsUnReaded( message.id )"
         ></button>
 
       <button
         *ngIf="!message.readed"
         class="btn btn_warning usermail_btn"
         [innerHTML]="useIconInBtns ? _iconReadedBtn : 'Отметить прочитанным'"
-        (click)="checkMessageAsReaded(message.id)"
+        (click)="checkMessageAsReaded( message.id )"
         ></button>
-      <button class="btn btn_danger usermail_btn" [innerHTML]="useIconInBtns ? _iconDeleteBtn : 'Удалить сообщение'"><i class="fas fa-trash"></i></button>
+
+      <button
+        class="btn btn_danger usermail_btn"
+        [innerHTML]="useIconInBtns ? _iconDeleteBtn : 'Удалить сообщение'"
+        (click)="removeMessage( message.id )"
+        ></button>
     </div>
 
 </div>
