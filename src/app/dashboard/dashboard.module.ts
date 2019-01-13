@@ -27,10 +27,9 @@ import { UserMailItemComponent } from './user-mail/user-mail-group/user-mail-ite
     RouterModule,
     AccessoryModule,
     ChartModule,
-    //RouterModule.forChild(routes),
   ],
   exports: [
-    //DashboardComponent
+
   ],
   declarations: [
     DashboardComponent,

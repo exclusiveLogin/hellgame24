@@ -1,0 +1,23 @@
+:host{
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.accessory_toggler{
+  display: flex;
+  border: 1px solid orange;
+  flex-basis: 60%;
+}
+
+.toggler{
+  flex-grow: 1;
+  color: orange;
+  cursor: pointer;
+}
+
+.toggler_active{
+  background-color: orange;
+  color:black;
+}

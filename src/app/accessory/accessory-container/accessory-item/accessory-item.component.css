@@ -1,0 +1,32 @@
+:host{
+  display: flex;
+  flex-grow: 1;
+  padding-top: 0;
+  z-index: 1;
+  box-shadow: 8px 8px 0 #272727;
+  background-color: #303030;
+  justify-content: space-between;
+  min-width: 40%;
+  margin: 3px 5px;
+  flex-basis: 40%;
+}
+.accessory_item_icon{
+  flex-grow: 0;
+}
+.accessory_item_additional{
+  flex-grow: 0;
+}
+.accessory_item_title_main{
+  font-size: 8pt;
+  font-weight: bold;
+  flex-basis: 100%;
+}
+.accessory_item_title_sub{
+  font-size: 5pt;
+  flex-basis: 100%;
+}
+.accessory_item_title_container{
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+}
