@@ -1,3 +1,39 @@
 :host{
   flex-basis: 100%;
+  user-select: none;
+}
+.accessory_wiki_title_main{
+  font-size: 14pt;
+  font-weight: bold;
+  color: antiquewhite;
+  flex-basis: 100%;
+  margin: 5px 10px;
+}
+.accessory_wiki_title_sub{
+  font-size: 9pt;
+  font-weight: bold;
+  color: grey;
+  flex-basis: 100%;
+  margin: 5px 10px;
+}
+.accessory_wiki_description{
+  color: burlywood;
+  font-size: 12pt;
+  line-height: 14pt;
+}
+.accessory_wiki_panel_item{
+  font-size: 8pt;
+  color: grey;
+}
+.accessory_wiki_panel_text{
+  color:blanchedalmond;
+  font-weight: bold;
+}
+.accessory_wiki_close_btn{
+  cursor: pointer;
+}
+.accessory_wiki_btns{
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
 }

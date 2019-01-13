@@ -43,7 +43,7 @@ body{
   font-size: 11pt
 }
 .microcard{
-  margin: 15px 0;
+  margin: 5px 0;
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
