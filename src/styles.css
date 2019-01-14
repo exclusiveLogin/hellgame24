@@ -65,3 +65,8 @@ body{
 ::-webkit-scrollbar-thumb {
   background: #666;
 }
+
+.microcard .title{
+  width: 100%;
+  font-weight: bold;
+}

@@ -1,0 +1,11 @@
+:host{
+  min-width: 33%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+
+}
+.container_craft_item{
+  border: 1px outset grey;
+  max-width: 75px;
+}

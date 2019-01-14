@@ -6,6 +6,8 @@ import { AccessoryHeaderComponent } from './accessory-container/accessory-header
 import { AccessoryCrafterComponent } from './accessory-container/accessory-crafter/accessory-crafter.component';
 import { AccessoryInventoryComponent } from './accessory-container/accessory-inventory/accessory-inventory.component';
 import { AccessoryWikiComponent } from './accessory-container/accessory-wiki/accessory-wiki.component';
+import { AccessoryLabComponent } from './accessory-container/accessory-crafter/accessory-lab/accessory-lab.component';
+import { AccessoryLabItemComponent } from './accessory-container/accessory-crafter/accessory-lab/accessory-lab-item/accessory-lab-item.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { AccessoryWikiComponent } from './accessory-container/accessory-wiki/acc
     AccessoryInventoryComponent,
     AccessoryContainerComponent,
     AccessoryItemComponent,
-    AccessoryWikiComponent
+    AccessoryWikiComponent,
+    AccessoryLabComponent,
+    AccessoryLabItemComponent
   ],
   exports: [
     AccessoryContainerComponent

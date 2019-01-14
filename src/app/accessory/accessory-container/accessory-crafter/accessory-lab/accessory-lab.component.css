@@ -1,0 +1,19 @@
+.lab_craft_target{
+  flex-grow: 1;
+  display: flex;
+  flex-basis: 100%;
+  justify-content: center;
+}
+.arrow{
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  margin-top: 10px;
+}
+.btn_craft{
+  margin: 20px;
+}
+.btn_craft_permitted{
+  background-color: darkorange;
+  cursor: pointer;
+}
