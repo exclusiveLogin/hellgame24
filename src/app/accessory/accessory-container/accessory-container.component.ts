@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccessoryContainerComponent implements OnInit {
 
-  public toggle = 'inventory';
+  public toggle = 'crafter';
 
   constructor() { }
 

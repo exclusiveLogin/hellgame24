@@ -1,4 +1,5 @@
 <div class="accessory_toggler">
   <div class="toggler" [ngClass]="{'toggler_active': (state === 'crafter')}" (click)="toggleAccessory('crafter')">Создать</div>
   <div class="toggler" [ngClass]="{'toggler_active': (state === 'inventory')}" (click)="toggleAccessory('inventory')">Инвентарь</div>
+  <div class="toggler" [ngClass]="{'toggler_active': (state === 'wiki')}" (click)="toggleAccessory('wiki')">Wiki</div>
 </div>

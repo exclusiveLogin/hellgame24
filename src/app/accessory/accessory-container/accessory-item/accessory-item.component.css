@@ -6,9 +6,7 @@
   box-shadow: 8px 8px 0 #272727;
   background-color: #303030;
   justify-content: space-between;
-  min-width: 40%;
   margin: 3px 5px;
-  flex-basis: 40%;
   cursor: pointer;
 }
 .accessory_item_icon{

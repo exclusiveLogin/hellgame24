@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class AccessoryHeaderComponent implements OnInit {
 
-  @Input() state: string = 'inventory';
+  @Input() state: string = 'crafter';
   @Output() toggle: EventEmitter<string> =  new EventEmitter<string>();
 
   constructor() { }

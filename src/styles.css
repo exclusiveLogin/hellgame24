@@ -70,3 +70,11 @@ body{
   width: 100%;
   font-weight: bold;
 }
+.half{
+  flex-basis: 47%;
+  max-width: 47%;
+}
+.third{
+  flex-basis: 30%;
+  max-width: 30%;
+}
