@@ -1,24 +1,31 @@
-<div class="accessory_wiki_btns">
-  <button class="btn btn_toggler accessory_wiki_close_btn"><i class="fas fa-times"></i></button>
-</div>
+<ng-container *ngIf="canShown && item" >
 
-<div class="accessory_wiki_image_container">
-  <img src="assets/accessory/wiki/demo.jpg" width="80%"/>
-</div>
-
-<div class="accessory_wiki_title_main">Охранный щит</div>
-<div class="accessory_wiki_title_sub">Защитный барьер 2 уровня</div>
-<div class="accessory_wiki_description">
-
-  <p>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</p>
-  <p>"Нет никого, кто любил бы боль саму по себе, кто искал бы её и кто хотел бы иметь её просто потому, что это боль.."</p>
-
-</div>
-<div class="accessory_wiki_panel">
-  <div class="accessory_wiki_panel_item">
-    Категория: <span class="accessory_wiki_panel_text">Защитные сооружения</span>
+  <div class="accessory_wiki_btns">
+    <button class="btn btn_toggler accessory_wiki_close_btn" (click)="closeMe()" ><i class="fas fa-times"></i></button>
   </div>
-  <div class="accessory_wiki_panel_item">
-    Стихия: <span class="accessory_wiki_panel_text">Земля</span>
+
+  <div class="accessory_wiki_image_container">
+    <img *ngIf="item.image_big"  [src]="getItemImage()" width="80%"/>
   </div>
-</div>
+
+  <div class="accessory_wiki_title_main">{{item.title || item.name}} </div>
+  <div class="accessory_wiki_title_sub">{{  'Уровень предмета: ' + item.level}} ( Версия: {{item.version}}.0.0 )</div>
+  <div class="accessory_wiki_description">
+
+    {{ item.description || 'Нет доступного описания'}}
+
+  </div>
+  <div class="accessory_wiki_panel">
+    <div class="accessory_wiki_panel_item">
+      Категория: <span class="accessory_wiki_panel_text">{{ item.cat_title }} ({{item.category_object}})</span>
+    </div>
+    <div class="accessory_wiki_panel_item">
+      Стихия: <span class="accessory_wiki_panel_text">{{ item.element_title }}</span>
+    </div>
+
+    <div class="accessory_wiki_panel_item">
+        <button class="btn" (click)="goInLab()">В Лабораторию</button>
+      </div>
+  </div>
+
+</ng-container>

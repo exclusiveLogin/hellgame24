@@ -25,6 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query = "SELECT * FROM `reciept_parts`";
   }
 
+  if(isset($_GET['mode']) && isset($_GET['target']) && $_GET['mode'] == 'bytarget'){
+    $target = $_GET['target'];
+    $query = "SELECT * FROM `reciept_parts` WHERE `target` = $target";
+  }
+
   if(isset($_GET['mode']) && $_GET['mode'] == 'list'){
     $query = "SELECT DISTINCT `target` FROM `reciept_parts`";
   }

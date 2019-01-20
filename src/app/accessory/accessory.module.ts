@@ -9,6 +9,8 @@ import { AccessoryWikiComponent } from './accessory-container/accessory-wiki/acc
 import { AccessoryLabComponent } from './accessory-container/accessory-crafter/accessory-lab/accessory-lab.component';
 import { AccessoryLabItemComponent } from './accessory-container/accessory-crafter/accessory-lab/accessory-lab-item/accessory-lab-item.component';
 import { AccessoryLibComponent } from './accessory-container/accessory-lib/accessory-lib.component';
+import { ReceiptService } from './receipt.service';
+import { IngredientService } from './ingredient.service';
 
 @NgModule({
   imports: [
@@ -27,6 +29,7 @@ import { AccessoryLibComponent } from './accessory-container/accessory-lib/acces
   ],
   exports: [
     AccessoryContainerComponent
-  ]
+  ],
+  providers:[ReceiptService, IngredientService]
 })
 export class AccessoryModule { }

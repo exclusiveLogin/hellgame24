@@ -1,8 +1,12 @@
-<div class="accessory_item_icon"><img [attr.src]="'assets/accessory/demo_pack/Icon.1_53.png'" height="35px" /></div>
-<div class="accessory_item_title_container">
-    <div class="accessory_item_title_main">Предмет 1</div>
-    <div class="accessory_item_title_sub">предмет инвентаря 1 уровня 2</div>
-</div>
-<div class="accessory_item_additional">
-  <img [attr.src]="'assets/accessory/demo_pack/Icons8_35.png'" height="35px" />
-</div>
+<ng-container *ngIf="item">
+
+  <div class="accessory_item_icon"><img [src]="getItemIcon()" height="35px" /></div>
+  <div class="accessory_item_title_container">
+      <div class="accessory_item_title_main">{{ item.title || item.name}}</div>
+      <div class="accessory_item_title_sub">{{ item.description }}</div>
+  </div>
+  <div class="accessory_item_additional">
+    <img [attr.src]="getCategoryIcon()" height="35px" />
+  </div>
+
+</ng-container>

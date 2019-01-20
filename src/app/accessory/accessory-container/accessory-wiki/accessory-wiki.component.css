@@ -37,3 +37,10 @@
   justify-content: flex-end;
   flex-grow: 1;
 }
+.accessory_wiki_image_container{
+  width: 100%;
+}
+.accessory_wiki_image_container img{
+  border-radius: 10px;
+}
+

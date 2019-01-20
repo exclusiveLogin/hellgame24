@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 export class ApiService {
   private MAINAPI = 'http://localhost/backend/';
   private RECIEPT_ICONS = 'assets/accessory/demo_pack/';
+  private INGREDIENT_ICONS = 'assets/accessory/demo_pack/';
   private NATIVE_ICONS = 'assets/accessory/native/';
   private WIKI_IMAGE = 'assets/accessory/wiki/';
 
@@ -16,19 +17,27 @@ export class ApiService {
   }
 
   public getIconPath( type: string ){
-    return type.toUpperCase()+'_ICONS';
+    return this[type.toUpperCase()+'_ICONS'];
   }
 
   public getImagePath( type: string ){
-    return type.toUpperCase()+'_IMAGE';
+    return this[type.toUpperCase()+'_IMAGE'];
   }
 
-  public getIconPatRx( type: string ): Observable<string> {
-    return Observable.of( type.toUpperCase()+'_ICONS' );
+  public getWikiImagePath(){
+    return this.WIKI_IMAGE;
+  }
+
+  public getWikiImagePathRx(): Observable<string>{
+    return Observable.of( this.WIKI_IMAGE );
+  }
+
+  public getIconPathRx( type: string ): Observable<string> {
+    return Observable.of( this[type.toUpperCase()+'_ICONS'] );
   }
 
   public getImagePathRx( type: string ): Observable<string> {
-    return Observable.of( type.toUpperCase()+'_IMAGE' );
+    return Observable.of( this[type.toUpperCase()+'_IMAGE'] );
   }
 
   public getApiRx(): Observable<string> {

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReceiptService } from '../receipt.service';
+import { IngredientService } from '../ingredient.service';
 
 @Component({
   selector: 'app-accessory-container',
@@ -9,7 +11,10 @@ export class AccessoryContainerComponent implements OnInit {
 
   public toggle = 'crafter';
 
-  constructor() { }
+  constructor(
+    private reciept: ReceiptService,
+    private ingredient: IngredientService,
+  ) { }
 
   ngOnInit() {
 
