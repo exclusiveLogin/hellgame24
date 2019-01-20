@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Янв 08 2019 г., 21:06
+-- Время создания: Янв 20 2019 г., 08:12
 -- Версия сервера: 10.1.31-MariaDB
 -- Версия PHP: 7.2.4
 
@@ -71,6 +71,19 @@ INSERT INTO `blog` (`id`, `title`, `text_field`, `author`, `datetime`, `group_to
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `elements`
+--
+
+CREATE TABLE `elements` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `icon` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `events`
 --
 
@@ -129,6 +142,42 @@ INSERT INTO `events` (`id`, `for`, `title`, `desc`, `status`, `notify`, `img`, `
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `game_objects`
+--
+
+CREATE TABLE `game_objects` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `version` int(11) NOT NULL DEFAULT '1',
+  `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `image_min` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_big` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `level` int(11) NOT NULL,
+  `category_object` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `element` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `deploy_type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `deploy_function` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `game_objects`
+--
+
+INSERT INTO `game_objects` (`id`, `version`, `name`, `description`, `image_min`, `image_big`, `level`, `category_object`, `element`, `deploy_type`, `deploy_function`) VALUES
+(1, 1, 'Ингредиент 1', 'Демо ингредиент для Изделия 1\r\n', 'Icon.1_61.png', NULL, 1, 'goods', 'water', '', ''),
+(2, 1, 'Ингредиент 2', 'Стабилизатор для Изделия 1', 'Icon.1_69.png', NULL, 1, 'goods', 'water', '', ''),
+(3, 1, 'Ингредиент 3', 'Закрепитель эффекта для Изделия 1\r\n', 'Icon.2_48.png', NULL, 1, 'goods', 'water', '', ''),
+(4, 1, 'Ингредиент 4', 'Краситель для Изделия 1', 'Icon.1_94.png', NULL, 1, 'goods', 'water', '', ''),
+(5, 1, 'Ингредиент 1_2', 'Демо ингредиент для Изделия 2\r\n', 'Icon.1_19.png', NULL, 1, 'goods', 'water', '', ''),
+(6, 1, 'Ингредиент 2_2', 'Стабилизатор для Изделия 2', 'Icon.1_06.png', NULL, 1, 'goods', 'water', '', ''),
+(7, 1, 'Ингредиент 3_2', 'Закрепитель эффекта для Изделия 2\r\n', 'Icon.1_83.png', NULL, 1, 'goods', 'water', '', ''),
+(8, 1, 'Ингредиент 4_2', 'Краситель для Изделия 2', 'Icon.3_09.png', NULL, 1, 'goods', 'water', '', ''),
+(9, 1, 'Изделие 1', 'Тестовое изделие 1 Сапоги категории быт', 'Icon.1_95.png', NULL, 2, 'defence', 'ground', '', ''),
+(10, 1, 'Изделие 2', 'Тестовое изделие 2 (Освещение)\r\nКатегории быт', 'Icon.1_56.png', NULL, 2, 'infrastructure', 'wood', '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `global`
 --
 
@@ -183,21 +232,6 @@ INSERT INTO `global` (`id`, `global_code`, `message`, `datetime`) VALUES
 (45, 'red', '', '2019-01-08 18:37:23'),
 (46, 'orange', '', '2019-01-08 18:37:26'),
 (47, 'green', '', '2019-01-08 18:37:27');
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `ingredients`
---
-
-CREATE TABLE `ingredients` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `level` int(11) NOT NULL,
-  `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `element` varchar(20) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -452,6 +486,45 @@ CREATE TABLE `news` (
   `img_min` text COLLATE utf8_unicode_ci,
   `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `private` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `object_slots`
+--
+
+CREATE TABLE `object_slots` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `ingredient_id` int(11) NOT NULL,
+  `ingredient_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `owner` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `accuracy` int(11) NOT NULL,
+  `position_lat` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `position_lon` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `object_spawn`
+--
+
+CREATE TABLE `object_spawn` (
+  `id` int(11) NOT NULL,
+  `armed_object_id` int(11) NOT NULL,
+  `armed_object_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `emit_object_type_name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `emit_object_type_id` int(11) NOT NULL,
+  `emitter_id` int(11) NOT NULL,
+  `last_emit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `datetime_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `accuracy` int(11) NOT NULL,
+  `position_lat` float NOT NULL,
+  `position_lon` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -3252,13 +3325,62 @@ INSERT INTO `push_subscribes` (`id`, `pm`, `user`, `datetime`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `reciepts`
+-- Структура таблицы `real_game_objects`
 --
 
-CREATE TABLE `reciepts` (
+CREATE TABLE `real_game_objects` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `reciept` text COLLATE utf8_unicode_ci NOT NULL,
-  `comment` text COLLATE utf8_unicode_ci NOT NULL
+  `slot` int(11) NOT NULL,
+  `deploy_slot` int(11) NOT NULL,
+  `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `datetime_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `creator_name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `object_id` bigint(20) NOT NULL,
+  `object_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `reciept_parts`
+--
+
+CREATE TABLE `reciept_parts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `target` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `comment` text COLLATE utf8_unicode_ci NOT NULL,
+  `require_item` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `quantity` int(11) NOT NULL,
+  `require_ingredient` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `reciept_parts`
+--
+
+INSERT INTO `reciept_parts` (`id`, `target`, `comment`, `require_item`, `quantity`, `require_ingredient`) VALUES
+(1, '9', 'Изготовление Изделия 1', NULL, 1, '2'),
+(2, '10', 'Изготовление Изделия 2', NULL, 1, '5'),
+(3, '9', 'Изготовление Изделия 1', NULL, 3, '3'),
+(4, '10', 'Изготовление Изделия 2', NULL, 2, '6'),
+(5, '9', 'Изготовление Изделия 1', NULL, 1, '4'),
+(6, '10', 'Изготовление Изделия 2', NULL, 2, '7'),
+(8, '10', 'Изготовление Изделия 2', NULL, 2, '8'),
+(9, '9', 'Изготовление Изделия 1', NULL, 1, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `reciept_permissions`
+--
+
+CREATE TABLE `reciept_permissions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `permited_reciept_id` int(11) NOT NULL,
+  `approved_user_id` int(11) NOT NULL,
+  `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `datetime_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -19598,6 +19720,13 @@ ALTER TABLE `blog`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Индексы таблицы `elements`
+--
+ALTER TABLE `elements`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
 -- Индексы таблицы `events`
 --
 ALTER TABLE `events`
@@ -19605,16 +19734,16 @@ ALTER TABLE `events`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Индексы таблицы `global`
+-- Индексы таблицы `game_objects`
 --
-ALTER TABLE `global`
+ALTER TABLE `game_objects`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Индексы таблицы `ingredients`
+-- Индексы таблицы `global`
 --
-ALTER TABLE `ingredients`
+ALTER TABLE `global`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
@@ -19639,6 +19768,18 @@ ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `object_slots`
+--
+ALTER TABLE `object_slots`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Индексы таблицы `object_spawn`
+--
+ALTER TABLE `object_spawn`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `private_data`
 --
 ALTER TABLE `private_data`
@@ -19654,11 +19795,25 @@ ALTER TABLE `push_subscribes`
 ALTER TABLE `push_subscribes` ADD FULLTEXT KEY `pm` (`pm`);
 
 --
--- Индексы таблицы `reciepts`
+-- Индексы таблицы `real_game_objects`
 --
-ALTER TABLE `reciepts`
+ALTER TABLE `real_game_objects`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Индексы таблицы `reciept_parts`
+--
+ALTER TABLE `reciept_parts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD UNIQUE KEY `id_2` (`id`);
+
+--
+-- Индексы таблицы `reciept_permissions`
+--
+ALTER TABLE `reciept_permissions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `ssv_citadel_emo`
@@ -19726,22 +19881,28 @@ ALTER TABLE `blog`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
+-- AUTO_INCREMENT для таблицы `elements`
+--
+ALTER TABLE `elements`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `events`
 --
 ALTER TABLE `events`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
+-- AUTO_INCREMENT для таблицы `game_objects`
+--
+ALTER TABLE `game_objects`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT для таблицы `global`
 --
 ALTER TABLE `global`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
---
--- AUTO_INCREMENT для таблицы `ingredients`
---
-ALTER TABLE `ingredients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `messages`
@@ -19762,6 +19923,18 @@ ALTER TABLE `news`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT для таблицы `object_slots`
+--
+ALTER TABLE `object_slots`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `object_spawn`
+--
+ALTER TABLE `object_spawn`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `private_data`
 --
 ALTER TABLE `private_data`
@@ -19774,10 +19947,22 @@ ALTER TABLE `push_subscribes`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
--- AUTO_INCREMENT для таблицы `reciepts`
+-- AUTO_INCREMENT для таблицы `real_game_objects`
 --
-ALTER TABLE `reciepts`
+ALTER TABLE `real_game_objects`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT для таблицы `reciept_parts`
+--
+ALTER TABLE `reciept_parts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT для таблицы `reciept_permissions`
+--
+ALTER TABLE `reciept_permissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `ssv_citadel_emo`
