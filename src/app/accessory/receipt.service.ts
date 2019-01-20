@@ -3,6 +3,20 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ReceiptService {
 
-  constructor() { }
+  constructor() {
+    console.log('RecieptService:', this);
+  }
+
+  public getAllRecieptList(){
+
+  }
+
+  public getRecieptListByUser(){
+
+  }
+
+  public getRecieptParts( id: string ){
+
+  }
 
 }
