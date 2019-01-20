@@ -53,7 +53,7 @@ export class UserMailComponent implements OnInit {
 
   private refreshMessages(): void {
     console.log('devss USERMAIL RefreshMessages fire');
-    this.messageService.getData<IMessageData[]>(
+    this.messageService.getData(
       this.user ?
        {to_user: this.user} :
         null

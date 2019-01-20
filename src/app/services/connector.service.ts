@@ -11,6 +11,9 @@ export interface IDataResponse{
 
 };
 
+export interface IParams {
+  [name: string]: any
+}
 export interface IDataRequest{
   params?: any,
   body?: any
@@ -26,12 +29,12 @@ export class ConnectorService {
     private api: ApiService,
   ) { }
 
-  public getData(path: Path, params?: any): Observable<IDataResponse> {
-    return this.http.get(`${this.api.getApi()}${path.segment}/${path.script}`, { params })
+  public getData<T>(path: Path, params?: IParams): Observable<T> {
+    return this.http.get<T>(`${this.api.getApi()}${path.segment}/${path.script}`, { params })
     .pipe(
       tap(htr => {console.log('htr get:', htr)})
     );
-  } 
+  }
 
   public setData(path: Path, data: IDataRequest ): Observable<IDataResponse> {
     let dbody: IDataRequest = data.body || {};
@@ -42,5 +45,5 @@ export class ConnectorService {
     }).pipe(
       tap(htr => {console.log('htr set:', htr)})
     );
-  } 
+  }
 }

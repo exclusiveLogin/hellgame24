@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IService } from '../models/services-interface';
-import { ConnectorService, IDataRequest } from './connector.service';
+import { ConnectorService, IDataRequest, IParams } from './connector.service';
 import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { IMessangerData } from '../dashboard/messanger/messanger.component';
@@ -28,7 +28,7 @@ export class BlogService implements IService {
     private con: ConnectorService
   ) { }
 
-  public getData<T>(params?: any){
+  public getData<T>(params?: IParams){
     console.log('blog service getData', params);
     return this.con.getData(this.path, params) as Observable<T>;
   }

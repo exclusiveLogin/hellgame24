@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
-import { ConnectorService, IDataRequest } from './connector.service';
+import { ConnectorService, IDataRequest, IParams } from './connector.service';
 import { IMessangerData } from '../dashboard/messanger/messanger.component';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators/tap';
@@ -30,9 +30,9 @@ export class MessageService {
       private ui: UiService
     ) { }
 
-    public getData<T>(params?: any){
+    public getData(params?: IParams){
       console.log('message service getData', params);
-      return this.con.getData(this.path, params) as Observable<T>;
+      return this.con.getData<IMessageData[]>(this.path, params);
     }
 
     private convertMessage2Request( msg: IMessangerData ): IMessageData {

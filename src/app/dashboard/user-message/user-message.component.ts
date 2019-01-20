@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { MessageService, IMessageData } from '../../services/message.service';
 import { TopEventsService } from '../../topevents.service';
 import { Subscription } from 'rxjs';
+import { IParams } from '../../services/connector.service';
 
 @Component({
   selector: 'app-user-message',
@@ -37,11 +38,10 @@ export class UserMessageComponent implements OnInit {
   }
 
   private refreshMessages(): void {
-    this.messageService.getData<IMessageData[]>(
-      this.to_user ?
-       {to_user: this.to_user, readed: this.isUnreadedOnly} :
-        null
-        ).subscribe(items => {
+    let params: IParams = (this.to_user) ?
+    {to_user: this.to_user, readed: this.isUnreadedOnly} :
+     null
+    this.messageService.getData( params ).subscribe(items => {
       console.log('devss messageService RefreshMessages get', items);
       this._messageItems = items;
     });
