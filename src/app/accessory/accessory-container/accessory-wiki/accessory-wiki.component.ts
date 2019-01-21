@@ -10,6 +10,7 @@ import { ApiService } from '../../../api.service';
 export class AccessoryWikiComponent implements OnInit {
 
   @Input() target: string;
+  @Input() inCrafter: boolean = false;
   public item: IIngredient;
   public canShown: boolean = false;
   @Output() close: EventEmitter<void> = new EventEmitter();

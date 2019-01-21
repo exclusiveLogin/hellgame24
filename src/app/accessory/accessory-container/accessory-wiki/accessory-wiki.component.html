@@ -23,7 +23,7 @@
       Стихия: <span class="accessory_wiki_panel_text">{{ item.element_title }}</span>
     </div>
 
-    <div class="accessory_wiki_panel_item">
+    <div class="accessory_wiki_panel_item btn_group" *ngIf="inCrafter" >
         <button class="btn" (click)="goInLab()">В Лабораторию</button>
       </div>
   </div>

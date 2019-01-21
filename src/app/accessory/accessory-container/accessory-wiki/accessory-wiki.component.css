@@ -43,4 +43,6 @@
 .accessory_wiki_image_container img{
   border-radius: 10px;
 }
-
+.btn_group{
+  margin: 15px 0;
+}

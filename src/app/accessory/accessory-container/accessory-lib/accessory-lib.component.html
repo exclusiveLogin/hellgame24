@@ -1,12 +1,3 @@
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
-<app-accessory-item class="half"></app-accessory-item>
+<app-accessory-item *ngFor="let item of itemsLib" [itemId]="item.id" class="half" (click)="openWiki(item)"></app-accessory-item>
 
-<app-accessory-wiki class="microcard"></app-accessory-wiki>
+<app-accessory-wiki *ngIf="shownWiki"  class="microcard" (close)="closeWiki()" [target]="currentItemID"></app-accessory-wiki>

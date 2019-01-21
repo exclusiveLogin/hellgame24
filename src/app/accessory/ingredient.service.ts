@@ -49,11 +49,11 @@ export class IngredientService {
     return this.con.getData<IIngredient>(this.path, params).map(list => list[0]);;
   }
 
-  public getAllIngredients(): Observable<IIngredient>{
+  public getAllIngredients(): Observable<IIngredient[]>{
     let params: IParams = {
       mode: 'all'
     };
-    return this.con.getData<IIngredient>(this.path, params);
+    return this.con.getData<IIngredient[]>(this.path, params);
   }
 
 }

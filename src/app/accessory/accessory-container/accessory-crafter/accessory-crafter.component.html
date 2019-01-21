@@ -2,6 +2,12 @@
   <app-accessory-item *ngFor="let item of reciepts"  [itemId]="item.target" (click)="selectReciept(item)"></app-accessory-item>
 </ng-container>
 
-<app-accessory-wiki *ngIf="showWiki" [target]="wikiIngredient.target" (close)="closeWiki()" (inlab)="openLab()"  class="microcard"></app-accessory-wiki>
+<app-accessory-wiki
+  [inCrafter]="true"
+  *ngIf="showWiki"
+  [target]="wikiIngredient.target"
+  (close)="closeWiki()"
+  (inlab)="openLab()"
+  class="microcard"></app-accessory-wiki>
 
 <app-accessory-lab *ngIf="showLab" class="microcard"></app-accessory-lab>

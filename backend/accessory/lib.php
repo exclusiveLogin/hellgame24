@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   if(isset($_GET['mode']) && $_GET['mode'] == 'all'){
-    $query = "SELECT * FROM `game_objects`";
+    $query = "SELECT DISTINCT `id` FROM `game_objects`";
   }
 
   if(isset($_GET['mode']) && isset($_GET['id']) && $_GET['mode'] == 'byid'){
