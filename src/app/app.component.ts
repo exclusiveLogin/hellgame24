@@ -46,14 +46,14 @@ export class AppComponent implements OnInit {
       this.tes.setMenuStateUpdates({'meteo_upd': true});
     }, 7000);
     */
-   
+
     this.refreshGlobalStatus();
-    
+
     this.auth.login({login: 'ssv', password: 'ddd'});
-   
+
     if (window && window.matchMedia) {
       let that = this;
-      window.matchMedia('(max-width: 470px)')
+      window.matchMedia('(max-width: 600px)')
         .addListener((match) => {
           this.hidemenuToggler = match.matches;
         });
