@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { ConnectorService, IParams } from '../services/connector.service';
+import { tap } from 'rxjs/operators/tap';
 
 
 export interface IIngredient{
@@ -26,6 +27,7 @@ export interface IIngredient{
 export class IngredientService {
 
   private path: Path = { segment: 'accessory', script: 'lib.php' };
+  private itemCache: IIngredient[][] = [];
 
   constructor(
     private con: ConnectorService
@@ -38,7 +40,9 @@ export class IngredientService {
       id,
       mode: 'byid'
     };
-    return this.con.getData<IIngredient>(this.path, params).map(list => list[0]);
+
+    if(this.itemCache[id]) return Observable.of(this.itemCache[id]);
+    return this.con.getData<IIngredient>(this.path, params).pipe(tap(l => this.itemCache[id] = l[0])).map(list => list[0]);
   }
 
   public getIngredientbyName( name: string ): Observable<IIngredient>{

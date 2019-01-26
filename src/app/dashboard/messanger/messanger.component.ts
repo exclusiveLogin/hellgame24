@@ -5,6 +5,7 @@ import { ConnectorService, IDataRequest } from '../../services/connector.service
 import { ServicesService } from '../../services.service';
 import { IBlogData } from '../../services/blog.service';
 import { TopEventsService } from '../../topevents.service';
+import { Title } from '@angular/platform-browser';
 
 export interface IMessangerData{
   title?: string,
@@ -25,7 +26,9 @@ export class MessangerComponent implements OnInit {
 
   @Input() private mode: string = 'simple';
 
-  @Input() private path: Path = {
+  @Input() title: string;
+
+  @Input() public path: Path = {
     segment: null,
     script: null,
   };

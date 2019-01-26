@@ -11,7 +11,10 @@ import { ApiService } from '../../../../../api.service';
 export class AccessoryLabItemComponent implements OnInit {
 
   @Input() private itemID;
+  @Input() public reqNum;
+
   public targetItem: IIngredient;
+
   constructor(
     private ingredient: IngredientService,
     private api: ApiService,

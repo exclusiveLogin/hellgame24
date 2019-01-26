@@ -69,6 +69,7 @@ body{
 .microcard .title{
   width: 100%;
   font-weight: bold;
+  margin: 10px 5px;
 }
 .half{
   flex-basis: 47%;

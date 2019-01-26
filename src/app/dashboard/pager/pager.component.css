@@ -13,15 +13,13 @@
 .page_info {
   background-color: #353535;
   flex: 1 1 30%;
-  min-width: 340px;
   max-width: 470px;
 }
 .page_accessory {
   background-color: #444;
-  width: 470px;
+  flex-basis: 470px;
 }
 .page_map {
   background-color: #333;
-  min-width: 340px;
-  max-width: 470px;
+  flex-basis: 470px;
 }
