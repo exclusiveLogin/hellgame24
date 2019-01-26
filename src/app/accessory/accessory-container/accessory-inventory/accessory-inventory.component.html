@@ -1,7 +1,12 @@
-<ng-container #inventory>
-  <app-accessory-item class="third"></app-accessory-item>
-  <app-accessory-item class="third"></app-accessory-item>
-  <app-accessory-item class="third"></app-accessory-item>
-  <app-accessory-item class="third"></app-accessory-item>
+<ng-container #inventory *ngIf="slots" >
+  <app-accessory-item
+  *ngFor="let slot of slots"
+  [itemId]="slot.go_id"
+  [mode]="'slot'"
+  class="half"
+  (click)="openWiki(slot)"
+  >
+  </app-accessory-item>
 </ng-container>
-<app-accessory-wiki class="microcard"></app-accessory-wiki>
+
+<app-accessory-wiki *ngIf="showWiki"  class="microcard" (close)="closeWiki()" [target]="currentItemId"></app-accessory-wiki>

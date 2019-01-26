@@ -20,6 +20,8 @@
   color: burlywood;
   font-size: 12pt;
   line-height: 14pt;
+  width: 100%;
+  padding: 15px;
 }
 .accessory_wiki_panel_item{
   font-size: 8pt;

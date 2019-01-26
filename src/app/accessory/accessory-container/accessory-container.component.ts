@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReceiptService } from '../receipt.service';
 import { IngredientService } from '../ingredient.service';
+import { InventoryService } from '../inventory.service';
 
 @Component({
   selector: 'app-accessory-container',
@@ -14,6 +15,7 @@ export class AccessoryContainerComponent implements OnInit {
   constructor(
     private reciept: ReceiptService,
     private ingredient: IngredientService,
+    private inventory: InventoryService,
   ) { }
 
   ngOnInit() {

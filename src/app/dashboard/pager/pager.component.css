@@ -18,8 +18,7 @@
 }
 .page_accessory {
   background-color: #444;
-  min-width: 340px;
-  max-width: 470px;
+  width: 470px;
 }
 .page_map {
   background-color: #333;

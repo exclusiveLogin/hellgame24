@@ -13,6 +13,7 @@ export class AccessoryItemComponent implements OnInit {
   public item: IIngredient;
 
   @Input() itemId: string;
+  @Input() mode: 'item' | 'slot' = 'item';
 
   constructor(
     private ingredient: IngredientService,

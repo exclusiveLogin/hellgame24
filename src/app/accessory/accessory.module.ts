@@ -11,6 +11,7 @@ import { AccessoryLabItemComponent } from './accessory-container/accessory-craft
 import { AccessoryLibComponent } from './accessory-container/accessory-lib/accessory-lib.component';
 import { ReceiptService } from './receipt.service';
 import { IngredientService } from './ingredient.service';
+import { InventoryService } from './inventory.service';
 
 @NgModule({
   imports: [
@@ -30,6 +31,6 @@ import { IngredientService } from './ingredient.service';
   exports: [
     AccessoryContainerComponent
   ],
-  providers:[ReceiptService, IngredientService]
+  providers:[ReceiptService, IngredientService, InventoryService]
 })
 export class AccessoryModule { }

@@ -25,10 +25,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query = "SELECT * FROM `object_slots`";
   }
 
+  // выбрать те эелементы на которые нет линков
+  // SELECT * FROM real_game_objects WHERE id not in (SELECT rgo_id from object_slots where rgo_id is not null)
+
+  //SELECT object_slots.*, game_objects.id as go_id FROM `object_slots` LEFT JOIN `real_game_objects` ON object_slots.rgo_id = real_game_objects.id LEFT JOIN `game_objects` ON real_game_objects.object_id = game_objects.id
   if(isset($_GET['mode']) && $_GET['mode'] == 'slots_by_user'){
     $owner  = isset($_GET['owner']) ? '`owner`="'.$_GET['owner'].'"' : NULL;
     $where = ( $owner ) ? 'WHERE '.$owner : '';
-    $query = "SELECT * FROM `object_slots` $where ORDER BY `id` DESC";
+    $query = "SELECT `object_slots`.* ,
+    `game_objects`.`id` as `go_id`
+    FROM `object_slots`
+    LEFT JOIN `real_game_objects` ON `object_slots`.`rgo_id` = `real_game_objects`.`id`
+    LEFT JOIN `game_objects` ON `real_game_objects`.`object_id` = `game_objects`.`id`
+    $where
+    ORDER BY `id` DESC";
   }
 
   $res = $mysql->query($query);

@@ -1,4 +1,4 @@
-<ng-container *ngIf="item">
+<ng-container *ngIf="item && mode === 'item'">
 
   <div class="accessory_item_icon"><img [src]="getItemIcon()" height="35px" /></div>
   <div class="accessory_item_title_container">
@@ -8,5 +8,23 @@
   <div class="accessory_item_additional">
     <img [attr.src]="getCategoryIcon()" height="35px" />
   </div>
+
+</ng-container>
+
+<ng-container *ngIf="mode === 'slot'">
+
+  <div class="accessory_item_icon"><img [src]="getItemIcon()" height="35px" /></div>
+  <div class="accessory_item_title_container" >
+
+    <ng-container *ngIf="item; else emptySlot">
+      <div class="accessory_item_title_main">{{ item && (item.title || item.name)}}</div>
+      <div class="accessory_item_title_sub">{{ item && item.cat_title }}</div>
+    </ng-container>
+
+  </div>
+  <ng-template #emptySlot>
+    <div class="accessory_item_title_main">Свободный слот</div>
+    <div class="accessory_item_title_sub">Доступен для размещения</div>
+  </ng-template>
 
 </ng-container>
