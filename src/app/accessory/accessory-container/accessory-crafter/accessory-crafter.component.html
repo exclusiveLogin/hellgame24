@@ -10,4 +10,4 @@
   (inlab)="openLab()"
   class="microcard"></app-accessory-wiki>
 
-<app-accessory-lab *ngIf="showLab" class="microcard"></app-accessory-lab>
+<app-accessory-lab *ngIf="showLab" [targetId]="wikiIngredient.target" class="microcard"></app-accessory-lab>

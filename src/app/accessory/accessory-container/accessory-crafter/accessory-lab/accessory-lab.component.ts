@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IngredientService } from '../../../ingredient.service';
 
 @Component({
   selector: 'app-accessory-lab',
@@ -8,10 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class AccessoryLabComponent implements OnInit {
 
 
+  @Input() public targetId;
 
-  constructor() { }
+
+  constructor(
+    private ingredient: IngredientService
+  ) { }
 
   ngOnInit() {
+    console.log('lab init:', this.targetId);
   }
 
 }
