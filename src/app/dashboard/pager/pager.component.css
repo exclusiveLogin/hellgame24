@@ -18,8 +18,10 @@
 .page_accessory {
   background-color: #444;
   flex-basis: 470px;
+  max-width: 470px;
 }
 .page_map {
   background-color: #333;
   flex-basis: 470px;
+  max-width: 470px;
 }

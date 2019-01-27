@@ -1,6 +1,6 @@
-<div class="container_craft_item">
+<div class="container_craft_item" [title]="targetItem && (targetItem.title || targetItem.name) || ''">
   <img [src]="getItemIcon()" width="50px"/>
   <div class="craft_item_stats">
-    <span>{{ !itemID ? 'слот' : (reqNum ? reqNum :'')}}</span>
+    <span><span *ngIf="itemID" >{{ inStock ? inStock : 0 }} / </span><span>{{ !itemID ? 'слот' : (reqNum ? reqNum :'')}}</span></span>
   </div>
 </div>

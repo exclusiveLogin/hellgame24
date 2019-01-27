@@ -43,4 +43,13 @@ export class InventoryService {
   public clearCache(){
     this.slotsCache = [];
   }
+
+  public getIngredientsOfUser( userId: string, idIngredient: string ){
+    if (this.slotsCache[userId]) return Observable.of(this.slotsCache[userId].filter((s: ISlot) => s.go_id && s.go_id.toString() === idIngredient.toString()));
+
+    let params: IParams = { mode: 'slots_by_user', owner: userId };
+    return this.con.getData<ISlot[]>(this.path, params)
+      .pipe(tap(slots => this.slotsCache[userId] = slots))
+      .map((slots: ISlot[]) => slots.filter(s => s.go_id && s.go_id.toString() === idIngredient.toString()));
+  }
 }
