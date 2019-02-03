@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ConnectorService, IParams } from '../services/connector.service';
+import { ConnectorService, IParams, IDataRequest } from '../services/connector.service';
 import { Path } from '../models/path';
 import { ISlot } from './accessory-container/accessory-inventory/accessory-inventory.component';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators/tap';
+import { AuthService } from '../auth.service';
+import { IRecieptPartData } from './receipt.service';
+import { IIngredient } from './ingredient.service';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class InventoryService {
@@ -16,7 +20,8 @@ export class InventoryService {
   };
 
   constructor(
-    private con: ConnectorService
+    private con: ConnectorService,
+    private auth: AuthService,
   ) {
     console.log( 'InventoryService:', this );
   }
@@ -51,5 +56,42 @@ export class InventoryService {
     return this.con.getData<ISlot[]>(this.path, params)
       .pipe(tap(slots => this.slotsCache[userId] = slots))
       .map((slots: ISlot[]) => slots.filter(s => s.go_id && s.go_id.toString() === idIngredient.toString()));
+  }
+
+  public craftNewInventoryItem( targetID: string, toSlot: string, recParts: IRecieptPartData[] ){
+    if(targetID && toSlot){
+      let data: IDataRequest = {
+        body: {
+          mode: 'create_new_rgo',
+          object_id: targetID,
+          slot: toSlot,
+          creator_name: this.auth.authorizedAs()
+        }
+      }
+
+      this.con.setData( this.path, data )
+        .subscribe(() =>{
+
+          let rxIngredients = forkJoin(...recParts.map((rp: IRecieptPartData) => {
+            if( rp.quantity ){
+                return this.getIngredientsOfUser( this.auth.authorizedAs(), rp.require_ingredient ).map(items => items.slice(0, Number(rp.quantity)));
+            }
+          }));
+
+          rxIngredients.subscribe(result => {
+
+            let flat: ISlot[] = [];
+            result.forEach(slots => flat.push( ...slots ));
+
+            flat.forEach(s => {
+              this.con.getData(this.path, {mode: 'utilization_item', item_id: s.rgo_id }).subscribe();
+              this.clearCache();
+            });
+
+          });
+
+          alert('Предмет успешно создан');
+        });
+    }
   }
 }

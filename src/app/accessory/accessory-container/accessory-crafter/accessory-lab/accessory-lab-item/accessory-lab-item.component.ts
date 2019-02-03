@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IngredientService, IIngredient } from '../../../../ingredient.service';
 import { filter } from 'rxjs/operators';
 import { ApiService } from '../../../../../api.service';
 import { InventoryService } from '../../../../inventory.service';
 import { AuthService } from '../../../../../auth.service';
 import { ISlot } from '../../../accessory-inventory/accessory-inventory.component';
+import { browser } from 'protractor';
 
 @Component({
   selector: 'app-accessory-lab-item',
@@ -15,6 +16,7 @@ export class AccessoryLabItemComponent implements OnInit {
 
   @Input() public itemID;
   @Input() public reqNum;
+  @Output() public ready: EventEmitter<boolean> = new EventEmitter();
 
   public targetItem: IIngredient;
   public inStock: number  = 0;
@@ -27,15 +29,18 @@ export class AccessoryLabItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if( this.itemID )
-    this.ingredient.getIngredientById( this.itemID )
-    .pipe(filter<IIngredient>(it => !!it))
-    .subscribe((i) => {
-      console.log('ingredient in item:',i.id, i);
-      this.targetItem = i;
+    if( this.itemID ){
+        this.ingredient.getIngredientById( this.itemID )
+        .pipe(filter<IIngredient>(it => !!it))
+        .subscribe((i) => {
+          console.log('ingredient in item:',i.id, i);
+          this.targetItem = i;
 
-      this.getCountOfItemOfUser(this.targetItem.id)
-    });
+          this.getCountOfItemOfUser(this.targetItem.id)
+        });
+    }else{
+      this.ready.emit(true);
+    }
   }
 
   public getItemIcon(){
@@ -44,7 +49,15 @@ export class AccessoryLabItemComponent implements OnInit {
 
   private getCountOfItemOfUser(id: string){
     this.inventory.getIngredientsOfUser(this.auth.authorizedAs(), id)
-      .subscribe( (ingredients: ISlot[]) => this.inStock = ingredients ? ingredients.length : 0);
+      .subscribe( (ingredients: ISlot[]) => {
+        this.inStock = ingredients ? ingredients.length : 0;
+        this.recalc();
+    });
+  }
+
+  private recalc(){
+    if( this.inStock >= this.reqNum ) this.ready.emit( true );
+    else this.ready.emit( false );
   }
 
 }

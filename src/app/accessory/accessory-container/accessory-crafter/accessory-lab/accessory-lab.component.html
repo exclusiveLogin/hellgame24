@@ -1,4 +1,4 @@
-<div class="title">Лаборатория (Крафтим: #{{targetId}} )</div>
+<div class="title">Лаборатория (Крафтим: #{{targetId}} -> #{{emptySlot && emptySlot.id}} )</div>
 <div class="lab_craft_target">
   <!--target-->
   <app-accessory-lab-item *ngIf="targetId" [reqNum]="1" [itemID]="targetId"></app-accessory-lab-item>
@@ -6,12 +6,12 @@
   <img class="arrow" [src]="'assets/accessory/native/arrow_1.png'"/>
 
   <!--slot-->
-  <app-accessory-lab-item *ngIf="emptySlot"></app-accessory-lab-item>
+  <app-accessory-lab-item *ngIf="emptySlot" (ready)="emptySlotEstablished($event)"></app-accessory-lab-item>
 </div>
 <!---->
 <ng-container *ngIf="receiptParts" >
   <div class="title"><small>Необходимые ингредиенты</small></div>
-  <app-accessory-lab-item *ngFor="let rec of receiptParts" [itemID]="rec.require_ingredient" [reqNum]="rec.quantity"></app-accessory-lab-item>
+  <app-accessory-lab-item *ngFor="let rec of receiptParts; let idx = index" (ready)="e_partEstablished($event, idx)" [itemID]="rec.require_ingredient" [reqNum]="rec.quantity"></app-accessory-lab-item>
 
 </ng-container>
-<button class="btn btn_craft btn_craft_permitted">Создать</button>
+<button class="btn btn_craft btn_craft_permitted" *ngIf="canCraft()" (click)="craftThisItem()">Создать</button>
