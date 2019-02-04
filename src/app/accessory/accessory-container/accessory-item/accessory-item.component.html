@@ -8,6 +8,9 @@
   <div class="accessory_item_additional">
     <img [attr.src]="getCategoryIcon()" height="35px" />
   </div>
+  <div class="accessory_btns" *ngIf="options && options.addtionalBtns" >
+    <button *ngFor="let ab of options.addtionalBtns" class="btn additionalBtn" [ngClass]="ab.class" (click)="clickAdditionalBtn( ab )" >{{ab.title}}</button>
+  </div>
 
 </ng-container>
 
@@ -26,5 +29,9 @@
     <div class="accessory_item_title_main">Свободный слот</div>
     <div class="accessory_item_title_sub">Доступен для размещения</div>
   </ng-template>
+
+  <div class="accessory_btns" *ngIf="options && options.addtionalBtns" >
+    <button *ngFor="let ab of options.addtionalBtns" class="btn additionalBtn" [ngClass]="ab.class" (click)="clickAdditionalBtn( ab )" >{{ab.title}}</button>
+  </div>
 
 </ng-container>

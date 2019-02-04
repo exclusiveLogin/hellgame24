@@ -3,6 +3,7 @@ import { IIngredient, IngredientService } from '../../ingredient.service';
 import { InventoryService } from '../../inventory.service';
 import { ISlot } from '../accessory-inventory/accessory-inventory.component';
 import { AuthService } from '../../../auth.service';
+import { IAccessoryItemOptions } from '../accessory-item/accessory-item.component';
 
 @Component({
   selector: 'app-accessory-demo',
@@ -29,4 +30,57 @@ export class AccessoryDemoComponent implements OnInit {
     this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
   }
 
+  public lib_item_options: IAccessoryItemOptions = {
+    addtionalBtns:[
+      {
+        key: 'spawn',
+        title:'Создать ингредиент',
+        onClick: (item) => console.log('spawn onClick item: ', item),
+        class: 'btn_warning'
+      }
+    ]
+  }
+
+  public rgo_on_map_options: IAccessoryItemOptions = {
+    addtionalBtns:[
+      {
+        key: 'grind',
+        title:'Подобрать ингредиент',
+        onClick: (item) => console.log('grind onClick item: ', item),
+      }
+    ]
+  }
+
+  public slots_options: IAccessoryItemOptions = {
+    addtionalBtns:[
+      {
+        key: 'drop',
+        title:'Выбросить ингредиент',
+        onClick: (item) => console.log('drop onClick item: ', item),
+        class: 'btn_warning'
+      },
+      {
+        key: 'util',
+        title:'Утилизировать ингредиент',
+        onClick: (item) => console.log('util onClick item: ', item),
+        class: 'btn_danger'
+      }
+    ]
+  }
+
+  public e_slots_options: IAccessoryItemOptions = {
+    addtionalBtns:[
+      {
+        key: 'remove',
+        title:'Уничтожить слот',
+        onClick: (item: string) => {
+          console.log('remove slot onClick item: ', item);
+          this.inventoryService.removeSlot( item );
+          this.inventoryService.clearCache();
+          this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+        },
+        class: 'btn_danger'
+      }
+    ]
+  }
 }

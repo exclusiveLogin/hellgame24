@@ -3,6 +3,17 @@ import { IngredientService, IIngredient } from '../../ingredient.service';
 import { filter } from 'rxjs/operators';
 import { ApiService } from '../../../api.service';
 
+interface IAdditionalButtons{
+  key: string,
+  title: string,
+  onClick:(any?) => void,
+  class?: string
+}
+
+export interface IAccessoryItemOptions{
+  addtionalBtns: IAdditionalButtons[]
+}
+
 @Component({
   selector: 'app-accessory-item',
   templateUrl: './accessory-item.component.html',
@@ -14,6 +25,7 @@ export class AccessoryItemComponent implements OnInit {
 
   @Input() itemId: string;
   @Input() mode: 'item' | 'slot' = 'item';
+  @Input() options: IAccessoryItemOptions;
 
   constructor(
     private ingredient: IngredientService,
@@ -23,7 +35,7 @@ export class AccessoryItemComponent implements OnInit {
   ngOnInit() {
 
     console.log('item init:', this.itemId);
-    if(this.itemId)
+    if(this.itemId && this.mode === 'item')
       this.ingredient.getIngredientById( this.itemId )
       .pipe(filter<IIngredient>(it => !!it))
       .subscribe((i) => {
@@ -40,4 +52,7 @@ export class AccessoryItemComponent implements OnInit {
     return this.item && this.item.cat_icon ? this.api.getIconPath('ingredient') +this.item.cat_icon : this.api.getIconPath('ingredient') + 'no_icon.png'
   }
 
+  public clickAdditionalBtn(ab: IAdditionalButtons){
+    if(ab.onClick) ab.onClick( this.item || this.itemId );
+  }
 }

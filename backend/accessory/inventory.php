@@ -18,6 +18,13 @@ function clearSlotByItemID($id){
   $mysql->query($_q);
 }
 
+function removeSlot($id){
+  $_q = "DELETE FROM `object_slots` WHERE `id`= $id";
+  //echo $_q;
+  global $mysql;
+  $mysql->query($_q);
+}
+
 
 function removeItem($id){
   $_q = "DELETE FROM `real_game_objects` WHERE `id`= $id";
@@ -80,6 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $id = $_GET['slot_id'];
     //Освобождаем слот
     clearSlot($id);
+  }
+
+  if(isset($_GET['mode']) && isset($_GET['slot_id']) && $_GET['mode'] == 'remove_slot'){
+    $id = $_GET['slot_id'];
+    //Удаляем слот
+    removeSlot($id);
   }
 
   // выбрать те эелементы на которые нет линков

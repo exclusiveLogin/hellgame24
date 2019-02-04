@@ -88,14 +88,6 @@ export class InventoryService {
       .map((s: ISlot[]) => s.filter(i => !!i.rgo_id));
   }
 
-  public clearCacheByUser( id ){
-    delete this.slotsCache[id];
-  }
-
-  public clearCache(){
-    this.slotsCache = [];
-  }
-
   public getIngredientsOfUser( userId: string, idIngredient: string ){
     if (this.slotsCache[userId]) return Observable.of(this.slotsCache[userId].filter((s: ISlot) => s.go_id && s.go_id.toString() === idIngredient.toString()));
 
@@ -141,4 +133,21 @@ export class InventoryService {
         });
     }
   }
+
+  public removeSlot( id: string ){
+    let params: IParams = { mode: 'remove_slot', slot_id: id };
+
+    this.con.getData(this.path, params).subscribe();
+
+  }
+
+  public clearCacheByUser( id ){
+    delete this.slotsCache[id];
+  }
+
+  public clearCache(){
+    this.slotsCache = [];
+    this.allSlotsCache = [];
+  }
+
 }

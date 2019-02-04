@@ -8,6 +8,7 @@
   justify-content: space-between;
   margin: 3px 5px;
   cursor: pointer;
+  flex-wrap: wrap;
 }
 .accessory_item_icon{
   flex-grow: 0;
@@ -29,4 +30,16 @@
   align-content: center;
   flex-wrap: wrap;
   flex-grow: 1;
+  flex-basis: 50%;
+}
+.accessory_btns{
+  width: 100%;
+  border-top: 1px grey solid;
+  justify-content: space-between;
+  display: flex;
+}
+.additionalBtn{
+  font-size: 60%;
+  padding: 2px;
+  cursor: pointer;
 }
