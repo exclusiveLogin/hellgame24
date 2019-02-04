@@ -15,6 +15,10 @@
   flex-grow: 1;
   color: orange;
   cursor: pointer;
+  padding: 5px 20px;
+  border-left: 1px orange solid;
+  display: flex;
+  align-items: center;
 }
 
 .toggler_active{

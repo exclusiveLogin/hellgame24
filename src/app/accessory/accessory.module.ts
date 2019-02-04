@@ -12,6 +12,7 @@ import { AccessoryLibComponent } from './accessory-container/accessory-lib/acces
 import { ReceiptService } from './receipt.service';
 import { IngredientService } from './ingredient.service';
 import { InventoryService } from './inventory.service';
+import { AccessoryDemoComponent } from './accessory-container/accessory-demo/accessory-demo.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { InventoryService } from './inventory.service';
     AccessoryWikiComponent,
     AccessoryLabComponent,
     AccessoryLabItemComponent,
-    AccessoryLibComponent
+    AccessoryLibComponent,
+    AccessoryDemoComponent,
   ],
   exports: [
     AccessoryContainerComponent

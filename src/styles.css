@@ -71,6 +71,10 @@ body{
   font-weight: bold;
   margin: 10px 5px;
 }
+.full{
+  flex-basis: 98%;
+  max-width: 98%;
+}
 .half{
   flex-basis: 47%;
   max-width: 47%;
