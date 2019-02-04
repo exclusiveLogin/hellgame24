@@ -40,12 +40,12 @@ export class InventoryService {
   // получение слотов без владельца(drop нутые объекты)
   public getNonOwnerSlots(){
     if (this.allSlotsCache.length)
-      return Observable.of(this.allSlotsCache.filter(s => !s.owner));
+      return Observable.of(this.allSlotsCache.filter(s => !s.owner && !!s.rgo_id));
 
     return this.getAllSlots()
       .pipe(
         map(s => {
-          return !!s && s.filter(i => !i.owner);
+          return !!s && s.filter(i => !i.owner && !!i.rgo_id);
         })
       );
 
@@ -67,13 +67,24 @@ export class InventoryService {
 
   }
 
+  public getEmptySlotsByUser( userId: string | number ): Observable<ISlot[]>{
+    if (this.slotsCache[userId])
+      return Observable.of(this.slotsCache[userId].filter((s: ISlot) => !s.rgo_id));
+
+    let params: IParams = { mode: 'slots_by_user', owner: userId };
+    return this.con.getData<ISlot[]>(this.path, params)
+      .pipe(tap(slots => this.slotsCache[userId] = slots))
+      .map((s: ISlot[]) => s.filter(i => !i.rgo_id));
+
+  }
+
   public getNonEmptySlotsByUser( userId: string | number ){
     if (this.slotsCache[userId])
       return Observable.of(this.slotsCache[userId].filter((s: ISlot) => !!s.rgo_id));
 
     let params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
-      .pipe(tap(slots => this.slotsCache[userId] = slots))
+      .pipe(tap(slots => this.slotsCache[userId] = [...slots]))
       .map((s: ISlot[]) => s.filter(i => !!i.rgo_id));
   }
 

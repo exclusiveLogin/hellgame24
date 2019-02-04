@@ -1,17 +1,19 @@
 <div class="microcard">
-  <div class="header">Типы доступных предметов</div>
-  <app-accessory-item class="microcard full" *ngFor="let item of lib_items" [itemId]="item.id"></app-accessory-item>
+  <div class="header">Типы доступных предметов(WIKI)</div>
+  <app-accessory-item class="full" *ngFor="let item of lib_items" [itemId]="item.id"></app-accessory-item>
 </div>
 
 <div class="microcard">
   <div class="header">RGO (real game objects) on Map</div>
-  <app-accessory-item class="microcard full" *ngFor="let item of rgo_on_map" [itemId]="item.go_id"></app-accessory-item>
+  <app-accessory-item class="full" *ngFor="let item of rgo_on_map" [itemId]="item.go_id"></app-accessory-item>
 </div>
 
+<div class="microcard">
+  <div class="header">NON empty Slots by User</div>
+  <app-accessory-item class="full" *ngFor="let item of non_empty_slots" [itemId]="item.go_id"></app-accessory-item>
+</div>
 
-<p>--------</p>
-<div class="header">NON empty Slots by User</div>
-
-<div class="header">EMPTY Slots without Owner</div>
-
-<div class="header">Slots without Owner</div>
+<div class="microcard">
+  <div class="header">EMPTY Slots without Owner</div>
+  <app-accessory-item class="full" *ngFor="let item of empty_slots" [itemId]="item.go_id" [mode]="'slot'"></app-accessory-item>
+</div>

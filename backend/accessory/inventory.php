@@ -60,7 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   if(isset($_GET['mode']) && $_GET['mode'] == 'all_slots'){
-    $query = "SELECT * FROM `object_slots`";
+    $query = "SELECT `object_slots`.* ,
+    `game_objects`.`id` as `go_id`
+    FROM `object_slots`
+    LEFT JOIN `real_game_objects` ON `object_slots`.`rgo_id` = `real_game_objects`.`id`
+    LEFT JOIN `game_objects` ON `real_game_objects`.`object_id` = `game_objects`.`id`
+    ORDER BY `id` DESC
+    ";
   }
 
   if(isset($_GET['mode']) && isset($_GET['item_id']) && $_GET['mode'] == 'utilization_item'){
