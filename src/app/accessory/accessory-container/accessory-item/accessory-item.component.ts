@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IngredientService, IIngredient } from '../../ingredient.service';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { ApiService } from '../../../api.service';
+import { InventoryService } from '../../inventory.service';
+import { AuthService } from '../../../auth.service';
 
 interface IAdditionalButtons{
   key: string,
@@ -29,7 +31,9 @@ export class AccessoryItemComponent implements OnInit {
 
   constructor(
     private ingredient: IngredientService,
-    public api: ApiService
+    private inventory: InventoryService,
+    private auth: AuthService,
+    private api: ApiService,
   ) { }
 
   ngOnInit() {
@@ -39,9 +43,19 @@ export class AccessoryItemComponent implements OnInit {
       this.ingredient.getIngredientById( this.itemId )
       .pipe(filter<IIngredient>(it => !!it))
       .subscribe((i) => {
-        console.log('ingredient in item:',i.id, i);
         this.item = i;
       });
+
+    if(this.itemId && this.mode === 'slot')
+      this.inventory.getSlotByIdByUser( this.auth.authorizedAs(), this.itemId )
+        .pipe(
+          filter(slot => !!slot && !!slot.go_id),
+          switchMap(slot => this.ingredient.getIngredientById( slot.go_id ))
+          )
+        .subscribe((i) => {
+          this.item = i;
+          });
+
   }
 
   public getItemIcon(){

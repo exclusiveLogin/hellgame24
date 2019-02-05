@@ -56,6 +56,21 @@ export class InventoryService {
     return this.con.getData<ISlot[]>(this.path, params).pipe(tap(slots => this.slotsCache[userId] = slots));
   }
 
+  public getSlotByIdByUser( userId: string, slotId: string ): Observable<ISlot>{
+    if (this.slotsCache[userId])
+      return Observable.of(this.slotsCache[userId].find((s: ISlot) => s.id === slotId));
+
+    return this.getAllSlotsByUser( userId ).map(slots => slots.find( s => s.id === slotId ));
+  }
+
+  public getSlotById( slotId: string ): Observable<ISlot>{
+    if (this.allSlotsCache.length)
+      return Observable.of(this.allSlotsCache.find((s: ISlot) => s.id === slotId));
+
+    return this.getAllSlots().map(slots => slots.find( s => s.id === slotId ));
+  }
+
+
   public getEmptySlotByUser( userId: string | number ): Observable<ISlot>{
     if (this.slotsCache[userId])
       return Observable.of(this.slotsCache[userId].find((s: ISlot) => !s.rgo_id));

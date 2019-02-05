@@ -1,7 +1,7 @@
 <ng-container #inventory *ngIf="slots" >
   <app-accessory-item
   *ngFor="let slot of slots"
-  [itemId]="slot.go_id"
+  [itemId]="slot.id"
   [mode]="'slot'"
   class="half"
   (click)="openWiki(slot)"
