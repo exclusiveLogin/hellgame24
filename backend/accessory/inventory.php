@@ -62,6 +62,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo json_encode( $arr );
     }
 
+    if(isset($arr['mode']) && $arr['mode'] == 'create_new_slot_by_user'){
+      $owner = isset($arr['owner']) ? $arr['owner'] : NULL;
+
+      if( $owner ) {
+        //создаем новый Слот
+        $query = "INSERT INTO `object_slots` (`owner`, `owner_type`) VALUES ( \"$owner\", \"user\" )";
+        //Берем последний id созданного
+        $query2 = "SELECT LAST_INSERT_ID() FROM `object_slots` ";
+
+        $mysql->query($query);
+        $res = $mysql->query($query2);
+        $row = $res->fetch_row();
+        $newslotId = $row[0]; // id нового созданного слота
+
+        //добавляем новый id слота в ответ
+        $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $newslotId ) );
+      }
+
+      echo json_encode( $arr );
+    }
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {

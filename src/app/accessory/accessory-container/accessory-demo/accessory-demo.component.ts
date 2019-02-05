@@ -83,4 +83,12 @@ export class AccessoryDemoComponent implements OnInit {
       }
     ]
   }
+
+  public createNewSlot(){
+    this.inventoryService.creatNewSlotByUser()
+      .subscribe((result: ISlot) => {
+        this.inventoryService.clearCache();
+        this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+      })
+  }
 }

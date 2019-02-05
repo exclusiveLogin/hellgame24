@@ -9,6 +9,7 @@ export interface ISlot{
   rgo_id: string,
   type: string,
   go_id: string,
+  newslotId?: string,
 }
 
 @Component({

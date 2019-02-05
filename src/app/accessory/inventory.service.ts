@@ -1,8 +1,8 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ConnectorService, IParams, IDataRequest } from '../services/connector.service';
 import { Path } from '../models/path';
 import { ISlot } from './accessory-container/accessory-inventory/accessory-inventory.component';
-import { Observable } from 'rxjs/Observable';
 import { tap, filter, map } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { IRecieptPartData } from './receipt.service';
@@ -153,6 +153,18 @@ export class InventoryService {
     let params: IParams = { mode: 'remove_slot', slot_id: id };
 
     this.con.getData(this.path, params).subscribe();
+
+  }
+
+  public creatNewSlotByUser(): Observable<ISlot> {
+    let data: IDataRequest = {
+      body: {
+        mode: 'create_new_slot_by_user',
+        owner: this.auth.authorizedAs()
+      }
+    }
+
+    return <Observable<ISlot>> this.con.setData( this.path, data );
 
   }
 

@@ -16,4 +16,11 @@
 <div class="microcard">
   <div class="header">EMPTY Slots without Owner</div>
   <app-accessory-item style="cursor:default;" class="full" *ngFor="let item of empty_slots" [itemId]="item.id" [mode]="'slot'" [options]="e_slots_options"></app-accessory-item>
+
+  <div class="btn_panel">
+    <button class="btn" (click)="createNewSlot()" >Создать новый слот для пользователя</button>
+  </div>
+
 </div>
+
+
