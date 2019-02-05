@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IIngredient, IngredientService } from '../../ingredient.service';
+import { IIngredient, IngredientService, IRGO } from '../../ingredient.service';
 import { InventoryService } from '../../inventory.service';
 import { ISlot } from '../accessory-inventory/accessory-inventory.component';
 import { AuthService } from '../../../auth.service';
@@ -16,6 +16,8 @@ export class AccessoryDemoComponent implements OnInit {
   public lib_items: IIngredient[] = [];
   public non_empty_slots: ISlot[] = [];
   public empty_slots: ISlot[] = [];
+  public unlinked_rgos: IRGO[] = [];
+
   constructor(
     private ingredientService: IngredientService,
     private inventoryService: InventoryService,
@@ -28,6 +30,7 @@ export class AccessoryDemoComponent implements OnInit {
     this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
     this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
     this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+    this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
   }
 
   public lib_item_options: IAccessoryItemOptions = {
@@ -80,6 +83,19 @@ export class AccessoryDemoComponent implements OnInit {
           this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
         },
         class: 'btn_danger'
+      }
+    ]
+  }
+
+  public unlinked_rgos_options: IAccessoryItemOptions = {
+    addtionalBtns:[
+      {
+        key: 'wrap',
+        title:'Обернуть в слот',
+        onClick: (item: string) => {
+          console.log('wrap in slot onClick item: ', item);
+
+        },
       }
     ]
   }

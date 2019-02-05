@@ -23,6 +23,16 @@ export interface IIngredient{
   cat_id: string,
   element_title: string,
 }
+
+export interface IRGO{
+  id: string,
+  object_id: string,
+  creator_name: string,
+  datetime_create: string,
+  datetime_update: string,
+}
+
+
 @Injectable()
 export class IngredientService {
 
@@ -58,6 +68,13 @@ export class IngredientService {
       mode: 'all'
     };
     return this.con.getData<IIngredient[]>(this.path, params);
+  }
+
+  public getAllUnlinkedRGO(): Observable<IRGO[]>{
+    let params: IParams = {
+      mode: 'unlinked_rgos'
+    };
+    return this.con.getData<IRGO[]>(this.path, params);
   }
 
 }

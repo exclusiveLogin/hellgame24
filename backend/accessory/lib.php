@@ -44,6 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query = "SELECT * FROM `game_objects` WHERE `name` = $name";
   }
 
+  if(isset($_GET['mode']) && $_GET['mode'] == 'unlinked_rgos'){
+    $query = "SELECT * FROM `real_game_objects` WHERE id NOT IN (SELECT `rgo_id` FROM `object_slots` WHERE rgo_id IS NOT NULL)";
+  }
+
+  //SELECT * FROM `real_game_objects` WHERE id NOT IN (SELECT `rgo_id` FROM `object_slots` WHERE rgo_id IS NOT NULL)
+
   //if(isset($_GET['mode']) && $_GET['mode'] == 'byslot'){
     //$query = "SELECT DISTINCT `target` FROM `reciept_parts`";
   //}
