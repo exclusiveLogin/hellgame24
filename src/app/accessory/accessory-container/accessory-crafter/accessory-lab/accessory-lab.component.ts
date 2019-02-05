@@ -30,7 +30,6 @@ export class AccessoryLabComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('lab init:', this.targetId);
     this.inventory.getEmptySlotByUser( this.auth.authorizedAs()).subscribe(sl => this.emptySlot = sl);
 
     this.receipt.getRecieptParts( this.targetId )

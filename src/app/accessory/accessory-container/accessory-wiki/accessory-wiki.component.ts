@@ -22,7 +22,6 @@ export class AccessoryWikiComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('wiki init:', this.item);
     if(this.target){
       this.ingredient.getIngredientById( this.target ).subscribe(ingredientFromApi => this.item = ingredientFromApi);
       this.canShown = true;

@@ -38,7 +38,6 @@ export class AccessoryItemComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('item init:', this.itemId);
     if(this.itemId && this.mode === 'item')
       this.ingredient.getIngredientById( this.itemId )
       .pipe(filter<IIngredient>(it => !!it))

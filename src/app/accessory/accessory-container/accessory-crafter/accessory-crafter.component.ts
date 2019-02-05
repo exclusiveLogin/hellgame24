@@ -25,7 +25,6 @@ export class AccessoryCrafterComponent implements OnInit {
   }
 
   public closeWiki(){
-    console.log('closewiki');
     this.showWiki = false;
     this.wikiIngredient = null;
     this.showRecieptsContainer = true;

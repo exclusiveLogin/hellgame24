@@ -33,7 +33,6 @@ export class AccessoryLabItemComponent implements OnInit {
         this.ingredient.getIngredientById( this.itemID )
         .pipe(filter<IIngredient>(it => !!it))
         .subscribe((i) => {
-          console.log('ingredient in item:',i.id, i);
           this.targetItem = i;
 
           this.getCountOfItemOfUser(this.targetItem.id)
