@@ -96,6 +96,15 @@ export class AccessoryDemoComponent implements OnInit {
           console.log('wrap in slot onClick item: ', item);
 
         },
+      },
+      {
+        key: 'util',
+        title:'Утилизировать',
+        onClick: (item: string) => {
+          console.log('util rgo onClick item: ', item);
+
+        },
+        class: 'btn_danger'
       }
     ]
   }

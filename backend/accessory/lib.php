@@ -53,16 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   //if(isset($_GET['mode']) && $_GET['mode'] == 'byslot'){
     //$query = "SELECT DISTINCT `target` FROM `reciept_parts`";
   //}
-
-
-  $res = $mysql->query($query);
-
-  $row = $res->fetch_assoc();
   $json = array();
 
-  while( $row ){
-      array_push($json, $row);
-      $row = $res->fetch_assoc();
+  if( $query ){
+    $res = $mysql->query($query);
+    $row = $res->fetch_assoc();
+
+    while( $row ){
+        array_push($json, $row);
+        $row = $res->fetch_assoc();
+    }
   }
 
   echo json_encode($json);

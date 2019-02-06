@@ -168,6 +168,15 @@ export class InventoryService {
 
   }
 
+  public utilizationRGO( id: string){
+    let params: IParams = { mode: 'utilization_unlinked_rgo', item_id: id };
+    this.con.getData( this.path, params ).subscribe();
+  }
+
+  public wrapRGOInSlot(){
+
+  }
+
   public clearCacheByUser( id ){
     delete this.slotsCache[id];
   }
