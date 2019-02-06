@@ -77,30 +77,66 @@ function linkSlotOnRGO( $idSlot, $idRGO ){
 
 }
 
+function craftNewRGO( $_object_id, $_creator_name, $_slot){
+  //создаем новый RGO
+  $query = "INSERT INTO `real_game_objects` (`object_id`, `creator_name`) VALUES ( $_object_id, \"$_creator_name\" )";
+  //Берем последний id созданного
+  $query2 = "SELECT LAST_INSERT_ID() FROM `real_game_objects` ";
+
+  global $mysql;
+  $mysql->query($query);
+  $res = $mysql->query($query2);
+  $row = $res->fetch_row();
+  $rgo = $row[0]; // id нового созданного RGO
+  if($rgo){
+    //связываем слот с созданным RGO
+
+    //$query_upd_slot = "UPDATE `object_slots` SET `rgo_id` = $rgo WHERE `id` = $_slot";
+    //$mysql->query($query_upd_slot);
+    linkSlotOnRGO( $_slot, $rgo);
+  }
+
+}
+
+function spawnNewRGO( $_object_id ){
+  //создаем новый RGO
+  $query = "INSERT INTO `real_game_objects` (`object_id`) VALUES ( $_object_id )";
+  //Берем последний id созданного
+  $query2 = "SELECT LAST_INSERT_ID() FROM `real_game_objects` ";
+
+  global $mysql;
+  $mysql->query($query);
+  $res = $mysql->query($query2);
+  $row = $res->fetch_row();
+  $rgo = $row[0]; // id нового созданного RGO
+  if($rgo){
+    //связываем слот с созданным RGO
+    $newslotId = createNewSlot();
+    linkSlotOnRGO( $newslotId, $rgo);
+  }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // The request is using the POST method
     $arr = json_decode(file_get_contents('php://input'), true);
 
-    if(isset($arr['mode']) && $arr['mode'] == 'create_new_rgo'){
-      $arr['object_id'] = isset($arr['object_id']) ? $arr['object_id'] : NULL;
-      $arr['creator_name'] = isset($arr['creator_name']) ? $arr['creator_name'] : NULL;
-      $arr['slot'] = isset($arr['slot']) ? $arr['slot'] : NULL;
+    if(isset($arr['mode']) && $arr['mode'] == 'craft_new_item'){
+      $object_id = isset($arr['object_id']) ? $arr['object_id'] : NULL;
+      $creator_name = isset($arr['creator_name']) ? $arr['creator_name'] : NULL;
+      $slot = isset($arr['slot']) ? $arr['slot'] : NULL;
 
-      if( $arr['object_id'] && $arr['creator_name'] && $arr['slot']) {
-        //создаем новый RGO
-        $query = "INSERT INTO `real_game_objects` (`object_id`, `creator_name`) VALUES ( $arr[object_id], \"$arr[creator_name]\" )";
-        //Берем последний id созданного
-        $query2 = "SELECT LAST_INSERT_ID() FROM `real_game_objects` ";
+      if( $object_id && $creator_name && $slot ) {
+        craftNewRGO( $object_id, $creator_name, $slot );
+      }
 
-        $mysql->query($query);
-        $res = $mysql->query($query2);
-        $row = $res->fetch_row();
-        $rgo = $row[0]; // id нового созданного RGO
-        if($rgo){
-          //связываем слот с созданным RGO
-          $query_upd_slot = "UPDATE `object_slots` SET `rgo_id` = $rgo WHERE `id` = $arr[slot]";
-          $mysql->query($query_upd_slot);
-        }
+      echo json_encode( $arr );
+    }
+
+    if(isset($arr['mode']) && $arr['mode'] == 'spawn_new_rgo'){
+      $object_id = isset($arr['object_id']) ? $arr['object_id'] : NULL;
+
+      if( $object_id ) {
+        spawnNewRGO( $object_id );
       }
 
       echo json_encode( $arr );
@@ -113,6 +149,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $newslotId = createNewSlotByUser($owner);
         //добавляем новый id слота в ответ
         $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $newslotId ) );
+      }
+
+      echo json_encode( $arr );
+    }
+
+    if(isset($arr['mode']) && $arr['mode'] == 'create_new_slot_by_map'){
+      $newslotId = createNewSlot();
+      //добавляем новый id слота в ответ
+      $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $newslotId ) );
+
+      echo json_encode( $arr );
+    }
+
+    if(isset($arr['mode']) && $arr['mode'] == 'grind_item'){
+      $owner = isset($arr['owner']) ? $arr['owner'] : NULL;
+      $slot_id = isset($arr['slot_id']) ? $arr['slot_id'] : NULL;
+
+      if( $owner && $slot_id ) {
+        //определяем у слота нового хозяина
+        $query = "UPDATE `object_slots` SET `owner` = \"$owner\", `owner_type`=\"user\" WHERE `id`= $slot_id";
+        $mysql->query( $query );
+        $arr = (object) array_merge( (array)$arr, array( 'newslotOwner' => $owner ) );
+      }
+
+      echo json_encode( $arr );
+    }
+
+    if(isset($arr['mode']) && $arr['mode'] == 'drop_item'){
+      $slot_id = isset($arr['slot_id']) ? $arr['slot_id'] : NULL;
+
+      if( $slot_id ) {
+        //определяем у слота нового хозяина
+        $query = "UPDATE `object_slots` SET `owner` = NULL, `owner_type`=\"map\" WHERE `id`= $slot_id";
+        $mysql->query( $query );
+        $arr = (object) array_merge( (array)$arr, array( 'newslotOwner' => 'map' ) );
       }
 
       echo json_encode( $arr );

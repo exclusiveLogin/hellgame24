@@ -26,6 +26,7 @@ export class AccessoryItemComponent implements OnInit {
   public item: IIngredient;
 
   @Input() itemId: string;
+  @Input() parentItem: any;
   @Input() mode: 'item' | 'slot' = 'item';
   @Input() options: IAccessoryItemOptions;
 
@@ -66,6 +67,6 @@ export class AccessoryItemComponent implements OnInit {
   }
 
   public clickAdditionalBtn(ab: IAdditionalButtons){
-    if(ab.onClick) ab.onClick( this.item || this.itemId );
+    if(ab.onClick) ab.onClick( this.parentItem || this.item || this.itemId );
   }
 }

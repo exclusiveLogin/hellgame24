@@ -116,7 +116,7 @@ export class InventoryService {
     if(targetID && toSlot){
       let data: IDataRequest = {
         body: {
-          mode: 'create_new_rgo',
+          mode: 'craft_new_item',
           object_id: targetID,
           slot: toSlot,
           creator_name: this.auth.authorizedAs()
@@ -138,10 +138,11 @@ export class InventoryService {
             result.forEach(slots => flat.push( ...slots ));
 
             flat.forEach(s => {
-              this.con.getData(this.path, {mode: 'utilization_item', item_id: s.rgo_id }).subscribe();
-              this.clearCache();
+              //this.con.getData(this.path, {mode: 'utilization_item', item_id: s.rgo_id }).subscribe();
+              this.utilizationInventoryItem( s.rgo_id );
             });
 
+            this.clearCache();
           });
 
           alert('Предмет успешно создан');
@@ -149,11 +150,23 @@ export class InventoryService {
     }
   }
 
+  public spawnNewItem( objectId: string ){
+    if( objectId ){
+      let data: IDataRequest = {
+        body: {
+          mode: 'spawn_new_rgo',
+          object_id: objectId,
+        }
+      }
+      this.clearCache();
+      return this.con.setData( this.path, data );
+    }
+  }
+
   public removeSlot( id: string ){
     let params: IParams = { mode: 'remove_slot', slot_id: id };
-
-    this.con.getData(this.path, params).subscribe();
-
+    this.clearCache();
+    return this.con.getData(this.path, params);
   }
 
   public creatNewSlotByUser(): Observable<ISlot> {
@@ -164,17 +177,50 @@ export class InventoryService {
       }
     }
 
+    this.clearCache();
     return <Observable<ISlot>> this.con.setData( this.path, data );
 
   }
 
-  public utilizationRGO( id: string){
+  public utilizationRGO( id: string ){
     let params: IParams = { mode: 'utilization_unlinked_rgo', item_id: id };
-    this.con.getData( this.path, params ).subscribe();
+    return this.con.getData( this.path, params );
   }
 
-  public wrapRGOInSlot(){
+  public utilizationInventoryItem( id: string ){
+    let params: IParams = { mode: 'utilization_item', item_id: id };
+    this.clearCache();
+    return this.con.getData( this.path, params );
+  }
 
+  public wrapRGOInSlot( rgoId: string ){
+    let params: IParams = { mode: 'wrap_rgo_in_slot', item_id: rgoId };
+    this.clearCache();
+    return this.con.getData( this.path, params );
+  }
+
+  public dropItemFromInventory( slotId: string ){
+    let data: IDataRequest = {
+      body: {
+        mode: 'drop_item',
+        slot_id: slotId
+      }
+    }
+    this.clearCache();
+    return this.con.setData( this.path, data );
+  }
+
+  public grindItemInSlot( slotId: string ){
+    let data: IDataRequest = {
+      body: {
+        mode: 'grind_item',
+        owner: this.auth.authorizedAs(),
+        slot_id: slotId
+      }
+    }
+
+    this.clearCache();
+    return this.con.setData( this.path, data );
   }
 
   public clearCacheByUser( id ){

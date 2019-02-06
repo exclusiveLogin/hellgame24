@@ -5,12 +5,12 @@
 
 <div class="microcard">
   <div class="header">UNLINKED RGO (non wrapped in slot)</div>
-  <app-accessory-item style="cursor:default;" class="full" *ngFor="let item of unlinked_rgos" [itemId]="item.object_id" [options]="unlinked_rgos_options"></app-accessory-item>
+  <app-accessory-item style="cursor:default;" class="full" *ngFor="let item of unlinked_rgos" [itemId]="item.object_id" [parentItem]="item" [options]="unlinked_rgos_options"></app-accessory-item>
 </div>
 
 <div class="microcard">
   <div class="header">RGO in slot on Map</div>
-  <app-accessory-item style="cursor:default;" class="full" *ngFor="let item of rgo_on_map" [itemId]="item.go_id" [options]="rgo_on_map_options"></app-accessory-item>
+  <app-accessory-item style="cursor:default;" class="full" *ngFor="let item of rgo_on_map" [itemId]="item.go_id" [parentItem]="item"  [options]="rgo_on_map_options"></app-accessory-item>
 </div>
 
 <div class="microcard">

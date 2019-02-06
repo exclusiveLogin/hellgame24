@@ -38,7 +38,13 @@ export class AccessoryDemoComponent implements OnInit {
       {
         key: 'spawn',
         title:'Создать ингредиент',
-        onClick: (item) => console.log('spawn onClick item: ', item),
+        onClick: (item) => {
+          console.log('spawn onClick item: ', item);
+          this.inventoryService.spawnNewItem( item.id ).subscribe(r => {
+            console.log(r);
+            this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+          });
+        },
         class: 'btn_warning'
       }
     ]
@@ -49,7 +55,19 @@ export class AccessoryDemoComponent implements OnInit {
       {
         key: 'grind',
         title:'Подобрать ингредиент',
-        onClick: (item) => console.log('grind onClick item: ', item),
+        onClick: (item: ISlot) => {
+          console.log('grind onClick item: ', item)
+          this.inventoryService.grindItemInSlot( item.id );
+        },
+      },
+      {
+        key: 'util',
+        title:'Утилизировать ингредиент',
+        onClick: (item: string) => {
+          console.log('util rgo onClick item: ', item);
+
+        },
+        class: 'btn_danger'
       }
     ]
   }
@@ -78,9 +96,9 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Уничтожить слот',
         onClick: (item: string) => {
           console.log('remove slot onClick item: ', item);
-          this.inventoryService.removeSlot( item );
-          this.inventoryService.clearCache();
-          this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+          this.inventoryService.removeSlot( item ).subscribe(r => {
+            this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+          });
         },
         class: 'btn_danger'
       }
@@ -92,17 +110,22 @@ export class AccessoryDemoComponent implements OnInit {
       {
         key: 'wrap',
         title:'Обернуть в слот',
-        onClick: (item: string) => {
+        onClick: (item: IRGO) => {
           console.log('wrap in slot onClick item: ', item);
-
+          this.inventoryService.wrapRGOInSlot( item.id ).subscribe( r =>{
+            this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
+            this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+          })
         },
       },
       {
         key: 'util',
-        title:'Утилизировать',
-        onClick: (item: string) => {
+        title:'Утилизировать обьект без слота',
+        onClick: (item: IRGO) => {
           console.log('util rgo onClick item: ', item);
-
+          this.inventoryService.utilizationRGO( item.id ).subscribe(r => {
+            this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
+          });
         },
         class: 'btn_danger'
       }
@@ -112,7 +135,6 @@ export class AccessoryDemoComponent implements OnInit {
   public createNewSlot(){
     this.inventoryService.creatNewSlotByUser()
       .subscribe((result: ISlot) => {
-        this.inventoryService.clearCache();
         this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
       })
   }
