@@ -1,6 +1,9 @@
 <ng-container *ngIf="item && mode === 'item'">
 
   <div class="accessory_item_icon"><img [src]="getItemIcon()" height="35px" /></div>
+  <div class="accessory_item_meta_container">
+    <div class="accessory_item_title_main">#{{ item.id }}</div>
+  </div>
   <div class="accessory_item_title_container">
       <div class="accessory_item_title_main">{{ item.title || item.name}}</div>
       <div class="accessory_item_title_sub">{{ item.cat_title }}</div>
@@ -17,6 +20,11 @@
 <ng-container *ngIf="mode === 'slot'">
 
   <div class="accessory_item_icon"><img [src]="getItemIcon()" height="35px" /></div>
+
+  <div class="accessory_item_meta_container">
+    <div class="accessory_item_title_main"># {{ itemId }}</div>
+  </div>
+
   <div class="accessory_item_title_container" >
 
     <ng-container *ngIf="item; else emptySlot">
