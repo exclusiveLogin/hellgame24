@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1
--- Время создания: Янв 20 2019 г., 08:12
--- Версия сервера: 10.1.31-MariaDB
--- Версия PHP: 7.2.4
+-- Хост: localhost
+-- Время создания: Фев 06 2019 г., 21:27
+-- Версия сервера: 5.7.11-4-log
+-- Версия PHP: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -66,7 +66,9 @@ INSERT INTO `blog` (`id`, `title`, `text_field`, `author`, `datetime`, `group_to
 (56, 'Без заголовка', '123', 'ssv', '2019-01-03 14:37:00', 'default'),
 (57, 'Без заголовка', '123', 'ssv', '2019-01-03 14:37:49', 'default'),
 (58, 'Без заголовка', '123', 'ssv', '2019-01-03 14:40:39', 'default'),
-(59, 'Без заголовка', '222', 'ssv', '2019-01-03 14:42:10', 'default');
+(59, 'Без заголовка', '222', 'ssv', '2019-01-03 14:42:10', 'default'),
+(60, 'Без заголовка', 'hi', 'ssv', '2019-01-21 10:37:56', 'default'),
+(61, 'Без заголовка', 'Бу) ', 'ssv', '2019-01-27 08:19:30', 'default');
 
 -- --------------------------------------------------------
 
@@ -77,9 +79,22 @@ INSERT INTO `blog` (`id`, `title`, `text_field`, `author`, `datetime`, `group_to
 CREATE TABLE `elements` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `icon` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `elements`
+--
+
+INSERT INTO `elements` (`id`, `name`, `title`, `icon`, `description`) VALUES
+(1, 'water', 'Вода', '', 'Водная стихия....описание тут'),
+(2, 'ground', 'Земля', '', 'Земная стихия ... описание тут'),
+(3, 'wood', 'Дерево', '', 'Деревянная стихия....описание тут'),
+(4, 'fire', 'Огонь', '', 'Огненная стихия ... описание тут'),
+(5, 'air', 'Воздух', '', 'Воздушная стихия....описание тут'),
+(6, 'metall', 'Металл', '', 'Металлическая стихия ... описание тут');
 
 -- --------------------------------------------------------
 
@@ -149,6 +164,7 @@ CREATE TABLE `game_objects` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `version` int(11) NOT NULL DEFAULT '1',
   `name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `image_min` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
   `image_big` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -163,17 +179,17 @@ CREATE TABLE `game_objects` (
 -- Дамп данных таблицы `game_objects`
 --
 
-INSERT INTO `game_objects` (`id`, `version`, `name`, `description`, `image_min`, `image_big`, `level`, `category_object`, `element`, `deploy_type`, `deploy_function`) VALUES
-(1, 1, 'Ингредиент 1', 'Демо ингредиент для Изделия 1\r\n', 'Icon.1_61.png', NULL, 1, 'goods', 'water', '', ''),
-(2, 1, 'Ингредиент 2', 'Стабилизатор для Изделия 1', 'Icon.1_69.png', NULL, 1, 'goods', 'water', '', ''),
-(3, 1, 'Ингредиент 3', 'Закрепитель эффекта для Изделия 1\r\n', 'Icon.2_48.png', NULL, 1, 'goods', 'water', '', ''),
-(4, 1, 'Ингредиент 4', 'Краситель для Изделия 1', 'Icon.1_94.png', NULL, 1, 'goods', 'water', '', ''),
-(5, 1, 'Ингредиент 1_2', 'Демо ингредиент для Изделия 2\r\n', 'Icon.1_19.png', NULL, 1, 'goods', 'water', '', ''),
-(6, 1, 'Ингредиент 2_2', 'Стабилизатор для Изделия 2', 'Icon.1_06.png', NULL, 1, 'goods', 'water', '', ''),
-(7, 1, 'Ингредиент 3_2', 'Закрепитель эффекта для Изделия 2\r\n', 'Icon.1_83.png', NULL, 1, 'goods', 'water', '', ''),
-(8, 1, 'Ингредиент 4_2', 'Краситель для Изделия 2', 'Icon.3_09.png', NULL, 1, 'goods', 'water', '', ''),
-(9, 1, 'Изделие 1', 'Тестовое изделие 1 Сапоги категории быт', 'Icon.1_95.png', NULL, 2, 'defence', 'ground', '', ''),
-(10, 1, 'Изделие 2', 'Тестовое изделие 2 (Освещение)\r\nКатегории быт', 'Icon.1_56.png', NULL, 2, 'infrastructure', 'wood', '', '');
+INSERT INTO `game_objects` (`id`, `version`, `name`, `title`, `description`, `image_min`, `image_big`, `level`, `category_object`, `element`, `deploy_type`, `deploy_function`) VALUES
+(1, 1, 'Ингредиент 1', '', 'Демо ингредиент для Изделия 1\r\n', 'Icon.1_61.png', NULL, 1, 'goods', 'water', '', ''),
+(2, 1, 'Ингредиент 2', '', 'Стабилизатор для Изделия 1', 'Icon.1_69.png', NULL, 1, 'goods', 'water', '', ''),
+(3, 1, 'Ингредиент 3', '', 'Закрепитель эффекта для Изделия 1\r\n', 'Icon.2_48.png', NULL, 1, 'goods', 'water', '', ''),
+(4, 1, 'Ингредиент 4', '', 'Краситель для Изделия 1', 'Icon.1_94.png', NULL, 1, 'goods', 'water', '', ''),
+(5, 1, 'Ингредиент 1_2', '', 'Демо ингредиент для Изделия 2\r\n', 'Icon.1_19.png', NULL, 1, 'goods', 'water', '', ''),
+(6, 1, 'Ингредиент 2_2', '', 'Стабилизатор для Изделия 2', 'Icon.1_06.png', NULL, 1, 'goods', 'water', '', ''),
+(7, 1, 'Ингредиент 3_2', '', 'Закрепитель эффекта для Изделия 2\r\n', 'Icon.1_83.png', NULL, 1, 'goods', 'water', '', ''),
+(8, 1, 'Ингредиент 4_2', '', 'Краситель для Изделия 2', 'Icon.3_09.png', NULL, 1, 'goods', 'water', '', ''),
+(9, 1, 'Изделие 1', 'Сапоги исследователя', 'Тестовое изделие 1 Сапоги категории быт', 'Icon.1_95.png', 'sapogi.jpg', 2, 'defence', 'ground', '', ''),
+(10, 1, 'Изделие 2', '', 'Тестовое изделие 2 (Освещение)\r\nКатегории быт', 'Icon.1_56.png', 'fire.jpg', 2, 'infrastructure', 'wood', '', '');
 
 -- --------------------------------------------------------
 
@@ -231,7 +247,45 @@ INSERT INTO `global` (`id`, `global_code`, `message`, `datetime`) VALUES
 (44, 'green', '', '2019-01-05 16:35:13'),
 (45, 'red', '', '2019-01-08 18:37:23'),
 (46, 'orange', '', '2019-01-08 18:37:26'),
-(47, 'green', '', '2019-01-08 18:37:27');
+(47, 'green', '', '2019-01-08 18:37:27'),
+(48, 'green', '', '2019-01-21 11:03:34'),
+(49, 'red', '', '2019-01-22 21:10:34'),
+(50, 'green', '', '2019-01-26 21:50:11'),
+(51, 'red', '', '2019-01-27 08:18:18'),
+(52, 'orange', '', '2019-01-27 08:18:19'),
+(53, 'red', '', '2019-01-27 10:58:42'),
+(54, 'green', '', '2019-01-27 10:58:44'),
+(55, 'orange', '', '2019-02-03 13:43:23'),
+(56, 'orange', '', '2019-02-03 13:43:23'),
+(57, 'green', '', '2019-02-03 13:43:26'),
+(58, 'orange', '', '2019-02-03 13:43:29'),
+(59, 'orange', '', '2019-02-03 13:43:31'),
+(60, 'red', '', '2019-02-03 13:43:32'),
+(61, 'orange', '', '2019-02-03 13:43:33'),
+(62, 'green', '', '2019-02-03 13:43:35');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `item_category`
+--
+
+CREATE TABLE `item_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image_min` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `item_category`
+--
+
+INSERT INTO `item_category` (`id`, `name`, `image_min`, `description`, `title`) VALUES
+(1, 'goods', 'Icon.1_49.png', 'qwwrt', 'Хлам'),
+(2, 'defence', 'Icon.1_88.png', 'Персональная защита', 'Персональная защита'),
+(3, 'infrastructure', 'Icon.1_49.png', 'qwwrt', 'Бытовые вещи');
 
 -- --------------------------------------------------------
 
@@ -258,9 +312,10 @@ INSERT INTO `messages` (`id`, `readed`, `subject`, `text_field`, `author`, `to_u
 (2, 1, 'Без заголовка', 'test', 'ssv', 'ssv', '2019-01-07 07:11:25'),
 (3, NULL, 'Без заголовка', 'dffdfsf', 'msn', 'msn', '2019-01-03 05:46:41'),
 (4, 1, 'Без заголовка', 'Привет чел', 'msn', 'ssv', '2019-01-07 07:11:23'),
-(5, 1, 'Без заголовка', 'MSN message to SSV', 'msn', 'ssv', '2019-01-07 07:18:33'),
+(5, 1, 'Без заголовка', 'MSN message to SSV', 'msn', 'ssv', '2019-01-27 11:11:21'),
 (6, NULL, 'Без заголовка', 'test', 'ssv', 'msn', '2019-01-03 14:33:44'),
-(7, NULL, 'Без заголовка', '1qwe', 'ssv', 'msn', '2019-01-03 15:03:22');
+(7, NULL, 'Без заголовка', '1qwe', 'ssv', 'msn', '2019-01-03 15:03:22'),
+(8, NULL, 'Без заголовка', 'Чо кого как сам ', 'ssv', 'ssv_citadel', '2019-01-27 08:19:07');
 
 -- --------------------------------------------------------
 
@@ -496,15 +551,33 @@ CREATE TABLE `news` (
 
 CREATE TABLE `object_slots` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `ingredient_id` int(11) NOT NULL,
-  `ingredient_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `rgo_id` int(11) DEFAULT NULL,
   `owner` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `owner_type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `accuracy` int(11) NOT NULL,
   `position_lat` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `position_lon` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `object_slots`
+--
+
+INSERT INTO `object_slots` (`id`, `rgo_id`, `owner`, `owner_type`, `datetime_update`, `accuracy`, `position_lat`, `position_lon`) VALUES
+(1, 1, 'ssv', 'user', '2019-01-26 08:04:19', 0, NULL, NULL),
+(2, 49, 'ssv', 'user', '2019-02-04 08:46:27', 0, NULL, NULL),
+(3, 42, 'ssv', 'user', '2019-02-03 17:10:53', 0, NULL, NULL),
+(5, 2, 'ssv', 'user', '2019-01-26 11:57:04', 0, NULL, NULL),
+(6, 26, 'ssv', 'user', '2019-02-03 17:04:57', 0, NULL, NULL),
+(11, 30, 'ssv', 'user', '2019-02-03 17:05:12', 0, NULL, NULL),
+(18, 46, 'ssv', 'user', '2019-02-03 17:13:52', 0, NULL, NULL),
+(19, 36, 'ssv', 'user', '2019-02-03 17:05:08', 0, NULL, NULL),
+(25, 3, '', 'map', '2019-02-04 07:56:13', 0, NULL, NULL),
+(33, NULL, 'ssv', 'user', '2019-02-05 09:46:48', 0, NULL, NULL),
+(34, NULL, 'ssv', 'user', '2019-02-05 09:46:49', 0, NULL, NULL),
+(38, NULL, '', 'map', '2019-02-06 13:07:03', 0, NULL, NULL),
+(39, 4, '', 'map', '2019-02-06 18:05:10', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -514,15 +587,12 @@ CREATE TABLE `object_slots` (
 
 CREATE TABLE `object_spawn` (
   `id` int(11) NOT NULL,
-  `armed_object_id` int(11) NOT NULL,
-  `armed_object_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `emit_object_type_name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `rgo_id` int(11) NOT NULL,
   `emit_object_type_id` int(11) NOT NULL,
   `emitter_id` int(11) NOT NULL,
-  `last_emit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_emit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `datetime_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `accuracy` int(11) NOT NULL,
   `position_lat` float NOT NULL,
   `position_lon` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -3330,14 +3400,28 @@ INSERT INTO `push_subscribes` (`id`, `pm`, `user`, `datetime`) VALUES
 
 CREATE TABLE `real_game_objects` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `slot` int(11) NOT NULL,
-  `deploy_slot` int(11) NOT NULL,
-  `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `datetime_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `creator_name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `object_id` bigint(20) NOT NULL,
-  `object_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+  `datetime_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `real_game_objects`
+--
+
+INSERT INTO `real_game_objects` (`id`, `creator_name`, `object_id`, `datetime_create`, `datetime_update`) VALUES
+(1, NULL, 4, '2019-01-26 08:04:03', '2019-01-26 12:50:10'),
+(2, NULL, 5, '2019-01-26 08:04:03', '2019-01-26 12:50:14'),
+(3, NULL, 3, '2019-01-26 08:04:03', '2019-01-26 12:50:10'),
+(4, NULL, 2, '2019-01-26 08:04:03', '2019-01-26 12:50:14'),
+(8, NULL, 2, '2019-01-26 08:04:03', '2019-01-26 12:50:10'),
+(26, NULL, 1, '2019-02-03 17:03:51', '2019-02-03 17:03:51'),
+(30, NULL, 2, '2019-02-03 17:03:59', '2019-02-03 17:03:59'),
+(36, NULL, 4, '2019-02-03 17:04:12', '2019-02-03 17:04:12'),
+(42, 'ssv', 9, '2019-02-03 17:10:53', '2019-02-03 17:10:53'),
+(46, 'ssv', 9, '2019-02-03 17:13:52', '2019-02-03 17:13:52'),
+(49, 'ssv', 9, '2019-02-04 08:46:27', '2019-02-04 08:46:27');
 
 -- --------------------------------------------------------
 
@@ -19748,6 +19832,12 @@ ALTER TABLE `global`
   ADD UNIQUE KEY `id` (`id`);
 
 --
+-- Индексы таблицы `item_category`
+--
+ALTER TABLE `item_category`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `messages`
 --
 ALTER TABLE `messages`
@@ -19878,13 +19968,13 @@ ALTER TABLE `windrose`
 -- AUTO_INCREMENT для таблицы `blog`
 --
 ALTER TABLE `blog`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT для таблицы `elements`
 --
 ALTER TABLE `elements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `events`
@@ -19902,13 +19992,19 @@ ALTER TABLE `game_objects`
 -- AUTO_INCREMENT для таблицы `global`
 --
 ALTER TABLE `global`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+
+--
+-- AUTO_INCREMENT для таблицы `item_category`
+--
+ALTER TABLE `item_category`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT для таблицы `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `msn_emo`
@@ -19926,7 +20022,7 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT для таблицы `object_slots`
 --
 ALTER TABLE `object_slots`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT для таблицы `object_spawn`
@@ -19950,7 +20046,7 @@ ALTER TABLE `push_subscribes`
 -- AUTO_INCREMENT для таблицы `real_game_objects`
 --
 ALTER TABLE `real_game_objects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT для таблицы `reciept_parts`
