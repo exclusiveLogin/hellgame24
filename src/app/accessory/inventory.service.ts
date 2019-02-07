@@ -197,7 +197,7 @@ export class InventoryService {
   }
 
   public utilizationRGO( id: string ){
-    let params: IParams = { mode: 'utilization_unlinked_rgo', item_id: id };
+    let params: IParams = { mode: 'utilization_rgo', item_id: id };
     return this.con.getData( this.path, params );
   }
 
