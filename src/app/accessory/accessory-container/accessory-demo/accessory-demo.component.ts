@@ -72,6 +72,7 @@ export class AccessoryDemoComponent implements OnInit {
           console.log('util rgo onClick item: ', item);
           this.inventoryService.utilizationInventoryItem( item.rgo_id ).subscribe(r => {
             this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+            this.inventoryService.getNonOwnerEmptySlots().subscribe(items => this.empty_nonowner_slots = items);
           });
         },
         class: 'btn_danger'

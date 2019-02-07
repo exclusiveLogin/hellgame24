@@ -153,7 +153,7 @@ export class InventoryService {
 
             flat.forEach(s => {
               //this.con.getData(this.path, {mode: 'utilization_item', item_id: s.rgo_id }).subscribe();
-              this.utilizationInventoryItem( s.rgo_id );
+              this.utilizationInventoryItem( s.rgo_id ).subscribe();
             });
 
             this.clearCache();
