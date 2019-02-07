@@ -130,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       echo json_encode( $arr );
+      die();
     }
 
     if(isset($arr['mode']) && $arr['mode'] == 'spawn_new_rgo'){
@@ -140,6 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       echo json_encode( $arr );
+      die();
     }
 
     if(isset($arr['mode']) && $arr['mode'] == 'create_new_slot_by_user'){
@@ -152,6 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       echo json_encode( $arr );
+      die();
     }
 
     if(isset($arr['mode']) && $arr['mode'] == 'create_new_slot_by_map'){
@@ -160,6 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $newslotId ) );
 
       echo json_encode( $arr );
+      die();
     }
 
     if(isset($arr['mode']) && $arr['mode'] == 'grind_item'){
@@ -174,6 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       echo json_encode( $arr );
+      die();
     }
 
     if(isset($arr['mode']) && $arr['mode'] == 'drop_item'){
@@ -187,6 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
 
       echo json_encode( $arr );
+      die();
     }
 
 }

@@ -16,6 +16,7 @@ export class AccessoryDemoComponent implements OnInit {
   public lib_items: IIngredient[] = [];
   public non_empty_slots: ISlot[] = [];
   public empty_slots: ISlot[] = [];
+  public empty_nonowner_slots: ISlot[] = [];
   public unlinked_rgos: IRGO[] = [];
 
   constructor(
@@ -28,6 +29,7 @@ export class AccessoryDemoComponent implements OnInit {
     console.log('demo', this);
     this.ingredientService.getAllIngredients().subscribe(items => this.lib_items = items);
     this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+    this.inventoryService.getNonOwnerEmptySlots().subscribe(items => this.empty_nonowner_slots = items);
     this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
     this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
     this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
@@ -57,15 +59,20 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Подобрать ингредиент',
         onClick: (item: ISlot) => {
           console.log('grind onClick item: ', item)
-          this.inventoryService.grindItemInSlot( item.id );
+          this.inventoryService.grindItemInSlot( item.id ).subscribe(r => {
+            this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+            this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
+          });
         },
       },
       {
         key: 'util',
         title:'Утилизировать ингредиент',
-        onClick: (item: string) => {
+        onClick: (item: ISlot) => {
           console.log('util rgo onClick item: ', item);
-
+          this.inventoryService.utilizationInventoryItem( item.rgo_id ).subscribe(r => {
+            this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+          });
         },
         class: 'btn_danger'
       }
@@ -77,13 +84,25 @@ export class AccessoryDemoComponent implements OnInit {
       {
         key: 'drop',
         title:'Выбросить ингредиент',
-        onClick: (item) => console.log('drop onClick item: ', item),
+        onClick: (item: ISlot) => {
+          console.log('drop onClick item: ', item);
+          this.inventoryService.dropItemFromInventory( item.id ).subscribe(r => {
+            this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
+            this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+          })
+        },
         class: 'btn_warning'
       },
       {
         key: 'util',
         title:'Утилизировать ингредиент',
-        onClick: (item) => console.log('util onClick item: ', item),
+        onClick: (item: ISlot) => {
+          console.log('util onClick item: ', item);
+          this.inventoryService.utilizationInventoryItem( item.rgo_id ).subscribe(r => {
+            this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
+            this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+          })
+        },
         class: 'btn_danger'
       }
     ]
@@ -98,6 +117,22 @@ export class AccessoryDemoComponent implements OnInit {
           console.log('remove slot onClick item: ', item);
           this.inventoryService.removeSlot( item ).subscribe(r => {
             this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+          });
+        },
+        class: 'btn_danger'
+      }
+    ]
+  }
+
+  public e_nonowner_slots_options: IAccessoryItemOptions = {
+    addtionalBtns:[
+      {
+        key: 'remove',
+        title:'Уничтожить слот',
+        onClick: (item: ISlot) => {
+          console.log('remove slot onClick item: ', item);
+          this.inventoryService.removeSlot( item.id ).subscribe(r => {
+            this.inventoryService.getNonOwnerEmptySlots().subscribe(items => this.empty_nonowner_slots = items);
           });
         },
         class: 'btn_danger'

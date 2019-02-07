@@ -51,6 +51,20 @@ export class InventoryService {
 
   }
 
+  // получение слотов без владельца и без предмета (аномалии)
+  public getNonOwnerEmptySlots(){
+    if (this.allSlotsCache.length)
+      return Observable.of(this.allSlotsCache.filter(s => !s.owner && !s.rgo_id));
+
+    return this.getAllSlots()
+      .pipe(
+        map(s => {
+          return !!s && s.filter(i => !i.owner && !i.rgo_id);
+        })
+      );
+
+  }
+
   public getAllSlotsByUser( userId: string | number ){
     let params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params).pipe(tap(slots => this.slotsCache[userId] = slots));
