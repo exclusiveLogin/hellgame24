@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "npm run doc && ng build --prod",
+    "doc": "rm src/wiki/* -rf && typedoc --out ./src/wiki ./src/app/ --options typedoc.json --exclude \"**/*+(node_modules|modules|libs)/**/*\" --excludeExternals --externalPattern \"**/*+(node_modules|modules|libs)/**/*\" --baseUrl /wiki/ ",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -26,6 +27,7 @@
     "highcharts": "^6.1.0",
     "ng-smoothscroll": "^1.8.0",
     "rxjs": "^5.5.6",
+    "typedoc": "^0.14.2",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

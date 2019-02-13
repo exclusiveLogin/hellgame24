@@ -1,0 +1,10 @@
+{
+  "mode": "file",
+  "out": "src/wiki/",
+  "theme": "default",
+  "ignoreCompilerErrors": "true",
+  "experimentalDecorators": "true",
+  "emitDecoratorMetadata": "true",
+  "target": "es6",
+  "module": "es6"
+}
