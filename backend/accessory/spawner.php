@@ -69,17 +69,57 @@ function getFreeSpawn(){
 
   global $mysql;
   $res = $mysql->query( $query );
-  $row = $res->fetch_assoc();
+  $row = $res ? $res->fetch_assoc() : false;
 
   echo "free spawn selected: $row[id] > ";
   return $row;
 }
 
+function getSpawn( $id ){
+  $query = "SELECT * FROM `object_spawn` WHERE `id` = $id AND `armed_slot_id` IS NULL LIMIT 1";
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+  global $mysql;
+  $res = $mysql->query( $query );
+  $row = $res ? $res->fetch_assoc() : false;
 
-  if(isset($_GET['mode']) && $_GET['mode'] === 'single'){
+  return $row;
+}
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $arr = json_decode(file_get_contents('php://input'), true);
+
+  // Select Spawn by ID
+  if(isset($arr['mode']) && isset($arr['id']) && $arr['mode'] === 'id'){
+    $id = $arr['id'];
+    // Выбор спауна
+    $spawn = getSpawn( $id );
+
+    // проверка наличия
+    if( $spawn && $spawn['object_id']){
+      // создание RGO
+      $rgoID = createRGO( $spawn['object_id'] );
+
+      // создание слота
+      $slotID = createNewSlot();
+      linkSlotOnRGO( $slotID, $rgoID );
+
+      // связывание spawn с новым слотом
+      linkSlotOnSpawn( $spawn['id'], $slotID );
+
+      $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $slotID, 'newRGOId' => $rgoID, 'spawnId' => $spawn['id'] ) );
+
+      echo json_encode($arr);
+
+    } else {
+
+      echo json_encode( array( 'error'=>'unknown spawn' ));
+
+    }
+  }
+
+  // Single random select Spawn
+
+  if(isset($arr['mode']) && $arr['mode'] === 'single'){
     // Выбор спауна
     $spawn = getFreeSpawn();
 
@@ -95,12 +135,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       // связывание spawn с новым слотом
       linkSlotOnSpawn( $spawn['id'], $slotID );
 
-      echo "spawn selected $spawn[id] create object type: $spawn[object_id] new slot: $slotID new RGO: $rgoID";
-    } else {
-      echo "no empty spawn";
-    }
+      $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $slotID, 'newRGOId' => $rgoID, 'spawnId' => $spawn['id'] ) );
 
+      echo json_encode($arr);
+
+    } else {
+
+      echo json_encode( array( 'error'=>'unknown spawn' ));
+
+    }
+  }
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+
+  if(isset($_GET['mode']) && $_GET['mode'] == 'get_all_spawn'){
+    $q = "SELECT * FROM `object_spawn`";
+  }
+
+  if(isset($_GET['mode']) && $_GET['mode'] == 'get_spawn_by_id'){
+    $q = "SELECT * FROM `object_spawn` WHERE `id` = $_GET[id]";
+  }
+
+  if(isset($_GET['mode']) && $_GET['mode'] == 'get_rgo_by_spawn'){
 
   }
 
+  if( isset($_GET['mode'] ) && isset($_GET['id'] ) && $_GET['mode'] == 'get_slot_by_spawn'){
+    $q = "SELECT `slot_id` FROM `object_spawn` WHERE `id` = $_GET[id]";
+  }
+
+  if(isset($_GET['mode']) && $_GET['mode'] == 'get_spawn_by_rgo'){
+
+  }
+
+  if(isset($_GET['mode']) && $_GET['mode'] == 'get_spawn_by_slot'){
+
+  }
 }
