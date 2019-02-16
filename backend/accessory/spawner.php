@@ -85,7 +85,7 @@ function getSpawn( $id ){
   return $row;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
   $arr = json_decode(file_get_contents('php://input'), true);
 
   // Select Spawn by ID
@@ -148,29 +148,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+// GETTERS
+if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
 
-  if(isset($_GET['mode']) && $_GET['mode'] == 'get_all_spawn'){
-    $q = "SELECT * FROM `object_spawn`";
+  if( isset($_GET['mode']) && $_GET['mode'] == 'get_all_spawn'){
+    $q = "SELECT *
+          FROM `object_spawn`";
   }
 
-  if(isset($_GET['mode']) && $_GET['mode'] == 'get_spawn_by_id'){
-    $q = "SELECT * FROM `object_spawn` WHERE `id` = $_GET[id]";
+  if( isset($_GET['mode']) && isset($_GET['id']) && $_GET['mode'] === 'get_spawn_by_id' ){
+    $id = $_GET['id'];
+    $q = "SELECT *
+          FROM `object_spawn`
+          WHERE `id` = $id";
   }
 
-  if(isset($_GET['mode']) && $_GET['mode'] == 'get_rgo_by_spawn'){
+  if( isset($_GET['mode']) && isset($_GET['id']) && $_GET['mode'] === 'get_rgo_by_spawn' ){
+    $id = $_GET['id'];
 
+    $q = "SELECT `real_game_objects`.*
+          FROM `object_spawn`, `object_slots`, `real_game_objects`
+          WHERE `object_spawn`.`id` = $id
+          AND `object_spawn`.`armed_slot_id` = `object_slots`.`id`
+          AND `object_slots`.`rgo_id` = `real_game_objects`.`id`";
   }
 
-  if( isset($_GET['mode'] ) && isset($_GET['id'] ) && $_GET['mode'] == 'get_slot_by_spawn'){
-    $q = "SELECT `slot_id` FROM `object_spawn` WHERE `id` = $_GET[id]";
+  if( isset($_GET['mode']) && isset($_GET['id']) && $_GET['mode'] === 'get_slot_by_spawn' ){
+    $id = $_GET['id'];
+
+    $q = "SELECT `object_slots`.*
+          FROM `object_spawn` , `object_slots`
+          WHERE `object_spawn`.`id` = $id
+          AND `object_spawn`.`armed_slot_id` = `object_slots`.`id`";
   }
 
-  if(isset($_GET['mode']) && $_GET['mode'] == 'get_spawn_by_rgo'){
+  if( isset($_GET['mode']) && isset($_GET['id']) && $_GET['mode'] === 'get_spawn_by_rgo' ){
+    $id = $_GET['id'];
 
+    $q = "SELECT `object_spawn`.*
+          FROM `object_slots`, `object_spawn`
+          WHERE `object_spawn`.`armed_slot_id` = `object_slots`.`id`
+          AND `object_slots`.`rgo_id` = $id";
   }
 
-  if(isset($_GET['mode']) && $_GET['mode'] == 'get_spawn_by_slot'){
+  if( isset($_GET['mode']) && isset($_GET['id']) && $_GET['mode'] === 'get_spawn_by_slot' ){
+    $id = $_GET['id'];
 
-  }
+    $q = "SELECT *
+          FROM `object_spawn`
+          WHERE `object_spawn`.`armed_slot_id` = $id";
+    }
+
+    if( $q ){
+      $json = array();
+
+      $res = $mysql->query( $q );
+      $row = $res ? $res->fetch_assoc() : false;
+
+      while( $row ){
+        array_push( $json, $row);
+        $row = $res->fetch_assoc();
+      }
+
+      echo json_encode( $json );
+
+    } else {
+      echo json_encode( array('error' => 'request error') );
+    }
 }
