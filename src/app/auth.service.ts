@@ -17,7 +17,7 @@ interface ILoginResponse {
 @Injectable()
 export class AuthService {
 
-  constructor(public http: HttpClient, public api: ApiService, private router: Router) { 
+  constructor(public http: HttpClient, public api: ApiService, private router: Router) {
     console.log('AUTH SERVICE', this);
   }
   private isLoggedSuccess = false;
@@ -47,6 +47,13 @@ export class AuthService {
           });
     }
   }
+
+  public logout(){
+    this.isLoggedSuccess = false;
+    this.currentAuthorizedLogin = null;
+    this.router.navigate(['dashboard']);
+  }
+
   public isAuthorized(): boolean {
     return this.isLoggedSuccess;
   }

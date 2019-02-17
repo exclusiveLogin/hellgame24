@@ -33,9 +33,9 @@ let dashboardRoutes: Routes = [
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'dashboard/:user', component: DashboardComponent},
-  //{path: 'dashboard', component: DashboardComponent, /*canActivate: [AuthguardGuard],*/ children: dashboardRoutes},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardGuard]},
+  {path: 'dashboard/:user', component: DashboardComponent, canActivate: [AuthguardGuard]},
+  //{path: 'dashboard', component: DashboardComponent, /*,*/ children: dashboardRoutes},
   {path: 'login', component: LoginComponent},
   {path: '**', component: NotfoundComponent}
 ];

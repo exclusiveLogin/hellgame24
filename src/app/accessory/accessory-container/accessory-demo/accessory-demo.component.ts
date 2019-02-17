@@ -33,7 +33,11 @@ export class AccessoryDemoComponent implements OnInit {
     this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
     this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
     this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
+
+    this.loged_as = this.auth.authorizedAs();
   }
+
+  public loged_as: string = 'no login';
 
   public lib_item_options: IAccessoryItemOptions = {
     addtionalBtns:[

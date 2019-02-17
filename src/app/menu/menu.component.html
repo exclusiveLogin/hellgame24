@@ -6,7 +6,7 @@
     <div class="menu_item" [ngClass]="{'updated': menuStateUpd.news_upd}"><i class="fas fa-newspaper fa-2x" aria-hidden="true"></i></div>
     <div class="menu_item" [ngClass]="{'updated': menuStateUpd.meteo_upd}"><i class="fas fa-cloud fa-2x" aria-hidden="true"></i></div>
     <div class="menu_item" [ngClass]="{'updated': menuStateUpd.settings_upd}"><i class="fas fa-cog fa-2x" aria-hidden="true"></i></div>
-    <div class="menu_item"><i class="fas fa-sign-out-alt fa-2x"></i></div>
+    <div class="menu_item" (click)="logout()" ><i class="fas fa-sign-out-alt fa-2x"></i></div>
 
   </div>
 </div>

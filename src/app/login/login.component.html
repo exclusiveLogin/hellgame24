@@ -1,3 +1,6 @@
-<p>
-  login works!
-</p>
+<div class="loginContainer microcard">
+  <h2 class="hg-title hg-flex-child">Вход в систему</h2>
+  <input type="text" class="hg-input hg-flex-child" required #login>
+  <input type="password" class="hg-input hg-flex-child" required #password>
+  <button (click)="submitEnter( login.value, password.value )" class="hg-flex-child btn btn_warning" >Войти</button>
+</div>

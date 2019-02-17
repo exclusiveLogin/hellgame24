@@ -83,3 +83,21 @@ body{
   flex-basis: 30%;
   max-width: 30%;
 }
+.hg-input{
+  height: 25px;
+  font-size: 10pt;
+  padding: 5px 10px;
+  border: orange 2px solid;
+  border-radius: 5px;
+}
+.hg-title{
+  color: antiquewhite;
+  font-size: 12pt;
+  font-weight: bold;
+}
+.hg-flex-child{
+  flex-basis: 100%;
+  flex-grow: 1;
+  margin-top: 10px;
+}
+
