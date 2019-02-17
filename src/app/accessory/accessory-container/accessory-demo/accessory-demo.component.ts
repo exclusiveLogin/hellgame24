@@ -4,6 +4,7 @@ import { InventoryService } from '../../inventory.service';
 import { ISlot } from '../accessory-inventory/accessory-inventory.component';
 import { AuthService } from '../../../auth.service';
 import { IAccessoryItemOptions } from '../accessory-item/accessory-item.component';
+import { SpawnerService } from '../../spawner.service';
 
 @Component({
   selector: 'app-accessory-demo',
@@ -23,6 +24,7 @@ export class AccessoryDemoComponent implements OnInit {
     private ingredientService: IngredientService,
     private inventoryService: InventoryService,
     private auth: AuthService,
+    private spawn: SpawnerService,
   ) { }
 
   ngOnInit() {
@@ -168,6 +170,27 @@ export class AccessoryDemoComponent implements OnInit {
           });
         },
         class: 'btn_danger'
+      }
+    ]
+  }
+
+  public spawn_options: IAccessoryItemOptions = {
+    addtionalBtns:[
+      {
+        key: 'spawn',
+        title:'Породить объект в спауне',
+        onClick: () => {
+          console.log('spawn onClick');
+        },
+        class: 'btn_danger'
+      },
+      {
+        key: 'grind_from_spawn',
+        title:'Получить предмет из спауна',
+        onClick: () => {
+          console.log('grind onClick');
+        },
+        //class: '0'
       }
     ]
   }

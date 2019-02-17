@@ -5,7 +5,7 @@ import { ApiService } from "../../../api.service";
 import { InventoryService } from "../../inventory.service";
 import { AuthService } from "../../../auth.service";
 
-interface IAdditionalButtons {
+export interface IAdditionalButtons {
     key: string;
     title: string;
     onClick: (any?) => void;

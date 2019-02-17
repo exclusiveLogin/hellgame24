@@ -52,7 +52,6 @@ body{
   box-shadow: 8px 8px 0 #272727;
   border: 1px #252525 solid;
   padding: 10px;
-  justify-content: center;
 }
 ::-webkit-scrollbar {
   width: 5px;
