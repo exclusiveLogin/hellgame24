@@ -1,67 +1,85 @@
 <div class="microcard">
   <div class="header">Типы доступных предметов(WIKI)</div>
-  <app-accessory-item style="cursor:default;" class="full"
-  *ngFor="let item of lib_items"
-  [itemId]="item.id"
-  [options]="lib_item_options"></app-accessory-item>
-</div>
-
-<div class="microcard">
-  <div class="header">Object Spawns</div>
-  <app-accessory-item style="cursor:default;" class="full"
+  <app-accessory-item
+    style="cursor:default;"
+    class="full"
+    *ngFor="let item of lib_items"
+    [itemId]="item.id"
+    [options]="lib_item_options"
   ></app-accessory-item>
 </div>
 
 <div class="microcard">
-  <div class="header">UNLINKED RGO (non wrapped in slot)</div>
-  <app-accessory-item style="cursor:default;" class="full"
-  *ngFor="let item of unlinked_rgos"
-  [itemId]="item.object_id"
-  [parentItem]="item"
-  [options]="unlinked_rgos_options"></app-accessory-item>
+  <div class="header">Object Spawns</div>
+  <app-accessory-spawn></app-accessory-spawn>
 </div>
 
 <div class="microcard">
-  <div class="header">Пустые слоты без хозяина и хранимого объекта (Аномалии)</div>
-  <app-accessory-item style="cursor:default;" class="full"
-  *ngFor="let item of empty_nonowner_slots"
-  [itemId]="item.id"
-  [mode]="'slot'"
-  [parentItem]="item"
-  [options]="e_nonowner_slots_options"></app-accessory-item>
+  <div class="header">UNLINKED RGO (non wrapped in slot)</div>
+  <app-accessory-item
+    style="cursor:default;"
+    class="full"
+    *ngFor="let item of unlinked_rgos"
+    [itemId]="item.object_id"
+    [parentItem]="item"
+    [options]="unlinked_rgos_options"
+  ></app-accessory-item>
+</div>
+
+<div class="microcard">
+  <div class="header">
+    Пустые слоты без хозяина и хранимого объекта (Аномалии)
+  </div>
+  <app-accessory-item
+    style="cursor:default;"
+    class="full"
+    *ngFor="let item of empty_nonowner_slots"
+    [itemId]="item.id"
+    [mode]="'slot'"
+    [parentItem]="item"
+    [options]="e_nonowner_slots_options"
+  ></app-accessory-item>
 </div>
 
 <div class="microcard">
   <div class="header">RGO in slot on Map</div>
-  <app-accessory-item style="cursor:default;" class="full"
-  *ngFor="let item of rgo_on_map"
-  [itemId]="item.go_id"
-  [parentItem]="item"
-  [options]="rgo_on_map_options"></app-accessory-item>
+  <app-accessory-item
+    style="cursor:default;"
+    class="full"
+    *ngFor="let item of rgo_on_map"
+    [itemId]="item.go_id"
+    [parentItem]="item"
+    [options]="rgo_on_map_options"
+  ></app-accessory-item>
 </div>
 
 <div class="microcard">
   <div class="header">NON empty Slots by User</div>
-  <app-accessory-item style="cursor:default;" class="full"
-  *ngFor="let item of non_empty_slots"
-  [itemId]="item.id"
-  [parentItem]="item"
-  [mode]="'slot'"
-  [options]="slots_options"></app-accessory-item>
+  <app-accessory-item
+    style="cursor:default;"
+    class="full"
+    *ngFor="let item of non_empty_slots"
+    [itemId]="item.id"
+    [parentItem]="item"
+    [mode]="'slot'"
+    [options]="slots_options"
+  ></app-accessory-item>
 </div>
 
 <div class="microcard">
   <div class="header">EMPTY Slots without Owner</div>
-  <app-accessory-item style="cursor:default;" class="full"
-  *ngFor="let item of empty_slots"
-  [itemId]="item.id"
-  [mode]="'slot'"
-  [options]="e_slots_options"></app-accessory-item>
+  <app-accessory-item
+    style="cursor:default;"
+    class="full"
+    *ngFor="let item of empty_slots"
+    [itemId]="item.id"
+    [mode]="'slot'"
+    [options]="e_slots_options"
+  ></app-accessory-item>
 
   <div class="btn_panel">
-    <button class="btn" (click)="createNewSlot()" >Создать новый слот для пользователя</button>
+    <button class="btn" (click)="createNewSlot()">
+      Создать новый слот для пользователя
+    </button>
   </div>
-
 </div>
-
-

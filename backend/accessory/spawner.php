@@ -197,22 +197,24 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
     $q = "SELECT *
           FROM `object_spawn`
           WHERE `object_spawn`.`armed_slot_id` = $id";
+  }
+
+  if( $q ){
+    $json = array();
+
+    $res = $mysql->query( $q );
+    $row = $res ? $res->fetch_assoc() : false;
+
+    while( $row ){
+      array_push( $json, $row);
+      $row = $res->fetch_assoc();
     }
 
-    if( $q ){
-      $json = array();
+    echo json_encode( $json );
 
-      $res = $mysql->query( $q );
-      $row = $res ? $res->fetch_assoc() : false;
+  } else {
+    echo json_encode( array('error' => 'request error') );
+  }
 
-      while( $row ){
-        array_push( $json, $row);
-        $row = $res->fetch_assoc();
-      }
 
-      echo json_encode( $json );
-
-    } else {
-      echo json_encode( array('error' => 'request error') );
-    }
 }
