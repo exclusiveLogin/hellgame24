@@ -9,7 +9,7 @@
   ></app-accessory-item>
 </div>
 
-<div class="microcard">
+<div class="microcard" [ngClass]="{'locked': locked}">
   <div class="header">Object Spawns</div>
   <app-accessory-spawn
     *ngFor="let spawn of spawns"
@@ -17,7 +17,7 @@
     [options]="spawn_options"></app-accessory-spawn>
 </div>
 
-<div class="microcard">
+<div class="microcard" [ngClass]="{'locked': locked}">
   <div class="header">UNLINKED RGO (non wrapped in slot)</div>
   <app-accessory-item
     style="cursor:default;"
@@ -29,7 +29,7 @@
   ></app-accessory-item>
 </div>
 
-<div class="microcard">
+<div class="microcard" [ngClass]="{'locked': locked}">
   <div class="header">
     Пустые слоты без хозяина и хранимого объекта (Аномалии)
   </div>
@@ -44,7 +44,7 @@
   ></app-accessory-item>
 </div>
 
-<div class="microcard">
+<div class="microcard" [ngClass]="{'locked': locked}">
   <div class="header">RGO in slot on Map</div>
   <app-accessory-item
     style="cursor:default;"
@@ -56,7 +56,7 @@
   ></app-accessory-item>
 </div>
 
-<div class="microcard">
+<div class="microcard" [ngClass]="{'locked': locked}">
   <div class="header">NON empty Slots by User</div>
   <app-accessory-item
     style="cursor:default;"
@@ -69,7 +69,7 @@
   ></app-accessory-item>
 </div>
 
-<div class="microcard">
+<div class="microcard" [ngClass]="{'locked': locked}">
   <div class="header">EMPTY Slots with Owner: {{ loged_as }}</div>
   <app-accessory-item
     style="cursor:default;"
@@ -80,7 +80,7 @@
     [options]="e_slots_options"
   ></app-accessory-item>
 
-  <div class="btn_panel">
+  <div class="btn_panel" [ngClass]="{'locked': locked}">
     <button class="btn" (click)="createNewSlot()">
       Создать новый слот для пользователя
     </button>

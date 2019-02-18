@@ -15,6 +15,7 @@ import { InventoryService } from './inventory.service';
 import { AccessoryDemoComponent } from './accessory-container/accessory-demo/accessory-demo.component';
 import { AccessorySpawnComponent } from './accessory-container/accessory-spawn/accessory-spawn.component';
 import { SpawnerService } from './spawner.service';
+import { LockerService } from './locker.service';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { SpawnerService } from './spawner.service';
     IngredientService,
     InventoryService,
     SpawnerService,
+    LockerService
   ]
 })
 export class AccessoryModule { }
