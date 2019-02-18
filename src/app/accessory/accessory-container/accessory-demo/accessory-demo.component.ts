@@ -5,6 +5,9 @@ import { ISlot } from '../accessory-inventory/accessory-inventory.component';
 import { AuthService } from '../../../auth.service';
 import { IAccessoryItemOptions } from '../accessory-item/accessory-item.component';
 import { SpawnerService, ISpawn } from '../../spawner.service';
+import { LockerService } from '../../locker.service';
+import { combineLatest } from 'rxjs/operator/combineLatest';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-accessory-demo',
@@ -26,6 +29,8 @@ export class AccessoryDemoComponent implements OnInit {
     private inventoryService: InventoryService,
     private auth: AuthService,
     private spawn: SpawnerService,
+    private locker: LockerService
+
   ) { }
 
   ngOnInit() {
@@ -39,8 +44,10 @@ export class AccessoryDemoComponent implements OnInit {
     this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
 
     this.loged_as = this.auth.authorizedAs();
+    this.locker.getLockSegment('demo').subscribe( state => this.locked = state);
   }
 
+  public locked: boolean = false;
   public loged_as: string = 'no login';
 
   public lib_item_options: IAccessoryItemOptions = {
@@ -49,10 +56,10 @@ export class AccessoryDemoComponent implements OnInit {
         key: 'spawn',
         title:'Создать ингредиент',
         onClick: (item) => {
-          console.log('spawn onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.spawnNewItem( item.id ).subscribe(r => {
-            console.log(r);
             this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
+            this.locker.unlockingSegment('demo');
           });
         },
         class: 'btn_warning'
@@ -67,9 +74,16 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Подобрать ингредиент',
         onClick: (item: ISlot) => {
           console.log('grind onClick item: ', item)
+          this.locker.lockingSegment('demo');
           this.inventoryService.grindItemInSlot( item.id ).subscribe(r => {
-            this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
-            this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
+            Observable.combineLatest(
+              this.inventoryService.getNonOwnerSlots(),
+              this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs())
+              ).subscribe(([nos, nes])=>{
+                this.rgo_on_map = nos;
+                this.non_empty_slots = nes;
+                this.locker.unlockingSegment('demo');
+              });
           });
         },
       },
@@ -78,9 +92,16 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Утилизировать ингредиент',
         onClick: (item: ISlot) => {
           console.log('util rgo onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.utilizationInventoryItem( item.rgo_id ).subscribe(r => {
-            this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
-            this.inventoryService.getNonOwnerEmptySlots().subscribe(items => this.empty_nonowner_slots = items);
+            Observable.combineLatest(
+              this.inventoryService.getNonOwnerSlots(),
+              this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs())
+              ).subscribe(([nos, nes])=>{
+                this.rgo_on_map = nos;
+                this.non_empty_slots = nes;
+                this.locker.unlockingSegment('demo');
+              });
           });
         },
         class: 'btn_danger'
@@ -95,6 +116,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Выбросить ингредиент',
         onClick: (item: ISlot) => {
           console.log('drop onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.dropItemFromInventory( item.id ).subscribe(r => {
             this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
             this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
@@ -107,6 +129,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Утилизировать ингредиент',
         onClick: (item: ISlot) => {
           console.log('util onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.utilizationInventoryItem( item.rgo_id ).subscribe(r => {
             this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
             this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
@@ -124,6 +147,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Уничтожить слот',
         onClick: (item: string) => {
           console.log('remove slot onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.removeSlot( item ).subscribe(r => {
             this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
           });
@@ -140,6 +164,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Уничтожить слот',
         onClick: (item: ISlot) => {
           console.log('remove slot onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.removeSlot( item.id ).subscribe(r => {
             this.inventoryService.getNonOwnerEmptySlots().subscribe(items => this.empty_nonowner_slots = items);
           });
@@ -156,6 +181,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Обернуть в слот',
         onClick: (item: IRGO) => {
           console.log('wrap in slot onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.wrapRGOInSlot( item.id ).subscribe( r =>{
             this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
             this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
@@ -167,6 +193,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Утилизировать обьект без слота',
         onClick: (item: IRGO) => {
           console.log('util rgo onClick item: ', item);
+          this.locker.lockingSegment('demo');
           this.inventoryService.utilizationRGO( item.id ).subscribe(r => {
             this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
           });
@@ -183,6 +210,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Породить объект в спауне',
         onClick: ( spawn: ISpawn ) => {
           console.log('spawn onClick');
+          this.locker.lockingSegment('demo');
           this.spawn.spawnObjectByID( spawn.id ).subscribe((res)=>{
             this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
           });
@@ -195,6 +223,7 @@ export class AccessoryDemoComponent implements OnInit {
         title:'Получить предмет из спауна',
         onClick: ( spawn: ISpawn ) => {
           console.log('grind onClick');
+          this.locker.lockingSegment('demo');
           this.inventoryService.grindItemFromSpawn( spawn.armed_slot_id, spawn.id ).subscribe((res)=>{
             this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
             this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
@@ -208,7 +237,12 @@ export class AccessoryDemoComponent implements OnInit {
   public createNewSlot(){
     this.inventoryService.creatNewSlotByUser()
       .subscribe((result: ISlot) => {
-        this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
+        this.locker.lockingSegment('demo');
+        this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs())
+          .subscribe(items => {
+            this.empty_slots = items;
+
+          });
       })
   }
 }

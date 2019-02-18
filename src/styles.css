@@ -70,6 +70,12 @@ body{
   font-weight: bold;
   margin: 10px 5px;
 }
+
+.microcard.locked{
+  opacity: .5;
+  pointer-events: none;
+  cursor: default;
+}
 .full{
   flex-basis: 98%;
   max-width: 98%;
