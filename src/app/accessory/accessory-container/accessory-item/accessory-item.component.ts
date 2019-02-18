@@ -10,6 +10,7 @@ export interface IAdditionalButtons {
     title: string;
     onClick: (any?) => void;
     class?: string;
+    if?:(any?) => boolean;
 }
 
 export interface IAccessoryItemOptions {

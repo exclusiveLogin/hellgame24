@@ -187,7 +187,8 @@ export class AccessoryDemoComponent implements OnInit {
             this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
           });
         },
-        class: 'btn_danger'
+        class: 'btn_danger',
+        if: ( spawn: ISpawn ) => !spawn.armed_slot_id,
       },
       {
         key: 'grind_from_spawn',
@@ -199,6 +200,7 @@ export class AccessoryDemoComponent implements OnInit {
             this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
           })
         },
+        if: ( spawn: ISpawn ) => !!spawn.armed_slot_id,
       }
     ]
   }

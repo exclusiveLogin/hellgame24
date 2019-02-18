@@ -39,4 +39,10 @@ export class AccessorySpawnComponent implements OnInit {
     if (ab.onClick) ab.onClick( this.spawn || this.spawnID );
   }
 
+  public canShown( ab: IAdditionalButtons ): boolean{
+    if(!ab) return;
+    if(!!ab && !ab.if) return true;
+    if(!!ab && !!ab.if) return ab.if( this.spawn || this.spawnID );
+  }
+
 }

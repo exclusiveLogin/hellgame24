@@ -10,6 +10,17 @@
   <app-accessory-item *ngIf="armedSlot"  [itemId]="armedSlot.id" class="armed_slot" [mode]="'slot'"></app-accessory-item>
 
   <div class="accessory_btns" *ngIf="options && options.addtionalBtns" >
-      <button *ngFor="let ab of options.addtionalBtns" class="btn additionalBtn" [ngClass]="ab.class" (click)="clickAdditionalBtn( ab )" >{{ab.title}}</button>
+
+    <ng-container *ngFor="let ab of options.addtionalBtns" >
+
+      <button
+        *ngIf="canShown( ab )"
+        class="btn additionalBtn"
+        [ngClass]="ab.class"
+        (click)="clickAdditionalBtn( ab )"
+          >{{ab.title}}</button>
+
+    </ng-container>
+
     </div>
 </div>
