@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: localhost
--- Время создания: Фев 06 2019 г., 21:27
+-- Время создания: Фев 18 2019 г., 23:22
 -- Версия сервера: 5.7.11-4-log
 -- Версия PHP: 7.1.1
 
@@ -262,7 +262,27 @@ INSERT INTO `global` (`id`, `global_code`, `message`, `datetime`) VALUES
 (59, 'orange', '', '2019-02-03 13:43:31'),
 (60, 'red', '', '2019-02-03 13:43:32'),
 (61, 'orange', '', '2019-02-03 13:43:33'),
-(62, 'green', '', '2019-02-03 13:43:35');
+(62, 'green', '', '2019-02-03 13:43:35'),
+(63, 'red', '', '2019-02-07 19:07:30'),
+(64, 'red', '', '2019-02-07 19:07:31'),
+(65, 'red', '', '2019-02-07 19:07:32'),
+(66, 'orange', '', '2019-02-07 19:07:33'),
+(67, 'green', '', '2019-02-07 19:07:35'),
+(68, 'red', '', '2019-02-07 19:07:37'),
+(69, 'green', '', '2019-02-07 19:07:39'),
+(70, 'orange', '', '2019-02-07 19:07:40'),
+(71, 'red', '', '2019-02-07 19:07:41'),
+(72, 'orange', '', '2019-02-07 19:07:42'),
+(73, 'green', '', '2019-02-07 19:07:43'),
+(74, 'green', '', '2019-02-07 19:07:50'),
+(75, 'red', '', '2019-02-07 19:07:52'),
+(76, 'green', '', '2019-02-07 19:07:56'),
+(77, 'red', '', '2019-02-07 19:07:58'),
+(78, 'green', '', '2019-02-08 08:30:33'),
+(79, 'orange', '', '2019-02-08 08:30:41'),
+(80, 'green', '', '2019-02-08 08:30:48'),
+(81, 'green', '', '2019-02-09 04:11:49'),
+(82, 'green', '', '2019-02-18 13:39:59');
 
 -- --------------------------------------------------------
 
@@ -308,12 +328,12 @@ CREATE TABLE `messages` (
 --
 
 INSERT INTO `messages` (`id`, `readed`, `subject`, `text_field`, `author`, `to_user`, `datetime`) VALUES
-(1, NULL, 'Без заголовка', 'vxcvcxvcx', 'ssv', 'msn', '2019-01-03 05:46:32'),
+(1, 1, 'Без заголовка', 'vxcvcxvcx', 'ssv', 'msn', '2019-02-18 13:40:13'),
 (2, 1, 'Без заголовка', 'test', 'ssv', 'ssv', '2019-01-07 07:11:25'),
-(3, NULL, 'Без заголовка', 'dffdfsf', 'msn', 'msn', '2019-01-03 05:46:41'),
+(3, 1, 'Без заголовка', 'dffdfsf', 'msn', 'msn', '2019-02-18 13:40:14'),
 (4, 1, 'Без заголовка', 'Привет чел', 'msn', 'ssv', '2019-01-07 07:11:23'),
 (5, 1, 'Без заголовка', 'MSN message to SSV', 'msn', 'ssv', '2019-01-27 11:11:21'),
-(6, NULL, 'Без заголовка', 'test', 'ssv', 'msn', '2019-01-03 14:33:44'),
+(6, 1, 'Без заголовка', 'test', 'ssv', 'msn', '2019-02-18 13:40:16'),
 (7, NULL, 'Без заголовка', '1qwe', 'ssv', 'msn', '2019-01-03 15:03:22'),
 (8, NULL, 'Без заголовка', 'Чо кого как сам ', 'ssv', 'ssv_citadel', '2019-01-27 08:19:07');
 
@@ -565,19 +585,11 @@ CREATE TABLE `object_slots` (
 --
 
 INSERT INTO `object_slots` (`id`, `rgo_id`, `owner`, `owner_type`, `datetime_update`, `accuracy`, `position_lat`, `position_lon`) VALUES
-(1, 1, 'ssv', 'user', '2019-01-26 08:04:19', 0, NULL, NULL),
-(2, 49, 'ssv', 'user', '2019-02-04 08:46:27', 0, NULL, NULL),
-(3, 42, 'ssv', 'user', '2019-02-03 17:10:53', 0, NULL, NULL),
-(5, 2, 'ssv', 'user', '2019-01-26 11:57:04', 0, NULL, NULL),
-(6, 26, 'ssv', 'user', '2019-02-03 17:04:57', 0, NULL, NULL),
-(11, 30, 'ssv', 'user', '2019-02-03 17:05:12', 0, NULL, NULL),
-(18, 46, 'ssv', 'user', '2019-02-03 17:13:52', 0, NULL, NULL),
-(19, 36, 'ssv', 'user', '2019-02-03 17:05:08', 0, NULL, NULL),
-(25, 3, '', 'map', '2019-02-04 07:56:13', 0, NULL, NULL),
-(33, NULL, 'ssv', 'user', '2019-02-05 09:46:48', 0, NULL, NULL),
-(34, NULL, 'ssv', 'user', '2019-02-05 09:46:49', 0, NULL, NULL),
-(38, NULL, '', 'map', '2019-02-06 13:07:03', 0, NULL, NULL),
-(39, 4, '', 'map', '2019-02-06 18:05:10', 0, NULL, NULL);
+(109, NULL, 'test', 'user', '2019-02-10 22:17:00', 0, NULL, NULL),
+(110, 4, '', 'map', '2019-02-10 22:17:00', 0, NULL, NULL),
+(115, 109, 'msn', 'user', '2019-02-17 14:27:07', 0, NULL, NULL),
+(116, 110, 'msn', 'user', '2019-02-17 14:27:05', 0, NULL, NULL),
+(166, 155, '', 'map', '2019-02-18 20:06:55', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -587,8 +599,8 @@ INSERT INTO `object_slots` (`id`, `rgo_id`, `owner`, `owner_type`, `datetime_upd
 
 CREATE TABLE `object_spawn` (
   `id` int(11) NOT NULL,
-  `rgo_id` int(11) NOT NULL,
-  `emit_object_type_id` int(11) NOT NULL,
+  `armed_slot_id` int(11) DEFAULT NULL,
+  `object_id` int(11) NOT NULL,
   `emitter_id` int(11) NOT NULL,
   `last_emit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `datetime_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -596,6 +608,14 @@ CREATE TABLE `object_spawn` (
   `position_lat` float NOT NULL,
   `position_lon` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `object_spawn`
+--
+
+INSERT INTO `object_spawn` (`id`, `armed_slot_id`, `object_id`, `emitter_id`, `last_emit`, `datetime_update`, `datetime_create`, `position_lat`, `position_lon`) VALUES
+(1, 166, 3, 0, '2019-02-18 20:06:55', '2019-02-18 20:06:55', '2019-02-07 20:34:59', 0, 0),
+(2, NULL, 4, 0, '2019-02-18 20:01:17', '2019-02-18 20:01:21', '2019-02-07 20:34:59', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -3411,17 +3431,9 @@ CREATE TABLE `real_game_objects` (
 --
 
 INSERT INTO `real_game_objects` (`id`, `creator_name`, `object_id`, `datetime_create`, `datetime_update`) VALUES
-(1, NULL, 4, '2019-01-26 08:04:03', '2019-01-26 12:50:10'),
-(2, NULL, 5, '2019-01-26 08:04:03', '2019-01-26 12:50:14'),
-(3, NULL, 3, '2019-01-26 08:04:03', '2019-01-26 12:50:10'),
-(4, NULL, 2, '2019-01-26 08:04:03', '2019-01-26 12:50:14'),
-(8, NULL, 2, '2019-01-26 08:04:03', '2019-01-26 12:50:10'),
-(26, NULL, 1, '2019-02-03 17:03:51', '2019-02-03 17:03:51'),
-(30, NULL, 2, '2019-02-03 17:03:59', '2019-02-03 17:03:59'),
-(36, NULL, 4, '2019-02-03 17:04:12', '2019-02-03 17:04:12'),
-(42, 'ssv', 9, '2019-02-03 17:10:53', '2019-02-03 17:10:53'),
-(46, 'ssv', 9, '2019-02-03 17:13:52', '2019-02-03 17:13:52'),
-(49, 'ssv', 9, '2019-02-04 08:46:27', '2019-02-04 08:46:27');
+(109, NULL, 7, '2019-02-17 14:26:47', '2019-02-17 14:26:47'),
+(110, NULL, 5, '2019-02-17 14:27:03', '2019-02-17 14:27:03'),
+(155, NULL, 3, '2019-02-18 20:06:55', '2019-02-18 20:06:55');
 
 -- --------------------------------------------------------
 
@@ -19992,7 +20004,7 @@ ALTER TABLE `game_objects`
 -- AUTO_INCREMENT для таблицы `global`
 --
 ALTER TABLE `global`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT для таблицы `item_category`
@@ -20022,13 +20034,13 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT для таблицы `object_slots`
 --
 ALTER TABLE `object_slots`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT для таблицы `object_spawn`
 --
 ALTER TABLE `object_spawn`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `private_data`
@@ -20046,7 +20058,7 @@ ALTER TABLE `push_subscribes`
 -- AUTO_INCREMENT для таблицы `real_game_objects`
 --
 ALTER TABLE `real_game_objects`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 
 --
 -- AUTO_INCREMENT для таблицы `reciept_parts`
