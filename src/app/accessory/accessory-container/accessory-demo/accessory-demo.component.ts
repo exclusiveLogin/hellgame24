@@ -4,7 +4,7 @@ import { InventoryService } from '../../inventory.service';
 import { ISlot } from '../accessory-inventory/accessory-inventory.component';
 import { AuthService } from '../../../auth.service';
 import { IAccessoryItemOptions } from '../accessory-item/accessory-item.component';
-import { SpawnerService } from '../../spawner.service';
+import { SpawnerService, ISpawn } from '../../spawner.service';
 
 @Component({
   selector: 'app-accessory-demo',
@@ -19,6 +19,7 @@ export class AccessoryDemoComponent implements OnInit {
   public empty_slots: ISlot[] = [];
   public empty_nonowner_slots: ISlot[] = [];
   public unlinked_rgos: IRGO[] = [];
+  public spawns: ISpawn[] = [];
 
   constructor(
     private ingredientService: IngredientService,
@@ -35,6 +36,7 @@ export class AccessoryDemoComponent implements OnInit {
     this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
     this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
     this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
+    this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
 
     this.loged_as = this.auth.authorizedAs();
   }
@@ -179,18 +181,24 @@ export class AccessoryDemoComponent implements OnInit {
       {
         key: 'spawn',
         title:'Породить объект в спауне',
-        onClick: () => {
+        onClick: ( spawn: ISpawn ) => {
           console.log('spawn onClick');
+          this.spawn.spawnObjectByID( spawn.id ).subscribe((res)=>{
+            this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
+          });
         },
         class: 'btn_danger'
       },
       {
         key: 'grind_from_spawn',
         title:'Получить предмет из спауна',
-        onClick: () => {
+        onClick: ( spawn: ISpawn ) => {
           console.log('grind onClick');
+          this.inventoryService.grindItemFromSpawn( spawn.armed_slot_id, spawn.id ).subscribe((res)=>{
+            this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
+            this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.non_empty_slots = items);
+          })
         },
-        //class: '0'
       }
     ]
   }

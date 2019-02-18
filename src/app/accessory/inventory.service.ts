@@ -237,6 +237,20 @@ export class InventoryService {
     return this.con.setData( this.path, data );
   }
 
+  public grindItemFromSpawn( slotId: string, spawnId: string ){
+    let data: IDataRequest = {
+      body: {
+        mode: 'grind_item',
+        owner: this.auth.authorizedAs(),
+        slot_id: slotId,
+        spawn_id: spawnId
+      }
+    }
+
+    this.clearCache();
+    return this.con.setData( this.path, data );
+  }
+
   public clearCacheByUser( id ){
     delete this.slotsCache[id];
   }

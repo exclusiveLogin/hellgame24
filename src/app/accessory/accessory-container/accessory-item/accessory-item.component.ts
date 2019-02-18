@@ -47,7 +47,7 @@ export class AccessoryItemComponent implements OnInit {
 
     if (this.itemId && this.mode === "slot")
       this.inventory
-        .getSlotByIdByUser(this.auth.authorizedAs(), this.itemId)
+        .getSlotById( this.itemId )
         .pipe(
           filter(slot => !!slot && !!slot.go_id),
           switchMap(slot => this.ingredient.getIngredientById(slot.go_id))

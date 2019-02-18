@@ -2,7 +2,7 @@
 include_once "../headers.php";
 include_once "../dbsetting_n_connect.php";
 
-$arr = new stdClass();
+$arr = array();
 
 function createRGO( $_object_id ){
   //создаем новый RGO
@@ -16,7 +16,7 @@ function createRGO( $_object_id ){
   $row = $res->fetch_row();
   $rgo = $row[0]; // id нового созданного RGO
 
-  echo "rgo created: $rgo from object type: $_object_id > ";
+  //echo "rgo created: $rgo from object type: $_object_id > ";
   return $rgo;
 }
 
@@ -37,7 +37,7 @@ function createNewSlot(){
 
 function linkSlotOnRGO( $idSlot, $idRGO ){
 
-  echo "link Slot $idSlot and RGO $idRGO > ";
+  //echo "link Slot $idSlot and RGO $idRGO > ";
   //удаляем все линки на RGO  из  слотов
   $query = "UPDATE `object_slots` SET `rgo_id` = NULL WHERE `rgo_id`= $idRGO";
   //выставляем правильный линк с нужного слота
@@ -71,7 +71,7 @@ function getFreeSpawn(){
   $res = $mysql->query( $query );
   $row = $res ? $res->fetch_assoc() : false;
 
-  echo "free spawn selected: $row[id] > ";
+  //echo "free spawn selected: $row[id] > ";
   return $row;
 }
 
@@ -89,7 +89,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
   $arr = json_decode(file_get_contents('php://input'), true);
 
   // Select Spawn by ID
-  if(isset($arr['mode']) && isset($arr['id']) && $arr['mode'] === 'id'){
+  if( isset($arr['mode'] ) && isset($arr['id']) && $arr['mode'] === 'id'){
     $id = $arr['id'];
     // Выбор спауна
     $spawn = getSpawn( $id );
@@ -106,7 +106,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
       // связывание spawn с новым слотом
       linkSlotOnSpawn( $spawn['id'], $slotID );
 
-      $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $slotID, 'newRGOId' => $rgoID, 'spawnId' => $spawn['id'] ) );
+      $arr = array_merge( $arr, array( 'newslotId' => $slotID, 'newRGOId' => $rgoID, 'spawnId' => $spawn['id'] ) );
 
       echo json_encode($arr);
 
@@ -135,7 +135,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
       // связывание spawn с новым слотом
       linkSlotOnSpawn( $spawn['id'], $slotID );
 
-      $arr = (object) array_merge( (array)$arr, array( 'newslotId' => $slotID, 'newRGOId' => $rgoID, 'spawnId' => $spawn['id'] ) );
+      $arr = array_merge( $arr, array( 'newslotId' => $slotID, 'newRGOId' => $rgoID, 'spawnId' => $spawn['id'] ) );
 
       echo json_encode($arr);
 

@@ -11,7 +11,10 @@
 
 <div class="microcard">
   <div class="header">Object Spawns</div>
-  <app-accessory-spawn [options]="spawn_options"></app-accessory-spawn>
+  <app-accessory-spawn
+    *ngFor="let spawn of spawns"
+    [spawnID]="spawn.id"
+    [options]="spawn_options"></app-accessory-spawn>
 </div>
 
 <div class="microcard">

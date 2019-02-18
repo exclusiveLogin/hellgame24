@@ -169,12 +169,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($arr['mode']) && $arr['mode'] == 'grind_item'){
       $owner = isset($arr['owner']) ? $arr['owner'] : NULL;
       $slot_id = isset($arr['slot_id']) ? $arr['slot_id'] : NULL;
+      $spawn_id = isset($arr['spawn_id']) ? $arr['spawn_id'] : NULL;
 
       if( $owner && $slot_id ) {
         //определяем у слота нового хозяина
         $query = "UPDATE `object_slots` SET `owner` = \"$owner\", `owner_type`=\"user\" WHERE `id`= $slot_id";
         $mysql->query( $query );
         $arr = (object) array_merge( (array)$arr, array( 'newslotOwner' => $owner ) );
+      }
+
+      if( $spawn_id ){
+        $query = "UPDATE `object_spawn` SET `armed_slot_id` = NULL WHERE `id`= $spawn_id";
+        $mysql->query( $query );
+        $arr = (object) array_merge( (array)$arr, array( 'updatedSpawn' => $spawn_id ) );
       }
 
       echo json_encode( $arr );

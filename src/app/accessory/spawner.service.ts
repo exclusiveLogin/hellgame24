@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { ConnectorService, IParams } from '../services/connector.service';
+import { ConnectorService, IParams, IDataRequest, IDataResponse } from '../services/connector.service';
 import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { filter, tap, map } from 'rxjs/operators';
+import { InventoryService } from './inventory.service';
 
 export interface ISpawn{
   id: string,
@@ -28,6 +29,7 @@ export class SpawnerService {
   constructor(
     private auth: AuthService,
     private con: ConnectorService,
+    private inventory: InventoryService,
   ) {
     console.log('SpawnService ', this);
    }
@@ -54,6 +56,19 @@ export class SpawnerService {
         tap((s: ISpawn[]) => this.spawnCache = [...s]),
         map((s: ISpawn[]) => s.find(sp => sp.id.toString() === id.toString()))
         )
+  }
+
+  public spawnObjectByID( id: string): Observable<IDataResponse>{
+    let req: IDataRequest = {
+      body: {
+        mode:'id',
+        id
+      }
+    }
+
+    this.clearCache();
+    this.inventory.clearCache();
+    return this.con.setData( this.path, req);
   }
 
   public clearCache(){
