@@ -39,3 +39,14 @@
     font-size: 70%;
     flex-grow: 2;
 }
+
+.message_footer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .btn.btn_remove{
+    font-size: 70%;
+    margin-top: 10px;
+  }

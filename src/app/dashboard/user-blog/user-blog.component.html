@@ -1,7 +1,12 @@
 <div class="blog_title">{{title}} - {{author}}</div>
 <div class="blog_container">
   <ng-container *ngIf="_blogItems && _blogItems.length">
-    <app-user-blog-item class="microcard" *ngFor="let bi of _blogItems" [item]="bi"></app-user-blog-item>
+    <app-user-blog-item 
+    class="microcard" 
+    *ngFor="let bi of _blogItems" 
+    [item]="bi"
+    (removeMessageEvent)="removeBlogItem( bi.id )"
+    ></app-user-blog-item>
   </ng-container>
 </div>
 

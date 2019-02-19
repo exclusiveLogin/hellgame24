@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { IBlogData } from '../../../services/blog.service';
 import { text } from '@angular/core/src/render3/instructions';
 
@@ -9,6 +9,8 @@ import { text } from '@angular/core/src/render3/instructions';
 })
 export class UserBlogItemComponent implements OnInit {
 
+  @Output() removeMessageEvent = new EventEmitter<boolean>();
+  
   @Input() public item: IBlogData =  {
     title: "Заголовок не задан",
     text_field: '-',
@@ -20,4 +22,7 @@ export class UserBlogItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  public removeThisMessage(){
+    if( confirm('Точно удалить?')) this.removeMessageEvent.emit(true);
+  };
 }

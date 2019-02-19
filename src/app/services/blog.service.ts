@@ -40,7 +40,6 @@ export class BlogService implements IService {
 
   public setData( data: any ){
     let _data = this.convertMessage2Request( data );
-    //console.log('devss setData in Blog Service', _data);
     let request: IDataRequest = {
       body:_data
     };

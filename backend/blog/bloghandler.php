@@ -12,22 +12,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // The request is using the POST method
     $arr = json_decode(file_get_contents('php://input'), true);
 
-    $arr['title'] = isset($arr['title']) ? $arr['title'] : '';
-    $arr['text_field'] = isset($arr['text_field']) ? $arr['text_field'] : '';
-    $arr['author'] = isset($arr['author']) ? $arr['author'] : '';
+    if( isset($arr['operation']) && $arr['operation'] == 'add' ){
+        $arr['title'] = isset($arr['title']) ? $arr['title'] : '';
+        $arr['text_field'] = isset($arr['text_field']) ? $arr['text_field'] : '';
+        $arr['author'] = isset($arr['author']) ? $arr['author'] : '';
 
-    $query = "INSERT INTO `blog` (`title`, `text_field`, `author`) VALUES (\"$arr[title]\", \"$arr[text_field]\", \"$arr[author]\")";
+        $query = "INSERT INTO `blog` (`title`, `text_field`, `author`) VALUES (\"$arr[title]\", \"$arr[text_field]\", \"$arr[author]\")";
 
-    $res = $mysql->query($query);
+        $res = $mysql->query($query);
 
-    echo json_encode( $arr );
+        echo json_encode( $arr );
+    }
+    
+    if( isset($arr['operation']) && isset($arr['id']) && $arr['operation'] == 'remove' ){
+        $id = isset($arr['id']) ? $arr['id'] : NULL;
+        
+        if($id){
+            $query = "DELETE FROM `blog` WHERE `id`= $id";
+            $mysql->query($query);
+            array_push($arr, array('q' => $query, "deleted_id" => $id));
+        } else array_push($arr, array('q' => $query, "error" => 'no_id'));
+        
+
+        echo json_encode( $arr );
+        
+      }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // The request is using the GET method
     $arr = array();
-
-    $arr['limit'] = 
 
     $limit = isset($_GET['limit']) ? 'LIMIT='.$_GET['limit'] : '';
     $author  = isset($_GET['author']) ? '`author`="'.$_GET['author'].'"' : NULL;

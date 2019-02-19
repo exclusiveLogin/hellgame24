@@ -3,6 +3,7 @@ import { BlogService, IBlogData } from '../../services/blog.service';
 import { TopEventsService } from '../../topevents.service';
 import { ThrowStmt } from '@angular/compiler';
 import { Subscription } from 'rxjs';
+import { IDataRequest } from '../../services/connector.service';
 
 @Component({
   selector: 'app-user-blog',
@@ -39,6 +40,11 @@ export class UserBlogComponent implements OnInit, OnChanges {
       console.log('devss blogservice get', items);
       this._blogItems = items;
     });
+  }
+
+  public removeBlogItem( id: string ){
+    let body = { operation: 'remove', id};
+    this.blogService.setData( body ).subscribe(result => this.tes.refreshSegment( 'blog' ));
   }
 
   ngOnChanges(sc: SimpleChanges){
