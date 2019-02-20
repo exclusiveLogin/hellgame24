@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth.service';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BlogService, IBlogData } from '../../services/blog.service';
 import { TopEventsService } from '../../topevents.service';
@@ -19,10 +20,13 @@ export class UserBlogComponent implements OnInit, OnChanges {
 
   @Input() public author: string;
 
+  public ownerMode: boolean = false;
+
   @Input() public title = 'Личные заметки';
   constructor(
     private blogService: BlogService,
     private tes: TopEventsService,
+    private auth: AuthService,
   ) { }
 
   ngOnInit() {
@@ -30,7 +34,9 @@ export class UserBlogComponent implements OnInit, OnChanges {
       .subscribe( refreshFlag => {
         console.log('devss REFRESH FLAG', refreshFlag);
         Promise.resolve().then(()=>this.refreshBlog());
-      } )
+      } );
+
+
 
     this.refreshBlog();
   }
@@ -51,6 +57,7 @@ export class UserBlogComponent implements OnInit, OnChanges {
     if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
       this.refreshBlog();
     }
+    this.ownerMode = (this.auth.authorizedAs() === this.author) ? true : false;
   }
 
   ngOnDestroy(): void {

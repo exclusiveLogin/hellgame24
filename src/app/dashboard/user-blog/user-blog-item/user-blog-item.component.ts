@@ -10,7 +10,9 @@ import { text } from '@angular/core/src/render3/instructions';
 export class UserBlogItemComponent implements OnInit {
 
   @Output() removeMessageEvent = new EventEmitter<boolean>();
-  
+
+  @Input() ownerMode: boolean = false;
+
   @Input() public item: IBlogData =  {
     title: "Заголовок не задан",
     text_field: '-',
