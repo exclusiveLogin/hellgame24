@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../models/user-interface';
 import { AuthService } from '../../../auth.service';
 import { InventoryService } from '../../inventory.service';
-import { spawn } from 'child_process';
 
 export interface ISlot{
   id: string,

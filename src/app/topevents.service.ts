@@ -19,6 +19,11 @@ export class TopEventsService {
     blog: new BehaviorSubject<boolean>(false),
     message: new BehaviorSubject<boolean>(false),
     usermail: new BehaviorSubject<boolean>(false),
+    inventory: new BehaviorSubject<boolean>(false),
+    demo: new BehaviorSubject<boolean>(false),
+    reciepts: new BehaviorSubject<boolean>(false),
+    menu: new BehaviorSubject<boolean>(false),
+    accessory: new BehaviorSubject<boolean>(false)
   };
 
   constructor() {
