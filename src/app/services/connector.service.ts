@@ -39,14 +39,16 @@ export class ConnectorService {
   }
 
   public setData(path: Path, data: IDataRequest ): Observable<IDataResponse> {
-    path.segment && this.updater.updateSegment( path.segment );
     let dbody: IDataRequest = data.body || {};
     dbody['author'] = this.auth.authorizedAs();
     return this.http.post(`${this.api.getApi()}${path.segment}/${path.script}`, dbody,
     {
       params: data.params
     }).pipe(
-      tap(htr => {console.log('htr set:', htr)})
+      tap(htr => {
+        console.log('htr set:', htr);
+        path.segment && this.updater.updateSegment( path.segment );
+      })
     );
   }
 }
