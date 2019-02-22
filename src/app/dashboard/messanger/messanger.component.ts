@@ -11,6 +11,7 @@ import { MessageService } from '../../services/message.service';
 export interface IMessangerData{
   title?: string,
   text?: string,
+  operation: string,
   /*etc в зависимости от  количество полей мессенджера*/
 }
 
@@ -53,7 +54,8 @@ export class MessangerComponent implements OnInit {
     if(text_field && text_field.length){
       let data: IMessangerData = {
         title: 'Без заголовка',
-        text: text_field
+        text: text_field,
+        operation: 'add'
       };
 
       if( this.useServices && this.service4Work ){

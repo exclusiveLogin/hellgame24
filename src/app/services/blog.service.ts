@@ -34,7 +34,7 @@ export class BlogService implements IService {
   }
 
   private convertMessage2Request( msg: IMessangerData ): IBlogData {
-    let req: IBlogData = Object.assign(msg, {text_field: msg.text});
+    let req: IBlogData = Object.assign(msg, { text_field: msg.text });
     return req;
   }
 
