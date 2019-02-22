@@ -202,16 +202,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       die();
     }
 
+    if(isset($arr['mode']) && isset($arr['slot_id']) && $arr['mode'] == 'remove_slot'){
+      $id = $arr['slot_id'];
+      //Удаляем слот
+      removeSlot($id);
+      die();
+    }
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   if(isset($_GET['mode']) && $_GET['mode'] == 'all_slots'){
     $query = "SELECT `object_slots`.* ,
-    `game_objects`.`id` as `go_id`
+    `game_objects`.`id` as `go_id`,
+    `object_spawn`.id as `spawn`
     FROM `object_slots`
     LEFT JOIN `real_game_objects` ON `object_slots`.`rgo_id` = `real_game_objects`.`id`
     LEFT JOIN `game_objects` ON `real_game_objects`.`object_id` = `game_objects`.`id`
+    LEFT JOIN `object_spawn` ON `object_spawn`.`armed_slot_id` = `object_slots`.`id`
     ORDER BY `id` DESC
     ";
   }

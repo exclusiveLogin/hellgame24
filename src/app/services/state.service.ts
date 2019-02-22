@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 export interface IGlobalState{
   debug: boolean,
+  updateTimeout: number,
 }
 
 
@@ -8,7 +9,8 @@ export interface IGlobalState{
 export class StateService {
 
   private state: IGlobalState = {
-    debug: true
+    debug: true,
+    updateTimeout: 5000,
   }
   constructor() { }
 

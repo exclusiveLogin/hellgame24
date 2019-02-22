@@ -8,6 +8,7 @@ import { AuthService } from '../auth.service';
 import { IRecieptPartData } from './receipt.service';
 import { IIngredient } from './ingredient.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { TopEventsService } from '../topevents.service';
 
 @Injectable()
 export class InventoryService {
@@ -23,8 +24,10 @@ export class InventoryService {
   constructor(
     private con: ConnectorService,
     private auth: AuthService,
+    private tes: TopEventsService
   ) {
     console.log( 'InventoryService:', this );
+    this.tes.getSegmentRefreshSignal( 'accessory' ).subscribe( s => this.clearCache());
   }
 
   public getAllSlots(){
@@ -45,7 +48,7 @@ export class InventoryService {
     return this.getAllSlots()
       .pipe(
         map(s => {
-          return !!s && s.filter(i => !i.owner && !!i.rgo_id);
+          return !!s && s.filter(i => !i.owner && !!i.rgo_id && !i.spawn);
         })
       );
 
@@ -178,9 +181,15 @@ export class InventoryService {
   }
 
   public removeSlot( id: string ){
-    let params: IParams = { mode: 'remove_slot', slot_id: id };
+    let req: IDataRequest = {
+      body:{
+        mode: "remove_slot",
+        slot_id: id,
+      }
+    }
+  
     this.clearCache();
-    return this.con.getData(this.path, params);
+    return this.con.setData(this.path, req);
   }
 
   public creatNewSlotByUser(): Observable<ISlot> {

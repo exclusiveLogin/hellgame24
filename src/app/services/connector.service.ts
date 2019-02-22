@@ -5,6 +5,8 @@ import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
 import { tap } from 'rxjs/operators/tap';
+import { UpdaterService } from '../updater.service';
+import { ServicesService } from '../services.service';
 
 
 export interface IDataResponse{
@@ -27,6 +29,7 @@ export class ConnectorService {
     private http: HttpClient,
     private auth: AuthService,
     private api: ApiService,
+    private updater: UpdaterService,
   ) { }
 
   public getData<T>(path: Path, params?: IParams): Observable<T> {
@@ -37,6 +40,7 @@ export class ConnectorService {
   }
 
   public setData(path: Path, data: IDataRequest ): Observable<IDataResponse> {
+    path.segment && this.updater.updateSegment( path.segment );
     let dbody: IDataRequest = data.body || {};
     dbody['author'] = this.auth.authorizedAs();
     return this.http.post(`${this.api.getApi()}${path.segment}/${path.script}`, dbody,

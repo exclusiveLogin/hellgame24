@@ -6,6 +6,7 @@ import { ServicesService } from '../../services.service';
 import { IBlogData } from '../../services/blog.service';
 import { TopEventsService } from '../../topevents.service';
 import { Title } from '@angular/platform-browser';
+import { MessageService } from '../../services/message.service';
 
 export interface IMessangerData{
   title?: string,
@@ -56,7 +57,7 @@ export class MessangerComponent implements OnInit {
       };
 
       if( this.useServices && this.service4Work ){
-        let service = this.services.getCoreService( this.service4Work );
+        let service = this.services.getCoreService<MessageService>( this.service4Work );
         service.setData( data )
           .subscribe( result => this.service4Work ? this.tes.refreshSegment( this.service4Work ) : null );
       } else if( this.path.segment && this.path.script ){

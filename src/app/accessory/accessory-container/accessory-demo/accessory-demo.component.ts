@@ -8,6 +8,7 @@ import { SpawnerService, ISpawn } from '../../spawner.service';
 import { LockerService } from '../../locker.service';
 import { combineLatest } from 'rxjs/operator/combineLatest';
 import { Observable } from 'rxjs';
+import { TopEventsService } from '../../../topevents.service';
 
 @Component({
   selector: 'app-accessory-demo',
@@ -29,12 +30,22 @@ export class AccessoryDemoComponent implements OnInit {
     private inventoryService: InventoryService,
     private auth: AuthService,
     private spawn: SpawnerService,
-    private locker: LockerService
-
+    private locker: LockerService,
+    private tes: TopEventsService,
   ) { }
 
   ngOnInit() {
     console.log('demo', this);
+    this.refreshComponent();
+
+    this.tes.getSegmentRefreshSignal('accessory').subscribe( state => this.refreshComponent())
+
+    this.loged_as = this.auth.authorizedAs();
+    this.locker.getLockSegment('demo').subscribe( state => this.locked = state);
+  }
+
+  private refreshComponent(){
+    console.log('REFRESHING DEMO');
     this.ingredientService.getAllIngredients().subscribe(items => this.lib_items = items);
     this.inventoryService.getNonOwnerSlots().subscribe(items => this.rgo_on_map = items);
     this.inventoryService.getNonOwnerEmptySlots().subscribe(items => this.empty_nonowner_slots = items);
@@ -42,9 +53,6 @@ export class AccessoryDemoComponent implements OnInit {
     this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs()).subscribe(items => this.empty_slots = items);
     this.ingredientService.getAllUnlinkedRGO().subscribe(items => this.unlinked_rgos = items);
     this.spawn.getAllSpawn().subscribe(spawns => this.spawns = spawns);
-
-    this.loged_as = this.auth.authorizedAs();
-    this.locker.getLockSegment('demo').subscribe( state => this.locked = state);
   }
 
   public locked: boolean = false;
