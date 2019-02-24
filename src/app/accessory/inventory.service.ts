@@ -206,20 +206,30 @@ export class InventoryService {
   }
 
   public utilizationRGO( id: string ){
-    let params: IParams = { mode: 'utilization_rgo', item_id: id };
-    return this.con.getData( this.path, params );
+    const data: IDataRequest = {
+      body: { mode: 'utilization_rgo', item_id: id }
+    };
+
+    return this.con.setData( this.path, data );
   }
 
   public utilizationInventoryItem( id: string ){
-    let params: IParams = { mode: 'utilization_item', item_id: id };
+    const data: IDataRequest = {
+      body: { mode: 'utilization_item', item_id: id }
+    };
+
     this.clearCache();
-    return this.con.getData( this.path, params );
+    return this.con.setData( this.path, data );
   }
 
   public wrapRGOInSlot( rgoId: string ){
-    let params: IParams = { mode: 'wrap_rgo_in_slot', item_id: rgoId };
+
+    const data: IDataRequest = {
+      body: { mode: 'wrap_rgo_in_slot', item_id: rgoId }
+    };
+
     this.clearCache();
-    return this.con.getData( this.path, params );
+    return this.con.setData( this.path, data );
   }
 
   public dropItemFromInventory( slotId: string ){

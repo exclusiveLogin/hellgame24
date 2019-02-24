@@ -16,7 +16,7 @@ export interface IParams {
   [name: string]: any
 }
 export interface IDataRequest{
-  params?: any,
+  params?: IParams,
   body?: any
 };
 

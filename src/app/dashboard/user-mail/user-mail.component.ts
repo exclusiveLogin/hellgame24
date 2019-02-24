@@ -66,7 +66,7 @@ export class UserMailComponent implements OnInit {
   }
 
   private groupMessages( messages: IMessageData[] ): void {
-    if( messages && messages.length){
+    if( messages ){
       let group: IGroupMessages[] = [];
 
       messages.forEach((message: IMessageData) => {

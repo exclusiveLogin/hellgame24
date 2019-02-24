@@ -206,8 +206,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $id = $arr['slot_id'];
       //Удаляем слот
       removeSlot($id);
-      die();
+
+      die(json_encode(array(removedSlot => $id)));
     }
+
+    if(isset($arr['mode']) && isset($arr['slot_id']) && $arr['mode'] == 'clear_slot'){
+      $id = $arr['slot_id'];
+      //Освобождаем слот
+      clearSlot($id);
+
+      die(json_encode(array(clearedSlot => $id)));
+    }
+
+    if(isset($arr['mode']) && isset($arr['item_id']) && $arr['mode'] == 'utilization_item'){
+      $id = $arr['item_id'];
+      //Удаление RGO
+      removeItem($id);
+      clearSlotByItemID($id);
+
+      die(json_encode(array(utilizedItemId => $id)));
+    }
+  
+    if(isset($arr['mode']) && isset($arr['item_id']) && $arr['mode'] == 'utilization_rgo'){
+      $id = $arr['item_id'];
+      //Удаление RGO
+      removeItem($id);
+
+      die(json_encode(array(removedRGOId => $id)));
+    }
+  
+    if(isset($arr['mode']) && isset($arr['item_id']) && $arr['mode'] == 'wrap_rgo_in_slot'){
+      $id = $arr['item_id'];
+  
+      $newslotId = createNewSlot();
+      linkSlotOnRGO( $newslotId, $id);
+  
+      die(json_encode(array(newSlotId => $newslotId, rgoId => $id)));
+    }
+
 
 }
 
@@ -225,40 +261,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     ";
   }
 
-  if(isset($_GET['mode']) && isset($_GET['item_id']) && $_GET['mode'] == 'utilization_item'){
-    $id = $_GET['item_id'];
-    //Удаление RGO
-    removeItem($id);
-    clearSlotByItemID($id);
-  }
-
-  if(isset($_GET['mode']) && isset($_GET['item_id']) && $_GET['mode'] == 'utilization_rgo'){
-    $id = $_GET['item_id'];
-    //Удаление RGO
-    removeItem($id);
-  }
-
-  if(isset($_GET['mode']) && isset($_GET['item_id']) && $_GET['mode'] == 'wrap_rgo_in_slot'){
-    $id = $_GET['item_id'];
-
-    $newslotId = createNewSlot();
-
-    linkSlotOnRGO( $newslotId, $id);
-
-    die(json_encode(array(newSlotId => $newslotId, rgoId => $id)));
-  }
-
-  if(isset($_GET['mode']) && isset($_GET['slot_id']) && $_GET['mode'] == 'clear_slot'){
-    $id = $_GET['slot_id'];
-    //Освобождаем слот
-    clearSlot($id);
-  }
-
-  if(isset($_GET['mode']) && isset($_GET['slot_id']) && $_GET['mode'] == 'remove_slot'){
-    $id = $_GET['slot_id'];
-    //Удаляем слот
-    removeSlot($id);
-  }
+  
 
   // выбрать те эелементы на которые нет линков
   // SELECT * FROM real_game_objects WHERE id not in (SELECT rgo_id from object_slots where rgo_id is not null)
@@ -275,6 +278,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $where
     ORDER BY `id` DESC";
   }
+
   if(!$query) die(json_encode([]));
   $res = $mysql->query($query);
 
