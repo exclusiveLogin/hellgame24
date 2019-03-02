@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {ApiService} from './api.service';
 import {Router} from '@angular/router';
+import { UxEventerService } from './ux-eventer.service';
+import { UserServiceService } from './user-service.service';
 
 interface ILogin {
   login: string;
@@ -17,9 +19,15 @@ interface ILoginResponse {
 @Injectable()
 export class AuthService {
 
-  constructor(public http: HttpClient, public api: ApiService, private router: Router) {
-    console.log('AUTH SERVICE', this);
-  }
+  constructor(
+    public http: HttpClient, 
+    public api: ApiService, 
+    private router: Router,
+    private uxevent: UxEventerService,
+    private user: UserServiceService
+    ) {
+      console.log('AUTH SERVICE', this);
+    }
   private isLoggedSuccess = false;
   private currentAuthorizedLogin: string = null;
 
@@ -40,6 +48,7 @@ export class AuthService {
           }
           if (response.auth) {
             this.router.navigate(['dashboard']);
+            this.user.getUser( response.login ).subscribe( user => this.uxevent.setLoginEvent( user ));
           }
         },
           (e) => {
@@ -49,6 +58,7 @@ export class AuthService {
   }
 
   public logout(){
+    this.user.getUser( this.currentAuthorizedLogin ).subscribe( user => this.uxevent.setLogoutEvent( user ));
     this.isLoggedSuccess = false;
     this.currentAuthorizedLogin = null;
     this.router.navigate(['dashboard']);

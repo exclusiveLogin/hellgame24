@@ -26,6 +26,7 @@ import { UiService } from './services/ui.service';
 import { MessageService } from './services/message.service';
 import { MailServiceService } from './services/mail-service.service';
 import { UpdaterService } from './updater.service';
+import { UxEventerService } from './ux-eventer.service';
 
 let dashboardRoutes: Routes = [
   { path: '', redirectTo:'default', pathMatch: 'full' },
@@ -71,6 +72,7 @@ const routes: Routes = [
     UiService,
     MailServiceService,
     UpdaterService,
+    UxEventerService,
   ],
   bootstrap: [AppComponent]
 })

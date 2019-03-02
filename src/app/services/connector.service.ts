@@ -26,7 +26,7 @@ export class ConnectorService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService,
+    //private auth: AuthService,
     private api: ApiService,
     private updater: UpdaterService,
   ) { }
@@ -40,7 +40,7 @@ export class ConnectorService {
 
   public setData(path: Path, data: IDataRequest ): Observable<IDataResponse> {
     let dbody: IDataRequest = data.body || {};
-    dbody['author'] = this.auth.authorizedAs();
+    //dbody['author'] = this.auth.authorizedAs();
     return this.http.post(`${this.api.getApi()}${path.segment}/${path.script}`, dbody,
     {
       params: data.params
