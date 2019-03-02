@@ -9,6 +9,7 @@
 
 # dependencies
 /node_modules
+/hg24bot/node_modules
 package-lock.json
 
 # IDEs and editors
