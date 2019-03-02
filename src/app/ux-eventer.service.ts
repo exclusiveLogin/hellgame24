@@ -50,4 +50,16 @@ public setLogoutEvent( user: IUser ){
     this.con.setData( path, { body }).subscribe();
 }
 
+public setLoginErrorEvent( login: string ){
+    let body: IUXEvent =  {
+        title: `Неудачная попытка входа за пользователя с логином ${login}`,
+        description: 'Если это не Вы Просьба сообщить администратору Hellgame24',
+        author: 'system',
+        level:'error',
+        mode: 'add_event'
+    }
+    
+    this.con.setData( path, { body }).subscribe();
+}
+
 }

@@ -5,8 +5,8 @@ const fe = require('./fetcher');
 
 
 let token = '776154170:AAELvoF6Tro_C2PMpSfAYit3j0VrZO1-47A';
-//let hgChatId = -395832167;
-let hgChatId = 474062218;
+let hgChatId = -395832167;
+//let hgChatId = 474062218;
 const bot = new Telegraf(token, {
     telegram: {
         agent: new HttpsProxyAgent({port: '3128', host: '178.128.174.206'})

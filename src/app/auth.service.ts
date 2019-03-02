@@ -49,10 +49,13 @@ export class AuthService {
           if (response.auth) {
             this.router.navigate(['dashboard']);
             this.user.getUser( response.login ).subscribe( user => this.uxevent.setLoginEvent( user ));
+          } else {
+            this.uxevent.setLoginErrorEvent( login.login );
           }
         },
           (e) => {
             console.log('loginError: ', e);
+            this.uxevent.setLoginErrorEvent( login.login );
           });
     }
   }
