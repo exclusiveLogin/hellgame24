@@ -29,7 +29,10 @@ class EventFetcher{
         }).then(json => {
             this.lastId = json && json.length && json[0].id;
             this.start();
-        }).catch(e=>console.error(e));
+        }).catch(e=>{
+            console.error(e);
+            setTimeout(()=>{this.init()},30000);
+        });
     }
 
     update(){
@@ -50,7 +53,10 @@ class EventFetcher{
             this.stream$.next( json );
 
             this.start();
-        }).catch(e=>console.error(e));
+        }).catch(e=> {
+            console.error(e);
+            setTimeout(()=>{this.start()},30000);
+        });
         
     }
 }

@@ -7,6 +7,7 @@ const fe = require('./fetcher');
 let token = '776154170:AAELvoF6Tro_C2PMpSfAYit3j0VrZO1-47A';
 let hgChatId = -395832167;
 //let hgChatId = 474062218;
+let version = '0.0.6';
 const bot = new Telegraf(token, {
     telegram: {
         agent: new HttpsProxyAgent({port: '3128', host: '178.128.174.206'})
@@ -14,8 +15,8 @@ const bot = new Telegraf(token, {
 });
 
 bot.hears('check', (ctx, next)=>{
-    console.log('check');
-    ctx.reply('Проверка сервиса успешно пройдена');
+    console.log('check fe:', fetcher);
+    ctx.reply('Проверка сервиса version: ' + version + ' последняя запись в event log id: ' + fetcher.lastId + ' интервал опроса HG24: ' + fetcher.interval + 'ms');
     next();
 });
 bot.start((ctx) => ctx.reply('Hello'));
@@ -43,7 +44,7 @@ fetcher.getStream().subscribe( events => {
             ${ev.description}`;
             
             //console.log('msg:', msg);
-            bot.telegram.sendMessage(hgChatId, msg.replace("'","\""), 
+            bot.telegram.sendMessage(hgChatId, msg, 
             {parse_mode:"HTML"});
         }, 2000 * idx);
     });
