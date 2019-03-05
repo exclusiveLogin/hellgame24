@@ -94,7 +94,8 @@ export class UserServiceService {
 
   }
 
-  public refreshUserStatus(){
-
+  public refreshUsers(){
+    this.fetchedUsers = null;
+    return this.getUsersInit();
   }
 }

@@ -23,7 +23,8 @@ export class TopEventsService {
     demo: new BehaviorSubject<boolean>(false),
     reciepts: new BehaviorSubject<boolean>(false),
     menu: new BehaviorSubject<boolean>(false),
-    accessory: new BehaviorSubject<boolean>(false)
+    accessory: new BehaviorSubject<boolean>(false),
+    status: new BehaviorSubject<boolean>(false)
   };
 
   constructor() {
@@ -35,9 +36,11 @@ export class TopEventsService {
   public setMenuState(state: boolean): void {
     this.mainMenuToggleStateEvent.next(state);
   }
+  
   public getMenuState(): BehaviorSubject<MenuStateInterface> {
     return this.menuUpdateState;
   }
+  
   public setMenuStateUpdates(newstate: IMenustate): void {
     const _oldval = this.menuUpdateState.getValue();
     _oldval.dashboard_upd = (newstate['dashboard_upd']) ? newstate['dashboard_upd'] : _oldval.dashboard_upd;

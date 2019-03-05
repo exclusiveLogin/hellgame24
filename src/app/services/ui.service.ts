@@ -12,10 +12,10 @@ export class UiService {
 
   private usermail_shownChanged: BehaviorSubject<boolean> = new BehaviorSubject(false);
   private userstatus_shownChanged: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  private useremo_shownChanged: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private router: Router,
-    private actRoutes: ActivatedRoute,
   ) { }
 
   public setCurrentUserSelect( user: IUser ){
@@ -39,6 +39,12 @@ export class UiService {
   public getUserStatusShownChangeEvent(): Observable<boolean>{
     return this.userstatus_shownChanged.asObservable();
   }
+
+  public getUserEmoShownChangeEvent(): Observable<boolean>{
+    return this.useremo_shownChanged.asObservable();
+  }
+
+
   // user mail
   public openUsermail(): void{
     this.usermail_shownChanged.next( true );
@@ -54,5 +60,14 @@ export class UiService {
 
   public closeUserStatus(): void{
     this.userstatus_shownChanged.next( false );
+  }
+
+  // user emo
+  public openEmoStatus(): void{
+    this.useremo_shownChanged.next( true );
+  }
+
+  public closeEmoStatus(): void{
+    this.useremo_shownChanged.next( false );
   }
 }

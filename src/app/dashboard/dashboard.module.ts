@@ -20,6 +20,9 @@ import { UserMailComponent } from './user-mail/user-mail.component';
 import { UserMailGroupComponent } from './user-mail/user-mail-group/user-mail-group.component';
 import { UserMailItemComponent } from './user-mail/user-mail-group/user-mail-item/user-mail-item.component';
 import { UserStatusComponent } from './user-status/user-status.component';
+import { UserEmoComponent } from './user-emo/user-emo.component';
+import { SharedModule } from '../shared/shared.module';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 @NgModule({
@@ -28,6 +31,8 @@ import { UserStatusComponent } from './user-status/user-status.component';
     RouterModule,
     AccessoryModule,
     ChartModule,
+    //SharedModule
+    Ng5SliderModule
   ],
   exports: [
 
@@ -50,6 +55,7 @@ import { UserStatusComponent } from './user-status/user-status.component';
     UserMailGroupComponent,
     UserMailItemComponent,
     UserStatusComponent,
+    UserEmoComponent,
   ]
 })
 export class DashboardModule { }

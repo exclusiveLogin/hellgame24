@@ -13,6 +13,7 @@
   <button
     class="btn"
     [ngClass]="{'pressed': false}"
+    (click)="useremo_shown ? closeUserEmo() : openUserEmo()"
     >
       <i class="fas fa-chart-line fa-2x icon"></i>
   </button>

@@ -1,0 +1,12 @@
+<div class="cardheader">
+  <div class="title">Настроение</div>
+  <button class="btn btn_toggler" (click)="close()"><i class="fas fa-times"></i></button>
+</div>
+
+<ng5-slider
+  [options]="sliderOptions"
+  [(value)]="sliderValue"
+>
+</ng5-slider>
+<!-- Если значение совпадает с предыдущим деактивировать кнопку -->
+<div class="submit_btns"><button class="btn btn_submit" (click)="submitEmo()"> Установить настроение</button> </div>

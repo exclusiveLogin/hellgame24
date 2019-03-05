@@ -6,6 +6,7 @@ import { UiService } from '../services/ui.service';
 import { Route, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { TopEventsService } from '../topevents.service';
 import { Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,10 +35,15 @@ export class DashboardComponent implements OnInit {
   public usermail_shown = false;
 
   public userstatus_shown = false;
+  public useremo_shown = false;
 
   private userChangeSub: Subscription;
   private userMailShownSub: Subscription;
   private userStatusShownSub: Subscription;
+  private userEmoShownSub: Subscription;
+
+  private userStatusChangeSub: Subscription;
+  
 
   ngOnInit() {
     console.log('DASHBOARD INIT:');
@@ -59,6 +65,9 @@ export class DashboardComponent implements OnInit {
 
 
       });
+
+    this.userStatusChangeSub = this.tes.getSegmentRefreshSignal('status').pipe( switchMap( ()=> this.users.refreshUsers()) ).subscribe( users => this.v_users = users);
+
     this.userChangeSub = this.ui.getCurrentUserChangeEvent().subscribe(user => {
       if( user ){
         this.cur_user = user;
@@ -72,6 +81,10 @@ export class DashboardComponent implements OnInit {
 
     this.userStatusShownSub = this.ui.getUserStatusShownChangeEvent().subscribe( state => {
       this.userstatus_shown = state;
+    });
+
+    this.userEmoShownSub = this.ui.getUserEmoShownChangeEvent().subscribe( state => {
+      this.useremo_shown = state;
     });
 
     /*if( !this.routerParamsSub ) this.routerParamsSub = this.router.params.subscribe(params=>{
@@ -99,6 +112,8 @@ export class DashboardComponent implements OnInit {
     if( this.userChangeSub ) this.userChangeSub.unsubscribe();
     if( this.userMailShownSub ) this.userMailShownSub.unsubscribe();
     if( this.userStatusShownSub ) this.userStatusShownSub.unsubscribe();
+    if( this.userStatusChangeSub ) this.userStatusChangeSub.unsubscribe();
+    if( this.userEmoShownSub ) this.userEmoShownSub.unsubscribe();
     console.log('dashboard DESTROY');
   }
 }

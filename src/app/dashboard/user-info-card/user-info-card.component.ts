@@ -3,6 +3,7 @@ import {ChartObject} from 'highcharts';
 import {TopEventsService} from "../../topevents.service";
 import { IUser, ITrendItem } from '../../models/user-interface';
 import { UiService } from '../../services/ui.service';
+import { Subscription } from 'rxjs';
 const HC = require('highcharts');
 
 @Component({
@@ -16,6 +17,11 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   @ViewChild('trend') private trend: ElementRef;
   public usermail_shown: boolean = true;
   public userstatus_shown = false;
+  public useremo_shown = false;
+
+  private mailSub: Subscription;
+  private statusSub: Subscription;
+  private emoSub: Subscription;
 
   constructor(
     private tes: TopEventsService,
@@ -24,8 +30,9 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-    this.ui.getUsermailShownChangeEvent().subscribe( state => this.usermail_shown = state);
-    this.ui.getUserStatusShownChangeEvent().subscribe( status => this.userstatus_shown = status);
+    this.mailSub = this.ui.getUsermailShownChangeEvent().subscribe( state => this.usermail_shown = state);
+    this.statusSub = this.ui.getUserStatusShownChangeEvent().subscribe( status => this.userstatus_shown = status);
+    this.emoSub = this.ui.getUserEmoShownChangeEvent().subscribe( status => this.useremo_shown = status);
 
     HC.theme = {
       colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
@@ -274,21 +281,30 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
 
   }
-
+  // Mail
   public openMail(){
     this.ui.openUsermail();
   }
-
+  
   public closeMail(){
     this.ui.closeUsermail();
   }
-
+  // Status
   public openUserStatus(){
     this.ui.openUserStatus();
   }
 
   public closeUserStatus(){
     this.ui.closeUserStatus();
+  }
+
+  // Emo
+  public openUserEmo(){
+    this.ui.openEmoStatus();
+  }
+
+  public closeUserEmo(){
+    this.ui.closeEmoStatus();
   }
 
   ngAfterViewInit(): void {
@@ -310,5 +326,14 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
         this.emoChart.redraw();
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    
+    if ( this.mailSub ) this.mailSub.unsubscribe();
+    if ( this.statusSub ) this.statusSub.unsubscribe();
+    if ( this.emoSub ) this.emoSub.unsubscribe();
   }
 }

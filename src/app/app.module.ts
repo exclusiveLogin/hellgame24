@@ -27,6 +27,7 @@ import { MessageService } from './services/message.service';
 import { MailServiceService } from './services/mail-service.service';
 import { UpdaterService } from './updater.service';
 import { UxEventerService } from './ux-eventer.service';
+import { SharedModule } from './shared/shared.module';
 
 let dashboardRoutes: Routes = [
   { path: '', redirectTo:'default', pathMatch: 'full' },
@@ -55,6 +56,7 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     DashboardModule,
+    SharedModule,
   ],
   providers: [
     AuthService,

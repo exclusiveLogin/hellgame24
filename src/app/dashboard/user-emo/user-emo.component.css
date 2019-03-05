@@ -1,0 +1,49 @@
+
+:host ::ng-deep .ng5-slider .ng5-slider-bar{
+    background: #ffe4d1;
+    height: 2px;
+}
+
+:host ::ng-deep .ng5-slider .ng5-slider-pointer {
+  width: 8px;
+  height: 16px;
+  top: auto;
+  bottom: -5px;
+  background-color: burlywood;
+  /* border-top-left-radius: 3px; */
+  /* border-top-right-radius: 3px; */
+  border-radius: 30%;
+  }
+
+:host ::ng-deep .ng5-slider .ng5-slider-pointer:after {
+    display: none;
+  }
+
+:host ::ng-deep .ng5-slider .ng5-slider-bubble {
+    bottom: 14px;
+    color: antiquewhite;
+  }
+
+:host ::ng-deep .ng5-slider .ng5-slider-bubble.ng5-slider-limit {
+    font-weight: bold;
+    color: rgb(245, 219, 170);
+  }
+
+:host ::ng-deep .ng5-slider .ng5-slider-tick {
+    width: 1px;
+    height: 10px;
+    margin-left: 4px;
+    border-radius: 0;
+    background: #ffe4d1;
+    top: -1px;
+  }
+
+:host ::ng-deep .ng5-slider .ng5-slider-tick.ng5-slider-selected {
+    background: orange;
+  }
+
+.submit_btns{
+    flex-basis: 100%;
+    justify-content: center;
+    display: flex;
+}

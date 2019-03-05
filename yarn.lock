@@ -1739,6 +1739,11 @@ detect-node@^2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/detect-node/-/detect-node-2.0.4.tgz#014ee8f8f669c5c58023da64b8179c083a28c46c"
 
+detect-passive-events@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/detect-passive-events/-/detect-passive-events-1.0.4.tgz#6ed477e6e5bceb79079735dcd357789d37f9a91a"
+  integrity sha1-btR35uW863kHlzXc01d4nTf5qRo=
+
 di@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/di/-/di-0.0.1.tgz#806649326ceaa7caa3306d75d985ea2748ba913c"
@@ -4227,6 +4232,14 @@ next-tick@1:
 ng-smoothscroll@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/ng-smoothscroll/-/ng-smoothscroll-1.8.0.tgz#6ebf72bfda8d373cc30a31b191ee04a1a8eec4bb"
+
+ng5-slider@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/ng5-slider/-/ng5-slider-1.1.13.tgz#fa4e5f5f01fce4cc1c753f04e844bc5e9f98b920"
+  integrity sha512-ZiOwA2ksMdg/U8PtMFjKElvn6i6lwxK0SHq9PUXds5B5jBxdepUuT8j2l4I9NRSJR3TgOURZtUYNu07yJPsZag==
+  dependencies:
+    detect-passive-events "^1.0.4"
+    tslib "^1.7.1"
 
 no-case@^2.2.0:
   version "2.3.2"
