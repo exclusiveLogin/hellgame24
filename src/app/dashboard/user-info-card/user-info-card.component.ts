@@ -15,6 +15,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   @Input() public user: IUser;
   @ViewChild('trend') private trend: ElementRef;
   public usermail_shown: boolean = true;
+  public userstatus_shown = false;
 
   constructor(
     private tes: TopEventsService,
@@ -24,6 +25,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
     this.ui.getUsermailShownChangeEvent().subscribe( state => this.usermail_shown = state);
+    this.ui.getUserStatusShownChangeEvent().subscribe( status => this.userstatus_shown = status);
 
     HC.theme = {
       colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
@@ -279,6 +281,14 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
   public closeMail(){
     this.ui.closeUsermail();
+  }
+
+  public openUserStatus(){
+    this.ui.openUserStatus();
+  }
+
+  public closeUserStatus(){
+    this.ui.closeUserStatus();
   }
 
   ngAfterViewInit(): void {

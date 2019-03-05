@@ -1,4 +1,5 @@
 import {SafeStyle} from '@angular/platform-browser';
+import { IUserStatus } from '../dashboard/user-status/user-status.component';
 
 export interface IUser {
   login: string;
@@ -20,7 +21,8 @@ export interface IUser {
   emotion_last?: string,
   emotion_current_datetime?: string,
   emotion_last_datetime?: string,
-  emo_trend?: ITrendItem[]
+  emo_trend?: ITrendItem[],
+  game_status?: IUserStatus;
 }
 
 export interface ITrendItem{

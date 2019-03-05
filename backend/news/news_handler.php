@@ -64,9 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // The request is using the GET method
-    $arr = array();
-
+    
     $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : '';
     $skip = isset($_GET['skip']) ? ' OFFSET '.$_GET['skip'] : '';
     $author  = isset($_GET['author']) ? '`author`="'.$_GET['author'].'"' : NULL;

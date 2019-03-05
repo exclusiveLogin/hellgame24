@@ -1,0 +1,7 @@
+<div class="cardheader">
+  <span class="title">Статус</span>
+  <div class="usermail_btns"><button class="btn btn_toggler" (click)="close()" ><i class="fas fa-times"></i></button></div>
+</div>
+<div class="sys_code_btns">
+  <button *ngFor="let b of buttons" class="btn status_btn" title="b.title" (click)="confirm(b)"><i [class]="b.icon"></i></button>
+</div>

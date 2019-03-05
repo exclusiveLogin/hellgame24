@@ -7,7 +7,7 @@
     <div class="usercard_message">
       <div class="usercard_message__icon"><i [ngClass]="user.message.icon" class="fas fa-2x"></i> </div>
       <div class="usercard_message__text">{{user.message.text}}</div>
-      <div class="usercard_message__datetime">{{user.message.datetime}}</div>
+      <div class="usercard_message__datetime" *ngIf="user.message.datetime">{{ user.message.datetime }}</div>
     </div>
     <div class="usercard_panel">
       <ng-container *ngIf="_owner;then owner else default"></ng-container>
@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="usercard_footer">
-    <span class="usercard_status">{{user.status}}</span>
+    <span class="usercard_status">{{user.status}} ({{user.last_change_datetime}})</span>
   </div>
   <app-usercardled></app-usercardled>
 </div>

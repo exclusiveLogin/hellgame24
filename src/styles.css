@@ -16,6 +16,7 @@ body{
   border: 1px outset #555555;
   transition: all ease .2s;
   user-select: none;
+  margin: 5px;
 }
 .btn:active{
   border: 1px solid black;
@@ -68,7 +69,16 @@ body{
 .microcard .title{
   width: 100%;
   font-weight: bold;
-  margin: 10px 5px;
+  border: 1px dotted #4a4949;
+  padding: 2px;
+  background-color: #323232;
+  flex-grow: 1;
+}
+
+.microcard .cardheader{
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
 }
 
 .microcard.locked{

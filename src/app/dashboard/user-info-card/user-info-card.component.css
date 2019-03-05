@@ -10,7 +10,7 @@
   flex-basis: 40%;
 }
 .icon{
-  color: grey;
+  color: #ccc;
 }
 .userinfo_left .userinfo_avatar{
   width: 100%;
@@ -47,4 +47,9 @@
 }
 .user_emotrend{
   max-width: 100%;
+}
+.userinfo_btns{
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 50px;
 }

@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { UiService } from '../services/ui.service';
 import { Route, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { TopEventsService } from '../topevents.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,10 +24,20 @@ export class DashboardComponent implements OnInit {
     ) { }
 
   public v_users: IUser[] = [];
+
   public cur_user: IUser;
+
   private routerSub;
+
   private routerParamsSub;
+
   public usermail_shown = false;
+
+  public userstatus_shown = false;
+
+  private userChangeSub: Subscription;
+  private userMailShownSub: Subscription;
+  private userStatusShownSub: Subscription;
 
   ngOnInit() {
     console.log('DASHBOARD INIT:');
@@ -48,16 +59,21 @@ export class DashboardComponent implements OnInit {
 
 
       });
-    this.ui.getCurrentUserChangeEvent().subscribe(user => {
+    this.userChangeSub = this.ui.getCurrentUserChangeEvent().subscribe(user => {
       if( user ){
         this.cur_user = user;
       console.log('devss user changed on:', user.login);
       }
     });
 
-    this.ui.getUsermailShownChangeEvent().subscribe( state => {
+    this.userMailShownSub = this.ui.getUsermailShownChangeEvent().subscribe( state => {
       this.usermail_shown = state;
     });
+
+    this.userStatusShownSub = this.ui.getUserStatusShownChangeEvent().subscribe( state => {
+      this.userstatus_shown = state;
+    });
+
     /*if( !this.routerParamsSub ) this.routerParamsSub = this.router.params.subscribe(params=>{
           console.log('routerParams:', params);
           this.tes.refreshSegment('blog')
@@ -80,6 +96,9 @@ export class DashboardComponent implements OnInit {
     //Add 'implements OnDestroy' to the class.
     if( this.routerSub ) this.routerSub.unsubscribe();
     if( this.routerParamsSub ) this.routerParamsSub.unsubscribe();
+    if( this.userChangeSub ) this.userChangeSub.unsubscribe();
+    if( this.userMailShownSub ) this.userMailShownSub.unsubscribe();
+    if( this.userStatusShownSub ) this.userStatusShownSub.unsubscribe();
     console.log('dashboard DESTROY');
   }
 }

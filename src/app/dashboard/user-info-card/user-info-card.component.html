@@ -1,4 +1,6 @@
 <div class="userinfo_btns">
+
+  <!-- Почта (кнопка) -->
   <button
     class="btn"
     [ngClass]="{'pressed': usermail_shown}"
@@ -6,6 +8,24 @@
     >
       <i class="fas fa-envelope fa-2x icon"></i>
   </button>
+
+  <!-- Настроение (кнопка) -->
+  <button
+    class="btn"
+    [ngClass]="{'pressed': false}"
+    >
+      <i class="fas fa-chart-line fa-2x icon"></i>
+  </button>
+
+  <!-- Статус (кнопка) -->
+  <button
+    class="btn"
+    [ngClass]="{'pressed': userstatus_shown}"
+    (click)="userstatus_shown ? closeUserStatus() : openUserStatus()"
+    >
+      <i class="fas fa-comment-alt fa-2x icon"></i>
+  </button>
+
 </div>
 <div class="userinfo_left">
   <img [attr.src]="user.avatar_big" class="userinfo_avatar"/>

@@ -1,5 +1,5 @@
 
-<div class="usermail_title">{{ title ? title : 'Личные сообщения' }}</div>
+<div class="title">{{ title ? title : 'Личные сообщения' }}</div>
 <div class="usermail_btns"><button class="btn btn_toggler" (click)="closeMail()"><i class="fas fa-times"></i></button></div>
 
 <ng-container *ngIf="useGroup && _groupedItems.length" >

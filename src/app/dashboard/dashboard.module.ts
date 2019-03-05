@@ -19,6 +19,7 @@ import { UserMessageItemComponent } from './user-message/user-message-item/user-
 import { UserMailComponent } from './user-mail/user-mail.component';
 import { UserMailGroupComponent } from './user-mail/user-mail-group/user-mail-group.component';
 import { UserMailItemComponent } from './user-mail/user-mail-group/user-mail-item/user-mail-item.component';
+import { UserStatusComponent } from './user-status/user-status.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { UserMailItemComponent } from './user-mail/user-mail-group/user-mail-ite
     UserMailComponent,
     UserMailGroupComponent,
     UserMailItemComponent,
+    UserStatusComponent,
   ]
 })
 export class DashboardModule { }

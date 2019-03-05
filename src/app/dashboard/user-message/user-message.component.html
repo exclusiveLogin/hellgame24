@@ -1,4 +1,4 @@
-<div class="message_title">{{title}}({{_messageItems && _messageItems.length ? _messageItems.length : 'нет'}}) - {{to_user}}</div>
+<div class="title">{{title}}({{_messageItems && _messageItems.length ? _messageItems.length : 'нет'}}) - {{to_user}}</div>
 <div class="message_container">
   <ng-container *ngIf="_messageItems && _messageItems.length; else empty">
     <app-user-message-item class="microcard"

@@ -39,10 +39,9 @@ export class UserMailComponent implements OnInit {
 
   ngOnInit() {
     if( this.user ) {
-      console.log('devss USERMAIL INIT');
+      
       this._messageSubscription = this.tes.getSegmentRefreshSignal( 'usermail' )
       .subscribe( refreshFlag => {
-        console.log('devss USERMAIL REFRESH FLAG', refreshFlag);
         if( !!refreshFlag ) Promise.resolve().then(() => this.refreshMessages());
       });
 

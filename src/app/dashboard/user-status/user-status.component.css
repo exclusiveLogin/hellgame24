@@ -1,0 +1,14 @@
+.sys_code{
+  font-size: 90%;
+  color: #bbb;
+  width: 100%;
+}
+.sys_code_btns{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.status_btn{
+  flex-basis: 30%
+}

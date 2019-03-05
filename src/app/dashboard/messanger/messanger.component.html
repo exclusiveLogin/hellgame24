@@ -1,4 +1,4 @@
-<div class="messager_title"><span>{{title || 'Сообщение'}}</span><span *ngIf="debug">{{' #segment: ' + path.segment + ' #script: ' + path.script }}</span></div>
+<div class="title"><span>{{title || 'Сообщение'}}</span><span *ngIf="debug">{{' #segment: ' + path.segment + ' #script: ' + path.script }}</span></div>
 <div class="messager_container">  
   <input class="messager_input" placeholder="Введите сообщение" (keypress)="onKeydown($event)" #text/>
   <div class="messager_sendbtn" (click)="sendMessage(text.value)"><i class="fas fa-comment fa-2x"></i></div>
