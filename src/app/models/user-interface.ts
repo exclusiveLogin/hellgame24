@@ -33,3 +33,11 @@ export interface ITrendItem{
   emo_desc: string,
   utc: string,
 }
+
+export interface IUserEmo {
+  id?: string,
+  login?: string,
+  value: number,
+  title?: string,
+  datetime?: string
+}

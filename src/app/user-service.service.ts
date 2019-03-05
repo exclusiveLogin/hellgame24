@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {IUser} from './models/user-interface';
+import {IUser, IUserEmo} from './models/user-interface';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from './api.service';
 import {Observable} from 'rxjs/Observable';
@@ -10,10 +10,6 @@ import { IStatusBtn, IUserStatus } from './dashboard/user-status/user-status.com
 import { ConnectorService } from './services/connector.service';
 import { Path } from './models/path';
 
-let path: Path = {
-  segment: 'status',
-  script: 'status_handler.php'
-};
 
 @Injectable()
 export class UserServiceService {
@@ -77,6 +73,10 @@ export class UserServiceService {
   }
 
   public setUserStatus( status: IStatusBtn, user: string){
+    let path: Path = {
+      segment: 'status',
+      script: 'status_handler.php'
+    };
 
     let body: IUserStatus = {
       login: user,
@@ -91,6 +91,16 @@ export class UserServiceService {
   }
 
   public setUserEmo(){
+
+    let path: Path = {
+      segment: 'emo',
+      script: 'emo_handler.php'
+    };
+
+    let body: IUserEmo = {
+      value: 0,
+    }
+
 
   }
 
