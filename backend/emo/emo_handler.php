@@ -20,6 +20,19 @@ function getLastID(){
     return $newslotId;
 }
 
+function getDelta( $login ){
+
+  
+  $query = "SELECT * FROM `user_emo` WHERE `login`=\"$login\" ORDER BY `id` LIMIT 1";
+
+    global $mysql;
+    $res = $mysql->query($query);
+
+    $row = $res->fetch_assoc();
+    
+    return $row;
+}
+
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $arr = json_decode(file_get_contents('php://input'), true);
@@ -27,7 +40,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     if( isset($arr['mode']) && isset($arr['value']) && isset($arr['login']) && $arr['mode'] === 'add_emo' ){
         $value = $arr['value'];
         $login = $arr['login'];
-        $delta = 0;
+        $d = getDelta( $login );
+        $delta = isset($d) ? $d['value'] : 0;
         $title = isset($arr['title']) ? '"'.$arr['title'].'"' : 'NULL';
 
         $q = "INSERT INTO `user_emo` ( `login`, `value`, `delta`, `title` ) 

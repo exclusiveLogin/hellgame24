@@ -3,6 +3,7 @@ import { Options } from 'ng5-slider';
 import { UiService } from '../../services/ui.service';
 import { AuthService } from '../../auth.service';
 import { UserServiceService } from '../../user-service.service';
+import { UxEventerService } from '../../ux-eventer.service';
 
 @Component({
   selector: 'app-user-emo',
@@ -17,6 +18,7 @@ export class UserEmoComponent implements OnInit {
     private ui: UiService,
     private auth: AuthService,
     private user: UserServiceService,
+    private uxevent: UxEventerService,
      ) { }
   public sliderValue;
   public emo_title = '';
@@ -46,5 +48,7 @@ export class UserEmoComponent implements OnInit {
 
     this.user.setUserEmo( o );
     this.close();
+    
+    this.uxevent.setUserEmo( login, this.sliderValue, this.emo_title);
   }
 }

@@ -62,4 +62,29 @@ public setLoginErrorEvent( login: string ){
     this.con.setData( path, { body }).subscribe();
 }
 
+public setUserEmo( user: string, emo: number, title?: string, ){
+    let body: IUXEvent =  {
+        title: `Пользователь ${user} установил настроение`,
+        description: `Новое настроение: ${emo}, ( ${title} )`,
+        author: 'system',
+        level:'info',
+        mode: 'add_event'
+    }
+    
+    this.con.setData( path, { body }).subscribe();
+}
+
+public setUserStatus( user: string, status: string ){
+    let body: IUXEvent =  {
+        title: `Пользователь ${user} установил новый статус`,
+        description: `Статус: ${status}`,
+        author: 'system',
+        level:'info',
+        mode: 'add_event'
+    }
+    
+    this.con.setData( path, { body }).subscribe();
+}
+
+
 }

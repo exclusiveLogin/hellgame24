@@ -3,6 +3,7 @@ import { UiService } from '../../services/ui.service';
 import { AuthService } from '../../auth.service';
 import { UserServiceService } from '../../user-service.service';
 import { TopEventsService } from '../../topevents.service';
+import { UxEventerService } from '../../ux-eventer.service';
 
 export interface IStatusBtn {
   icon: string,
@@ -51,6 +52,7 @@ export class UserStatusComponent implements OnInit {
     private auth: AuthService,
     private user: UserServiceService,
     private tes: TopEventsService,
+    private uxevent: UxEventerService,
   ) { }
 
   ngOnInit() {
@@ -64,6 +66,7 @@ export class UserStatusComponent implements OnInit {
     this.user.setUserStatus( b, login );
     this.close();
     this.tes.refreshSegment('status');
+    this.uxevent.setUserStatus( login, b.title );
   }
 
   public get buttons(){

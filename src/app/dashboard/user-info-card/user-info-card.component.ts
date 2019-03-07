@@ -241,13 +241,22 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   private refreshTrend(){
     this.user.emo_trend$.subscribe( (trend) => {
       this.user.emo_trend = trend;
+
+      this.user.emotion_current = ( trend.length > 1 ) ? trend[0].value : null;
+      this.user.emotion_last = ( trend.length > 1 ) ? trend[1].value : null;
+
+      this.user.emotion_current_datetime = ( trend.length > 1 ) ? trend[0].datetime : null;
+      this.user.emotion_last_datetime = ( trend.length > 1 ) ? trend[1].datetime : null;
+
       this.prepareQuickUserEmoTrend( this.user.emo_trend );
       this.renderTrend();
     } );
   }
 
   private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[][]{
-    return trend.map((it:ITrendItem) => [Number(it.utc), Number(it.value)]);
+    return trend
+      .sort((p: ITrendItem ,n: ITrendItem) => Number(p.id) - Number(n.id) )
+      .map((it:ITrendItem) => [Number(it.utc), Number(it.value)]);
   }
 
   private renderTrend(){

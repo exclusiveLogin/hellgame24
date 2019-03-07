@@ -45,5 +45,5 @@
 
 </div>
 <div id="infocardEmo_hc" class="user_emotrend" #trend></div>
-<div class="userinfo_left">Настроение было: {{user.emotion_last}} <br> {{user.emotion_last_datetime}}</div>
-<div class="userinfo_right">Стало: {{user.emotion_current}} <br> {{user.emotion_current_datetime}}</div>
+<div class="userinfo_left" *ngIf="user.emotion_last">Настроение было: {{user.emotion_last}} <br> {{user.emotion_last_datetime}}</div>
+<div class="userinfo_right" *ngIf="user.emotion_current">Стало: {{user.emotion_current}} <br> {{user.emotion_current_datetime}}</div>
