@@ -99,6 +99,7 @@ export class UpdaterService {
 
   private updateTESSegments(){
     this.needUpdateSegments.forEach( s => this.tes.refreshSegment( s ));
+    console.log('Need refreshed:', this.needUpdateSegments);
     this.needUpdateSegments.length && this.freshState.next( this.needUpdateSegments );
   }
 }

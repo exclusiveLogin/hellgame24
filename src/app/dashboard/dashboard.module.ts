@@ -23,6 +23,7 @@ import { UserStatusComponent } from './user-status/user-status.component';
 import { UserEmoComponent } from './user-emo/user-emo.component';
 import { SharedModule } from '../shared/shared.module';
 import { Ng5SliderModule } from 'ng5-slider';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { Ng5SliderModule } from 'ng5-slider';
     AccessoryModule,
     ChartModule,
     //SharedModule
-    Ng5SliderModule
+    Ng5SliderModule,
+    FormsModule
   ],
   exports: [
 

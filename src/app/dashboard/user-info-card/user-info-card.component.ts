@@ -22,6 +22,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   private mailSub: Subscription;
   private statusSub: Subscription;
   private emoSub: Subscription;
+  private emoChangeSub: Subscription;
 
   constructor(
     private tes: TopEventsService,
@@ -33,6 +34,12 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     this.mailSub = this.ui.getUsermailShownChangeEvent().subscribe( state => this.usermail_shown = state);
     this.statusSub = this.ui.getUserStatusShownChangeEvent().subscribe( status => this.userstatus_shown = status);
     this.emoSub = this.ui.getUserEmoShownChangeEvent().subscribe( status => this.useremo_shown = status);
+
+    this.emoChangeSub = this.tes.getSegmentRefreshSignal('emo').subscribe(
+      state => {
+        this.refreshTrend();
+      }
+    );
 
     HC.theme = {
       colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
@@ -227,6 +234,16 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
       maskColor: 'rgba(255,255,255,0.3)'
     };
     HC.setOptions(HC.theme);
+
+     this.refreshTrend();
+  }
+
+  private refreshTrend(){
+    this.user.emo_trend$.subscribe( (trend) => {
+      this.user.emo_trend = trend;
+      this.prepareQuickUserEmoTrend( this.user.emo_trend );
+      this.renderTrend();
+    } );
   }
 
   private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[][]{
@@ -277,6 +294,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
           data: tr,
         }]
       });
+      this.emoChart.reflow();
     }
 
 
@@ -320,11 +338,31 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
     if(changes['user'] && changes['user'].previousValue !== changes['user'].currentValue){
-      let newTrend = changes['user'].currentValue.emo_trend;
-      if( newTrend && this.emoChart && this.emoChart.series.length ){
-        this.emoChart.series[0].setData(this.prepareQuickUserEmoTrend(changes['user'].currentValue.emo_trend));
-        this.emoChart.redraw();
+
+      let newTrend;
+
+      let render = () => {
+        if( newTrend && this.emoChart && this.emoChart.series.length ){
+          this.emoChart.series[0].setData( this.prepareQuickUserEmoTrend( newTrend ) );
+          this.emoChart.redraw();
+        }
       }
+
+      if ( changes['user'].currentValue.emo_trend && changes['user'].currentValue.emo_trend.length ){
+        newTrend = changes['user'].currentValue.emo_trend;
+        render();
+      } else {
+        changes['user'].currentValue.emo_trend$.subscribe( trend => {
+          changes['user'].currentValue.emo_trend = trend;
+          newTrend = trend;
+          render();
+        });
+      }
+      
+      
+      
+      
+
     }
   }
 
@@ -335,5 +373,6 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     if ( this.mailSub ) this.mailSub.unsubscribe();
     if ( this.statusSub ) this.statusSub.unsubscribe();
     if ( this.emoSub ) this.emoSub.unsubscribe();
+    if ( this.emoChangeSub ) this.emoChangeSub.unsubscribe();
   }
 }

@@ -1,5 +1,6 @@
-import {SafeStyle} from '@angular/platform-browser';
+import {SafeStyle, SafeUrl} from '@angular/platform-browser';
 import { IUserStatus } from '../dashboard/user-status/user-status.component';
+import { Observable } from 'rxjs';
 
 export interface IUser {
   login: string;
@@ -13,15 +14,17 @@ export interface IUser {
   };
   avatar_min?: SafeStyle;
   avatar_big?: SafeStyle;
-  last_change_datetime?: string,
-  last_change_status_datetime?: string,
-  state_text?: string,
-  state_icon?: SafeStyle,
-  emotion_current?: string,
-  emotion_last?: string,
-  emotion_current_datetime?: string,
-  emotion_last_datetime?: string,
-  emo_trend?: ITrendItem[],
+  avatar_min_url?: SafeUrl;
+  last_change_datetime?: string;
+  last_change_status_datetime?: string;
+  state_text?: string;
+  state_icon?: SafeStyle;
+  emotion_current?: string;
+  emotion_last?: string;
+  emotion_current_datetime?: string;
+  emotion_last_datetime?: string;
+  emo_trend?: ITrendItem[];
+  emo_trend$?: Observable<ITrendItem[]>;
   game_status?: IUserStatus;
 }
 
@@ -39,5 +42,6 @@ export interface IUserEmo {
   login?: string,
   value: number,
   title?: string,
-  datetime?: string
+  datetime?: string,
+  mode?:string,
 }

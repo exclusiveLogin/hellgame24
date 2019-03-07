@@ -19,12 +19,7 @@ function getLastID(){
 
     return $newslotId;
 }
-function getPrevEmo(){
 
-}
-function getLastEmo(){
-
-}
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $arr = json_decode(file_get_contents('php://input'), true);
@@ -36,7 +31,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
         $title = isset($arr['title']) ? '"'.$arr['title'].'"' : 'NULL';
 
         $q = "INSERT INTO `user_emo` ( `login`, `value`, `delta`, `title` ) 
-        VALUES ( \"$login\", \"$value\", $delta, \"$title\" )";
+        VALUES ( \"$login\", $value, $delta, $title )";
 
       }
 
@@ -54,29 +49,19 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 // GETTERS
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
     if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_emo' ){
-        $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 1';
+        $limit_num = isset($_GET['no_pair']) ? 1 : 2;
+        $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : " LIMIT ${limit_num}";
         $login = $_GET['login'];
 
-        $q = "SELECT * FROM `user_status` WHERE `user_login`=\"$login\" ORDER BY `id` DESC $limit";
-        echo $q;
+        $q = "SELECT * FROM `user_emo` WHERE `login`=\"$login\" ORDER BY `id` DESC $limit";
 
     }
 
-    if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_quick_trend' ){
-       
-    }
-    if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_last_emo' ){
-       
-    }
-    if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_last_emo_pair' ){
-       
-    }
-    if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_full_emo' ){
-     
-        $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : '';
-        $skip = isset($_GET['skip']) ? ' OFFSET '.$_GET['skip'] : '';
+    if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_trend' ){
+      $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 10';
+      $login = $_GET['login'];
 
-        
+      $q = "SELECT *, UNIX_TIMESTAMP(`datetime`)*1000 AS `utc` FROM `user_emo` WHERE `login`=\"$login\" ORDER BY `id` DESC $limit";
     }
 
     if( $q ){
