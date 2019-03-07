@@ -9,6 +9,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 import { IStatusBtn, IUserStatus } from './dashboard/user-status/user-status.component';
 import { ConnectorService, IDataRequest, IParams } from './services/connector.service';
 import { Path } from './models/path';
+import { TopEventsService } from './topevents.service';
 
 
 @Injectable()
@@ -21,7 +22,12 @@ export class UserServiceService {
     private apiservice: ApiService,
     private sanitizer: DomSanitizer,
     private con: ConnectorService,
-  ) { }
+    private tes: TopEventsService,
+  ) { 
+      this.tes.getSegmentRefreshSignal('emo').subscribe( state => {
+        !!state && this.fetchedUsers && this.fetchedUsers.forEach(u => u.emo_trend = null);
+      });
+  }
   public getUsersInit(): Observable<IUser[]> {
 
     if( this.fetchedUsers ) return Observable.of( this.fetchedUsers );
@@ -69,6 +75,7 @@ export class UserServiceService {
             //emotion_last_datetime: ( quickEmo.length > 1 ) ? user.emo_trend[1].datetime : null,
             last_change_datetime: user.upd,
             last_change_status_datetime: user.status && user.status[0] && user.status[0].datetime_create,
+            emo_trend: []
           };
 
           returned_user.emo_trend$ = this.con.getData<ITrendItem[]>( path, data );

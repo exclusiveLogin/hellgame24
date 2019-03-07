@@ -4,6 +4,7 @@ import {TopEventsService} from "../../topevents.service";
 import { IUser, ITrendItem } from '../../models/user-interface';
 import { UiService } from '../../services/ui.service';
 import { Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 const HC = require('highcharts');
 
 @Component({
@@ -30,14 +31,13 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-
     this.mailSub = this.ui.getUsermailShownChangeEvent().subscribe( state => this.usermail_shown = state);
     this.statusSub = this.ui.getUserStatusShownChangeEvent().subscribe( status => this.userstatus_shown = status);
     this.emoSub = this.ui.getUserEmoShownChangeEvent().subscribe( status => this.useremo_shown = status);
 
     this.emoChangeSub = this.tes.getSegmentRefreshSignal('emo').subscribe(
-      state => {
-        this.refreshTrend();
+      state => { 
+        !!state && this.refreshTrend();
       }
     );
 
@@ -235,11 +235,11 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     };
     HC.setOptions(HC.theme);
 
-     this.refreshTrend();
+    this.refreshTrend();
   }
 
   private refreshTrend(){
-    this.user.emo_trend$.subscribe( (trend) => {
+    this.user.emo_trend$.pipe(first()).subscribe( (trend) => {
       this.user.emo_trend = trend;
 
       this.user.emotion_current = ( trend.length > 1 ) ? trend[0].value : null;
@@ -261,7 +261,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
   private renderTrend(){
     if( this.emoChart ) this.emoChart.destroy();
-    if( !!this.user && this.trend && this.user.emo_trend && this.user.emo_trend.length ){
+    if( !!this.user && this.trend && this.user.emo_trend ){
       let tr: number[][] = this.prepareQuickUserEmoTrend( this.user.emo_trend );
       this.emoChart = HC.chart('infocardEmo_hc', {
         chart: {
@@ -368,10 +368,6 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
         });
       }
       
-      
-      
-      
-
     }
   }
 
