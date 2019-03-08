@@ -235,22 +235,27 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     };
     HC.setOptions(HC.theme);
 
-    this.refreshTrend();
+    //this.refreshTrend();
   }
 
   private refreshTrend(){
-    this.user.emo_trend$.pipe(first()).subscribe( (trend) => {
-      this.user.emo_trend = trend;
-
-      this.user.emotion_current = ( trend.length > 1 ) ? trend[0].value : null;
-      this.user.emotion_last = ( trend.length > 1 ) ? trend[1].value : null;
-
-      this.user.emotion_current_datetime = ( trend.length > 1 ) ? trend[0].datetime : null;
-      this.user.emotion_last_datetime = ( trend.length > 1 ) ? trend[1].datetime : null;
-
-      this.prepareQuickUserEmoTrend( this.user.emo_trend );
+    if( this.user.emo_trend ) {
       this.renderTrend();
-    } );
+    }
+    else{
+      this.user.emo_trend$.pipe(first()).subscribe( (trend) => {
+        this.user.emo_trend = trend;
+
+        this.user.emotion_current = ( trend.length > 1 ) ? trend[0].value : null;
+        this.user.emotion_last = ( trend.length > 1 ) ? trend[1].value : null;
+
+        this.user.emotion_current_datetime = ( trend.length > 1 ) ? trend[0].datetime : null;
+        this.user.emotion_last_datetime = ( trend.length > 1 ) ? trend[1].datetime : null;
+
+        this.renderTrend();
+      });
+    }
+    
   }
 
   private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[][]{
@@ -347,27 +352,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
     if(changes['user'] && changes['user'].previousValue !== changes['user'].currentValue){
-
-      let newTrend;
-
-      let render = () => {
-        if( newTrend && this.emoChart && this.emoChart.series.length ){
-          this.emoChart.series[0].setData( this.prepareQuickUserEmoTrend( newTrend ) );
-          this.emoChart.redraw();
-        }
-      }
-
-      if ( changes['user'].currentValue.emo_trend && changes['user'].currentValue.emo_trend.length ){
-        newTrend = changes['user'].currentValue.emo_trend;
-        render();
-      } else {
-        changes['user'].currentValue.emo_trend$.subscribe( trend => {
-          changes['user'].currentValue.emo_trend = trend;
-          newTrend = trend;
-          render();
-        });
-      }
-      
+      this.refreshTrend();
     }
   }
 

@@ -31,7 +31,7 @@ export class UpdaterService {
     private api: ApiService,
   ) { 
     // период обновления глобального стейта 10 сек по умолчанию 
-    let timeout: number = this.state.getState['updateTimeout'] || 10000;
+    let timeout: number = this.state.getState().updateTimeout || 10000;
     setInterval( ()=> this.checkSegments(), timeout);
   }
 

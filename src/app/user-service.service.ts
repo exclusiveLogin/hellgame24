@@ -24,6 +24,7 @@ export class UserServiceService {
     private con: ConnectorService,
     private tes: TopEventsService,
   ) { 
+      console.log("USERS SERVICE", this);
       this.tes.getSegmentRefreshSignal('emo').subscribe( state => {
         !!state && this.fetchedUsers && this.fetchedUsers.forEach(u => u.emo_trend = null);
       });
@@ -43,8 +44,6 @@ export class UserServiceService {
               st = 'играет';
             }
           }
-
-          let quickEmo = user.emo_trend && user.emo_trend.length ? [].concat(user.emo_trend).sort((p, n) => Number(p.id) - Number(n.id)) : [];
 
           let path: Path = {
             segment: 'emo',
@@ -75,17 +74,17 @@ export class UserServiceService {
             //emotion_last_datetime: ( quickEmo.length > 1 ) ? user.emo_trend[1].datetime : null,
             last_change_datetime: user.upd,
             last_change_status_datetime: user.status && user.status[0] && user.status[0].datetime_create,
-            emo_trend: []
+            emo_trend: null
           };
 
           returned_user.emo_trend$ = this.con.getData<ITrendItem[]>( path, data );
-
+    
           return returned_user;
 
         });
-        this.fetchedUsers = users_result;
-        console.log('user result:', users_result);
-        return users_result;
+        this.fetchedUsers = [].concat(users_result);
+        //console.log('user result:', users_result);
+        return this.fetchedUsers;
       });
   }
 

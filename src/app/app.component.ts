@@ -2,6 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {AuthService} from './auth.service';
 import {TopEventsService} from './topevents.service';
 import { GlobalService } from './global.service';
+import { UserServiceService } from './user-service.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
     private auth: AuthService,
     private tes: TopEventsService,
     private global: GlobalService,
+    private users: UserServiceService
   ) {}
   public hidemenu = false;
   public hidemenuToggler = false;
@@ -29,6 +31,7 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.users.getUsersInit().subscribe();
     this.global.getGlobalState().subscribe((state)=>{
       this.global_status = state.global_code;
     });
