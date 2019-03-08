@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IBlogData } from '../../../services/blog.service';
-import { text } from '@angular/core/src/render3/instructions';
+import { IBlogData } from '../../../../services/blog.service';
 
 @Component({
   selector: 'app-user-blog-item',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IMessageData, MessageService } from '../../../../services/message.service';
-import { TopEventsService } from '../../../../topevents.service';
+import { IMessageData, MessageService } from '../../../../../services/message.service';
+import { TopEventsService } from '../../../../../topevents.service';
 
 @Component({
   selector: 'app-user-mail-item',

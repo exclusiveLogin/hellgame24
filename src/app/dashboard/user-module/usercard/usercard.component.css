@@ -30,7 +30,7 @@
 .usercard_avatar{
   background-color: #383838;
   background-repeat: no-repeat;
-  background-image: url("../../../assets/generic-headshot.png");
+  background-image: url("../../../../assets/generic-headshot.png");
   background-size: cover;
   flex-basis: 80px;
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Options } from 'ng5-slider';
-import { UiService } from '../../services/ui.service';
-import { AuthService } from '../../auth.service';
-import { UserServiceService } from '../../user-service.service';
-import { UxEventerService } from '../../ux-eventer.service';
+import { UiService } from '../../../services/ui.service';
+import { AuthService } from '../../../auth.service';
+import { UserServiceService } from '../../../user-service.service';
+import { UxEventerService } from '../../../ux-eventer.service';
 
 @Component({
   selector: 'app-user-emo',
@@ -20,6 +20,7 @@ export class UserEmoComponent implements OnInit {
     private user: UserServiceService,
     private uxevent: UxEventerService,
      ) { }
+     
   public sliderValue;
   public emo_title = '';
 

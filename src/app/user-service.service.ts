@@ -6,8 +6,8 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {IUserState} from './models/users-state-interface';
 import {DomSanitizer} from '@angular/platform-browser';
-import { IStatusBtn, IUserStatus } from './dashboard/user-status/user-status.component';
-import { ConnectorService, IDataRequest, IParams } from './services/connector.service';
+import { IStatusBtn, IUserStatus } from './dashboard/user-module/user-status/user-status.component';
+import { ConnectorService, IParams } from './services/connector.service';
 import { Path } from './models/path';
 import { TopEventsService } from './topevents.service';
 

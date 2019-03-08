@@ -56,7 +56,6 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     DashboardModule,
-    SharedModule,
   ],
   providers: [
     AuthService,

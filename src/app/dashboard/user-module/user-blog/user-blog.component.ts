@@ -1,10 +1,8 @@
-import { AuthService } from './../../auth.service';
+import { AuthService } from '../../../auth.service';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { BlogService, IBlogData } from '../../services/blog.service';
-import { TopEventsService } from '../../topevents.service';
-import { ThrowStmt } from '@angular/compiler';
+import { BlogService, IBlogData } from '../../../services/blog.service';
+import { TopEventsService } from '../../../topevents.service';
 import { Subscription } from 'rxjs';
-import { IDataRequest } from '../../services/connector.service';
 
 @Component({
   selector: 'app-user-blog',

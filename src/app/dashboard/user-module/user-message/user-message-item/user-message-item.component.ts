@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IMessageData, MessageService } from '../../../services/message.service';
-import { TopEventsService } from '../../../topevents.service';
+import { IMessageData, MessageService } from '../../../../services/message.service';
 
 @Component({
   selector: 'app-user-message-item',

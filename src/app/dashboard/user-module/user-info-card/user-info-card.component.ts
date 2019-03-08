@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
 import {ChartObject} from 'highcharts';
-import {TopEventsService} from "../../topevents.service";
-import { IUser, ITrendItem } from '../../models/user-interface';
-import { UiService } from '../../services/ui.service';
+import {TopEventsService} from "../../../topevents.service";
+import { IUser, ITrendItem } from '../../../models/user-interface';
+import { UiService } from '../../../services/ui.service';
 import { Subscription } from 'rxjs';
 import { first } from 'rxjs/operators';
 const HC = require('highcharts');
@@ -14,8 +14,10 @@ const HC = require('highcharts');
 })
 export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
+
   @Input() public user: IUser;
   @ViewChild('trend') private trend: ElementRef;
+  
   public usermail_shown: boolean = true;
   public userstatus_shown = false;
   public useremo_shown = false;
@@ -234,8 +236,6 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
       maskColor: 'rgba(255,255,255,0.3)'
     };
     HC.setOptions(HC.theme);
-
-    //this.refreshTrend();
   }
 
   private refreshTrend(){
@@ -254,6 +254,8 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
         this.renderTrend();
       });
+
+      this.user.firstInit = true;
     }
     
   }
@@ -340,18 +342,26 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.renderTrend();
+
+    if( this.user && !this.user.firstInit ) this.refreshTrend();
 
     this.tes.getMenuEvent()
       .subscribe(() => {
         if( this.emoChart ) this.emoChart.reflow();
       });
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-    if(changes['user'] && changes['user'].previousValue !== changes['user'].currentValue){
+
+    if(
+      changes['user']  && 
+      !changes['user'].firstChange &&
+      (!!changes['user'].previousValue && !!changes['user'].currentValue) &&
+      changes['user'].previousValue.login !== changes['user'].currentValue.login
+    ){
       this.refreshTrend();
     }
   }

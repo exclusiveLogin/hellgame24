@@ -1,13 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IMessageData, MessageService } from '../../services/message.service';
-import { TopEventsService } from '../../topevents.service';
-import { IUser } from '../../models/user-interface';
+import { IMessageData, MessageService } from '../../../services/message.service';
+import { TopEventsService } from '../../../topevents.service';
+import { IUser } from '../../../models/user-interface';
 import { Observable } from 'rxjs/Observable';
-import { element } from 'protractor';
-import { exists } from 'fs';
-import { UserServiceService } from '../../user-service.service';
-import { UiService } from '../../services/ui.service';
+import { UserServiceService } from '../../../user-service.service';
+import { UiService } from '../../../services/ui.service';
 
 export interface IGroupMessages{
   author: string,

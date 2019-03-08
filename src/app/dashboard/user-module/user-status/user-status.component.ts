@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UiService } from '../../services/ui.service';
-import { AuthService } from '../../auth.service';
-import { UserServiceService } from '../../user-service.service';
-import { TopEventsService } from '../../topevents.service';
-import { UxEventerService } from '../../ux-eventer.service';
+import { UiService } from '../../../services/ui.service';
+import { AuthService } from '../../../auth.service';
+import { UserServiceService } from '../../../user-service.service';
+import { TopEventsService } from '../../../topevents.service';
+import { UxEventerService } from '../../../ux-eventer.service';
 
 export interface IStatusBtn {
   icon: string,
