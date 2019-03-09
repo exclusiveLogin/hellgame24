@@ -4,6 +4,7 @@ import {TopEventsService} from './topevents.service';
 import { GlobalService } from './global.service';
 import { UserServiceService } from './user-service.service';
 import { first } from 'rxjs/operators';
+import { IGlobalState } from './models/global-state-interface';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
   ) {}
   public hidemenu = false;
   public hidemenuToggler = false;
-  public global_status = '';
+  public global_status:IGlobalState = null;
   @HostListener('document:scroll')
   private winScroll(): void {
     // избегаем не нужного перезаписывания и обновления события
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit {
     
     // быстрая шина
     this.global.getGlobalState().subscribe((state)=>{
-      this.global_status = state.global_code;
+      this.global_status = state;
     });
 
     // медленная меж клиентская шина
@@ -77,7 +78,7 @@ export class AppComponent implements OnInit {
   private refreshGlobalStatus(): void {
     this.global.getState().pipe(first()).subscribe((global)=>{
       if(global && global.global_code)
-        this.global_status = global.global_code;
+        this.global_status = global;
     },(e)=> console.log('error State: ', global));
   }
 }
