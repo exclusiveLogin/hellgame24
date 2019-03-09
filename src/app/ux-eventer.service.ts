@@ -86,5 +86,41 @@ public setUserStatus( user: string, status: string ){
     this.con.setData( path, { body }).subscribe();
 }
 
+public setRedCode( user: string, description?: string){
+    let body: IUXEvent =  {
+        title: `Пользователь ${user} установил Красный код`,
+        description: `${ description ? 'По причине: '+description : ' Без объяснения причины'}`,
+        author: 'system',
+        level:'danger',
+        mode: 'add_event'
+    }
+
+    this.con.setData( path, { body }).subscribe();
+}
+
+public setOrangeCode( user: string, description?: string){
+    let body: IUXEvent =  {
+        title: `Пользователь ${user} установил Оранжевый код`,
+        description: `${ description ? 'По причине: '+description : ' Без объяснения причины'}`,
+        author: 'system',
+        level:'warning',
+        mode: 'add_event'
+    }
+
+    this.con.setData( path, { body }).subscribe();
+}
+
+public setGreenCode( user: string ){
+    let body: IUXEvent =  {
+        title: `Пользователь ${user} снял код опасности`,
+        description: `Опасность миновала, однако стоит помнить о правилах и технике безопасности. Будьте бдительны и аккуратны, это залог выживания`,
+        author: 'system',
+        level:'info',
+        mode: 'add_event'
+    }
+
+    this.con.setData( path, { body }).subscribe();
+}
+
 
 }
