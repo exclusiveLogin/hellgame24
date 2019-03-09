@@ -18,8 +18,9 @@
   text-align: center;
   text-transform: uppercase;
 }
-.usercard_nametitle{
-
+.usercard_nametitle_owner{
+  color: #ffb500;
+  font-size: 80%;
 }
 /*Тело карточки*/
 .usercard_body{

@@ -1,6 +1,7 @@
 <div class="usercard_container">
   <div class="usercard_header">
     <span class="usercard_nametitle">{{user.name + ' (' + user.title + ')'}}</span>
+    <span class="usercard_nametitle_owner" *ngIf="_owner"> {{'(это ты)'}} </span>
   </div>
   <div class="usercard_body">
     <div class="usercard_avatar" [style.background-image]="user.avatar_min"></div>
@@ -9,7 +10,7 @@
       <div class="usercard_message__text">{{user.message.text}}</div>
       <div class="usercard_message__datetime" *ngIf="user.message.datetime">{{ user.message.datetime }}</div>
     </div>
-    <div class="usercard_panel">
+    <!-- <div class="usercard_panel">
       <ng-container *ngIf="_owner;then owner else default"></ng-container>
       <ng-template #default>
         <div class="usercard_panel_item"><i class="fas fa-envelope"></i></div>
@@ -20,7 +21,7 @@
       <ng-template #owner>
         <span class="owner">Ты</span>
       </ng-template>
-    </div>
+    </div> -->
   </div>
   <div class="usercard_footer">
     <span class="usercard_status">{{user.status}} ({{user.last_change_datetime}})</span>
