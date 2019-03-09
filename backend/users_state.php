@@ -21,28 +21,16 @@ $row = $res->fetch_assoc();
 
 while($row){
 
-    $trendQuery = "SELECT `id`, `value`, `datetime`, UNIX_TIMESTAMP(`datetime`)*1000 AS `utc`, `emo_title`, `emo_desc` FROM `$row[login]_emo` ORDER BY `id` DESC LIMIT 15;";
     $statusQuery = "SELECT * FROM `user_status` WHERE `login`=\"$row[login]\" ORDER BY `id` DESC LIMIT 1";
 
-    $trend = array();
     $status = array();
 
-    $t_result = $mysql->query( $trendQuery );
     $s_result = $mysql->query( $statusQuery );
-
-    $t_row = $t_result->fetch_assoc();
-
 
     $s_row = $s_result ? $s_result->fetch_assoc() : false;
 
     if($s_result) array_push($status, $s_row);
 
-    while( $t_row ){
-      array_push($trend, $t_row);
-      $t_row = $t_result->fetch_assoc();
-    }
-
-    $row['emo_trend'] = $trend;
     $row['status'] = $status;
 
     array_push($json, $row);
