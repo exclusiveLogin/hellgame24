@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npm run doc && ng build --prod",
+    "build": "npm run doc && ng build --prod --stats-json",
     "doc": "rm src/wiki/* -rf && typedoc --out ./src/wiki ./src/app/ --options typedoc.json --exclude \"**/*+(node_modules|modules|libs)/**/*\" --excludeExternals --externalPattern \"**/*+(node_modules|modules|libs)/**/*\" --baseUrl /wiki/ ",
     "test": "ng test",
     "lint": "ng lint",

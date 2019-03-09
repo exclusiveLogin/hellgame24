@@ -38,10 +38,10 @@ export class ConnectorService {
     );
   }
 
-  public setData(path: Path, data: IDataRequest ): Observable<IDataResponse> {
+  public setData<T extends IDataResponse>(path: Path, data: IDataRequest ): Observable<T> {
     let dbody: IDataRequest = data.body || {};
     //dbody['author'] = this.auth.authorizedAs();
-    return this.http.post(`${this.api.getApi()}${path.segment}/${path.script}`, dbody,
+    return this.http.post<T>(`${this.api.getApi()}${path.segment}/${path.script}`, dbody,
     {
       params: data.params
     }).pipe(

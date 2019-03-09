@@ -25,7 +25,8 @@ export class TopEventsService {
     menu: new BehaviorSubject<boolean>(false),
     accessory: new BehaviorSubject<boolean>(false),
     status: new BehaviorSubject<boolean>(false),
-    emo: new BehaviorSubject<boolean>(false)
+    emo: new BehaviorSubject<boolean>(false),
+    state: new BehaviorSubject<boolean>(false),
   };
 
   constructor() {

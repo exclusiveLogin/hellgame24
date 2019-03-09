@@ -12,3 +12,12 @@
 .status_btn{
   flex-basis: 30%
 }
+.separator {
+  width: 100%;
+  text-align: right;
+  border-bottom: 1px grey dotted;
+}
+.separator span{
+  margin-right: 10px;
+  font-size: 7pt;
+}

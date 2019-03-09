@@ -17,21 +17,18 @@ export class UserNotyfierComponent implements OnInit {
 
 
   public setGlobalStatus(code: string): void{
+    let msg = "";
     switch(code){
       case 'red':
-        this.global.setGlobalStatus('red').subscribe(global => {
-          this.global.updateGlobalState(global);
-        });
+        msg = prompt("Причина установки Красного кода");
+        this.global.setGlobalStatus('red', msg).subscribe();
         break;
       case 'orange':
-        this.global.setGlobalStatus('orange').subscribe(global => {
-          this.global.updateGlobalState(global);
-        });
+        msg = prompt("Причина установки Оранжевого кода");
+        this.global.setGlobalStatus('orange', msg).subscribe();
         break;
       case 'green':
-        this.global.setGlobalStatus('green').subscribe(global => {
-          this.global.updateGlobalState(global);
-        });
+        this.global.setGlobalStatus('green').subscribe();
         break;
     }
   };

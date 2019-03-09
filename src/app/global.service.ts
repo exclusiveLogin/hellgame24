@@ -3,33 +3,44 @@ import { HttpClient } from '@angular/common/http';
 import { IGlobalState } from './models/global-state-interface';
 import { Observable, Subject } from 'rxjs';
 import { ApiService } from './api.service';
+import { Path } from './models/path';
+import { ConnectorService, IDataRequest } from './services/connector.service';
+import { AuthService } from './auth.service';
+import { tap } from 'rxjs/operators';
+
+let path: Path = {
+  segment: 'state',
+  script: 'state_handler.php'
+};
 
 @Injectable()
 export class GlobalService {
   public glState = new Subject<IGlobalState>();
 
   constructor(
-    private http: HttpClient,
-    private api: ApiService,
+    private con: ConnectorService,
+    private auth: AuthService,
   ) { }
 
   public getState(): Observable<IGlobalState> {
-    const api: string = this.api.getApi();
-    return this.http.get<IGlobalState>(api + 'global_state.php');
+    return this.con.getData<IGlobalState>( path ).map( state => !!state && !!state[0] ? state[0] : [] );
   }
   
-  public setGlobalStatus(code: string, msg?: string): Observable<IGlobalState> {
-    const api: string = this.api.getApi();
-    return this.http.get<IGlobalState>(api + 'global_state.php', {
-      params:{
-        global_status: code,
-        global_message: msg || '',
+  public setGlobalStatus(global_code: string, msg: string = ""): Observable<IGlobalState> {
+    let data: IDataRequest = {
+      body: {
+        mode: "add_state",
+        global_code,
+        login: this.auth.authorizedAs(),
+        message: msg
       }
-    });
+    };
+
+    return this.con.setData<IGlobalState>( path, data).pipe(tap((state) => !!state && this.updateGlobalState( state )));
   }
 
   public getGlobalState(){
-    return this.glState;
+    return this.glState.asObservable();
   }
 
   public updateGlobalState(state: any): void{

@@ -3,6 +3,7 @@ import {AuthService} from './auth.service';
 import {TopEventsService} from './topevents.service';
 import { GlobalService } from './global.service';
 import { UserServiceService } from './user-service.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -32,8 +33,15 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this.users.getUsersInit().subscribe();
+    
+    // быстрая шина
     this.global.getGlobalState().subscribe((state)=>{
       this.global_status = state.global_code;
+    });
+
+    // медленная меж клиентская шина
+    this.tes.getSegmentRefreshSignal('state').subscribe( state => {
+      !!state && this.refreshGlobalStatus();
     });
     /*
     setTimeout(() => {
@@ -52,7 +60,7 @@ export class AppComponent implements OnInit {
 
     this.refreshGlobalStatus();
 
-    //this.auth.login({login: 'ssv', password: 'ddd'});
+    this.auth.login({login: 'ssv', password: 'ddd'});
 
     if (window && window.matchMedia) {
       let that = this;
@@ -67,7 +75,7 @@ export class AppComponent implements OnInit {
   }
 
   private refreshGlobalStatus(): void {
-    this.global.getState().subscribe((global)=>{
+    this.global.getState().pipe(first()).subscribe((global)=>{
       if(global && global.global_code)
         this.global_status = global.global_code;
     },(e)=> console.log('error State: ', global));
