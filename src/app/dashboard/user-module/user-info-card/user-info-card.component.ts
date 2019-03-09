@@ -1,16 +1,18 @@
-import { AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewRef, ViewContainerRef } from '@angular/core';
 import {ChartObject} from 'highcharts';
 import {TopEventsService} from "../../../topevents.service";
 import { IUser, ITrendItem } from '../../../models/user-interface';
 import { UiService } from '../../../services/ui.service';
-import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { Subscription, BehaviorSubject } from 'rxjs';
+import { first, filter, tap } from 'rxjs/operators';
+import { UserServiceService } from '../../../user-service.service';
 const HC = require('highcharts');
 
 @Component({
   selector: 'app-user-info-card',
   templateUrl: './user-info-card.component.html',
-  styleUrls: ['./user-info-card.component.css']
+  styleUrls: ['./user-info-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
@@ -26,10 +28,24 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   private statusSub: Subscription;
   private emoSub: Subscription;
   private emoChangeSub: Subscription;
+  private userTrendSub: Subscription;
+
+  public userEmoStatus:{
+    title: string,
+    prev_title: string,
+    
+    value: string,
+    prev_value: string,
+
+    datetime: string,
+    prev_datetime: string,
+  } = null;
 
   constructor(
     private tes: TopEventsService,
     private ui: UiService,
+    private usersService: UserServiceService,
+    private cd: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
@@ -239,25 +255,31 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   }
 
   private refreshTrend(){
-    if( this.user.emo_trend ) {
-      this.renderTrend();
-    }
-    else{
-      this.user.emo_trend$.pipe(first()).subscribe( (trend) => {
-        this.user.emo_trend = trend;
 
-        this.user.emotion_current = ( trend.length > 1 ) ? trend[0].value : null;
-        this.user.emotion_last = ( trend.length > 1 ) ? trend[1].value : null;
+    this.userTrendSub = this.usersService.getUserTrend( this.user.login )
+      .pipe(
+        filter(trend => !!trend), 
+        tap(trend => {
+          
+          if ( trend.length > 1 ) {
+            this.userEmoStatus = {
+              title: trend[0].title && trend[0].title.length ? trend[0].title : null,
+              prev_title: trend[1].title && trend[1].title.length ? trend[1].title : null,
+              value: trend[0].value,
+              prev_value: trend[1].value,
+              datetime: trend[0].datetime,
+              prev_datetime: trend[1].datetime,
+            }
+          } else {
+            this.userEmoStatus = null;
+          }
+          
+          
+        })
+      )
+      .subscribe( trend => !!trend && this.renderTrend( trend ));
 
-        this.user.emotion_current_datetime = ( trend.length > 1 ) ? trend[0].datetime : null;
-        this.user.emotion_last_datetime = ( trend.length > 1 ) ? trend[1].datetime : null;
 
-        this.renderTrend();
-      });
-
-      this.user.firstInit = true;
-    }
-    
   }
 
   private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[][]{
@@ -266,54 +288,56 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
       .map((it:ITrendItem) => [Number(it.utc), Number(it.value)]);
   }
 
-  private renderTrend(){
+  private renderTrend( trend ){
+    if ( !trend ) return;
+
     if( this.emoChart ) this.emoChart.destroy();
-    if( !!this.user && this.trend && this.user.emo_trend ){
-      let tr: number[][] = this.prepareQuickUserEmoTrend( this.user.emo_trend );
-      this.emoChart = HC.chart('infocardEmo_hc', {
-        chart: {
-          height: '125px',
+  
+    let tr: number[][] = this.prepareQuickUserEmoTrend( trend );
+    this.emoChart = HC.chart('infocardEmo_hc', {
+      chart: {
+        height: '125px',
+      },
+      legend: {
+        enabled: false
+      },
+      yAxis: {
+        visible: false,
+      },
+      xAxis: {
+        //visible: false
+        type: 'datetime'
+      },
+      credits: {
+        enabled: false
+      },
+      title: {
+        text: 'Динамика настроения',
+        style: {
+          'font-size': '12px'
+        }
+      },
+      plotOptions: {
+        series: {
+          //pointStart: 2010,
         },
-        legend: {
-          enabled: false
-        },
-        yAxis: {
-          visible: false,
-        },
-        xAxis: {
-          //visible: false
-          type: 'datetime'
-        },
-        credits: {
-          enabled: false
-        },
-        title: {
-          text: 'Динамика настроения',
-          style: {
-            'font-size': '12px'
-          }
-        },
-        plotOptions: {
-          series: {
-            //pointStart: 2010,
+        spline: {
+          marker: {
+            enabled: false,
           },
-          spline: {
-            marker: {
-              enabled: false,
-            },
-            color: '#995555'
-          }
-        },
-        series: [{
-          type: 'spline',
-          name: 'Настроение пользователя',
-          data: tr,
-        }]
-      });
-      this.emoChart.reflow();
-    }
+          color: '#995555'
+        }
+      },
+      series: [{
+        type: 'spline',
+        name: 'Настроение пользователя',
+        data: tr,
+      }]
+    });
+    this.emoChart.reflow();
 
-
+    !this.cd['destroyed'] && this.cd.detectChanges();
+    
   }
   // Mail
   public openMail(){
@@ -343,7 +367,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    if( this.user && !this.user.firstInit ) this.refreshTrend();
+    this.refreshTrend();
 
     this.tes.getMenuEvent()
       .subscribe(() => {
@@ -355,7 +379,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-
+  
     if(
       changes['user']  && 
       !changes['user'].firstChange &&
@@ -374,5 +398,6 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     if ( this.statusSub ) this.statusSub.unsubscribe();
     if ( this.emoSub ) this.emoSub.unsubscribe();
     if ( this.emoChangeSub ) this.emoChangeSub.unsubscribe();
+    if ( this.userTrendSub ) this.userTrendSub.unsubscribe();
   }
 }

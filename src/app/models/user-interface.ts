@@ -27,14 +27,14 @@ export interface IUser {
   emo_trend$?: Observable<ITrendItem[]>;
   firstInit?: boolean;
   game_status?: IUserStatus;
+  last_emo_status?:string;
 }
 
 export interface ITrendItem{
   id: string,
   value: string,
   datetime: string,
-  emo_title: string,
-  emo_desc: string,
+  title: string,
   utc: string,
 }
 

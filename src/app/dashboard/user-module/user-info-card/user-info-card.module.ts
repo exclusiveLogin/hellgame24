@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ViewRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserInfoCardComponent } from './user-info-card.component';
 
@@ -7,6 +7,6 @@ import { UserInfoCardComponent } from './user-info-card.component';
     CommonModule
   ],
   declarations: [UserInfoCardComponent],
-  exports:[UserInfoCardComponent]
+  exports:[UserInfoCardComponent],
 })
 export class UserInfoCardModule { }

@@ -33,8 +33,6 @@
   <div class="userinfo_emotion_block">
     <div class="usercard_emotion_led"></div>
   </div>
-  <!--button class="userinfo_send_msg btn">Кнопка 1</button>
-  <button class="userinfo_send_notify btn">Кнопка 2</button-->
 </div>
 <div class="userinfo_right">
   <span class="user_title">{{user.login}}</span>
@@ -45,5 +43,11 @@
 
 </div>
 <div id="infocardEmo_hc" class="user_emotrend" #trend></div>
-<div class="userinfo_left" *ngIf="user.emotion_last">Настроение было: {{user.emotion_last}} <br> {{user.emotion_last_datetime}}</div>
-<div class="userinfo_right" *ngIf="user.emotion_current">Стало: {{user.emotion_current}} <br> {{user.emotion_current_datetime}}</div>
+<ng-container *ngIf="userEmoStatus">
+  <div class="userinfo_left" *ngIf="userEmoStatus.prev_value">Настроение было: {{ userEmoStatus.prev_value }} <br> {{ userEmoStatus.prev_datetime }}</div>
+  <div class="userinfo_right" *ngIf="userEmoStatus.value">Стало: {{ userEmoStatus.value }} <br> {{ userEmoStatus.datetime }}</div>
+  <ng-container *ngIf="userEmoStatus.title"><div class="full">Cтатус: {{ userEmoStatus.title }}</div></ng-container>
+</ng-container>
+
+
+
