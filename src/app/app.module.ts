@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -27,7 +25,6 @@ import { MessageService } from './services/message.service';
 import { MailServiceService } from './services/mail-service.service';
 import { UpdaterService } from './updater.service';
 import { UxEventerService } from './ux-eventer.service';
-import { SharedModule } from './shared/shared.module';
 
 let dashboardRoutes: Routes = [
   { path: '', redirectTo:'default', pathMatch: 'full' },
@@ -38,7 +35,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardGuard]},
   {path: 'dashboard/:user', component: DashboardComponent, canActivate: [AuthguardGuard]},
-  //{path: 'dashboard', component: DashboardComponent, /*,*/ children: dashboardRoutes},
+  {path: 'news', loadChildren: './news/news.module#NewsModule' },
   {path: 'login', component: LoginComponent},
   {path: '**', component: NotfoundComponent}
 ];
