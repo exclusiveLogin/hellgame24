@@ -9,26 +9,26 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { ApiService } from './api.service';
+import { AuthService } from './services/auth.service';
+import { ApiService } from './services/api.service';
 import { AuthguardGuard } from './authguard.guard';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { UserServiceService } from './user-service.service';
-import { TopEventsService } from './topevents.service';
-import { ChartReflowerService } from './chart-reflower.service';
+import { UserServiceService } from './services/user-service.service';
+import { TopEventsService } from './services/topevents.service';
+import { ChartReflowerService } from './services/chart-reflower.service';
 import { SystemCodeComponent } from './system-code/system-code.component';
-import { GlobalService } from './global.service';
+import { GlobalService } from './services/global.service';
 import { StateService } from './services/state.service';
 import { ConnectorService } from './services/connector.service';
-import { ServicesService } from './services.service';
+import { ServicesService } from './services/services.service';
 import { BlogService } from './services/blog.service';
 import { UiService } from './services/ui.service';
 import { MessageService } from './services/message.service';
 import { MailServiceService } from './services/mail-service.service';
-import { UpdaterService } from './updater.service';
-import { UxEventerService } from './ux-eventer.service';
+import { UpdaterService } from './services/updater.service';
+import { UxEventerService } from './services/ux-eventer.service';
 import { SharedModule } from './shared/shared.module';
-import { LsService } from './ls.service';
+import { LsService } from './services/ls.service';
 
 let dashboardRoutes: Routes = [
   { path: '', redirectTo:'default', pathMatch: 'full' },

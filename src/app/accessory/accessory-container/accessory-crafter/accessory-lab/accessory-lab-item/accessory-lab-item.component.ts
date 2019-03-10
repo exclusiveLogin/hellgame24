@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IngredientService, IIngredient } from '../../../../ingredient.service';
 import { filter } from 'rxjs/operators';
-import { ApiService } from '../../../../../api.service';
+import { ApiService } from '../../../../../services/api.service';
 import { InventoryService } from '../../../../inventory.service';
-import { AuthService } from '../../../../../auth.service';
+import { AuthService } from '../../../../../services/auth.service';
 import { ISlot } from '../../../accessory-inventory/accessory-inventory.component';
 import { browser } from 'protractor';
 

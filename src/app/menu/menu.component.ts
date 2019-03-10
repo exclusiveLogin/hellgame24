@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {TopEventsService} from '../topevents.service';
+import {TopEventsService} from '../services/topevents.service';
 import {MenuStateInterface} from '../models/menu-state-interface';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-menu',

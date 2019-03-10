@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GlobalService } from '../../../global.service';
-import { UxEventerService } from '../../../ux-eventer.service';
-import { AuthService } from '../../../auth.service';
+import { GlobalService } from '../../../services/global.service';
+import { UxEventerService } from '../../../services/ux-eventer.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-user-notyfier',

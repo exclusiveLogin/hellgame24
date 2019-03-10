@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Options } from 'ng5-slider';
 import { UiService } from '../../../services/ui.service';
-import { AuthService } from '../../../auth.service';
-import { UserServiceService } from '../../../user-service.service';
-import { UxEventerService } from '../../../ux-eventer.service';
+import { AuthService } from '../../../services/auth.service';
+import { UserServiceService } from '../../../services/user-service.service';
+import { UxEventerService } from '../../../services/ux-eventer.service';
 
 @Component({
   selector: 'app-user-emo',

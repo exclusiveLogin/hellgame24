@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ConnectorService } from './services/connector.service';
+import { ConnectorService } from './connector.service';
 import { AuthService } from './auth.service';
-import { IUser } from './models/user-interface';
-import { Path } from './models/path';
+import { IUser } from '../models/user-interface';
+import { Path } from '../models/path';
 
 
 export interface IUXEvent{

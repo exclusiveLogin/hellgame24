@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { ConnectorService, IParams, IDataRequest, IDataResponse } from '../services/connector.service';
 import { Path } from '../models/path';
 import { Observable } from 'rxjs';

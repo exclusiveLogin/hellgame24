@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectorRef, ChangeDetectionStrategy, O
 import { IngredientService } from '../../../ingredient.service';
 import { ISlot } from '../../accessory-inventory/accessory-inventory.component';
 import { InventoryService } from '../../../inventory.service';
-import { AuthService } from '../../../../auth.service';
+import { AuthService } from '../../../../services/auth.service';
 import { ReceiptService, IRecieptPartData } from '../../../receipt.service';
 
 @Component({

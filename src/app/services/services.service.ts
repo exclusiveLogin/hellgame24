@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BlogService } from './services/blog.service';
-import { IService } from './models/services-interface';
-import { MessageService } from './services/message.service';
+import { BlogService } from './blog.service';
+import { IService } from '../models/services-interface';
+import { MessageService } from './message.service';
 import { UpdaterService } from './updater.service';
 
 @Injectable()

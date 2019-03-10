@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {UserServiceService} from '../user-service.service';
+import {UserServiceService} from '../services/user-service.service';
 import {IUser} from '../models/user-interface';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { UiService } from '../services/ui.service';
 import { Route, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { TopEventsService } from '../topevents.service';
+import { TopEventsService } from '../services/topevents.service';
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 

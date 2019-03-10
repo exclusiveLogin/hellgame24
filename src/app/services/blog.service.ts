@@ -5,6 +5,7 @@ import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { IMessangerData } from '../dashboard/messanger/messanger.component';
 import { tap } from 'rxjs/operators/tap';
+import { AuthService } from './auth.service';
 
 
 
@@ -25,7 +26,8 @@ export class BlogService implements IService {
   };
 
   constructor(
-    private con: ConnectorService
+    private con: ConnectorService,
+    private auth: AuthService
   ) { }
 
   public getData<T>(params?: IParams){
@@ -34,7 +36,7 @@ export class BlogService implements IService {
   }
 
   private convertMessage2Request( msg: IMessangerData ): IBlogData {
-    let req: IBlogData = Object.assign(msg, { text_field: msg.text });
+    let req: IBlogData = Object.assign(msg, { text_field: msg.text }, {author: this.auth.authorizedAs()});
     return req;
   }
 

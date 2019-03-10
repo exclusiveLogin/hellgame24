@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { IIngredient, IngredientService, IRGO } from '../../ingredient.service';
 import { InventoryService } from '../../inventory.service';
 import { ISlot } from '../accessory-inventory/accessory-inventory.component';
-import { AuthService } from '../../../auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { IAccessoryItemOptions } from '../accessory-item/accessory-item.component';
 import { SpawnerService, ISpawn } from '../../spawner.service';
 import { LockerService } from '../../locker.service';
 import { combineLatest } from 'rxjs/operator/combineLatest';
 import { Observable } from 'rxjs';
-import { TopEventsService } from '../../../topevents.service';
+import { TopEventsService } from '../../../services/topevents.service';
 
 @Component({
   selector: 'app-accessory-demo',

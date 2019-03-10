@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConnectorService, IDataRequest, IParams } from '../services/connector.service';
-import { ApiService } from '../api.service';
+import { ApiService } from '../services/api.service';
 import { Path } from '../models/path';
 import { IUser } from '../models/user-interface';
 

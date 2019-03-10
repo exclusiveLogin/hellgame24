@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../models/user-interface';
-import { AuthService } from '../../../auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { InventoryService } from '../../inventory.service';
 
 export interface ISlot{

@@ -5,6 +5,7 @@ import { IMessangerData } from '../dashboard/messanger/messanger.component';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators/tap';
 import { UiService } from './ui.service';
+import { AuthService } from './auth.service';
 
 
 
@@ -27,7 +28,8 @@ export class MessageService {
 
   constructor(
       private con: ConnectorService,
-      private ui: UiService
+      private ui: UiService,
+      private auth: AuthService
     ) { }
 
     public getData(params?: IParams){
@@ -43,7 +45,7 @@ export class MessageService {
     public setData( data: any ){
       let _data = this.convertMessage2Request( data );
       let request: IDataRequest = {
-        body:Object.assign(_data, {operation: 'add'})
+        body:Object.assign(_data, {operation: 'add'}, { author: this.auth.authorizedAs() })
       };
       if(confirm("Вы уверены что хотите отправить сообщение пользователю: "+_data.to_user+" ?"))
       return this.con.setData(this.path, request)

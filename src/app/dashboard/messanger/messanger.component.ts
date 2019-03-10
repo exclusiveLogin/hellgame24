@@ -2,9 +2,9 @@ import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { StateService } from '../../services/state.service';
 import { Path } from '../../models/path';
 import { ConnectorService, IDataRequest } from '../../services/connector.service';
-import { ServicesService } from '../../services.service';
+import { ServicesService } from '../../services/services.service';
 import { IBlogData } from '../../services/blog.service';
-import { TopEventsService } from '../../topevents.service';
+import { TopEventsService } from '../../services/topevents.service';
 import { Title } from '@angular/platform-browser';
 import { MessageService } from '../../services/message.service';
 

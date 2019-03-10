@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewRef, ViewContainerRef } from '@angular/core';
 import {ChartObject} from 'highcharts';
-import {TopEventsService} from "../../../topevents.service";
+import {TopEventsService} from "../../../services/topevents.service";
 import { IUser, ITrendItem } from '../../../models/user-interface';
 import { UiService } from '../../../services/ui.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { first, filter, tap } from 'rxjs/operators';
-import { UserServiceService } from '../../../user-service.service';
+import { UserServiceService } from '../../../services/user-service.service';
 const HC = require('highcharts');
 
 @Component({

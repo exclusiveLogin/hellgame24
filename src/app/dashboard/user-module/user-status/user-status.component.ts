@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UiService } from '../../../services/ui.service';
-import { AuthService } from '../../../auth.service';
-import { UserServiceService } from '../../../user-service.service';
-import { TopEventsService } from '../../../topevents.service';
-import { UxEventerService } from '../../../ux-eventer.service';
+import { AuthService } from '../../../services/auth.service';
+import { UserServiceService } from '../../../services/user-service.service';
+import { TopEventsService } from '../../../services/topevents.service';
+import { UxEventerService } from '../../../services/ux-eventer.service';
 
 export interface IStatusBtn {
   icon: string,
@@ -92,13 +92,15 @@ export class UserStatusComponent implements OnInit {
   }
 
   public confirm( b: IStatusBtn ){
-    confirm("Устанавливаем статус : " + b.title + ' ?');
-    // отправляем статус
-    let login = this.auth.authorizedAs();
-    this.user.setUserStatus( b, login );
-    this.close();
-    this.tes.refreshSegment('status');
-    this.uxevent.setUserStatus( login, b.title );
+    if (confirm("Устанавливаем статус : " + b.title + ' ?')){
+      // отправляем статус
+      let login = this.auth.authorizedAs();
+      this.user.setUserStatus( b, login );
+      this.close();
+      this.tes.refreshSegment('status');
+      this.uxevent.setUserStatus( login, b.title );
+    }
+  
   }
 
   public get buttons_state(){

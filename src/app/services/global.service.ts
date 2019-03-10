@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IGlobalState } from './models/global-state-interface';
+import { IGlobalState } from '../models/global-state-interface';
 import { Observable, Subject } from 'rxjs';
-import { Path } from './models/path';
-import { ConnectorService, IDataRequest } from './services/connector.service';
+import { Path } from '../models/path';
+import { ConnectorService, IDataRequest } from './connector.service';
 import { AuthService } from './auth.service';
 import { tap } from 'rxjs/operators';
 

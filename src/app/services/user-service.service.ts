@@ -1,14 +1,14 @@
 import {Injectable} from '@angular/core';
-import {IUser, IUserEmo, ITrendItem} from './models/user-interface';
+import {IUser, IUserEmo, ITrendItem} from '../models/user-interface';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from './api.service';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {IUserState} from './models/users-state-interface';
+import {IUserState} from '../models/users-state-interface';
 import {DomSanitizer} from '@angular/platform-browser';
-import { IStatusBtn, IUserStatus } from './dashboard/user-module/user-status/user-status.component';
-import { ConnectorService, IParams } from './services/connector.service';
-import { Path } from './models/path';
+import { IStatusBtn, IUserStatus } from '../dashboard/user-module/user-status/user-status.component';
+import { ConnectorService, IParams } from './connector.service';
+import { Path } from '../models/path';
 import { TopEventsService } from './topevents.service';
 import { filter, tap, map } from 'rxjs/operators';
 

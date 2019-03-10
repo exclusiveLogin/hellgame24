@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IMessageData, MessageService } from '../../../services/message.service';
-import { TopEventsService } from '../../../topevents.service';
+import { TopEventsService } from '../../../services/topevents.service';
 import { IUser } from '../../../models/user-interface';
 import { Observable } from 'rxjs/Observable';
-import { UserServiceService } from '../../../user-service.service';
+import { UserServiceService } from '../../../services/user-service.service';
 import { UiService } from '../../../services/ui.service';
 
 export interface IGroupMessages{

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Path } from './models/path'
-import { ConnectorService, IDataRequest } from './services/connector.service';
+import { Path } from '../models/path'
+import { ConnectorService, IDataRequest } from './connector.service';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TopEventsService } from './topevents.service';
-import { StateService } from './services/state.service';
+import { StateService } from './state.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 

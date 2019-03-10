@@ -4,11 +4,11 @@ import { ConnectorService, IParams, IDataRequest } from '../services/connector.s
 import { Path } from '../models/path';
 import { ISlot } from './accessory-container/accessory-inventory/accessory-inventory.component';
 import { tap, filter, map } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 import { IRecieptPartData } from './receipt.service';
 import { IIngredient } from './ingredient.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { TopEventsService } from '../topevents.service';
+import { TopEventsService } from '../services/topevents.service';
 
 @Injectable()
 export class InventoryService {

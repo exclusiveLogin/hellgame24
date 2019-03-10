@@ -1,7 +1,7 @@
-import { AuthService } from '../../../auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BlogService, IBlogData } from '../../../services/blog.service';
-import { TopEventsService } from '../../../topevents.service';
+import { TopEventsService } from '../../../services/topevents.service';
 import { Subscription } from 'rxjs';
 
 @Component({

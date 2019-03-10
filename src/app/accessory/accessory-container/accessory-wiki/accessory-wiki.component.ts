@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IIngredient, IngredientService } from '../../ingredient.service';
-import { ApiService } from '../../../api.service';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-accessory-wiki',

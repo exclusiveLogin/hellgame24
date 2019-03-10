@@ -1,11 +1,11 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {AuthService} from './auth.service';
-import {TopEventsService} from './topevents.service';
-import { GlobalService } from './global.service';
-import { UserServiceService } from './user-service.service';
+import {AuthService} from './services/auth.service';
+import {TopEventsService} from './services/topevents.service';
+import { GlobalService } from './services/global.service';
+import { UserServiceService } from './services/user-service.service';
 import { first } from 'rxjs/operators';
 import { IGlobalState } from './models/global-state-interface';
-import { LsService } from './ls.service';
+import { LsService } from './services/ls.service';
 
 @Component({
   selector: 'app-root',
