@@ -4,9 +4,9 @@
 </div>
 <div class="sys_code_btns">
   <div class="separator"><span>Состояние</span></div>
-  <button *ngFor="let b of buttons_state" class="btn status_btn" title="b.title" (click)="confirm(b)"><i [class]="b.icon"></i></button>
+  <button *ngFor="let b of buttons_state" class="btn status_btn" (click)="confirm(b)" [attr.title]="b.title"><i [class]="b.icon"></i></button>
   <div class="separator"><span>Действия</span></div>
-  <button *ngFor="let b of buttons_act" class="btn status_btn" title="b.title" (click)="confirm(b)"><i [class]="b.icon"></i></button>
+  <button *ngFor="let b of buttons_act" class="btn status_btn" (click)="confirm(b)" [attr.title]="b.title"><i [class]="b.icon"></i></button>
   <div class="separator"><span>Наблюдения</span></div>
-  <button *ngFor="let b of buttons_monitoring" class="btn status_btn" title="b.title" (click)="confirm(b)"><i [class]="b.icon"></i></button>
+  <button *ngFor="let b of buttons_monitoring" class="btn status_btn" (click)="confirm(b)" [attr.title]="b.title"><i [class]="b.icon"></i></button>
 </div>
