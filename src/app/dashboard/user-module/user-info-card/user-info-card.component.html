@@ -46,7 +46,7 @@
 <ng-container *ngIf="userEmoStatus">
   <div class="userinfo_left" *ngIf="userEmoStatus.prev_value">Настроение было: {{ userEmoStatus.prev_value }} <br> {{ userEmoStatus.prev_datetime }}</div>
   <div class="userinfo_right" *ngIf="userEmoStatus.value">Стало: {{ userEmoStatus.value }} <br> {{ userEmoStatus.datetime }}</div>
-  <ng-container *ngIf="userEmoStatus.title"><div class="full">Cтатус: {{ userEmoStatus.title }}</div></ng-container>
+  <ng-container *ngIf="userEmoStatus.title"><div class="full lastEmoStatus">Cтатус: {{ userEmoStatus.title }}</div></ng-container>
 </ng-container>
 
 

@@ -53,3 +53,11 @@
   flex-wrap: wrap;
   flex-basis: 50px;
 }
+
+.lastEmoStatus{
+  color: orange;
+  font-size: small;
+  margin-top: 10px;
+  border: 1px #540 dotted;
+  padding: 5px;
+}
