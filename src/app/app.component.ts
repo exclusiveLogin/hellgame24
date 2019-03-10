@@ -5,6 +5,7 @@ import { GlobalService } from './global.service';
 import { UserServiceService } from './user-service.service';
 import { first } from 'rxjs/operators';
 import { IGlobalState } from './models/global-state-interface';
+import { LsService } from './ls.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
     private auth: AuthService,
     private tes: TopEventsService,
     private global: GlobalService,
-    private users: UserServiceService
+    private users: UserServiceService,
+    private ls: LsService
   ) {}
   public hidemenu = false;
   public hidemenuToggler = false;
@@ -44,6 +46,7 @@ export class AppComponent implements OnInit {
     this.tes.getSegmentRefreshSignal('state').subscribe( state => {
       !!state && this.refreshGlobalStatus();
     });
+
     /*
     setTimeout(() => {
       this.__type = 'orange';
@@ -60,6 +63,9 @@ export class AppComponent implements OnInit {
     */
 
     this.refreshGlobalStatus();
+
+    const cu =  this.ls.getUserCredential();
+    if( cu ) this.auth.login( cu );
 
     //this.auth.login({login: 'ssv', password: 'ddd'});
 

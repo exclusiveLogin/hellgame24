@@ -4,12 +4,13 @@ import {ApiService} from './api.service';
 import {Router} from '@angular/router';
 import { UxEventerService } from './ux-eventer.service';
 import { UserServiceService } from './user-service.service';
+import { LsService } from './ls.service';
 
-interface ILogin {
+export interface ILogin {
   login: string;
   password: string;
 }
-interface ILoginResponse {
+export interface ILoginResponse {
   auth: boolean;
   login: string;
   id: string;
@@ -24,7 +25,8 @@ export class AuthService {
     public api: ApiService, 
     private router: Router,
     private uxevent: UxEventerService,
-    private user: UserServiceService
+    private user: UserServiceService,
+    private ls: LsService
     ) {
       console.log('AUTH SERVICE', this);
     }
@@ -49,8 +51,10 @@ export class AuthService {
           if (response.auth) {
             this.router.navigate(['dashboard']);
             this.user.getUser( response.login ).subscribe( user => this.uxevent.setLoginEvent( user ));
+            this.ls.setUserCredential( login );
           } else {
             this.uxevent.setLoginErrorEvent( login.login );
+            this.ls.unsetUserCredential();
           }
         },
           (e) => {
@@ -64,6 +68,7 @@ export class AuthService {
     this.user.getUser( this.currentAuthorizedLogin ).subscribe( user => this.uxevent.setLogoutEvent( user ));
     this.isLoggedSuccess = false;
     this.currentAuthorizedLogin = null;
+    this.ls.unsetUserCredential();
     this.router.navigate(['dashboard']);
   }
 
