@@ -12,12 +12,17 @@ export class UserBlogItemComponent implements OnInit {
 
   @Input() ownerMode: boolean = false;
 
+  @Input() public useIconInBtns: boolean = true;
+
   @Input() public item: IBlogData =  {
     title: "Заголовок не задан",
     text_field: '-',
     datetime: '--,--,--',
     id: '#unknown'
   };
+
+  public _iconDeleteBtn = '<i class="fas fa-trash"></i>';
+  
   constructor() { }
 
   ngOnInit() {

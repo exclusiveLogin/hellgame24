@@ -1,11 +1,14 @@
 <div class="blog_header">
-  <span class="blog_header_title">{{item.title}} [{{item.id}}]</span>
+  <span class="blog_header_title">{{item.title}}</span>
   <span class="blog_header_date">{{item.datetime}}</span>
 </div>
 <div class="blog_body">
-  <div class="blog_info"></div>
+  <!-- <div class="blog_info"></div> -->
   <div class="blog_text">{{item.text_field}}</div>
 </div>
 <div class="message_footer" *ngIf="ownerMode">
-  <button class="btn btn_danger btn_remove" (click)="removeThisMessage()">Удалить запись</button>
+  <button class="btn btn_danger_inverse btn_remove" 
+  (click)="removeThisMessage()"
+  [innerHTML]="useIconInBtns ? _iconDeleteBtn : 'Удалить запись'"
+  ></button>
 </div>

@@ -17,6 +17,7 @@ body{
   transition: all ease .2s;
   user-select: none;
   margin: 5px;
+  cursor: pointer;
 }
 .btn:active{
   border: 1px solid black;
@@ -34,6 +35,12 @@ body{
   background-color: brown;
   color: #272727;
 }
+.btn.btn_danger_inverse{
+  background-color: transparent;
+  border: 1px solid brown;
+  color: brown;
+  cursor: pointer;
+}
 
 .btn.btn_toggler{
   padding: 2px;
@@ -44,7 +51,7 @@ body{
   font-size: 11pt
 }
 .microcard{
-  margin: 5px 0;
+  margin: 16px 5px;
   display: flex;
   flex-wrap: wrap;
   flex-grow: 1;
