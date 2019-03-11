@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ConnectorService } from './connector.service';
-import { AuthService } from './auth.service';
 import { IUser } from '../models/user-interface';
 import { Path } from '../models/path';
+import { ApiService } from './api.service';
+import { HttpClient } from '@angular/common/http';
 
 
 export interface IUXEvent{
@@ -23,7 +24,8 @@ let path: Path = {
 export class UxEventerService {
 
 constructor(
-    private con: ConnectorService,
+    private api: ApiService,
+    private http: HttpClient
 ) { }
 
 public setLoginEvent( user: IUser ){
@@ -35,8 +37,7 @@ public setLoginEvent( user: IUser ){
         mode: 'add_event'
     }
     
-    this.con.setData( path, { body }).subscribe();
-}
+    this.updateEvent( body ).subscribe();}
 
 public setLogoutEvent( user: IUser ){
     let body: IUXEvent =  {
@@ -47,8 +48,7 @@ public setLogoutEvent( user: IUser ){
         mode: 'add_event'
     }
     
-    this.con.setData( path, { body }).subscribe();
-}
+    this.updateEvent( body ).subscribe();}
 
 public setLoginErrorEvent( login: string ){
     let body: IUXEvent =  {
@@ -59,8 +59,7 @@ public setLoginErrorEvent( login: string ){
         mode: 'add_event'
     }
     
-    this.con.setData( path, { body }).subscribe();
-}
+    this.updateEvent( body ).subscribe();}
 
 public setUserEmo( user: string, emo: number, title?: string, ){
     let body: IUXEvent =  {
@@ -71,7 +70,7 @@ public setUserEmo( user: string, emo: number, title?: string, ){
         mode: 'add_event'
     }
     
-    this.con.setData( path, { body }).subscribe();
+    this.updateEvent( body ).subscribe();
 }
 
 public setUserStatus( user: string, status: string ){
@@ -83,7 +82,7 @@ public setUserStatus( user: string, status: string ){
         mode: 'add_event'
     }
     
-    this.con.setData( path, { body }).subscribe();
+    this.updateEvent( body ).subscribe();
 }
 
 public setRedCode( user: string, description?: string){
@@ -95,7 +94,7 @@ public setRedCode( user: string, description?: string){
         mode: 'add_event'
     }
 
-    this.con.setData( path, { body }).subscribe();
+    this.updateEvent( body ).subscribe();
 }
 
 public setOrangeCode( user: string, description?: string){
@@ -107,7 +106,7 @@ public setOrangeCode( user: string, description?: string){
         mode: 'add_event'
     }
 
-    this.con.setData( path, { body }).subscribe();
+    this.updateEvent( body ).subscribe();
 }
 
 public setGreenCode( user: string ){
@@ -119,8 +118,10 @@ public setGreenCode( user: string ){
         mode: 'add_event'
     }
 
-    this.con.setData( path, { body }).subscribe();
+    this.updateEvent( body ).subscribe();
 }
 
-
+private updateEvent( body ){
+    return this.http.post(`${ this.api.getApi()}${path.segment}/${path.script}`, body );
+    }
 }
