@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { IMessangerData } from '../dashboard/messanger/messanger.component';
 import { tap } from 'rxjs/operators/tap';
 import { AuthService } from './auth.service';
+import { ConnectorWrapperService } from './connector-wrapper.service';
 
 
 
@@ -26,7 +27,7 @@ export class BlogService implements IService {
   };
 
   constructor(
-    private con: ConnectorService,
+    private con: ConnectorWrapperService,
     private auth: AuthService
   ) { }
 

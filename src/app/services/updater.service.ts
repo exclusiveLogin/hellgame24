@@ -7,6 +7,7 @@ import { TopEventsService } from './topevents.service';
 import { StateService } from './state.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
+import { AuthService } from './auth.service';
 
 
 export interface ISegment{
@@ -29,6 +30,7 @@ export class UpdaterService {
     private state: StateService,
     private http: HttpClient,
     private api: ApiService,
+    private auth: AuthService,
   ) { 
     // период обновления глобального стейта 10 сек по умолчанию 
     let timeout: number = this.state.getState().updateTimeout || 10000;
@@ -60,7 +62,6 @@ export class UpdaterService {
   }
 
   public checkSegments(): void{
-    //console.log('CHECK SEGMENTS');
     this.getAllSegments().subscribe();
   }
 
@@ -69,7 +70,7 @@ export class UpdaterService {
   private getAllSegments(): Observable<ISegment[]>{
 
     return this.http.get(`${this.api.getApi()}${this.path.segment}/${this.path.script}`,{
-      params: { mode: "get_all_segments"}
+      params: { mode: "get_all_segments" , login: this.auth.authorizedAs() }
     }).pipe(
       tap( (seg:ISegment[]) => {
         this.needUpdateSegments = [];

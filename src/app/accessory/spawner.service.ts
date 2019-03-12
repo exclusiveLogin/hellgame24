@@ -5,6 +5,7 @@ import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { filter, tap, map } from 'rxjs/operators';
 import { InventoryService } from './inventory.service';
+import { ConnectorWrapperService } from '../services/connector-wrapper.service';
 
 export interface ISpawn{
   id: string,
@@ -27,8 +28,7 @@ export class SpawnerService {
   };
 
   constructor(
-    private auth: AuthService,
-    private con: ConnectorService,
+    private con: ConnectorWrapperService,
     private inventory: InventoryService,
   ) {
     console.log('SpawnService ', this);

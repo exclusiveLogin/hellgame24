@@ -29,6 +29,7 @@ import { UpdaterService } from './services/updater.service';
 import { UxEventerService } from './services/ux-eventer.service';
 import { SharedModule } from './shared/shared.module';
 import { LsService } from './services/ls.service';
+import { ConnectorWrapperService } from './services/connector-wrapper.service';
 
 let dashboardRoutes: Routes = [
   { path: '', redirectTo:'default', pathMatch: 'full' },
@@ -68,6 +69,7 @@ const routes: Routes = [
     GlobalService,
     StateService,
     ConnectorService,
+    ConnectorWrapperService,
     ServicesService,
     BlogService,
     MessageService,

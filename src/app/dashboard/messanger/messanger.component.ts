@@ -7,6 +7,7 @@ import { IBlogData } from '../../services/blog.service';
 import { TopEventsService } from '../../services/topevents.service';
 import { Title } from '@angular/platform-browser';
 import { MessageService } from '../../services/message.service';
+import { ConnectorWrapperService } from '../../services/connector-wrapper.service';
 
 export interface IMessangerData{
   title?: string,
@@ -41,7 +42,7 @@ export class MessangerComponent implements OnInit {
 
   constructor(
     private state: StateService,
-    private con: ConnectorService,
+    private con: ConnectorWrapperService,
     private services: ServicesService,
     private tes: TopEventsService,
     ) { }

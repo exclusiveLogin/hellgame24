@@ -3,6 +3,7 @@ import { ConnectorService, IDataRequest, IParams } from '../services/connector.s
 import { ApiService } from '../services/api.service';
 import { Path } from '../models/path';
 import { IUser } from '../models/user-interface';
+import { ConnectorWrapperService } from '../services/connector-wrapper.service';
 
 
 export interface IRecieptPartData{
@@ -23,7 +24,7 @@ export class ReceiptService {
   private path: Path = { segment: 'accessory', script: 'reciept.php' };
 
   constructor(
-    private con: ConnectorService,
+    private con: ConnectorWrapperService,
   ) {
     console.log('RecieptService:', this);
   }

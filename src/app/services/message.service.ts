@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators/tap';
 import { UiService } from './ui.service';
 import { AuthService } from './auth.service';
+import { ConnectorWrapperService } from './connector-wrapper.service';
 
 
 
@@ -27,7 +28,7 @@ export class MessageService {
   };
 
   constructor(
-      private con: ConnectorService,
+      private con: ConnectorWrapperService,
       private ui: UiService,
       private auth: AuthService
     ) { }

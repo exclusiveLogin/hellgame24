@@ -5,6 +5,7 @@ import { Path } from '../models/path';
 import { ConnectorService, IDataRequest } from './connector.service';
 import { AuthService } from './auth.service';
 import { tap } from 'rxjs/operators';
+import { ConnectorWrapperService } from './connector-wrapper.service';
 
 let path: Path = {
   segment: 'state',
@@ -16,7 +17,7 @@ export class GlobalService {
   public glState = new Subject<IGlobalState>();
 
   constructor(
-    private con: ConnectorService,
+    private con: ConnectorWrapperService,
     private auth: AuthService,
   ) { }
 

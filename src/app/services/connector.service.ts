@@ -27,7 +27,6 @@ export class ConnectorService {
   constructor(
     private http: HttpClient,
     private api: ApiService,
-    private updater: UpdaterService,
   ) { }
 
   public getData<T>(path: Path, params?: IParams): Observable<T> {
@@ -45,7 +44,6 @@ export class ConnectorService {
     }).pipe(
       tap(htr => {
         console.log('htr set:', htr);
-        path.segment && this.updater.updateSegment( path.segment );
       })
     );
   }

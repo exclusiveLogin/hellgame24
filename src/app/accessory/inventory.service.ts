@@ -9,6 +9,7 @@ import { IRecieptPartData } from './receipt.service';
 import { IIngredient } from './ingredient.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TopEventsService } from '../services/topevents.service';
+import { ConnectorWrapperService } from '../services/connector-wrapper.service';
 
 @Injectable()
 export class InventoryService {
@@ -22,7 +23,7 @@ export class InventoryService {
   };
 
   constructor(
-    private con: ConnectorService,
+    private con: ConnectorWrapperService,
     private auth: AuthService,
     private tes: TopEventsService
   ) {

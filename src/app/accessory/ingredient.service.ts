@@ -3,6 +3,7 @@ import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { ConnectorService, IParams } from '../services/connector.service';
 import { tap } from 'rxjs/operators/tap';
+import { ConnectorWrapperService } from '../services/connector-wrapper.service';
 
 
 export interface IIngredient{
@@ -40,7 +41,7 @@ export class IngredientService {
   private itemCache: IIngredient[][] = [];
 
   constructor(
-    private con: ConnectorService
+    private con: ConnectorWrapperService
   ) {
     console.log('IngedientService', this);
   }

@@ -11,6 +11,7 @@ import { ConnectorService, IParams } from './connector.service';
 import { Path } from '../models/path';
 import { TopEventsService } from './topevents.service';
 import { filter, tap, map } from 'rxjs/operators';
+import { ConnectorWrapperService } from './connector-wrapper.service';
 
 
 @Injectable()
