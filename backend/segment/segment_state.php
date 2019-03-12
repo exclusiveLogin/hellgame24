@@ -39,6 +39,12 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
     $q = "SELECT * FROM `update_segment` WHERE `updated` > TIMESTAMP( \"$old_date\" )";
   }
 
+  if( isset($_GET['login']) ){
+    $login = $_GET['login'];
+    $_q = "UPDATE `users_act` SET `upd` = NOW() WHERE `id_user` = ( SELECT `id` FROM `users` WHERE `login`= \"$login\" )";
+    $mysql->query( $_q );
+  }
+
   if( $q ){
     $json = array();
 

@@ -11,7 +11,6 @@ import { ConnectorService, IParams } from './connector.service';
 import { Path } from '../models/path';
 import { TopEventsService } from './topevents.service';
 import { filter, tap, map } from 'rxjs/operators';
-import { ConnectorWrapperService } from './connector-wrapper.service';
 
 
 @Injectable()
@@ -31,6 +30,11 @@ export class UserServiceService {
       this.tes.getSegmentRefreshSignal('emo').subscribe( state => {
         !!state && this.clearTrendCache();
       });
+
+      setInterval(() => {
+        this.tes.refreshSegment('status');
+        console.log("REFRESH USERS");
+      }, 60000);
   }
   public getUsersInit(): Observable<IUser[]> {
 
