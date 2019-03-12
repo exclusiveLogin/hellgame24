@@ -48,6 +48,9 @@
 }
 .usercard_message__text{
   font-size: 16pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .usercard_message__datetime{
   font-size: 8pt;
