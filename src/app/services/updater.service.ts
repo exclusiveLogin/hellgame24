@@ -69,7 +69,6 @@ export class UpdaterService {
   // private
 
   private getAllSegments(): Observable<ISegment[]>{
-
     return this.http.get(`${this.api.getApi()}${this.path.segment}/${this.path.script}`,{
       params: { mode: "get_all_segments" , login: this.tes.getSegmentRefreshSignal('login').value }
     }).pipe(

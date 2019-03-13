@@ -54,7 +54,7 @@ export class AuthService {
             this.router.navigate(['dashboard', response.login]);
             this.user.getUser( response.login ).subscribe( user => this.uxevent.setLoginEvent( user ));
             this.ls.setUserCredential( login );
-            this.tes.refreshSegmentWithData( 'login', login );
+            this.tes.refreshSegmentWithData( 'login', response.login );
           } else {
             this.uxevent.setLoginErrorEvent( login.login );
             this.ls.unsetUserCredential();
