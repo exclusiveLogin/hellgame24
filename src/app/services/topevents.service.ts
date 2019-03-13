@@ -55,11 +55,15 @@ export class TopEventsService {
     this.menuUpdateState.next( _oldval );
   }
 
-  public getSegmentRefreshSignal( segment: string ): BehaviorSubject<boolean>{
+  public getSegmentRefreshSignal( segment: string ): BehaviorSubject<any>{
     return this.segmentsNeedRefresh[ segment ];
   }
 
   public refreshSegment( segment: string ): void {
     this.segmentsNeedRefresh && this.segmentsNeedRefresh[ segment ] && this.segmentsNeedRefresh[ segment ].next(true);
+  }
+
+  public refreshSegmentWithData( segment: string, data: any){
+    this.segmentsNeedRefresh && this.segmentsNeedRefresh[ segment ] && this.segmentsNeedRefresh[ segment ].next( data );
   }
 }

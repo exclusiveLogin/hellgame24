@@ -29,7 +29,6 @@ export class UpdaterService {
     private state: StateService,
     private http: HttpClient,
     private api: ApiService,
-    private auth: AuthService,
   ) { 
     // период обновления глобального стейта 10 сек по умолчанию 
     let timeout: number = this.state.getState().updateTimeout || 10000;
@@ -64,7 +63,7 @@ export class UpdaterService {
   private stable = false;
 
   public checkSegments(): void{
-    if(this.auth.isAuthorized()) this.getAllSegments().subscribe();
+    if( this.tes.getSegmentRefreshSignal('login').value ) this.getAllSegments().subscribe();
   }
 
   // private
@@ -72,7 +71,7 @@ export class UpdaterService {
   private getAllSegments(): Observable<ISegment[]>{
 
     return this.http.get(`${this.api.getApi()}${this.path.segment}/${this.path.script}`,{
-      params: { mode: "get_all_segments" , login: this.auth.authorizedAs() }
+      params: { mode: "get_all_segments" , login: this.tes.getSegmentRefreshSignal('login').value }
     }).pipe(
       tap( (seg:ISegment[]) => {
         this.needUpdateSegments = [];

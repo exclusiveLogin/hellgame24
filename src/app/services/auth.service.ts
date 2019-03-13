@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import { UxEventerService } from './ux-eventer.service';
 import { UserServiceService } from './user-service.service';
 import { LsService } from './ls.service';
+import { TopEventsService } from './topevents.service';
 
 export interface ILogin {
   login: string;
@@ -26,7 +27,8 @@ export class AuthService {
     private router: Router,
     private uxevent: UxEventerService,
     private user: UserServiceService,
-    private ls: LsService
+    private ls: LsService,
+    private tes: TopEventsService
     ) {
       console.log('AUTH SERVICE', this);
     }
@@ -52,9 +54,11 @@ export class AuthService {
             this.router.navigate(['dashboard', response.login]);
             this.user.getUser( response.login ).subscribe( user => this.uxevent.setLoginEvent( user ));
             this.ls.setUserCredential( login );
+            this.tes.refreshSegmentWithData( 'login', login );
           } else {
             this.uxevent.setLoginErrorEvent( login.login );
             this.ls.unsetUserCredential();
+            this.tes.refreshSegmentWithData( 'login', null );
           }
         },
           (e) => {

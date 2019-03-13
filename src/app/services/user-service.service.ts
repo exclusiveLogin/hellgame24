@@ -12,6 +12,7 @@ import { Path } from '../models/path';
 import { TopEventsService } from './topevents.service';
 import { filter, tap, map, first, take } from 'rxjs/operators';
 import * as moment from "moment";
+import { UpdaterService } from './updater.service';
 
 
 @Injectable()
@@ -26,6 +27,7 @@ export class UserServiceService {
     private sanitizer: DomSanitizer,
     private con: ConnectorService,
     private tes: TopEventsService,
+    private updater: UpdaterService
   ) { 
       console.log("USERS SERVICE", this);
       this.tes.getSegmentRefreshSignal('emo').subscribe( state => {
@@ -191,7 +193,7 @@ export class UserServiceService {
     }
 
 
-    this.con.setData(path, {body}).subscribe();
+    this.con.setData(path, {body}).subscribe( result => path.segment && this.updater.updateSegment( path.segment ));
   }
 
   public refreshUsers(){
