@@ -14,6 +14,8 @@ const bot = new Telegraf(token, {
     }
 });
 
+bot.command('echo', (ctx)=>ctx.reply(ctx.message.text));
+
 bot.hears('check', (ctx, next)=>{
     console.log('check fe:', fetcher);
     ctx.reply('Проверка сервиса version: ' + version + ' последняя запись в event log id: ' + fetcher.lastId + ' интервал опроса HG24: ' + fetcher.interval + 'ms');
@@ -39,9 +41,9 @@ let fetcher = new fe('http://hellgame24.ru');
 fetcher.getStream().subscribe( events => {
     if( events && events.length ) events.forEach((ev, idx) => {
         setTimeout(()=>{
-            let msg = `Событие уровня <b>${ev.level}</b>\n
-            <strong>${ev.title}</strong>\n
-            ${ev.description}`;
+            let msg = `Событие ${ ev.level === 'info' ? 'ℹ️' : ''}${ ev.level === 'warning' ? '⚠️' : ''}${ ev.level === 'danger' ? '‼️' : ''} <b>( ${ev.level} )</b>
+<strong>${ev.title}</strong>
+${ev.description}`;
             
             //console.log('msg:', msg);
             bot.telegram.sendMessage(hgChatId, msg, 
