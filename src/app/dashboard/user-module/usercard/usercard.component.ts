@@ -7,17 +7,14 @@ import {IUser} from '../../../models/user-interface';
   styleUrls: ['./usercard.component.css'],
 })
 export class UsercardComponent implements OnInit {
-  @Input() _user: IUser;
+  @Input() user: IUser;
   @Input() _owner = false;
-  public user: IUser;
   constructor(
     
   ) { }
 
   ngOnInit() {
-    this.user = this._user;
-
-
+    
   }
 
 }

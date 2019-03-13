@@ -8,8 +8,7 @@ $mysql->query("SET NAMES 'UTF8';");
 
 $query="SELECT `id_user`,`name`,`email`,
         `title`,`login`,`played`,`online`,
-        DATE_FORMAT(`upd`,'%e.%m.%y %H:%i') 
-        AS `upd`,`img_big`,`img_min` 
+        UNIX_TIMESTAMP(`upd`) * 1000 as `upd` ,`img_big`,`img_min` 
         FROM `users`,`users_act` 
         WHERE `users`.`id`=`users_act`.`id_user`";
 

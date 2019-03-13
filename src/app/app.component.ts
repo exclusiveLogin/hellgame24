@@ -35,7 +35,6 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.users.getUsersInit().subscribe();
     
     // быстрая шина
     this.global.getGlobalState().subscribe((state)=>{

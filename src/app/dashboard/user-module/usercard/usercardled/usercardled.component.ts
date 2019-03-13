@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-usercardled',
@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usercardled.component.css']
 })
 export class UsercardledComponent implements OnInit {
-  public ledclass = 'ok';
+
+
+  @Input() online: boolean;
+
   constructor() { }
 
   ngOnInit() {

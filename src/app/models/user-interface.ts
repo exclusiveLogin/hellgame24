@@ -16,6 +16,7 @@ export interface IUser {
   avatar_big?: SafeStyle;
   avatar_min_url?: SafeUrl;
   last_change_datetime?: string;
+  last_change_datetime_humanity?: string;
   last_change_status_datetime?: string;
   state_text?: string;
   state_icon?: SafeStyle;
@@ -28,6 +29,7 @@ export interface IUser {
   firstInit?: boolean;
   game_status?: IUserStatus;
   last_emo_status?:string;
+  online?: boolean;
 }
 
 export interface ITrendItem{

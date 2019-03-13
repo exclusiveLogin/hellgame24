@@ -10,7 +10,8 @@ import { IStatusBtn, IUserStatus } from '../dashboard/user-module/user-status/us
 import { ConnectorService, IParams } from './connector.service';
 import { Path } from '../models/path';
 import { TopEventsService } from './topevents.service';
-import { filter, tap, map } from 'rxjs/operators';
+import { filter, tap, map, first, take } from 'rxjs/operators';
+import * as moment from "moment";
 
 
 @Injectable()
@@ -31,10 +32,25 @@ export class UserServiceService {
         !!state && this.clearTrendCache();
       });
 
-      setInterval(() => {
-        this.tes.refreshSegment('status');
-        console.log("REFRESH USERS");
-      }, 60000);
+      this.tes.getSegmentRefreshSignal('stable').pipe(take(2)).subscribe( state => {
+        !!state && this.startRefresher();
+      });
+
+  }
+
+  public startRefresher(){
+
+    setInterval(() => {
+      console.log('status refrresh');
+      this.tes.refreshSegment('status');
+    }, 30000);
+
+    this.tes.refreshSegment("status");
+  }
+
+  public oldDate(date: string): boolean{
+    const old = moment().isAfter(moment.utc( Number(date) ).add( 20, 'second' ));
+    return old;
   }
   public getUsersInit(): Observable<IUser[]> {
 
@@ -44,13 +60,15 @@ export class UserServiceService {
       .map((users) => {
         let users_result: IUser[] = users.map((user: IUserState) => {
           let st = 'Не играет';
-          if (user.online && user.played) {
-            if (!!Number(user.online)) {
-              st = 'онлайн';
-            } else if (!!Number(user.played)) {
-              st = 'играет';
-            }
+          
+          if ( user.upd && !this.oldDate( user.upd )) {
+            st = 'онлайн';
+            user.online = true;
+          } else {
+            st = 'не в сети';
+            user.online = false;
           }
+          
 
           let returned_user: IUser = {
             login: user.login,
@@ -66,9 +84,11 @@ export class UserServiceService {
             avatar_min_url: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_min}`),
             avatar_big: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_big}`),
             last_change_datetime: user.upd,
+            last_change_datetime_humanity: user.upd ? moment.utc( Number(user.upd) ).utcOffset(3).format("DD.MM.YYYY HH:mm") : null,
             last_change_status_datetime: user.status && user.status[0] && user.status[0].datetime_create,
             emo_trend: null,
             last_emo_status: null,
+            online: user.online,
           };
       
           return returned_user;
@@ -112,7 +132,7 @@ export class UserServiceService {
   public getUserTrend( user: string ){
     let cached = this.getUserTrendCache(user);
 
-    console.log("CASHED:", cached);
+    //console.log("CASHED:", cached);
 
     if( cached ) return Observable.of( cached );
 
@@ -131,7 +151,7 @@ export class UserServiceService {
       filter(trend => !!trend), 
       map(t => {
         t.sort((tip: ITrendItem, tin: ITrendItem) => Number(tin.id) - Number(tip.id) );
-        console.log("SORTED 1:", t);
+        //console.log("SORTED 1:", t);
         this.setUserTrendCache(user, [].concat(t));
         return t;
       }));

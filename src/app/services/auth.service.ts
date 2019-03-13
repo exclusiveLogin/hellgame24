@@ -49,7 +49,7 @@ export class AuthService {
             this.currentAuthorizedLogin = response && response.login;
           }
           if (response.auth) {
-            this.router.navigate(['dashboard']);
+            this.router.navigate(['dashboard', response.login]);
             this.user.getUser( response.login ).subscribe( user => this.uxevent.setLoginEvent( user ));
             this.ls.setUserCredential( login );
           } else {
@@ -69,7 +69,7 @@ export class AuthService {
     this.isLoggedSuccess = false;
     this.currentAuthorizedLogin = null;
     this.ls.unsetUserCredential();
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['login']);
   }
 
   public isAuthorized(): boolean {

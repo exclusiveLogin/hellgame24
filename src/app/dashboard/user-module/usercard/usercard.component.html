@@ -24,7 +24,7 @@
     </div> -->
   </div>
   <div class="usercard_footer">
-    <span class="usercard_status">{{user.status}} ({{user.last_change_datetime}})</span>
+    <span class="usercard_status">{{user.status}} ({{user.last_change_datetime_humanity}})</span>
   </div>
-  <app-usercardled></app-usercardled>
+  <app-usercardled [online]="user.online"></app-usercardled>
 </div>

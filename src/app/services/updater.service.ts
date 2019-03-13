@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path'
-import { ConnectorService, IDataRequest } from './connector.service';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { TopEventsService } from './topevents.service';
@@ -35,6 +34,7 @@ export class UpdaterService {
     // период обновления глобального стейта 10 сек по умолчанию 
     let timeout: number = this.state.getState().updateTimeout || 10000;
     setInterval( ()=> this.checkSegments(), timeout);
+    this.tes.getSegmentRefreshSignal('login').subscribe(login => !!login && this.checkSegments() );
   }
 
   private path: Path = {
@@ -61,8 +61,10 @@ export class UpdaterService {
     this.checkSegments();
   }
 
+  private stable = false;
+
   public checkSegments(): void{
-    this.getAllSegments().subscribe();
+    if(this.auth.isAuthorized()) this.getAllSegments().subscribe();
   }
 
   // private
@@ -82,7 +84,11 @@ export class UpdaterService {
         });
         this.updateTESSegments();
       }),
-      tap( (seg:ISegment[]) => this.segmentCache = seg)
+      tap( (seg:ISegment[]) => this.segmentCache = seg),
+      tap( ( seg ) => {
+        !this.stable && this.tes.refreshSegment('stable');
+        this.stable = true;
+      })
     );
   }
 

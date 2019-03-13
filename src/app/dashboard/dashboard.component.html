@@ -2,7 +2,7 @@
   <ng-container *ngIf="v_users.length; else emptyUserList">
     <app-usercard
     *ngFor="let user of v_users; let i = index"
-    [_user]="user"
+    [user]="user"
     [_owner]="isUserOwner(user)"
     (click)="selectUser(user)"
     ></app-usercard>

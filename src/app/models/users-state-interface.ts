@@ -6,8 +6,8 @@ export interface IUserState {
   email: string;
   title: string;
   login: string;
-  played: string;
-  online: string;
+  played: boolean;
+  online: boolean;
   upd: string;
   img_big: string;
   img_min: string;
