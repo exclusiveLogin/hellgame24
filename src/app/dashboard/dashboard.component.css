@@ -12,6 +12,7 @@
   box-shadow: 0 2px 15px #111;
   z-index: 20;
   overflow: auto;
+  align-items: center;
 }
 app-usercard{
   width: 250px;
