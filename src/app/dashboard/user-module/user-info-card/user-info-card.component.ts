@@ -6,6 +6,7 @@ import { UiService } from '../../../services/ui.service';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { first, filter, tap } from 'rxjs/operators';
 import { UserServiceService } from '../../../services/user-service.service';
+import { AuthService } from '../../../services/auth.service';
 const HC = require('highcharts');
 
 @Component({
@@ -46,6 +47,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     private ui: UiService,
     private usersService: UserServiceService,
     private cd: ChangeDetectorRef,
+    private auth: AuthService,
   ) { }
 
   ngOnInit() {
@@ -252,6 +254,10 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
       maskColor: 'rgba(255,255,255,0.3)'
     };
     HC.setOptions(HC.theme);
+  }
+
+  public isOwner(): boolean{
+    return this.user && this.user.login === this.auth.authorizedAs();
   }
 
   private refreshTrend(){
