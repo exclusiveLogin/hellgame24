@@ -6,8 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { IAccessoryItemOptions } from '../accessory-item/accessory-item.component';
 import { SpawnerService, ISpawn } from '../../spawner.service';
 import { LockerService } from '../../locker.service';
-import { combineLatest } from 'rxjs/operator/combineLatest';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { TopEventsService } from '../../../services/topevents.service';
 
 @Component({
@@ -84,7 +83,7 @@ export class AccessoryDemoComponent implements OnInit {
           console.log('grind onClick item: ', item)
           this.locker.lockingSegment('demo');
           this.inventoryService.grindItemInSlot( item.id ).subscribe(r => {
-            Observable.combineLatest(
+            combineLatest(
               this.inventoryService.getNonOwnerSlots(),
               this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs())
               ).subscribe(([nos, nes])=>{
@@ -102,7 +101,7 @@ export class AccessoryDemoComponent implements OnInit {
           console.log('util rgo onClick item: ', item);
           this.locker.lockingSegment('demo');
           this.inventoryService.utilizationInventoryItem( item.rgo_id ).subscribe(r => {
-            Observable.combineLatest(
+            combineLatest(
               this.inventoryService.getNonOwnerSlots(),
               this.inventoryService.getNonOwnerEmptySlots()
               ).subscribe(([nos, enos])=>{
@@ -127,7 +126,7 @@ export class AccessoryDemoComponent implements OnInit {
           this.locker.lockingSegment('demo');
           this.inventoryService.dropItemFromInventory( item.id ).subscribe(r => {
 
-            Observable.combineLatest(
+            combineLatest(
               this.inventoryService.getNonOwnerSlots(),
               this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs())
               ).subscribe(([nos, nes])=>{
@@ -148,7 +147,7 @@ export class AccessoryDemoComponent implements OnInit {
           this.locker.lockingSegment('demo');
           this.inventoryService.utilizationInventoryItem( item.rgo_id ).subscribe(r => {
 
-            Observable.combineLatest(
+            combineLatest(
               this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs()),
               this.inventoryService.getEmptySlotsByUser(this.auth.authorizedAs())
               ).subscribe(([nes, es])=>{
@@ -210,7 +209,7 @@ export class AccessoryDemoComponent implements OnInit {
           this.locker.lockingSegment('demo');
           this.inventoryService.wrapRGOInSlot( item.id ).subscribe( r =>{
 
-            Observable.combineLatest(
+            combineLatest(
               this.ingredientService.getAllUnlinkedRGO(),
               this.inventoryService.getNonOwnerSlots()
               ).subscribe(([aurgo, nos])=>{
@@ -262,7 +261,7 @@ export class AccessoryDemoComponent implements OnInit {
           this.locker.lockingSegment('demo');
           this.inventoryService.grindItemFromSpawn( spawn.armed_slot_id, spawn.id ).subscribe((res)=>{
 
-            Observable.combineLatest(
+            combineLatest(
               this.spawn.getAllSpawn(),
               this.inventoryService.getNonEmptySlotsByUser(this.auth.authorizedAs())
               ).subscribe(([ass, nos])=>{
