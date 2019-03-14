@@ -9,18 +9,21 @@ import { ChartModule } from 'angular-highcharts';
 import { UserModuleModule } from './user-module/user-module.module';
 import { MessangerComponent } from './messanger/messanger.component';
 
-
+const routes: Routes = [
+  { path: '', component: DashboardComponent },
+];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule,
+    RouterModule.forChild( routes ),
     AccessoryModule,
     ChartModule,
     UserModuleModule,
   ],
   exports: [
     UserModuleModule,
+    RouterModule
   ],
   declarations: [
     DashboardComponent,

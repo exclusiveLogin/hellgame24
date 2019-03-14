@@ -27,7 +27,6 @@ import { MessageService } from './services/message.service';
 import { MailServiceService } from './services/mail-service.service';
 import { UpdaterService } from './services/updater.service';
 import { UxEventerService } from './services/ux-eventer.service';
-import { SharedModule } from './shared/shared.module';
 import { LsService } from './services/ls.service';
 import { ConnectorWrapperService } from './services/connector-wrapper.service';
 
@@ -38,9 +37,8 @@ let dashboardRoutes: Routes = [
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthguardGuard]},
-  {path: 'dashboard/:user', component: DashboardComponent, canActivate: [AuthguardGuard]},
-  //{path: 'dashboard', component: DashboardComponent, /*,*/ children: dashboardRoutes},
+  {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthguardGuard]},
+  {path: 'dashboard/:user', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthguardGuard]},
   {path: 'login', component: LoginComponent},
   {path: '**', component: NotfoundComponent}
 ];
@@ -57,7 +55,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
-    DashboardModule,
   ],
   providers: [
     AuthService,
