@@ -41,10 +41,11 @@ export class UserBlogComponent implements OnInit, OnChanges {
   }
 
   private refreshBlog(): void{
-    this.blogGetItemsSubscription = this.blogService.getData<IBlogData[]>(this.author ? {author:this.author} : null).subscribe(items => {
-      console.log('devss blogservice get', items);
-      this._blogItems = items;
-    });
+    if( !!this.author )
+      this.blogGetItemsSubscription = this.blogService.getData<IBlogData[]>(this.author ? {author:this.author} : null).subscribe(items => {
+        console.log('devss blogservice get', items);
+        this._blogItems = items;
+      });
   }
 
   public removeBlogItem( id: string ){
