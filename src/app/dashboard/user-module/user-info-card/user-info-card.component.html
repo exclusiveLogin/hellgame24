@@ -12,7 +12,7 @@
   <!-- Настроение (кнопка) -->
   <button
     class="btn"
-    [ngClass]="{'pressed': false}"
+    [ngClass]="{'pressed': useremo_shown}"
     (click)="useremo_shown ? closeUserEmo() : openUserEmo()"
     >
       <i class="fas fa-chart-line fa-2x icon"></i>

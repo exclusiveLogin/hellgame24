@@ -20,7 +20,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
   @Input() public user: IUser;
   @ViewChild('trend') private trend: ElementRef;
-  
+
   public usermail_shown: boolean = true;
   public userstatus_shown = false;
   public useremo_shown = false;
@@ -34,7 +34,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public userEmoStatus:{
     title: string,
     prev_title: string,
-    
+
     value: string,
     prev_value: string,
 
@@ -54,19 +54,23 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     this.mailSub = this.ui.getUsermailShownChangeEvent().subscribe( state => {
       this.usermail_shown = state;
       if ( !this.userstatus_shown ) this.scroll( 'body' );
+      this.cd.detectChanges();
     });
     this.statusSub = this.ui.getUserStatusShownChangeEvent().subscribe( status => {
       this.userstatus_shown = status;
       if ( !this.userstatus_shown ) this.scroll( 'body' );
+      this.cd.detectChanges();
     });
     this.emoSub = this.ui.getUserEmoShownChangeEvent().subscribe( status => {
       this.useremo_shown = status;
       if ( !this.userstatus_shown ) this.scroll( 'body' );
+      this.cd.detectChanges();
     });
 
     this.emoChangeSub = this.tes.getSegmentRefreshSignal('emo').subscribe(
-      state => { 
+      state => {
         !!state && this.refreshTrend();
+        this.cd.detectChanges();
       }
     );
 
@@ -273,9 +277,9 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
     this.userTrendSub = this.usersService.getUserTrend( this.user.login )
       .pipe(
-        filter(trend => !!trend), 
+        filter(trend => !!trend),
         tap(trend => {
-          
+
           if ( trend.length > 1 ) {
             this.userEmoStatus = {
               title: trend[0].title && trend[0].title.length ? trend[0].title : null,
@@ -288,8 +292,8 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
           } else {
             this.userEmoStatus = null;
           }
-          
-          
+
+
         })
       )
       .subscribe( trend => !!trend && this.renderTrend( trend ));
@@ -307,7 +311,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     if ( !trend ) return;
 
     if( this.emoChart ) this.emoChart.destroy();
-  
+
     let tr: number[][] = this.prepareQuickUserEmoTrend( trend );
     this.emoChart = HC.chart('infocardEmo_hc', {
       chart: {
@@ -352,14 +356,14 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     this.emoChart.reflow();
 
     !this.cd['destroyed'] && this.cd.detectChanges();
-    
+
   }
   // Mail
   public openMail(){
     this.ui.openUsermail();
     this.scroll( 'app-user-mail' );
   }
-  
+
   public closeMail(){
     this.ui.closeUsermail();
   }
@@ -390,7 +394,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
       if ( _target === 'body' ) target && target.length && target[0].scrollIntoView({behavior:'smooth', block:'start'});
       else target && target.length && target[0].scrollIntoView({behavior:'smooth'});
     },500);
-    
+
   }
 
   ngAfterViewInit(): void {
@@ -407,9 +411,9 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes: SimpleChanges): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
-  
+
     if(
-      changes['user']  && 
+      changes['user']  &&
       !changes['user'].firstChange &&
       (!!changes['user'].previousValue && !!changes['user'].currentValue) &&
       changes['user'].previousValue.login !== changes['user'].currentValue.login
@@ -421,7 +425,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    
+
     if ( this.mailSub ) this.mailSub.unsubscribe();
     if ( this.statusSub ) this.statusSub.unsubscribe();
     if ( this.emoSub ) this.emoSub.unsubscribe();
