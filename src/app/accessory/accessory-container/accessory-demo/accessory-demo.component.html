@@ -2,8 +2,8 @@
   <div class="header">Типы доступных предметов(WIKI)</div>
   <app-accessory-item
     style="cursor:default;"
-    class="full"
-    *ngFor="let item of lib_items"
+    class="half"
+    *ngFor="let item of lib_items; trackBy: trackByFn"
     [itemId]="item.id"
     [options]="lib_item_options"
   ></app-accessory-item>
@@ -12,7 +12,7 @@
 <div class="microcard" [ngClass]="{'locked': locked}">
   <div class="header">Object Spawns</div>
   <app-accessory-spawn
-    *ngFor="let spawn of spawns"
+    *ngFor="let spawn of spawns; trackBy: trackByFn"
     [spawnID]="spawn.id"
     [options]="spawn_options"></app-accessory-spawn>
 </div>
@@ -22,7 +22,7 @@
   <app-accessory-item
     style="cursor:default;"
     class="full"
-    *ngFor="let item of unlinked_rgos"
+    *ngFor="let item of unlinked_rgos; trackBy: trackByFn"
     [itemId]="item.object_id"
     [parentItem]="item"
     [options]="unlinked_rgos_options"
@@ -35,8 +35,8 @@
   </div>
   <app-accessory-item
     style="cursor:default;"
-    class="full"
-    *ngFor="let item of empty_nonowner_slots"
+    class="half"
+    *ngFor="let item of empty_nonowner_slots; trackBy: trackByFn"
     [itemId]="item.id"
     [mode]="'slot'"
     [parentItem]="item"
@@ -49,7 +49,7 @@
   <app-accessory-item
     style="cursor:default;"
     class="full"
-    *ngFor="let item of rgo_on_map"
+    *ngFor="let item of rgo_on_map; trackBy: trackByFn"
     [itemId]="item.go_id"
     [parentItem]="item"
     [options]="rgo_on_map_options"
@@ -61,7 +61,7 @@
   <app-accessory-item
     style="cursor:default;"
     class="full"
-    *ngFor="let item of non_empty_slots"
+    *ngFor="let item of non_empty_slots; trackBy: trackByFn"
     [itemId]="item.id"
     [parentItem]="item"
     [mode]="'slot'"
@@ -73,8 +73,8 @@
   <div class="header">EMPTY Slots with Owner: {{ loged_as }}</div>
   <app-accessory-item
     style="cursor:default;"
-    class="full"
-    *ngFor="let item of empty_slots"
+    class="half"
+    *ngFor="let item of empty_slots; trackBy: trackByFn"
     [itemId]="item.id"
     [mode]="'slot'"
     [options]="e_slots_options"

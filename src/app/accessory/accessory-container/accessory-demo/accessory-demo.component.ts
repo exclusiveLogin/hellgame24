@@ -277,6 +277,10 @@ export class AccessoryDemoComponent implements OnInit {
     ]
   }
 
+  public trackByFn( index, item ){
+    return item.id || index;
+  }
+
 
   public createNewSlot(){
     this.locker.lockingSegment('demo');

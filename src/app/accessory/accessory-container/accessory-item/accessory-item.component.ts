@@ -62,6 +62,9 @@ export class AccessoryItemComponent implements OnInit {
           this.item = i;
           this.loaded_animation = 'loaded';
         });
+
+    if (this.itemId && this.mode === "slot")  this.loaded_animation = 'loaded';
+
     }
 
     public getItemIcon() {
