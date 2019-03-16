@@ -51,9 +51,18 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit() {
-    this.mailSub = this.ui.getUsermailShownChangeEvent().subscribe( state => this.usermail_shown = state);
-    this.statusSub = this.ui.getUserStatusShownChangeEvent().subscribe( status => this.userstatus_shown = status);
-    this.emoSub = this.ui.getUserEmoShownChangeEvent().subscribe( status => this.useremo_shown = status);
+    this.mailSub = this.ui.getUsermailShownChangeEvent().subscribe( state => {
+      this.usermail_shown = state;
+      if ( !this.userstatus_shown ) this.scroll( 'body' );
+    });
+    this.statusSub = this.ui.getUserStatusShownChangeEvent().subscribe( status => {
+      this.userstatus_shown = status;
+      if ( !this.userstatus_shown ) this.scroll( 'body' );
+    });
+    this.emoSub = this.ui.getUserEmoShownChangeEvent().subscribe( status => {
+      this.useremo_shown = status;
+      if ( !this.userstatus_shown ) this.scroll( 'body' );
+    });
 
     this.emoChangeSub = this.tes.getSegmentRefreshSignal('emo').subscribe(
       state => { 
@@ -348,6 +357,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   // Mail
   public openMail(){
     this.ui.openUsermail();
+    this.scroll( 'app-user-mail' );
   }
   
   public closeMail(){
@@ -356,19 +366,31 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   // Status
   public openUserStatus(){
     this.ui.openUserStatus();
+    this.scroll( 'app-user-status' );
   }
 
   public closeUserStatus(){
     this.ui.closeUserStatus();
+    //this.scroll( 'body' );
   }
 
   // Emo
   public openUserEmo(){
     this.ui.openEmoStatus();
+    this.scroll( 'app-user-emo' );
   }
 
   public closeUserEmo(){
     this.ui.closeEmoStatus();
+  }
+
+  private scroll( _target: string ){
+    setTimeout(()=>{
+      let target = document.getElementsByTagName( _target );
+      if ( _target === 'body' ) target && target.length && target[0].scrollIntoView({behavior:'smooth', block:'start'});
+      else target && target.length && target[0].scrollIntoView({behavior:'smooth'});
+    },500);
+    
   }
 
   ngAfterViewInit(): void {

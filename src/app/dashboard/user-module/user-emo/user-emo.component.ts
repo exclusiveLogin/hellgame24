@@ -1,17 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Options } from 'ng5-slider';
 import { UiService } from '../../../services/ui.service';
 import { AuthService } from '../../../services/auth.service';
 import { UserServiceService } from '../../../services/user-service.service';
 import { UxEventerService } from '../../../services/ux-eventer.service';
+import { enterLeaveAnimationDefault } from '../../../models/enterLeaveAnimation';
 
 @Component({
   selector: 'app-user-emo',
   templateUrl: './user-emo.component.html',
-  styleUrls: ['./user-emo.component.css']
+  styleUrls: ['./user-emo.component.css'],
+  animations:[ enterLeaveAnimationDefault]
 })
 export class UserEmoComponent implements OnInit {
 
+  @HostBinding('@Anima') public myStatusAnima = true;
   @Input() oldEmo: number;
 
   constructor( 

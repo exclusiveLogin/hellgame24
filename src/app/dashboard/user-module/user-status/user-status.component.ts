@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { UiService } from '../../../services/ui.service';
 import { AuthService } from '../../../services/auth.service';
 import { UserServiceService } from '../../../services/user-service.service';
 import { TopEventsService } from '../../../services/topevents.service';
 import { UxEventerService } from '../../../services/ux-eventer.service';
+import { enterLeaveAnimationDefault } from '../../../models/enterLeaveAnimation';
 
 export interface IStatusBtn {
   icon: string,
@@ -75,9 +76,12 @@ let STATUS_BUTTONS_MONITORING: IStatusBtn[] = [
 @Component({
   selector: 'app-user-status',
   templateUrl: './user-status.component.html',
-  styleUrls: ['./user-status.component.css']
+  styleUrls: ['./user-status.component.css'],
+  animations:[ enterLeaveAnimationDefault ]
 })
 export class UserStatusComponent implements OnInit {
+
+  @HostBinding('@Anima') public myStatusAnima = true;
 
   constructor(
     private ui: UiService,

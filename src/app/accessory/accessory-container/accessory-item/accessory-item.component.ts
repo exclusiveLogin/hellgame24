@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, HostBinding } from "@angular/core";
 import { IngredientService, IIngredient } from "../../ingredient.service";
 import { filter, switchMap } from "rxjs/operators";
 import { ApiService } from "../../../services/api.service";
 import { InventoryService } from "../../inventory.service";
-import { AuthService } from "../../../services/auth.service";
+import { loadedAnimation } from '../../../models/loadedAnimation';
+import { itemEnterLeaveAnimation } from '../../../models/itemEnterLeaveAnimation';
 
 export interface IAdditionalButtons {
     key: string;
@@ -21,9 +22,13 @@ export interface IAccessoryItemOptions {
     selector: "app-accessory-item",
     templateUrl: "./accessory-item.component.html",
     styleUrls: ["./accessory-item.component.css"],
+    animations: [ loadedAnimation, itemEnterLeaveAnimation ]
 })
 export class AccessoryItemComponent implements OnInit {
     public item: IIngredient;
+
+    @HostBinding('@Loading') public loaded_animation = 'initial';
+    @HostBinding('@ItemEnterLeave') public default_animation = true;
 
     @Input() itemId: string;
     @Input() parentItem: any;
@@ -33,7 +38,6 @@ export class AccessoryItemComponent implements OnInit {
     constructor(
         private ingredient: IngredientService,
         private inventory: InventoryService,
-        private auth: AuthService,
         private api: ApiService
     ) {}
 
@@ -44,6 +48,7 @@ export class AccessoryItemComponent implements OnInit {
         .pipe(filter<IIngredient>(it => !!it))
         .subscribe(i => {
           this.item = i;
+          this.loaded_animation = 'loaded';
         });
 
     if (this.itemId && this.mode === "slot")
@@ -55,6 +60,7 @@ export class AccessoryItemComponent implements OnInit {
         )
         .subscribe(i => {
           this.item = i;
+          this.loaded_animation = 'loaded';
         });
     }
 

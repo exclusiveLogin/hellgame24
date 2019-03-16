@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IMessageData, MessageService } from '../../../services/message.service';
 import { TopEventsService } from '../../../services/topevents.service';
@@ -6,6 +6,8 @@ import { IUser } from '../../../models/user-interface';
 import { Observable } from 'rxjs/Observable';
 import { UserServiceService } from '../../../services/user-service.service';
 import { UiService } from '../../../services/ui.service';
+import { enterLeaveAnimationDefault } from '../../../models/enterLeaveAnimation';
+
 
 export interface IGroupMessages{
   author: string,
@@ -16,13 +18,16 @@ export interface IGroupMessages{
 @Component({
   selector: 'app-user-mail',
   templateUrl: './user-mail.component.html',
-  styleUrls: ['./user-mail.component.css']
+  styleUrls: ['./user-mail.component.css'],
+  animations: [enterLeaveAnimationDefault]
 })
 export class UserMailComponent implements OnInit {
 
   @Input() public title: string;
   @Input() public user: string;
   @Input() public useGroup: boolean = true;
+
+  @HostBinding('@Anima') public myStatusAnima = true;
 
   private _messageSubscription: Subscription;
   public _messageItems: IMessageData[] = [];
