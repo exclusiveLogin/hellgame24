@@ -73,9 +73,10 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
 
     if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_trend' ){
       $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 10';
+      $skip = isset($_GET['skip']) ? ' OFFSET '.$_GET['skip'] : '';
       $login = $_GET['login'];
 
-      $q = "SELECT *, UNIX_TIMESTAMP(`datetime`)*1000 AS `utc` FROM `user_emo` WHERE `login`=\"$login\" ORDER BY `id` DESC $limit";
+      $q = "SELECT *, UNIX_TIMESTAMP(`datetime`)*1000 AS `utc` FROM `user_emo` WHERE `login`=\"$login\" ORDER BY `id` DESC $limit $skip";
     }
 
     if( $q ){

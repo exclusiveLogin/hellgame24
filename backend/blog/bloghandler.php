@@ -43,13 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // The request is using the GET method
     $arr = array();
 
-    $limit = isset($_GET['limit']) ? 'LIMIT='.$_GET['limit'] : '';
+    $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 20';
+    $skip = isset($_GET['skip']) ? ' OFFSET '.$_GET['skip'] : '';
     $author  = isset($_GET['author']) ? '`author`="'.$_GET['author'].'"' : NULL;
-    //$arr['group'] = isset($_GET['group']) ? $_GET['group'] : NULL;
 
     $where = ($author) ? 'WHERE '.$author : '';
     
-    $query = "SELECT * FROM `blog` $where ORDER BY `id` DESC";
+    $query = "SELECT * FROM `blog` $where ORDER BY `id` DESC $limit $skip";
 
     $res = $mysql->query($query);
     //echo $query;

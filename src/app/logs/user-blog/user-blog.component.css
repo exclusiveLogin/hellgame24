@@ -1,0 +1,9 @@
+.blog_title{
+    flex-grow: 1;
+    width: 100%;
+    font-weight: bold;
+}
+.blog_container{
+    overflow-y: auto;
+    flex-grow: 1;
+}

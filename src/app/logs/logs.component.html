@@ -16,7 +16,7 @@
 </div>
 <div class="dashboard_workplace">
   <app-pager>
-    <div class="blog-content">Блог</div>
+    <app-user-blog class="blog-content" [author]="cur_user && cur_user.login">Блог</app-user-blog>
     <div class="login-content">Логин</div>
     <div class="emo-content">Эмоции</div>
     <div class="status-content">Статус</div>

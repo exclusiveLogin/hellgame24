@@ -4,6 +4,7 @@ import { LogsComponent } from './logs.component';
 import { PagerComponent } from './pager/pager.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserCardModule } from '../usercard/usercard.module';
+import { UserBlogModule } from './user-blog/user-blog.module';
 
 
 const routes: Routes = [{ path: '', component: LogsComponent }];
@@ -12,6 +13,7 @@ const routes: Routes = [{ path: '', component: LogsComponent }];
   imports: [
     CommonModule,
     UserCardModule,
+    UserBlogModule,
     RouterModule.forChild( routes ),
   ],
   declarations: [
