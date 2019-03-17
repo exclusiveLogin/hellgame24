@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TopEventsService} from '../services/topevents.service';
 import {MenuStateInterface} from '../models/menu-state-interface';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -20,6 +21,7 @@ export class MenuComponent implements OnInit {
   constructor(
     private tes: TopEventsService,
     private auth: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -32,5 +34,9 @@ export class MenuComponent implements OnInit {
 
   public logout(){
     this.auth.logout();
+  }
+
+  public logs(){
+    this.router.navigate(['logs']);
   }
 }

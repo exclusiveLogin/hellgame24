@@ -1,0 +1,27 @@
+:host{
+  display: flex;
+  flex-direction: row;
+  color: #dddddd;
+  flex-grow: 1;
+  flex-wrap: wrap;
+}
+.page_info, .page_map, .page_accessory{
+  padding: 10px;
+  flex-grow: 1;
+  transition: all ease 1s;
+}
+.page_info {
+  background-color: #353535;
+  flex: 1 1 30%;
+  max-width: 470px;
+}
+.page_accessory {
+  background-color: #444;
+  flex-basis: 470px;
+  max-width: 470px;
+}
+.page_map {
+  background-color: #333;
+  flex-basis: 470px;
+  max-width: 470px;
+}

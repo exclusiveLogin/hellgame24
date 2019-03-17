@@ -40,6 +40,8 @@ const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthguardGuard]},
   {path: 'dashboard/:user', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthguardGuard]},
+  {path: 'logs', loadChildren: './logs/logs.module#LogsModule', canActivate: [AuthguardGuard]},
+  {path: 'logs/:user', loadChildren: './logs/logs.module#LogsModule', canActivate: [AuthguardGuard]},
   {path: 'login', component: LoginComponent},
   {path: '**', component: NotfoundComponent}
 ];

@@ -1,0 +1,33 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+  }
+  .card_panel{
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: #333;
+    color: #dddddd;
+    box-shadow: 0 2px 15px #111;
+    z-index: 20;
+    overflow: auto;
+    align-items: center;
+  }
+  app-usercard{
+    width: 250px;
+    margin: 10px 15px;
+    box-shadow: 8px 8px 0 #222;
+    transition: box-shadow ease 0.2s;
+    flex: 0 0 auto;
+  }
+  app-usercard:hover{
+    box-shadow: 3px 3px 0 #282828;
+  }
+  .dashboard_workplace{
+    flex-grow: 1;
+    display: flex;
+    z-index: 10;
+    overflow: auto;
+  }
+  

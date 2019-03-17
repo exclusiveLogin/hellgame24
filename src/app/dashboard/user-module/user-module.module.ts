@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserCardModule } from './usercard/usercard.module';
+import { UserCardModule } from '../../usercard/usercard.module';
 import { UserStatusModule } from './user-status/user-status.module';
 import { UserBlogModule } from './user-blog/user-blog.module';
 import { UserEmoModule } from './user-emo/user-emo.module';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../models/user-interface';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Route, ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class UiService {
 
   public setCurrentUserSelect( user: IUser ){
     this.currentUserSelect = user;
-    this.router.navigate(['dashboard', user.login]);
+    this.router.navigate([this.router.url.split('/')[1], user.login]);
     this.currentUserSelectChanged.next( this.currentUserSelect );
   }
 
