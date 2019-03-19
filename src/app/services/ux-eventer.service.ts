@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ConnectorService } from './connector.service';
 import { IUser } from '../models/user-interface';
 import { Path } from '../models/path';
 import { ApiService } from './api.service';
@@ -37,7 +36,8 @@ public setLoginEvent( user: IUser ){
         mode: 'add_event'
     }
     
-    this.updateEvent( body ).subscribe();}
+    this.updateEvent( body );
+}
 
 public setLogoutEvent( user: IUser ){
     let body: IUXEvent =  {
@@ -48,7 +48,8 @@ public setLogoutEvent( user: IUser ){
         mode: 'add_event'
     }
     
-    this.updateEvent( body ).subscribe();}
+    this.updateEvent( body );
+}
 
 public setLoginErrorEvent( login: string ){
     let body: IUXEvent =  {
@@ -59,7 +60,8 @@ public setLoginErrorEvent( login: string ){
         mode: 'add_event'
     }
     
-    this.updateEvent( body ).subscribe();}
+    this.updateEvent( body );
+}
 
 public setUserEmo( user: string, emo: number, title?: string, ){
     let body: IUXEvent =  {
@@ -70,7 +72,7 @@ public setUserEmo( user: string, emo: number, title?: string, ){
         mode: 'add_event'
     }
     
-    this.updateEvent( body ).subscribe();
+    this.updateEvent( body );
 }
 
 public setUserStatus( user: string, status: string ){
@@ -82,7 +84,7 @@ public setUserStatus( user: string, status: string ){
         mode: 'add_event'
     }
     
-    this.updateEvent( body ).subscribe();
+    this.updateEvent( body );
 }
 
 public setRedCode( user: string, description?: string){
@@ -94,7 +96,7 @@ public setRedCode( user: string, description?: string){
         mode: 'add_event'
     }
 
-    this.updateEvent( body ).subscribe();
+    this.updateEvent( body );
 }
 
 public setOrangeCode( user: string, description?: string){
@@ -106,7 +108,7 @@ public setOrangeCode( user: string, description?: string){
         mode: 'add_event'
     }
 
-    this.updateEvent( body ).subscribe();
+    this.updateEvent( body );
 }
 
 public setGreenCode( user: string ){
@@ -118,10 +120,12 @@ public setGreenCode( user: string ){
         mode: 'add_event'
     }
 
-    this.updateEvent( body ).subscribe();
+    this.updateEvent( body );
 }
 
 private updateEvent( body ){
-    return this.http.post(`${ this.api.getApi()}${path.segment}/${path.script}`, body );
+    setTimeout(()=>{
+        this.http.post(`${ this.api.getApi()}${path.segment}/${path.script}`, body ).subscribe();
+    }, 3000);
     }
 }

@@ -6,7 +6,6 @@ import { TopEventsService } from './topevents.service';
 import { StateService } from './state.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { AuthService } from './auth.service';
 
 
 export interface ISegment{
