@@ -49,44 +49,30 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
             if( $position_lat && $position_lat !== 'NULL'){
                 $q = "UPDATE `user_login` 
-                SET `position_lat` = $position_lat 
+                SET `position_lat` = $position_lat,
+                `position_lon` = $position_lon,
+                `accuracy` = $accuracy 
                 WHERE `id`= $id";
 
                 $mysql->query($q);
             }
 
-            if( $position_lon && $position_lon !== 'NULL'){
-                $q = "UPDATE `user_login` 
-                SET `position_lon` = $position_lon
-                WHERE `id`= $id";
+            // if( $network_equal && $network_equal !== 'NULL'){
+            //     $q = "UPDATE `user_login` 
+            //     SET `network_equal` = $network_equal
+            //     WHERE `id`= $id";
 
-                $mysql->query($q);
-            }
+            //     $mysql->query($q);
+            // }
 
-            if( $accuracy && $accuracy !== 'NULL'){
-                $q = "UPDATE `user_login` 
-                SET `accuracy` = $accuracy
-                WHERE `id`= $id";
+            // if( $dlink && $dlink !== 'NULL'){
+            //     $q = "UPDATE `user_login` 
+            //     SET `dlink` = $dlink, 
+            //     WHERE `id`= $id";
 
-                $mysql->query($q);
-            }
-
-            if( $network_equal && $network_equal !== 'NULL'){
-                $q = "UPDATE `user_login` 
-                SET `network_equal` = $network_equal
-                WHERE `id`= $id";
-
-                $mysql->query($q);
-            }
-
-            if( $dlink && $dlink !== 'NULL'){
-                $q = "UPDATE `user_login` 
-                SET `dlink` = $dlink, 
-                WHERE `id`= $id";
-
-                $mysql->query($q);
+            //     $mysql->query($q);
             
-            }
+            // }
             $q = false;
             
         } else {
