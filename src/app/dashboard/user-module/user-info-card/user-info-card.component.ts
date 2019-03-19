@@ -1,12 +1,24 @@
-import { AfterViewInit, Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, ViewRef, ViewContainerRef } from '@angular/core';
+import { 
+  AfterViewInit,
+  Component, 
+  OnInit, 
+  Input, 
+  ViewChild, 
+  ElementRef, 
+  SimpleChanges, 
+  ChangeDetectionStrategy, 
+  ChangeDetectorRef } from '@angular/core';
 import {ChartObject} from 'highcharts';
 import {TopEventsService} from "../../../services/topevents.service";
 import { IUser, ITrendItem } from '../../../models/user-interface';
 import { UiService } from '../../../services/ui.service';
-import { Subscription, BehaviorSubject } from 'rxjs';
-import { first, filter, tap } from 'rxjs/operators';
+import { Subscription, from } from 'rxjs';
+import { filter, tap } from 'rxjs/operators';
 import { UserServiceService } from '../../../services/user-service.service';
 import { AuthService } from '../../../services/auth.service';
+
+
+const ua = require('ua-parser-js');
 const HC = require('highcharts');
 
 @Component({
@@ -406,6 +418,21 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
         if( this.emoChart ) this.emoChart.reflow();
       });
 
+  }
+
+  public getUASystem(u: string){
+    let userAgent = ua(u);
+    return `${userAgent.os.name ? userAgent.os.name :''} ${userAgent.os.version ? userAgent.os.version :''}`;
+  }
+
+  public getUABrowser(u: string){
+    let userAgent = ua(u);
+    return `${userAgent.browser.name ? userAgent.browser.name :''} ${userAgent.browser.version ? userAgent.browser.version :''}`;
+  }
+
+  public getUADevice(u: string){
+    let userAgent = ua(u);
+    return `${userAgent.device.model ? userAgent.device.model :''} ${userAgent.device.type ? userAgent.device.type :''} ${userAgent.device.vendor ? userAgent.device.vendor :''}`;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

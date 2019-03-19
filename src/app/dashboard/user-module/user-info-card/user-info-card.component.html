@@ -35,11 +35,22 @@
   </div>
 </div>
 <div class="userinfo_right">
-  <span class="user_title">{{user.login}}</span>
-  <span class="user_description">{{user.title}}</span>
-  <span class="user_lastlogin">Последние изменения:<br><strong>{{user.last_change_datetime}}</strong></span>
-  <span class="user_lastsystem">Последние изменения статуса:<br><strong>{{user.last_change_status_datetime}}</strong></span>
-  <div class="user_lastsystem">Статус:<br><span>{{user.message.text}}</span>(<i [ngClass]="user.message.icon" class="fas"></i>)</div>
+  <span class="user_title">{{user.login}} ({{user.title}})</span>
+  <span class="user_address">Визит:<strong>{{user.last_change_datetime_humanity}}</strong></span>
+  <span class="user_address" *ngIf="user.last_login && user.last_login.battery">Батарея:<strong>{{user.last_login.battery}} %</strong></span>
+  <span class="user_address" *ngIf="user.address">Откуда:<strong>{{user.address}}</strong></span>
+
+  <ng-container *ngIf="user.last_login && user.last_login.user_agent">
+    <span class="user_address" >ОC:<strong> {{ getUASystem(user.last_login.user_agent) }} </strong></span>
+    <span class="user_address" >Браузер:<strong> {{ getUABrowser(user.last_login.user_agent) }} </strong></span>
+    <span class="user_address" >Девайс:<strong> {{ getUADevice(user.last_login.user_agent) }} </strong></span>
+  </ng-container>
+  
+  
+
+
+  <span class="user_lastsystem">Изменения статуса:<br><strong>{{user.last_change_status_datetime}}</strong></span>
+  <div class="user_lastsystem">Статус:<i [ngClass]="user.message.icon" class="fas"></i> <span>( {{user.message.text}} )</span></div>
 
 </div>
 <div id="infocardEmo_hc" class="user_emotrend" #trend></div>

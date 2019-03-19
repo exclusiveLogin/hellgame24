@@ -28,9 +28,15 @@
   flex: 1 0 auto;
 }
 .userinfo_right .user_title{
-  font-size: 200%;
+  font-size: 120%;
   font-weight: bold;
+  text-decoration: underline;
   color: white;
+}
+.userinfo_right .user_address{
+  font-size: 70%;
+  font-weight: bold;
+  color: grey;
 }
 .userinfo_right .user_description{
   font-size: 150%;
