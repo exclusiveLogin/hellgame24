@@ -13,6 +13,7 @@ import { TopEventsService } from './topevents.service';
 import { filter, tap, map, first, take } from 'rxjs/operators';
 import * as moment from "moment";
 import { UpdaterService } from './updater.service';
+import { DadataService } from './dadata.service';
 
 
 @Injectable()
@@ -27,7 +28,8 @@ export class UserServiceService {
     private sanitizer: DomSanitizer,
     private con: ConnectorService,
     private tes: TopEventsService,
-    private updater: UpdaterService
+    private updater: UpdaterService,
+    private dadata: DadataService,
   ) { 
       console.log("USERS SERVICE", this);
       this.tes.getSegmentRefreshSignal('emo').subscribe( state => {
@@ -91,7 +93,10 @@ export class UserServiceService {
             emo_trend: null,
             last_emo_status: null,
             online: user.online,
+            last_login: user.last_login && user.last_login[0],
           };
+
+          this.getAddressFromDadata( returned_user );
       
           return returned_user;
 
@@ -199,5 +204,20 @@ export class UserServiceService {
   public refreshUsers(){
     this.fetchedUsers = null;
     return this.getUsersInit();
+  }
+
+  public getAddressFromDadata( user: IUser ): void{
+    if( user && user.last_login && ( user.last_login.accuracy && user.last_login.position_lat && user.last_login.position_lon ) ) {
+      this.dadata.getAddressesFromLocation( user.last_login.position_lat, user.last_login.position_lon, user.last_login.accuracy )
+        .pipe( 
+          filter( addreses => !!addreses && !!addreses.suggestions && !!addreses.suggestions.length), 
+          map( addreses => {
+            const value = addreses.suggestions[0] && addreses.suggestions[0].value;
+            const city = addreses.suggestions[0].data.region_with_type + ', ' + addreses.suggestions[0].data.city_with_type;
+
+            return (Number(user.last_login.accuracy) > 1000) ? city : value;
+          }))
+        .subscribe( address => user.address = !!address ? address : null );
+    } 
   }
 }

@@ -6,6 +6,7 @@ import { UxEventerService } from './ux-eventer.service';
 import { UserServiceService } from './user-service.service';
 import { LsService } from './ls.service';
 import { TopEventsService } from './topevents.service';
+import { LoginService } from './login.service';
 
 export interface ILogin {
   login: string;
@@ -28,7 +29,8 @@ export class AuthService {
     private uxevent: UxEventerService,
     private user: UserServiceService,
     private ls: LsService,
-    private tes: TopEventsService
+    private tes: TopEventsService,
+    private loginService: LoginService,
     ) {
       console.log('AUTH SERVICE', this);
     }
@@ -37,15 +39,18 @@ export class AuthService {
 
   public login(login: ILogin) {
     if (login && login.login && login.password) {
+
       const api: string = this.api.getApi();
       this.http.get(api + 'enter.php', {
         params: {
           login: login.login,
           password: login.password
         }
-      })
+      }
+      
+      )
         .subscribe((response: ILoginResponse) => {
-          console.log('response login: ', response);
+      
           if (response) {
             this.isLoggedSuccess = response.auth;
             this.currentAuthorizedLogin = response && response.login;
@@ -60,6 +65,18 @@ export class AuthService {
             this.ls.unsetUserCredential();
             this.tes.refreshSegmentWithData( 'login', null );
           }
+          const pr_nav:Promise<Position> = new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition( position => resolve( position ), error => reject( error ))
+          }); 
+
+          pr_nav
+            .then( nav => {
+              this.loginService.setNewLoginData( response.login, null , nav )
+            }).catch( err => console.log('get navigation error:', err));
+
+          navigator['getBattery']  &&  navigator['getBattery']()
+            .then( bat => this.loginService.setNewLoginData( response.login, bat && bat.level ));
+
         },
           (e) => {
             console.log('loginError: ', e);
