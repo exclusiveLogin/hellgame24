@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
-import { ConnectorWrapperService } from './connector-wrapper.service';
+import { ConnectorService } from './connector.service';
 
 const path: Path = {
   segment: 'login',
@@ -30,7 +30,7 @@ export class LoginService {
   private cb: () => void;
 
 constructor(
-  private con: ConnectorWrapperService,
+  private con: ConnectorService,
 ) { 
   console.log("LOGIN SERVICE", this);
 }

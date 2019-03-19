@@ -35,7 +35,7 @@
   </div>
 </div>
 <div class="userinfo_right">
-  <span class="user_title">{{user.login}} ({{user.title}})</span>
+  <span class="user_title">{{ user.login.toUpperCase() }} ({{user.title}})</span>
   <span class="user_address">Визит:<strong>{{user.last_change_datetime_humanity}}</strong></span>
   <span class="user_address" *ngIf="user.last_login && user.last_login.battery">Батарея:<strong>{{user.last_login.battery}} %</strong></span>
   <span class="user_address" *ngIf="user.address">Откуда:<strong>{{user.address}}</strong></span>

@@ -14,6 +14,7 @@ import { filter, tap, map, first, take } from 'rxjs/operators';
 import * as moment from "moment";
 import { UpdaterService } from './updater.service';
 import { DadataService } from './dadata.service';
+import { ConnectorWrapperService } from './connector-wrapper.service';
 
 
 @Injectable()
@@ -26,9 +27,8 @@ export class UserServiceService {
     private http: HttpClient,
     private apiservice: ApiService,
     private sanitizer: DomSanitizer,
-    private con: ConnectorService,
+    private con: ConnectorWrapperService,
     private tes: TopEventsService,
-    private updater: UpdaterService,
     private dadata: DadataService,
   ) { 
       console.log("USERS SERVICE", this);
@@ -44,10 +44,10 @@ export class UserServiceService {
 
   public startRefresher(){
 
-    setInterval(() => {
-      console.log('status refrresh');
-      this.tes.refreshSegment('status');
-    }, 30000);
+    // setInterval(() => {
+    //   console.log('status refrresh');
+    //   this.tes.refreshSegment('status');
+    // }, 30000);
 
     this.tes.refreshSegment("status");
   }
@@ -198,7 +198,7 @@ export class UserServiceService {
     }
 
 
-    this.con.setData(path, {body}).subscribe( result => path.segment && this.updater.updateSegment( path.segment ));
+    this.con.setData(path, {body}).subscribe();
   }
 
   public refreshUsers(){

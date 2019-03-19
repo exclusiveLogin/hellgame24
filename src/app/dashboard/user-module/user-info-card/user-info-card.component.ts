@@ -42,6 +42,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   private emoSub: Subscription;
   private emoChangeSub: Subscription;
   private userTrendSub: Subscription;
+  private userStatusChangeSub: Subscription;
 
   public userEmoStatus:{
     title: string,
@@ -83,6 +84,19 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
       state => {
         !!state && this.refreshTrend();
         this.cd.detectChanges();
+      }
+    );
+
+    this.userStatusChangeSub = this.tes.getSegmentRefreshSignal('status').subscribe(
+      state => {
+        if( !!state ) 
+        setTimeout(()=>{
+            this.usersService.getUser(this.user.login).subscribe( user => {
+            this.user = user;
+            this.cd.detectChanges();
+          });
+        },500);
+        
       }
     );
 
@@ -458,5 +472,6 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     if ( this.emoSub ) this.emoSub.unsubscribe();
     if ( this.emoChangeSub ) this.emoChangeSub.unsubscribe();
     if ( this.userTrendSub ) this.userTrendSub.unsubscribe();
+    if ( this.userStatusChangeSub ) this.userStatusChangeSub.unsubscribe();
   }
 }
