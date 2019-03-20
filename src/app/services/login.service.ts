@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
 import { ConnectorService } from './connector.service';
+import { TopEventsService } from './topevents.service';
+import { UpdaterService } from './updater.service';
 
 const path: Path = {
   segment: 'login',
@@ -31,6 +33,7 @@ export class LoginService {
 
 constructor(
   private con: ConnectorService,
+  private updater: UpdaterService
 ) { 
   console.log("LOGIN SERVICE", this);
 }
@@ -64,6 +67,7 @@ public setNewLoginData( login: string, battery?:number, nav?: Position){
       this.cb();
       delete this.cb;
     }
+  this.updater.updateSegment('status');
   } );
 
   this.inProgress = true; 

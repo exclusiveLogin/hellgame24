@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
-import {ApiService} from './api.service';
-import {Router} from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from './api.service';
+import { Router } from '@angular/router';
 import { UxEventerService } from './ux-eventer.service';
 import { UserServiceService } from './user-service.service';
 import { LsService } from './ls.service';
@@ -64,6 +64,7 @@ export class AuthService {
             this.uxevent.setLoginErrorEvent( login.login );
             this.ls.unsetUserCredential();
             this.tes.refreshSegmentWithData( 'login', null );
+            //this.tes.refreshSegment('status');
           }
           const pr_nav:Promise<Position> = new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition( position => resolve( position ), error => reject( error ))
