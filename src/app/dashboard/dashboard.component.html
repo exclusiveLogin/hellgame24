@@ -1,7 +1,7 @@
 <div class="card_panel">
   <ng-container *ngIf="v_users.length; else emptyUserList">
     <app-usercard
-    *ngFor="let user of v_users; let i = index"
+    *ngFor="let user of v_users; trackBy: trackByFn"
     [user]="user"
     [_owner]="isUserOwner(user)"
     (click)="selectUser(user)"

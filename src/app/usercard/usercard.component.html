@@ -10,18 +10,28 @@
       <div class="usercard_message__text">{{user.message.text}}</div>
       <div class="usercard_message__datetime" *ngIf="user.message.datetime">{{ user.message.datetime }}</div>
     </div>
-    <!-- <div class="usercard_panel">
-      <ng-container *ngIf="_owner;then owner else default"></ng-container>
-      <ng-template #default>
-        <div class="usercard_panel_item"><i class="fas fa-envelope"></i></div>
-        <div class="usercard_panel_item"><i class="fas fa-sign-in-alt"></i></div>
-        <div class="usercard_panel_item"><i class="fas fa-map-marker-alt"></i></div>
-        <div class="usercard_panel_item"><i class="fas fa-chart-bar"></i></div>
-      </ng-template>
-      <ng-template #owner>
-        <span class="owner">Ты</span>
-      </ng-template>
-    </div> -->
+    <div class="usercard_panel" *ngIf="user.last_login as login">
+    
+      <ng-container>
+        <div class="usercard_panel_item"><i class="fas fa-desktop" [title]="login.user_agent"></i></div>
+
+        <div class="usercard_panel_item" *ngIf="login.battery">
+
+          <ng-container *ngIf="login.battery < 20"> <i class="fas fa-battery-empty" [title]="login.battery"></i> </ng-container>
+          <ng-container *ngIf="(login.battery > 20) && (login.battery < 50)"> <i class="fas fa-battery-quarter" [title]="login.battery"></i> </ng-container>
+          <ng-container *ngIf="(login.battery > 50) && (login.battery < 75)"> <i class="fas fa-battery-half" [title]="login.battery"></i> </ng-container>
+          <ng-container *ngIf="(login.battery > 75)"> <i class="fas fa-battery-full"  [title]="login.battery"></i> </ng-container>
+          
+        </div>
+        <div class="usercard_panel_item" *ngIf="login.position_lat || login.position_lon || login.accuracy">
+          <i class="fas fa-map-marker-alt" [title]="login.position_lat + ' ' + login.position_lon + ' Точность: ' + login.accuracy"></i>
+        </div>
+
+        <div class="usercard_panel_item" *ngIf="user.address"><i class="fas fa-home" [title]="user.address"></i></div>
+       
+      </ng-container>
+    
+    </div>
   </div>
   <div class="usercard_footer">
     <span class="usercard_status">{{user.status}} ({{user.last_change_datetime_humanity}})</span>

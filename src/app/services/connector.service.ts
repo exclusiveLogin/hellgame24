@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { tap } from 'rxjs/operators/tap';
-import { UpdaterService } from './updater.service';
 
 
 export interface IDataResponse{

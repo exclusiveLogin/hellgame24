@@ -11,7 +11,7 @@ export class StateService {
 
   private state: IGlobalState = {
     debug: true,
-    updateTimeout: 5000,
+    updateTimeout: 28000,
   }
   
   constructor() { }

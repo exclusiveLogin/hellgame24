@@ -116,4 +116,8 @@ export class DashboardComponent implements OnInit {
     if( this.userEmoShownSub ) this.userEmoShownSub.unsubscribe();
     console.log('dashboard DESTROY');
   }
+
+  public trackByFn( index, item: IUser){
+    return item.login || index;
+  }
 }

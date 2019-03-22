@@ -1,5 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {IUser} from '../models/user-interface';
+import {
+  Component, 
+  Input, 
+  OnInit
+} from '@angular/core';
+import { IUser } from '../models/user-interface';
 
 @Component({
   selector: 'app-usercard',
@@ -10,11 +14,12 @@ export class UsercardComponent implements OnInit {
   @Input() user: IUser;
   @Input() _owner = false;
   constructor(
+  ) { 
     
-  ) { }
+  }
 
   ngOnInit() {
-    
+    console.log('USERCARD', this.user);
   }
 
 }

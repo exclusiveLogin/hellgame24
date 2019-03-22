@@ -22,15 +22,23 @@ while($row){
 
     $statusQuery = "SELECT * FROM `user_status` WHERE `login`=\"$row[login]\" ORDER BY `id` DESC LIMIT 1";
 
+    $loginQuery = "SELECT * FROM `user_login` WHERE `login`=\"$row[login]\" ORDER BY `id` DESC LIMIT 1";
+
     $status = array();
+    $user_login = array();
+
+    $l_result = $mysql->query( $loginQuery );
 
     $s_result = $mysql->query( $statusQuery );
 
     $s_row = $s_result ? $s_result->fetch_assoc() : false;
+    $l_row = $l_result ? $l_result->fetch_assoc() : false;
 
     if($s_result) array_push($status, $s_row);
+    if($l_result) array_push($user_login, $l_row);
 
     $row['status'] = $status;
+    $row['last_login'] = $user_login;
 
     array_push($json, $row);
     $row = $res->fetch_assoc();
