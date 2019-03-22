@@ -44,10 +44,10 @@ export class UserServiceService {
 
   public startRefresher(){
 
-    // setInterval(() => {
-    //   console.log('status refrresh');
-    //   this.tes.refreshSegment('status');
-    // }, 30000);
+    setInterval(() => {
+      console.log('status refrresh');
+      this.tes.refreshSegment('status');
+    }, 60000);
 
     this.tes.refreshSegment("status");
   }

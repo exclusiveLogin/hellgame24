@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
 import { ConnectorService } from './connector.service';
-import { TopEventsService } from './topevents.service';
 import { UpdaterService } from './updater.service';
 
 const path: Path = {
