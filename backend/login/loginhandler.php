@@ -105,7 +105,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
     }
 
     if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_logins' ){
-      $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 20';
+      $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 10';
       $skip = isset($_GET['skip']) ? ' OFFSET '.$_GET['skip'] : ' OFFSET 0';
       $login = $_GET['login'];
 

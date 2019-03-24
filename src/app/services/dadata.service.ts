@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 const authHeaders: HttpHeaders = new HttpHeaders({Authorization: 'Token efb8f551b4e183a7d73c02c07b48cab65b6b5e71'});
 //authHeaders.append('Authorization', 'Token efb8f551b4e183a7d73c02c07b48cab65b6b5e71');
@@ -107,9 +108,17 @@ constructor(
   console.log('DADATA SERVICE ', this);
 }
   
-  public getAddressesFromLocation( lat: string, lon: string, accuracy?: string): Observable<IDadataResponse>{
+  public getAddressesFromLocation( lat: string, lon: string, accuracy?: string): Observable<string>{
     const api = 'https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address';
 
     return this.http.get<IDadataResponse>(api, { headers: authHeaders, params: { lat, lon, radius_meters: accuracy }})
+      .pipe( 
+        filter( addreses => !!addreses && !!addreses.suggestions && !!addreses.suggestions.length), 
+        map( addreses => {
+          const value = addreses.suggestions[0] && addreses.suggestions[0].value;
+          const city = addreses.suggestions[0].data.region_with_type + ', ' + addreses.suggestions[0].data.city_with_type;
+
+          return ( accuracy && Number(accuracy) < 1000) ? value : city;
+        }))
   }
 }

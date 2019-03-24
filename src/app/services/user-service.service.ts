@@ -1,5 +1,10 @@
 import {Injectable} from '@angular/core';
-import {IUser, IUserEmo, ITrendItem} from '../models/user-interface';
+import { 
+  IUser, 
+  IUserEmo, 
+  ITrendItem, 
+  ILoginLog
+} from '../models/user-interface';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from './api.service';
 import {Observable} from 'rxjs/Observable';
@@ -7,12 +12,11 @@ import 'rxjs/add/operator/map';
 import {IUserState} from '../models/users-state-interface';
 import {DomSanitizer} from '@angular/platform-browser';
 import { IStatusBtn, IUserStatus } from '../dashboard/user-module/user-status/user-status.component';
-import { ConnectorService, IParams } from './connector.service';
+import { IParams } from './connector.service';
 import { Path } from '../models/path';
 import { TopEventsService } from './topevents.service';
-import { filter, tap, map, first, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import * as moment from "moment";
-import { UpdaterService } from './updater.service';
 import { DadataService } from './dadata.service';
 import { ConnectorWrapperService } from './connector-wrapper.service';
 
@@ -136,8 +140,9 @@ export class UserServiceService {
     this.usersTrends = [];
   }
 
-  public getUserTrend( user: string ){
-    let cached = this.getUserTrendCache(user);
+  public getUserTrend( user: string, skip: number = null ){
+
+    let cached = !skip && this.getUserTrendCache(user);
 
     //console.log("CASHED:", cached);
 
@@ -148,9 +153,14 @@ export class UserServiceService {
       script: 'emo_handler.php'
     };
 
-    let data: IParams = {
+
+    let data: IParams = skip ? {
       mode: 'get_trend',
-      login: user
+      login: user,
+      skip,
+    }: {
+      mode: 'get_trend',
+      login: user,
     }
 
     
@@ -209,15 +219,25 @@ export class UserServiceService {
   public getAddressFromDadata( user: IUser ): void{
     if( user && user.last_login && ( user.last_login.accuracy && user.last_login.position_lat && user.last_login.position_lon ) ) {
       this.dadata.getAddressesFromLocation( user.last_login.position_lat, user.last_login.position_lon, user.last_login.accuracy )
-        .pipe( 
-          filter( addreses => !!addreses && !!addreses.suggestions && !!addreses.suggestions.length), 
-          map( addreses => {
-            const value = addreses.suggestions[0] && addreses.suggestions[0].value;
-            const city = addreses.suggestions[0].data.region_with_type + ', ' + addreses.suggestions[0].data.city_with_type;
-
-            return (Number(user.last_login.accuracy) > 1000) ? city : value;
-          }))
         .subscribe( address => user.address = !!address ? address : null );
     } 
+  }
+
+  public getLoginsLog( login: string, skip: number = null ): Observable<ILoginLog[]>{
+    const path: Path = {
+      segment: 'login',
+      script: 'loginhandler.php'
+    }
+
+    const params: IParams = skip ? {
+      login,
+      skip,
+      mode: 'get_logins'
+    } : {
+      login,
+      mode: 'get_logins'
+    }
+
+    return this.con.getData<ILoginLog[]>( path, params )
   }
 }

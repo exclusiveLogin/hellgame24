@@ -1,21 +1,28 @@
 <div class="page_info">
   <div class="microcard">
-    <span>Логи блога и логина {{currentUser && currentUser.name || ' *пользователь не задан*'}}</span>
     <ng-content select=".blog-content"></ng-content>
-    <ng-content select=".login-content"></ng-content>
   </div>
 </div>
 <div class="page_info">
+    <div class="microcard">
+      <ng-content select=".login-content"></ng-content>
+    </div>
+  </div>
+<div class="page_info">
   <div class="microcard">
-    <span>Логи эмоций {{currentUser && currentUser.name || ' *пользователь не задан*'}}</span>
     <ng-content select=".emo-content"></ng-content>
   </div>
 </div>
 <div class="page_info">
   <div class="microcard">
-    <span>Логи статуса {{currentUser && currentUser.name || ' *пользователь не задан*'}}</span>
     <ng-content select=".status-content"></ng-content>
-    <ng-content select=".global-content"></ng-content>
   </div>
   
 </div>
+<div class="page_info">
+    <div class="microcard">
+      <ng-content select=".global-content"></ng-content>
+    </div>
+    
+  </div>
+  

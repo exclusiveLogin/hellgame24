@@ -16,9 +16,9 @@
 </div>
 <div class="dashboard_workplace">
   <app-pager>
-    <app-user-blog class="blog-content" [author]="cur_user && cur_user.login">Блог</app-user-blog>
-    <div class="login-content">Логин</div>
-    <div class="emo-content">Эмоции</div>
+    <app-user-blog class="blog-content" [author]="cur_user && cur_user.login"></app-user-blog>
+    <app-user-logins-log class="login-content" [author]="cur_user && cur_user.login"></app-user-logins-log>
+    <app-user-emo-log class="emo-content" [author]="cur_user && cur_user.login">x</app-user-emo-log>
     <div class="status-content">Статус</div>
     <div class="global-content">Глобальный статус</div>
   </app-pager>

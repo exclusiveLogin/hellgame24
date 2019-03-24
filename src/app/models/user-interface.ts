@@ -31,17 +31,19 @@ export interface IUser {
   last_emo_status?:string;
   online?: boolean;
   address?:string;
-  last_login?: {
-    id: string,
-    login: string,
-    user_agent: string,
-    battery: string,
-    position_lat: string,
-    position_lon: string,
-    accuracy: string,
-    network_equal: string,
-    dlink: string
-  };
+  last_login?: ILoginLog
+}
+
+export interface ILoginLog {
+  id: string,
+  login: string,
+  user_agent?: string,
+  battery?: string,
+  position_lat?: string,
+  position_lon?: string,
+  accuracy?: string,
+  network_equal?: string,
+  dlink?: string
 }
 
 export interface ITrendItem{

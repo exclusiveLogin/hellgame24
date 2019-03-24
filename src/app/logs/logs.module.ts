@@ -5,6 +5,8 @@ import { PagerComponent } from './pager/pager.component';
 import { Routes, RouterModule } from '@angular/router';
 import { UserCardModule } from '../usercard/usercard.module';
 import { UserBlogModule } from './user-blog/user-blog.module';
+import { UserEmoModule } from './user-emo/user-emo.module';
+import { UserLoginsModule } from './user-logins/user-logins.module';
 
 
 const routes: Routes = [{ path: '', component: LogsComponent }];
@@ -14,6 +16,8 @@ const routes: Routes = [{ path: '', component: LogsComponent }];
     CommonModule,
     UserCardModule,
     UserBlogModule,
+    UserEmoModule,
+    UserLoginsModule,
     RouterModule.forChild( routes ),
   ],
   declarations: [
