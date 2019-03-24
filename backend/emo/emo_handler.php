@@ -23,7 +23,7 @@ function getLastID(){
 function getDelta( $login ){
 
   
-  $query = "SELECT * FROM `user_emo` WHERE `login`=\"$login\" ORDER BY `id` LIMIT 1";
+  $query = "SELECT * FROM `user_emo` WHERE `login`=\"$login\" ORDER BY `id` DESC LIMIT 1";
 
     global $mysql;
     $res = $mysql->query($query);
