@@ -43,7 +43,8 @@ export interface ILoginLog {
   position_lon?: string,
   accuracy?: string,
   network_equal?: string,
-  dlink?: string
+  dlink?: string,
+  datetime_create?: string,
 }
 
 export interface ITrendItem{

@@ -39,4 +39,8 @@ export class MenuComponent implements OnInit {
   public logs(){
     this.router.navigate(['logs']);
   }
+
+  public dashboard(){
+    this.router.navigate(['dashboard', this.auth.authorizedAs()]);
+  }
 }

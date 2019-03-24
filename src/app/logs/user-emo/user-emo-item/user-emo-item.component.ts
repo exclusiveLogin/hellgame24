@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IBlogData } from '../../../services/blog.service';
+import { ITrendItem } from '../../../models/user-interface';
 
 @Component({
   selector: 'app-user-emo-item-log',
@@ -14,12 +14,7 @@ export class UserEmoItemComponent implements OnInit {
 
   @Input() public useIconInBtns: boolean = true;
 
-  @Input() public item: IBlogData =  {
-    title: "Заголовок не задан",
-    text_field: '-',
-    datetime: '--,--,--',
-    id: '#unknown'
-  };
+  @Input() public item: ITrendItem;
 
   public _iconDeleteBtn = '<i class="fas fa-trash"></i>';
   
