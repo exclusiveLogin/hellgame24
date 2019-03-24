@@ -1,15 +1,23 @@
 <div class="blog_header">
   <ng-container *ngIf="item.battery">
-    <ng-container *ngIf="(item.battery < 20)"> <i class="fas fa-battery-empty" [title]="item.battery"></i> </ng-container>
-    <ng-container *ngIf="(item.battery > 20) && (item.battery < 50)"> <i class="fas fa-battery-quarter" [title]="item.battery"></i> </ng-container>
-    <ng-container *ngIf="(item.battery > 50) && (item.battery < 75)"> <i class="fas fa-battery-half" [title]="item.battery"></i> </ng-container>
+    <ng-container *ngIf="(item.battery <= 20)"> <i class="fas fa-battery-empty" [title]="item.battery"></i> </ng-container>
+    <ng-container *ngIf="(item.battery > 20) && (item.battery <= 50)"> <i class="fas fa-battery-quarter" [title]="item.battery"></i> </ng-container>
+    <ng-container *ngIf="(item.battery > 50) && (item.battery <= 75)"> <i class="fas fa-battery-half" [title]="item.battery"></i> </ng-container>
     <ng-container *ngIf="(item.battery > 75)"> <i class="fas fa-battery-full"  [title]="item.battery"></i> </ng-container>
     <span>{{item.battery}}%</span>
   </ng-container>
   
-  <span class="blog_header_title"></span>
-  <span class="blog_header_date"></span>
+  <span class="blog_header_title" *ngIf="item.user_agent"> ( {{ getUADeviceType( item.user_agent ) || 'Не определен' }}) </span>
+  <span class="blog_header_date">{{item.datetime_create}}</span>
 </div>
 <div class="blog_body">
-  <div class="blog_text"></div>
+  
+  <div class="blog_text" *ngIf="item.user_agent">
+    ОС: {{ getUASystem( item.user_agent ) }} <br> 
+    Браузер : {{ getUABrowser( item.user_agent ) }} <br>
+    {{ getUADeviceType( item.user_agent ) ? 'Устройство:' : ''}} {{ getUADevice( item.user_agent ) }} 
+
+    <small *ngIf="_address"> {{_address}}  </small>
+  </div>
+
 </div>
