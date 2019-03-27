@@ -48,10 +48,12 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
     if( isset($_GET['login']) &&  isset($_GET['mode']) &&  $_GET['mode'] === 'get_status' ){
         $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 1';
+        $skip = isset($_GET['skip']) ? ' OFFSET '.$_GET['skip'] : ' OFFSET 0';
         $login = $_GET['login'];
 
-        $q = "SELECT * FROM `user_status` WHERE `user_login`=\"$login\" ORDER BY `id` DESC $limit";
-        echo $q;
+        $q = "SELECT * FROM `user_status` WHERE `login`=\"$login\" ORDER BY `id` DESC $limit $skip";
+
+        //echo $q;
 
     }
 

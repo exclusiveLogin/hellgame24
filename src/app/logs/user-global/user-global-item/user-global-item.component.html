@@ -1,0 +1,11 @@
+<div class="blog_header">
+  <span class="blog_header_title" *ngIf="item.global_code"> {{ getGlobalCodeTitle() || 'Не определен' }} </span>
+  <span class="blog_header_date"> {{ item.datetime }} </span>
+</div>
+<div class="blog_body">
+  <div class="global_logo" [ngClass]="cls">HG</div> 
+  <div class="blog_text">
+    {{ item.message || '---'}}
+  </div>
+
+</div>

@@ -45,24 +45,29 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
 // GETTERS
 if ( $_SERVER['REQUEST_METHOD'] === 'GET' ) {
+  $limit = isset($_GET['limit']) ? ' LIMIT '.$_GET['limit'] : ' LIMIT 1';
+  $skip = isset($_GET['skip']) ? ' OFFSET '.$_GET['skip'] : ' OFFSET 0';
+  $login = isset($_GET['login']) ? $_GET['login'] : false;
 
-    $q = 'SELECT * FROM `global` ORDER BY `id` DESC LIMIT 1';
+  $q = $login ? 
+    "SELECT * FROM `global` WHERE `login`=\"$login\" ORDER BY `id` DESC $limit $skip" : 
+    "SELECT * FROM `global` ORDER BY `id` DESC $limit $skip";
 
-    if( $q ){
-        $json = array();
-    
-        $res = $mysql->query( $q );
-        $row = $res->fetch_assoc();
-    
-        while( $row ){
-          array_push( $json, $row);
-          $row = $res->fetch_assoc();
-        }
-    
-        echo json_encode( $json );
-    
-      } else {
-        echo json_encode( array('error' => 'request error') );
-      }
+  if( $q ){
+    $json = array();
+
+    $res = $mysql->query( $q );
+    $row = $res->fetch_assoc();
+
+    while( $row ){
+      array_push( $json, $row);
+      $row = $res->fetch_assoc();
+    }
+
+    echo json_encode( $json );
+
+  } else {
+    echo json_encode( array('error' => 'request error') );
+  }
 
 }

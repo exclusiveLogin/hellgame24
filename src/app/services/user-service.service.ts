@@ -193,6 +193,26 @@ export class UserServiceService {
 
   }
 
+  public getUserStatus( user: string, skip: number = null ): Observable<IUserStatus[]>{
+    let path: Path = {
+      segment: 'status',
+      script: 'status_handler.php'
+    };
+
+    let params: IParams = (!!skip) ? {
+        login: user,
+        mode: 'get_status',
+        limit: 10,
+        skip
+      } : {
+        login: user,
+        mode: 'get_status',
+        limit: 10
+      };
+
+    return this.con.getData<IUserStatus[]>( path, params )
+  }
+
   public setUserEmo(o:{value: number, title: string, login: string}){
 
     let path: Path = {
@@ -206,7 +226,6 @@ export class UserServiceService {
       login: o.login,
       mode: 'add_emo',
     }
-
 
     this.con.setData(path, {body}).subscribe();
   }

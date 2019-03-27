@@ -7,6 +7,8 @@ import { UserCardModule } from '../usercard/usercard.module';
 import { UserBlogModule } from './user-blog/user-blog.module';
 import { UserEmoModule } from './user-emo/user-emo.module';
 import { UserLoginsModule } from './user-logins/user-logins.module';
+import { UserStatusModule } from './user-status/user.status.module';
+import { UserGlobalModule } from './user-global/user-global.module';
 
 
 const routes: Routes = [{ path: '', component: LogsComponent }];
@@ -18,6 +20,8 @@ const routes: Routes = [{ path: '', component: LogsComponent }];
     UserBlogModule,
     UserEmoModule,
     UserLoginsModule,
+    UserStatusModule,
+    UserGlobalModule,
     RouterModule.forChild( routes ),
   ],
   declarations: [

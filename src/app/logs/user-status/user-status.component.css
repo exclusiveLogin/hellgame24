@@ -1,0 +1,13 @@
+:host{
+    flex-grow: 1;
+}
+.blog_title{
+    flex-grow: 1;
+    width: 100%;
+    font-weight: bold;
+}
+.blog_container{
+    overflow-y: auto;
+    flex-grow: 1;
+    max-height: 500px;
+}

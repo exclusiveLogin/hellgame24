@@ -1,0 +1,13 @@
+<div class="title">{{title}} - {{author}}</div>
+<div class="blog_container">
+  <ng-container *ngIf="_items && _items.length">
+    <app-user-global-item-log
+    [ownerMode] = "ownerMode"
+    class="microcard"
+    *ngFor="let i of _items"
+    [item]="i"
+    ></app-user-global-item-log>
+  </ng-container>
+</div>
+<button class="btn" (click)="next()" *ngIf="!nomore">Загрузить еще</button>
+

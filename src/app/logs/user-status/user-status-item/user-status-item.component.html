@@ -1,0 +1,11 @@
+<div class="blog_header">
+  <span class="blog_header_title" *ngIf="item.class"> ( {{ item.class || 'Не определен' }}) </span>
+  <span class="blog_header_date">{{item.datetime_create}}</span>
+</div>
+<div class="blog_body">
+  <div class="global_logo"><i [ngClass]="item.status" class="fas fa-2x"></i></div>
+  <div class="blog_text">
+    {{ item.title || '---'}}
+  </div>
+
+</div>
