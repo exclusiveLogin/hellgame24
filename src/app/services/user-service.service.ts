@@ -189,7 +189,7 @@ export class UserServiceService {
       mode: 'add_status',
     };
 
-    this.con.setData( path , { body }).subscribe();
+    return this.con.setData( path , { body });
 
   }
 
@@ -227,7 +227,7 @@ export class UserServiceService {
       mode: 'add_emo',
     }
 
-    this.con.setData(path, {body}).subscribe();
+    return this.con.setData(path, {body});
   }
 
   public refreshUsers(){

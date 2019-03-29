@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { UserServiceService } from '../../../services/user-service.service';
 import { UxEventerService } from '../../../services/ux-eventer.service';
 import { enterLeaveAnimationDefault } from '../../../models/enterLeaveAnimation';
+import { TopEventsService } from '../../../services/topevents.service';
 
 @Component({
   selector: 'app-user-emo',
@@ -22,6 +23,7 @@ export class UserEmoComponent implements OnInit {
     private auth: AuthService,
     private user: UserServiceService,
     private uxevent: UxEventerService,
+    private tes: TopEventsService,
      ) { }
      
   public sliderValue;
@@ -50,9 +52,11 @@ export class UserEmoComponent implements OnInit {
       title: this.emo_title,
     }
 
-    this.user.setUserEmo( o );
-    this.close();
+    this.user.setUserEmo( o ).subscribe( () => {
+      this.close();
+      this.tes.refreshSegment('emo');
+      this.uxevent.setUserEmo( login, this.sliderValue, this.emo_title);
+    });
     
-    this.uxevent.setUserEmo( login, this.sliderValue, this.emo_title);
   }
 }
