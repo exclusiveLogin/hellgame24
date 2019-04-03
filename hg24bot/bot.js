@@ -3,6 +3,7 @@ const HttpsProxyAgent = require('https-proxy-agent');
 const fe = require('./fetcher');
 const sun = require('./sunlocator');
 const fetch = require('node-fetch');
+const moment = require('moment');
 
 
 
@@ -35,6 +36,7 @@ bot.hears('sun', (ctx, next)=>{
 
     ctx.reply('Интервал обновления состояния: ' + sunLocator.interval + 'ms. Состояние: ' + sunLocator.currentState + ' ( ' + sunLocator.currentStateTitle + ' ) - ' + sunLocator.currentStateDescription);
     
+    setTimeout(() => ctx.reply('Системное время сервера: ' + moment().format('DD:MM:YYYY HH:mm:ss') ), 3000);
     next();
 });
 
