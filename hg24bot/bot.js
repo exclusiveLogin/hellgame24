@@ -37,6 +37,7 @@ bot.hears('sun', (ctx, next)=>{
     ctx.reply('Интервал обновления состояния: ' + sunLocator.interval + 'ms. Состояние: ' + sunLocator.currentState + ' ( ' + sunLocator.currentStateTitle + ' ) - ' + sunLocator.currentStateDescription);
     
     setTimeout(() => ctx.reply('Системное время сервера: ' + moment().format('DD:MM:YYYY HH:mm:ss') ), 3000);
+    setTimeout(() => ctx.reply('Последнее обновление: ' + sunLocator.lastupdate.format('DD:MM:YYYY HH:mm:ss') ), 4000);
     next();
 });
 

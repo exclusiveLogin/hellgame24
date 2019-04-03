@@ -10,6 +10,7 @@ class SunLocator{
     
     constructor( interval ){
         this.raw = null;
+        this.lastupdate = null;
 
         this.interval = interval || 10000;
         this.onceFetch = false;
@@ -55,6 +56,7 @@ class SunLocator{
 
     remapTime( r ){
         this.raw = r;
+        this.lastupdate = moment();
         // переход из ночи в синий час
         this.blueHourMTime = moment( r.civil_twilight_begin );
     
