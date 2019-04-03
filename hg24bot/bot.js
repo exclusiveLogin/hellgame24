@@ -2,6 +2,7 @@ const Telegraf = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const fe = require('./fetcher');
 const sun = require('./sunlocator');
+const fetch = require('node-fetch');
 
 
 
@@ -84,6 +85,29 @@ ${sunState.description}`;
             bot.telegram.sendMessage(hgChatId, msg, 
             {parse_mode:"HTML"});
         }, 2000);
+
+        const body_state = {
+            mode:'add_state',
+            login: 'system',
+            global_code: sunState.state
+        }
+
+        const body_segment = {
+            mode:'update',
+            segment: 'global',
+        }
+
+        fetch('https://hellgame24.ru/backend/state/state_handler.php', {
+            method: 'POST',
+            body:    JSON.stringify(body_state),
+            headers: { 'Content-Type': 'application/json' },
+        }).then(r => r.text()).then(json=>console.log('result: ', json)).catch(err => console.error(err));
+
+        fetch('https://hellgame24.ru/backend/segment/segment_state.php', {
+            method: 'POST',
+            body:    JSON.stringify(body_segment),
+            headers: { 'Content-Type': 'application/json' },
+        }).then(r => r.text()).then(json=>console.log('result: ', json)).catch(err => console.error(err))
     }
     console.log('SUN State: ', sunState);
 });

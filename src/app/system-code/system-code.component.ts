@@ -27,18 +27,46 @@ export class SystemCodeComponent implements OnInit, OnChanges {
   }
   private calculate(type: IGlobalState): void {
     if (!type) return;
-    if (type.global_code === 'red') {
-      this.color = '#dd3333';
-      this.system_text = `${this._global.login ? "Пользователем "+this._global.login : ' '} Введен красный уровень опасности ${this._global.message ? " С сообщением: "+this._global.message : ''}`;
-      this.hide = false;
-    } else if (type.global_code === 'orange') {
-      this.color = '#dd9933';
-      this.system_text = `${this._global.login ? "Пользователем "+this._global.login : ' '} Введен оранжевый уровень опасности. ${this._global.message ? " С сообщением: "+this._global.message : ''}`;
-      this.hide = false;
-    } else {
-      this.color = '#555';
-      this.system_text = ``;
-      this.hide = true;
+    switch ( type.global_code ) {
+      case 'red':
+        this.color = '#dd3333';
+        this.system_text = `${this._global.login ? "Пользователем "+this._global.login : ' '} Введен красный уровень опасности ${this._global.message ? " С сообщением: "+this._global.message : ''}`;
+        this.hide = false;
+        break;
+      case 'orange':
+        this.color = '#dd9933';
+        this.system_text = `${this._global.login ? "Пользователем "+this._global.login : ' '} Введен оранжевый уровень опасности. ${this._global.message ? " С сообщением: "+this._global.message : ''}`;
+        this.hide = false;
+        break;
+      case 'night':
+        this.color = '#222';
+        this.system_text = `Системой введен уровень опасности НОЧЬ`;
+        this.hide = false;
+        break;
+      case 'gold_m':
+        this.color = 'orange';
+        this.system_text = `Утренний золотой час`;
+        this.hide = false;
+        break;
+      case 'gold_e':
+        this.color = 'orange';
+        this.system_text = `Вечерний золотой час`;
+        this.hide = false;
+        break;
+      case 'blue_m':
+        this.color = 'blue';
+        this.system_text = `Утренний синий час`;
+        this.hide = false;
+        break;
+      case 'blue_e':
+        this.color = 'blue';
+        this.system_text = `Вечерний синий час`;
+        this.hide = false;
+        break;
+      default:
+        this.color = '#555';
+        this.system_text = ``;
+        this.hide = true;
     }
   }
 }

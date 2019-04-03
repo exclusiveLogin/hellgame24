@@ -29,6 +29,7 @@ export class TopEventsService {
     state: new BehaviorSubject<boolean>(false),
     stable: new BehaviorSubject<boolean>(false),
     login: new BehaviorSubject<string>(null),
+    global: new BehaviorSubject<boolean>(false),
   };
 
   constructor() {

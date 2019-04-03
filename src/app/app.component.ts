@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
     private auth: AuthService,
     private tes: TopEventsService,
     private global: GlobalService,
-    private users: UserServiceService,
     private ls: LsService
   ) {}
   public hidemenu = false;
@@ -63,21 +62,20 @@ export class AppComponent implements OnInit {
 
     this.refreshGlobalStatus();
 
+    this.tes.getSegmentRefreshSignal('global').subscribe( state => !!state && this.refreshGlobalStatus());
+
     const cu =  this.ls.getUserCredential();
     if( cu ) this.auth.login( cu );
 
     //this.auth.login({login: 'ssv', password: 'ddd'});
 
     if (window && window.matchMedia) {
-      let that = this;
       window.matchMedia('(max-width: 600px)')
         .addListener((match) => {
           this.hidemenuToggler = match.matches;
         });
       this.hidemenuToggler = window.matchMedia('(max-width: 470px)').matches;
     }
-
-
   }
 
   private refreshGlobalStatus(): void {

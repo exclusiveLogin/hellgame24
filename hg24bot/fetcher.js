@@ -1,4 +1,4 @@
-let fetch = require('node-fetch');
+const fetch = require('node-fetch');
 const rx = require('rxjs');
 
 class EventFetcher{
