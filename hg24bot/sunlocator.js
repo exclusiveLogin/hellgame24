@@ -13,7 +13,7 @@ class SunLocator{
         this.lastupdate = null;
 
         this.interval = interval || 10000;
-        this.onceFetch = false;
+        this.onceFetch = true;
         this.stream$ = new rx.BehaviorSubject(null);
 
         // Current state
@@ -55,6 +55,7 @@ class SunLocator{
     }
 
     remapTime( r ){
+
         this.raw = r;
         this.lastupdate = moment();
         // переход из ночи в синий час
@@ -81,6 +82,8 @@ class SunLocator{
     
         // Переход из дня в золотой час (вечер)
         this.goldHourETime = this.blueHourETime.clone().subtract( goldDiff, 'm');
+
+        this.stream$.next({state: 'update', title: 'Обновление данных о солнце', description: 'Системное обновление успешно завершено'});
     
         this.calcCurrentState();
     }
