@@ -2,6 +2,7 @@ const Telegraf = require('telegraf');
 const HttpsProxyAgent = require('https-proxy-agent');
 const fe = require('./fetcher');
 const sun = require('./sunlocator');
+const w = require('./weather');
 const fetch = require('node-fetch');
 const moment = require('moment');
 
@@ -24,21 +25,28 @@ bot.command('echo', (ctx)=>ctx.reply(ctx.message.text));
 bot.hears('check', (ctx, next)=>{
     console.log('check fe:', fetcher);
     ctx.reply('Проверка сервиса version: ' + version + ' последняя запись в event log id: ' + fetcher.lastId + ' интервал опроса HG24: ' + fetcher.interval + 'ms');
+    setTimeout(() => ctx.reply('Системное время сервера: ' + moment().format('DD:MM:YYYY HH:mm:ss') ), 3000);
     next();
 });
 
 bot.hears('sun', (ctx, next)=>{
-    //console.log('sun fe:', sunLocator);
 
     setTimeout(() => ctx.reply('Ночь: ' + sunLocator.nightTime.format('DD:MM:YYYY HH:mm:ss') + ' День: ' + sunLocator.dayTime.format('DD:MM:YYYY HH:mm:ss')), 1500);
     setTimeout(() => ctx.reply('Утро -  синий час: ' + sunLocator.blueHourMTime.format('DD:MM:YYYY HH:mm:ss') + ' золотой час: ' + sunLocator.goldHourMTime.format('DD:MM:YYYY HH:mm:ss')), 500);
     setTimeout(() => ctx.reply('Вечер - золотой час: ' + sunLocator.goldHourETime.format('DD:MM:YYYY HH:mm:ss') + ' синий час: ' + sunLocator.blueHourETime.format('DD:MM:YYYY HH:mm:ss')), 2500);
 
     ctx.reply('Интервал обновления состояния: ' + sunLocator.interval + 'ms. Состояние: ' + sunLocator.currentState + ' ( ' + sunLocator.currentStateTitle + ' ) - ' + sunLocator.currentStateDescription);
-    
+
     setTimeout(() => ctx.reply('Системное время сервера: ' + moment().format('DD:MM:YYYY HH:mm:ss') ), 3000);
     setTimeout(() => ctx.reply('Последнее обновление: ' + sunLocator.lastupdate.format('DD:MM:YYYY HH:mm:ss') ), 4000);
     next();
+});
+
+bot.hears('weather', (ctx, next)=>{
+  setTimeout(() => ctx.reply('Неформат.: ' + weather.raw, 1500));
+  ctx.reply('Интервал обновления состояния: ' + weather.interval + 'ms. Состояние: ' + weather.currentState + ' ( ' + weather.currentStateTitle + ' ) - ' + weather.currentStateDescription);
+  setTimeout(() => ctx.reply('Последнее обновление: ' + weather.lastupdate.format('DD:MM:YYYY HH:mm:ss') ), 3000);
+  next();
 });
 
 bot.start((ctx) => ctx.reply('Hello'));
@@ -66,9 +74,9 @@ fetcher.getStream().subscribe( events => {
             let msg = `Событие ${ ev.level === 'info' ? 'ℹ️' : ''}${ ev.level === 'warning' ? '⚠️' : ''}${ ev.level === 'danger' ? '‼️' : ''} <b>( ${ev.level} )</b>
 <strong>${ev.title}</strong>
 ${ev.description}`;
-            
+
             //console.log('msg:', msg);
-            bot.telegram.sendMessage(hgChatId, msg, 
+            bot.telegram.sendMessage(hgChatId, msg,
             {parse_mode:"HTML"});
         }, 2000 * idx);
     });
@@ -77,15 +85,15 @@ ${ev.description}`;
 let sunLocator = new sun();
 sunLocator.start();
 sunLocator.getStream().subscribe( sunState => {
-    
+
     if( sunState ){
-        setTimeout(() => { 
+        setTimeout(() => {
             let msg = `Время наступило ${ sunState.state === 'day' ? '☀️' : ''}${ sunState.state === 'night' ? '🌙' : ''}${ '⚠️' } <b>( ${ sunState.state } )</b>
 <strong>${sunState.title}</strong>
 ${sunState.description}`;
-            
+
             //console.log('msg:', msg);
-            bot.telegram.sendMessage(hgChatId, msg, 
+            bot.telegram.sendMessage(hgChatId, msg,
             {parse_mode:"HTML"});
         }, 2000);
 
@@ -113,4 +121,19 @@ ${sunState.description}`;
         }).then(r => r.text()).then(json=>console.log('result: ', json)).catch(err => console.error(err))
     }
     console.log('SUN State: ', sunState);
+});
+
+let weather = new w();
+weather.start();
+weather.getStream().subscribe( weatherResult => {
+  if( weatherResult )
+  setTimeout(() => {
+    let msg = `Погода изменилась ${ weatherResult.state === 'clear' ? '☀️' : ''}${ '⚠️' } <b>( ${ weatherResult.state } )</b>
+<strong>${weatherResult.title}</strong>
+${weatherResult.description}`;
+
+    //console.log('msg:', msg);
+    bot.telegram.sendMessage(hgChatId, msg,
+    {parse_mode:"HTML"});
+  }, 2000);
 });
