@@ -43,10 +43,11 @@ bot.hears('sun', (ctx, next)=>{
 });
 
 bot.hears('weather', (ctx, next)=>{
-  setTimeout(() => ctx.reply('Неформат.: ' + weather.raw, 1500));
-  ctx.reply('Интервал обновления состояния: ' + weather.interval + 'ms. Состояние: ' + weather.currentState + ' ( ' + weather.currentStateTitle + ' ) - ' + weather.currentStateDescription);
-  setTimeout(() => ctx.reply('Последнее обновление: ' + weather.lastupdate.format('DD:MM:YYYY HH:mm:ss') ), 3000);
-  next();
+    if(weather.raw)
+        setTimeout(() => ctx.reply('Неформат.: ' + JSON.stringify(weather.raw), 1500));
+    ctx.reply('Интервал обновления состояния: ' + weather.interval + 'ms. Состояние: ' + weather.currentState + ' ( ' + weather.currentStateTitle + ' ) - ' + weather.currentStateDescription);
+    setTimeout(() => ctx.reply('Последнее обновление: ' + weather.lastupdate.format('DD:MM:YYYY HH:mm:ss') ), 3000);
+    next();
 });
 
 bot.start((ctx) => ctx.reply('Hello'));
