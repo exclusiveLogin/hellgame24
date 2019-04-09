@@ -178,7 +178,11 @@ class YandexWeather{
       h.append(this.tokenName, this.token);
       fetch(`https://api.weather.yandex.ru/v1/informers?lat=${lat}&lon=${lng}`, {headers: h})
         .then( response => !!response && response.json())
-        .then( json => !!json && this.remapData( json )).catch( error => console.log('sunrise error: ', error));
+        .then( json => !!json && this.remapData( json ))
+        .catch( error => {
+          console.log('sunrise error: ', error);
+          setTimeout(() => fetchData(), 30000);
+        });
     }
 }
 
