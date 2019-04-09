@@ -22,7 +22,11 @@ class YandexWeather{
 
     start(){
         this.fetchData();
-        this.timer = setInterval( () => this.remapData(), this.interval);
+        if(this.timer) {
+          clearInterval(this.timer);
+          delete this.timer;
+        }
+        this.timer = setInterval( () => this.fetchData(), this.interval);
     }
 
     stop(){

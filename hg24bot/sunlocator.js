@@ -46,6 +46,10 @@ class SunLocator{
 
     start(){
         this.fetchSunData();
+        if( this.timer ){
+            clearInterval(this.timer);
+            delete this.timer;
+        }
         this.timer = setInterval( () => this.calcCurrentState(), this.interval);
     }
 
@@ -85,10 +89,12 @@ class SunLocator{
 
         this.stream$.next({state: 'update', title: 'Обновление данных о солнце', description: 'Системное обновление успешно завершено'});
 
-        this.calcCurrentState();
+        //this.calcCurrentState();
     }
 
     calcCurrentState(){
+
+        if(!this.raw) return;
         //console.log('calc sun data');
         let currentTime = moment();
 
@@ -187,8 +193,12 @@ class SunLocator{
               this.onceFetch = false;
               if( !!json && json.results ) this.remapTime( json.results );
             } )
-            .catch( error => console.log('sunrise error: ', error));
-            }
+            .catch( error => {
+                console.log('sunrise error: ', error);
+                //при ошибке делаем попытку через 30 сек
+                setTimeout(() => this.fetchSunData(), 30000);
+            });
+    }
 }
 
 module.exports = SunLocator;
