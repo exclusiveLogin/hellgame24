@@ -8,12 +8,13 @@ const lng = 48.454170;
 
 class SunLocator{
 
-    constructor( interval ){
+    constructor( interval, upd ){
         this.raw = null;
         this.lastupdate = null;
 
         this.interval = interval || 10000;
-        this.onceFetch = true;
+        this.intervalUpdate = upd || 3600000;
+        // this.onceFetch = true;
         this.stream$ = new rx.BehaviorSubject(null);
 
         // Current state
@@ -51,11 +52,20 @@ class SunLocator{
             delete this.timer;
         }
         this.timer = setInterval( () => this.calcCurrentState(), this.interval);
+
+        if( this.timerupd ){
+          clearInterval(this.timerupd);
+          delete this.timerupd;
+      }
+      this.timerupd = setInterval( () => this.fetchSunData(), this.intervalUpdate);
     }
 
     stop(){
         this.timer && clearInterval(this.timer);
         delete this.timer;
+
+        this.timerupd && clearInterval(this.timerupd);
+        delete this.timerupd;
     }
 
     remapTime( r ){
@@ -95,24 +105,24 @@ class SunLocator{
     calcCurrentState(){
 
         if(!this.raw) return;
-        //console.log('calc sun data');
+
         let currentTime = moment();
 
         // блок обновления суточных данных по солнцу
-        let startDate = currentTime.clone().set({'hour':1, 'minute': 0, 'second': 0, 'millisecond': 0});
-        let endDate = startDate.clone().add( 20, 's' );
-        let untriggerDate = startDate.clone().add( 1, 'h' );
+        // let startDate = currentTime.clone().set({'hour':1, 'minute': 0, 'second': 0, 'millisecond': 0});
+        // let endDate = startDate.clone().add( 20, 's' );
+        // let untriggerDate = startDate.clone().add( 1, 'h' );
 
-        if( currentTime.isBetween( startDate, endDate ) && !!this.onceFetch ) {
-          console.log('current time between update interval');
-            this.fetchSunData();
-            return;
-        }
+        // if( currentTime.isBetween( startDate, endDate ) && !!this.onceFetch ) {
+        //   console.log('current time between update interval');
+        //     this.fetchSunData();
+        //     return;
+        // }
 
-        if( currentTime.isAfter( untriggerDate ) && !this.onceFetch ) {
-          this.onceFetch = true;
-          console.log('Снятие блокировки на обновление');
-        }
+        // if( currentTime.isAfter( untriggerDate ) && !this.onceFetch ) {
+        //   this.onceFetch = true;
+        //   console.log('Снятие блокировки на обновление');
+        // }
 
 
         this.nightFlag = currentTime.isBefore( this.blueHourMTime ) || currentTime.isBetween( this.nightTime, this.blueHourMTimeNext );
@@ -186,18 +196,19 @@ class SunLocator{
 
     fetchSunData(){
       console.log('fetching sun data');
-        fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
-            .then( response => !!response && response.json())
-            .then( json => {
-              console.log('fetched data complete');
-              this.onceFetch = false;
-              if( !!json && json.results ) this.remapTime( json.results );
-            } )
-            .catch( error => {
-                console.log('sunrise error: ', error);
-                //при ошибке делаем попытку через 30 сек
-                setTimeout(() => this.fetchSunData(), 30000);
-            });
+      fetch(`https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lng}&formatted=0`)
+        .then( response => !!response && response.json())
+        .then( json => {
+          console.log('fetched data complete');
+          this.onceFetch = false;
+          if( !!json && json.results ) this.remapTime( json.results );
+        } )
+        .catch( error => {
+            console.log('sunrise error: ', error);
+            //при ошибке делаем попытку через 30 сек
+            setTimeout(() => this.fetchSunData(), 30000);
+            this.stream$.next({state: 'error', title: 'Обновление данных о солнце', description: 'Системное обновление завершено c ошибкой:' + JSON.stringify( error )});
+        });
     }
 }
 

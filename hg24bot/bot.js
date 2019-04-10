@@ -88,38 +88,46 @@ sunLocator.start();
 sunLocator.getStream().subscribe( sunState => {
 
     if( sunState ){
-        setTimeout(() => {
-            let msg = `Время наступило ${ sunState.state === 'day' ? '☀️' : ''}${ sunState.state === 'night' ? '🌙' : ''}${ '⚠️' } <b>( ${ sunState.state } )</b>
+
+      let icon = '';
+
+      icon = !!sunState.state && !!~sunState.state.search('day') ? '☀️' : icon;;
+      icon = !!sunState.state && !!~sunState.state.search('night') ? '🌙' : icon;
+      icon = !!sunState.state && !!~sunState.state.search('gold') ? '🌆' : icon;
+      icon = !!sunState.state && !!~sunState.state.search('blue') ? '🏙' : icon;
+      icon = !!sunState.state && !!~sunState.state.search('error') ? '‼️' : icon;
+      icon = !!sunState.state && !!~sunState.state.search('update') ? '🔄' : icon;
+
+      setTimeout(() => {
+        let msg = `Внимание ${icon ? icon : ''} <b>( ${ sunState.state } )</b>
 <strong>${sunState.title}</strong>
 ${sunState.description}`;
 
-            //console.log('msg:', msg);
-            bot.telegram.sendMessage(hgChatId, msg,
-            {parse_mode:"HTML"});
-        }, 2000);
+        bot.telegram.sendMessage(hgChatId, msg, {parse_mode:"HTML"});
+      }, 2000);
 
-        const body_state = {
-            mode:'add_state',
-            login: 'system',
-            global_code: sunState.state
-        }
+      const body_state = {
+          mode:'add_state',
+          login: 'system',
+          global_code: sunState.state
+      }
 
-        const body_segment = {
-            mode:'update',
-            segment: 'global',
-        }
+      const body_segment = {
+          mode:'update',
+          segment: 'global',
+      }
 
-        fetch('https://hellgame24.ru/backend/state/state_handler.php', {
-            method: 'POST',
-            body:    JSON.stringify(body_state),
-            headers: { 'Content-Type': 'application/json' },
-        }).then(r => r.text()).then(json=>console.log('result: ', json)).catch(err => console.error(err));
+      fetch('https://hellgame24.ru/backend/state/state_handler.php', {
+          method: 'POST',
+          body:    JSON.stringify(body_state),
+          headers: { 'Content-Type': 'application/json' },
+      }).then(r => r.text()).then(json=>console.log('result: ', json)).catch(err => console.error(err));
 
-        fetch('https://hellgame24.ru/backend/segment/segment_state.php', {
-            method: 'POST',
-            body:    JSON.stringify(body_segment),
-            headers: { 'Content-Type': 'application/json' },
-        }).then(r => r.text()).then(json=>console.log('result: ', json)).catch(err => console.error(err))
+      fetch('https://hellgame24.ru/backend/segment/segment_state.php', {
+          method: 'POST',
+          body:    JSON.stringify(body_segment),
+          headers: { 'Content-Type': 'application/json' },
+      }).then(r => r.text()).then(json=>console.log('result: ', json)).catch(err => console.error(err))
     }
     console.log('SUN State: ', sunState);
 });
@@ -127,14 +135,29 @@ ${sunState.description}`;
 let weather = new w();
 weather.start();
 weather.getStream().subscribe( weatherResult => {
-  if( weatherResult )
-  setTimeout(() => {
-    let msg = `Погода изменилась ${ weatherResult.state === 'clear' ? '☀️' : ''}${ '⚠️' } <b>( ${ weatherResult.state } )</b>
+  if( weatherResult && weatherResult.state ){
+
+    let icon = '';
+
+    icon = !!~weatherResult.state.search('clear') ? '☀️' : icon;
+    icon = !!~weatherResult.state.search('cloud') ? '☁️' : icon;
+    icon = !!~weatherResult.state.search('overcast') ? '🌥' : icon;
+    icon = !!~weatherResult.state.search('rain') ? '🌧' : icon;
+    icon = !!~weatherResult.state.search('thunder') ? '⛈' : icon;
+    icon = !!~weatherResult.state.search('snow') ? '❄️' : icon;
+    icon = !!~weatherResult.state.search('error') ? '‼️' : icon;
+    icon = !!~weatherResult.state.search('update') ? '🔄' : icon;
+
+    //console.log('icon:', icon, weatherResult.state);
+
+    setTimeout(() => {
+    let msg = `Погода изменилась ${ icon ? icon : ''} <b>( ${ weatherResult.state } )</b>
 <strong>${weatherResult.title}</strong>
 ${weatherResult.description}`;
 
-    //console.log('msg:', msg);
     bot.telegram.sendMessage(hgChatId, msg,
     {parse_mode:"HTML"});
   }, 2000);
+  }
+
 });
