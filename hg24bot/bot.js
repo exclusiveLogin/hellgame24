@@ -72,13 +72,13 @@ let fetcher = new fe('http://hellgame24.ru');
 fetcher.getStream().subscribe( events => {
     if( events && events.length ) events.forEach((ev, idx) => {
         setTimeout(()=>{
-            let msg = `Событие ${ ev.level === 'info' ? 'ℹ️' : ''}${ ev.level === 'warning' ? '⚠️' : ''}${ ev.level === 'danger' ? '‼️' : ''} <b>( ${ev.level} )</b>
+          let msg = `Событие ${ ev.level === 'info' ? 'ℹ️' : ''}${ ev.level === 'warning' ? '⚠️' : ''}${ ev.level === 'danger' ? '‼️' : ''} <b>( ${ev.level} )</b>
 <strong>${ev.title}</strong>
 ${ev.description}`;
 
-            //console.log('msg:', msg);
-            bot.telegram.sendMessage(hgChatId, msg,
-            {parse_mode:"HTML"});
+          //console.log('msg:', msg);
+          bot.telegram.sendMessage(hgChatId, msg,
+          {parse_mode:"HTML"});
         }, 2000 * idx);
     });
 });
@@ -147,6 +147,12 @@ weather.getStream().subscribe( weatherResult => {
     icon = !!~weatherResult.state.search('snow') ? '❄️' : icon;
     icon = !!~weatherResult.state.search('error') ? '‼️' : icon;
     icon = !!~weatherResult.state.search('update') ? '🔄' : icon;
+
+    icon = !!~weatherResult.state.search('verycold') ? '❄️' : icon;
+    icon = !!~weatherResult.state.search('cold') ? '☃️' : icon;
+    icon = !!~weatherResult.state.search('warm') ? '🌤' : icon;
+    icon = !!~weatherResult.state.search('hot') ? '☀️' : icon;
+    icon = !!~weatherResult.state.search('veryhot') ? '🔥' : icon;
 
     //console.log('icon:', icon, weatherResult.state);
 

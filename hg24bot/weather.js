@@ -18,6 +18,9 @@ class YandexWeather{
 
         this.currentState;
         this.prevState;
+
+        this.currentTemp;
+        this.prevTemp;
     }
 
     start(){
@@ -39,9 +42,37 @@ class YandexWeather{
         this.lastupdate = moment();
 
         if( !!r && !!r.fact && !!r.fact.condition ){
-            this.calcCurrentState( r.fact.condition );
+          setTimeout(() => this.calcCurrentState( r.fact.condition ), 3000);
         }
 
+        if( !!r && !!r.fact && !!r.fact.temp ){
+          setTimeout(() => this.calcTempState( r.fact.temp, r.fact.feels_like ), 5000);
+      }
+
+    }
+
+    calcTempState( temperature, feel ){
+        this.currentTemp = Number( temperature );
+
+        debugger;
+
+        if( this.currentTemp !== this.prevTemp ){
+          let data = {};
+
+          let state;
+          state = this.currentTemp && Number( this.currentTemp ) < -10 ? 'verycold' : state;
+          state = !state && this.currentTemp && Number( this.currentTemp ) < 0 && Number( this.currentTemp ) >= -10 ? 'cold' : state;
+          state = !state && this.currentTemp && Number( this.currentTemp ) < 20 && Number( this.currentTemp ) >= 0 ? 'warm' : state;
+          state = !state && this.currentTemp && Number( this.currentTemp ) < 30 && Number( this.currentTemp ) >= 20 ?  'hot' : state;
+          state = !state && this.currentTemp && Number( this.currentTemp ) >= 30 ? 'veryhot' : state;
+
+
+          data.state = state;
+          data.title = 'Температура воздуха: ' + this.currentTemp + ' C';
+          data.description = 'Ощущается как ' + feel + ' C';
+          this.stream$.next( data );
+          this.prevTemp = this.currentTemp;
+      }
     }
 
     calcCurrentState( condition ){
