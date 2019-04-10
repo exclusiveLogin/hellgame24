@@ -35,7 +35,7 @@ public setLoginEvent( user: IUser ){
         level:'info',
         mode: 'add_event'
     }
-    
+
     this.updateEvent( body );
 }
 
@@ -47,7 +47,7 @@ public setLogoutEvent( user: IUser ){
         level:'info',
         mode: 'add_event'
     }
-    
+
     this.updateEvent( body );
 }
 
@@ -59,7 +59,7 @@ public setLoginErrorEvent( login: string ){
         level:'error',
         mode: 'add_event'
     }
-    
+
     this.updateEvent( body );
 }
 
@@ -71,7 +71,7 @@ public setUserEmo( user: string, emo: number, title?: string, ){
         level:'info',
         mode: 'add_event'
     }
-    
+
     this.updateEvent( body );
 }
 
@@ -83,7 +83,7 @@ public setUserStatus( user: string, status: string ){
         level:'info',
         mode: 'add_event'
     }
-    
+
     this.updateEvent( body );
 }
 
@@ -126,6 +126,6 @@ public setGreenCode( user: string ){
 private updateEvent( body ){
     setTimeout(()=>{
         this.http.post(`${ this.api.getApi()}${path.segment}/${path.script}`, body ).subscribe();
-    }, 3000);
+    }, 250);
     }
 }
