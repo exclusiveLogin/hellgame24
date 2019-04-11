@@ -97,7 +97,7 @@ class SunLocator{
         // Переход из дня в золотой час (вечер)
         this.goldHourETime = this.blueHourETime.clone().subtract( goldDiff, 'm');
 
-        this.stream$.next({state: 'update', title: 'Обновление данных о солнце', description: 'Системное обновление успешно завершено'});
+        //this.stream$.next({state: 'update', title: 'Обновление данных о солнце', description: 'Системное обновление успешно завершено'});
 
         //this.calcCurrentState();
     }
