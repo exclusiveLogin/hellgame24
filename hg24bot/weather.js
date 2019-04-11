@@ -54,13 +54,20 @@ class YandexWeather{
     calcTempState( temperature, feel ){
         this.currentTemp = Number( temperature );
 
-        //debugger;
-
         if( this.currentTemp !== this.prevTemp ){
           let data = {};
 
-          let relationSum = this.currentTemp - this.prevTemp
-          let relation = ( relationSum ) > 0 ? 'выше' : 'ниже';
+          debugger;
+
+          let relationSum;
+          let relation;
+          let relationStr;
+
+          if( this.currentTemp && this.prevTemp ){
+            relationSum = Number(this.currentTemp) - Number(this.prevTemp)
+            relation = ( relationSum ) > 0 ? 'выше' : 'ниже';
+            relationStr = ' - на ' + Math.abs( relationSum ) + ' ' + relation + ' чем было ( ' + this.prevTemp + ' )';
+          }
 
           let state;
           state = this.currentTemp && Number( this.currentTemp ) < -10 ? 'verycold' : state;
@@ -71,7 +78,8 @@ class YandexWeather{
 
 
           data.state = state;
-          data.title = 'Температура воздуха: ' + this.currentTemp + ' C - на ' + Math.abs( relationSum ) + ' ' + relation + ' чем было ( ' + this.prevTemp + ' )';
+          data.title = 'Температура воздуха: ' + this.currentTemp + ' C';
+          data.title = relationStr ? data.title + relationStr : data.title;
           data.description = 'Ощущается как ' + feel + ' C';
           this.stream$.next( data );
           this.prevTemp = this.currentTemp;
