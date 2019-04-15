@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const rx = require('rxjs');
 
 class EventFetcher{
-    
+
     constructor(url, interval = 5000, level = 'global'){
         this.url = url;
         this.interval = interval;
@@ -12,9 +12,15 @@ class EventFetcher{
     }
 
     start(){
-        setTimeout(()=>{
-            this.update();
-        }, this.interval);
+      this.stop();
+      this.timer = setInterval(()=>this.update(), this.interval);
+    }
+
+    stop(){
+      if( this.timer ){
+        clearInterval( this.timer );
+        delete this.timer;
+      }
     }
 
     getStream(){
@@ -38,9 +44,9 @@ class EventFetcher{
     update(){
 
         if( !this.lastId ) return;
-        
+
         let path = this.url+'/backend/events/events_handler.php?mode=get_new_events&id='+this.lastId;
-        
+
         fetch( path ,{ method:'get'}).then( result => {
             if(result.ok) return result.json();
         }).then(json => {
@@ -51,13 +57,10 @@ class EventFetcher{
             if(newId) this.lastId = newId;
 
             this.stream$.next( json );
-
-            this.start();
         }).catch(e=> {
             console.error(e);
-            setTimeout(()=>{this.start()},30000);
         });
-        
+
     }
 }
 
