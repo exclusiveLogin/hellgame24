@@ -16,7 +16,7 @@ let hgChatId = -395832167;
 let version = '0.1.1';
 const bot = new Telegraf(token, {
     telegram: {
-        agent: new HttpsProxyAgent({port: '3128', host: '178.128.174.206'})
+        agent: new HttpsProxyAgent({port: '3128', host: '159.65.82.242'})
     }
 });
 
