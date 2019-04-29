@@ -13,10 +13,10 @@ let token = '776154170:AAELvoF6Tro_C2PMpSfAYit3j0VrZO1-47A';
 let hgChatId = -395832167;
 // SS личка
 //let hgChatId = 474062218;
-let version = '0.1.1';
+let version = '0.2.1';
 const bot = new Telegraf(token, {
     telegram: {
-        agent: new HttpsProxyAgent({port: '3128', host: '159.65.82.242'})
+        agent: new HttpsProxyAgent({port: '3128', host: '148.217.94.54'})
     }
 });
 
