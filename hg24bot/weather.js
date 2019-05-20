@@ -14,6 +14,7 @@ class YandexWeather{
         this.interval = interval || 3600000;
         this.stream$ = new rx.BehaviorSubject(null);
         this.token = 'f47ace45-e3af-4a34-bde1-02b717601007';
+        this.mapbox_token = 'pk.eyJ1IjoiZXhjbHVzaXZlbG9naW4iLCJhIjoiY2p2d2R0eDlxMXRldTRhbXM2dHAzdzhhdCJ9.w_mBqjrTK6ycIB0OViaw_g';
         this.tokenName = 'X-Yandex-API-Key';
 
         this.currentState;
@@ -107,6 +108,11 @@ class YandexWeather{
       return base + position.join(',');
     }
 
+    getPositionImg( position ){
+      //https://api.mapbox.com/v4/mapbox.emerald/pin-s-cross+285A98(48.4869,53.0504)/48.4869,53.0504,12/800x600.png?access_token=pk.eyJ1IjoiZXhjbHVzaXZlbG9naW4iLCJhIjoiY2p2d2R0eDlxMXRldTRhbXM2dHAzdzhhdCJ9.w_mBqjrTK6ycIB0OViaw_g
+      return position && position.length > 1 ? `https://api.mapbox.com/v4/mapbox.emerald/pin-s-cross+285A98(${ position[1] + ',' + position[0] })/${ position[1] + ',' + position[0] },13/800x600.png?access_token=${this.mapbox_token}` : null;
+    }
+
     calcCurrentState( condition ){
 
         this.currentState = condition;
@@ -132,6 +138,9 @@ class YandexWeather{
         // cloudy-and-snow — снег.
         let newSpawn;
 
+        let randomPos = this.getRandomPosition();
+        let posImg = this.getPositionImg( randomPos );
+
         if( this.currentState === 'clear' ) {
           this.currentStateTitle = "Ясно";
           this.currentStateDescription = "Все спауны чистые, блуждающие уничтожены";
@@ -140,103 +149,103 @@ class YandexWeather{
         if( this.currentState === 'partly-cloudy' ) {
           this.currentStateTitle = "малооблачно";
           this.currentStateDescription = "Могут быть короткие спауны блинкеров вблизи аномальных зон";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'cloudy' ) {
           this.currentStateTitle = "облачно с прояснениями";
           this.currentStateDescription = "Мир ВМ частично закрыл границы";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'overcast' ) {
           this.currentStateTitle = "пасмурно";
           this.currentStateDescription = "Мир ВМ полностью закрыл границы";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'partly-cloudy-and-light-rain' ) {
           this.currentStateTitle = "небольшой дождь";
           this.currentStateDescription = "FALLOUT, слабые выпадения, вероятно легкое поражение, спауны ВМ агентов вблизи зон";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'partly-cloudy-and-rain' ) {
           this.currentStateTitle = "дождь";
           this.currentStateDescription = "FALLOUT, сильные выпадения, спауны ВМ агентов вблизи зон и городов. Значительное поражение на улице";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'overcast-and-rain' ) {
           this.currentStateTitle = "сильный дождь";
           this.currentStateDescription = "FALLOUT, мощные выпадения, спауны ВМ агентов повсюду. На улицу не выходить";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'overcast-thunderstorms-with-rain' ) {
           this.currentStateTitle = "сильный дождь, гроза";
           this.currentStateDescription = "Мощные спауны ВМ и НМ , активация зон повсюды, активация линий сборок, На улице жатва и поиск новой крови и плоти.";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'cloudy-and-light-rain' ) {
           this.currentStateTitle = "Облачно, небольшой дождь";
           this.currentStateDescription = "Купол + легкая атака выпадениями";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'overcast-and-light-rain' ) {
           this.currentStateTitle = "Купол + легкая атака выпадениями с спауном в зонах";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'cloudy-and-rain' ) {
           this.currentStateTitle = "Облачно, небольшой дождь";
           this.currentStateDescription = "Купол, атака с неба.";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'overcast-and-wet-snow' ) {
           this.currentStateTitle = "дождь со снегом";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'partly-cloudy-and-light-snow' ) {
           this.currentStateTitle = "небольшой снег";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'partly-cloudy-and-snow' ) {
           this.currentStateTitle = "снег";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'overcast-and-snow' ) {
           this.currentStateTitle = "снегопад";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'cloudy-and-light-snow' ) {
           this.currentStateTitle = "небольшой снег";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'overcast-and-light-snow' ) {
           this.currentStateTitle = "небольшой снег";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState === 'cloudy-and-snow' ) {
           this.currentStateTitle = "облачно и снег";
           this.currentStateDescription = "...";
-          newSpawn = this.getAddressMapString( this.getRandomPosition() );
+          newSpawn = this.getAddressMapString( randomPos );
         }
 
         if( this.currentState !== this.prevState ){
@@ -245,6 +254,7 @@ class YandexWeather{
             data.title = this.currentStateTitle;
             data.description = this.currentStateDescription;
             data.position = newSpawn ? newSpawn : null;
+            data.img = data.position ? posImg : null;
             this.stream$.next( data );
             this.prevState = this.currentState;
         }

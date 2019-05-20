@@ -163,7 +163,9 @@ ${weatherResult.description}`;
 
       msg = weatherResult.position ? msg + `
       Новый спаун в точке
-      ` + weatherResult.position : msg;
+      ${ weatherResult.img ? weatherResult.img : '' }
+
+      Открыть на карте: ${ weatherResult.position ? weatherResult.position : '' }` : msg;
 
     bot.telegram.sendMessage(hgChatId, msg,
     {parse_mode:"HTML"});
