@@ -162,7 +162,8 @@ weather.getStream().subscribe( weatherResult => {
 ${weatherResult.description}`;
 
       msg = weatherResult.position ? msg + `
-      Новый спаун в точке ` + weatherResult.position : msg;
+      Новый спаун в точке
+      ` + weatherResult.position : msg;
 
     bot.telegram.sendMessage(hgChatId, msg,
     {parse_mode:"HTML"});

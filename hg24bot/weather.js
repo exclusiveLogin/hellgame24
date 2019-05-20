@@ -78,7 +78,7 @@ class YandexWeather{
 
 
           data.state = state;
-          data.title = 'Температура воздуха: ' + this.currentTemp + ' C';
+          data.title = 'Температура воздуха: ' + this.currentTemp + ' C \n';
           data.title = relationStr ? data.title + relationStr : data.title;
           data.description = 'Ощущается как ' + feel + ' C';
           this.stream$.next( data );
@@ -87,11 +87,11 @@ class YandexWeather{
     }
 
     getRandomPosition(){
-      const latMin = 53.0;
-      const latMax = 53.3;
+      const latMin = 53.05;
+      const latMax = 53.2;
 
-      const lngMin = 48.0;
-      const lngMax = 48.8;
+      const lngMin = 48.3;
+      const lngMax = 48.58;
 
       let lat = Math.random() * ( latMax - latMin ) + latMin;
       let lng = Math.random() * ( lngMax - lngMin ) + lngMin;
