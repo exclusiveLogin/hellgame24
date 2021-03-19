@@ -1,13 +1,11 @@
-import { Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { ConnectorService, IParams, IDataRequest } from '../services/connector.service';
+import { IParams, IDataRequest } from '../services/connector.service';
 import { Path } from '../models/path';
 import { ISlot } from './accessory-container/accessory-inventory/accessory-inventory.component';
 import { tap, filter, map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { IRecieptPartData } from './receipt.service';
-import { IIngredient } from './ingredient.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 import { TopEventsService } from '../services/topevents.service';
 import { ConnectorWrapperService } from '../services/connector-wrapper.service';
 
@@ -33,7 +31,7 @@ export class InventoryService {
 
   public getAllSlots(){
     if (this.allSlotsCache.length)
-      return Observable.of(this.allSlotsCache);
+      return of(this.allSlotsCache);
 
     let params: IParams = { mode: 'all_slots' };
     return this.con.getData<ISlot[]>(this.path, params)
@@ -44,7 +42,7 @@ export class InventoryService {
   // получение слотов без владельца(drop нутые объекты)
   public getNonOwnerSlots(){
     if (this.allSlotsCache.length)
-      return Observable.of(this.allSlotsCache.filter(s => !s.owner && !!s.rgo_id));
+      return of(this.allSlotsCache.filter(s => !s.owner && !!s.rgo_id));
 
     return this.getAllSlots()
       .pipe(
@@ -58,7 +56,7 @@ export class InventoryService {
   // получение слотов без владельца и без предмета (аномалии)
   public getNonOwnerEmptySlots(){
     if (this.allSlotsCache.length)
-      return Observable.of(this.allSlotsCache.filter(s => !s.owner && !s.rgo_id));
+      return of(this.allSlotsCache.filter(s => !s.owner && !s.rgo_id));
 
     return this.getAllSlots()
       .pipe(
@@ -76,58 +74,66 @@ export class InventoryService {
 
   public getSlotByIdByUser( userId: string, slotId: string ): Observable<ISlot>{
     if (this.slotsCache[userId])
-      return Observable.of(this.slotsCache[userId].find((s: ISlot) => s.id === slotId));
+      return of(this.slotsCache[userId].find((s: ISlot) => s.id === slotId));
 
-    return this.getAllSlotsByUser( userId ).map(slots => slots.find( s => s.id === slotId ));
+    return this.getAllSlotsByUser( userId ).pipe(
+      map(slots => slots.find( s => s.id === slotId )));
   }
 
   public getSlotById( slotId: string ): Observable<ISlot>{
     if (this.allSlotsCache.length)
-      return Observable.of(this.allSlotsCache.find((s: ISlot) => s.id === slotId));
+      return of(this.allSlotsCache.find((s: ISlot) => s.id === slotId));
 
-    return this.getAllSlots().map(slots => slots.find( s => s.id === slotId ));
+    return this.getAllSlots().pipe(
+      map(slots => slots.find( s => s.id === slotId )));
   }
 
 
   public getEmptySlotByUser( userId: string | number ): Observable<ISlot>{
     if (this.slotsCache[userId])
-      return Observable.of(this.slotsCache[userId].find((s: ISlot) => !s.rgo_id));
+      return of(this.slotsCache[userId].find((s: ISlot) => !s.rgo_id));
 
     let params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
-      .pipe(tap(slots => this.slotsCache[userId] = slots))
-      .map((s: ISlot[]) => s.find(i => !i.rgo_id));
-
+      .pipe(
+        tap(slots => this.slotsCache[userId] = slots),
+        map((s: ISlot[]) => s.find(i => !i.rgo_id))
+      );
   }
 
   public getEmptySlotsByUser( userId: string | number ): Observable<ISlot[]>{
     if (this.slotsCache[userId])
-      return Observable.of(this.slotsCache[userId].filter((s: ISlot) => !s.rgo_id));
+      return of(this.slotsCache[userId].filter((s: ISlot) => !s.rgo_id));
 
     let params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
-      .pipe(tap(slots => this.slotsCache[userId] = slots))
-      .map((s: ISlot[]) => s.filter(i => !i.rgo_id));
-
+      .pipe(
+          tap(slots => this.slotsCache[userId] = slots),
+          map((s: ISlot[]) => s.filter(i => !i.rgo_id))
+    );
   }
 
   public getNonEmptySlotsByUser( userId: string | number ){
     if (this.slotsCache[userId])
-      return Observable.of(this.slotsCache[userId].filter((s: ISlot) => !!s.rgo_id));
+      return of(this.slotsCache[userId].filter((s: ISlot) => !!s.rgo_id));
 
     let params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
-      .pipe(tap(slots => this.slotsCache[userId] = [...slots]))
-      .map((s: ISlot[]) => s.filter(i => !!i.rgo_id));
+      .pipe(
+        tap(slots => this.slotsCache[userId] = [...slots]),
+        map((s: ISlot[]) => s.filter(i => !!i.rgo_id)),
+      );
   }
 
   public getIngredientsOfUser( userId: string, idIngredient: string ){
-    if (this.slotsCache[userId]) return Observable.of(this.slotsCache[userId].filter((s: ISlot) => s.go_id && s.go_id.toString() === idIngredient.toString()));
+    if (this.slotsCache[userId]) return of(this.slotsCache[userId].filter((s: ISlot) => s.go_id && s.go_id.toString() === idIngredient.toString()));
 
     let params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
-      .pipe(tap(slots => this.slotsCache[userId] = slots))
-      .map((slots: ISlot[]) => slots.filter(s => s.go_id && s.go_id.toString() === idIngredient.toString()));
+      .pipe(
+        tap(slots => this.slotsCache[userId] = slots),
+        map((slots: ISlot[]) => slots.filter(s => s.go_id && s.go_id.toString() === idIngredient.toString())),
+      );
   }
 
   public craftNewInventoryItem( targetID: string, toSlot: string, recParts: IRecieptPartData[] ){
@@ -144,11 +150,13 @@ export class InventoryService {
       this.con.setData( this.path, data )
         .subscribe(() =>{
 
-          let rxIngredients = forkJoin(...recParts.map((rp: IRecieptPartData) => {
+          let rxIngredients = forkJoin([...recParts.map((rp: IRecieptPartData) => {
             if( rp.quantity ){
-                return this.getIngredientsOfUser( this.auth.authorizedAs(), rp.require_ingredient ).map(items => items.slice(0, Number(rp.quantity)));
+                return this.getIngredientsOfUser( this.auth.authorizedAs(), rp.require_ingredient ).pipe(
+                  map(items => items.slice(0, Number(rp.quantity)))
+                );
             }
-          }));
+          })]);
 
           rxIngredients.subscribe(result => {
 

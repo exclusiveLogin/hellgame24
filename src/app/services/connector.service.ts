@@ -3,7 +3,7 @@ import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
-import { tap } from 'rxjs/operators/tap';
+import { tap } from 'rxjs/operators';
 
 
 export interface IDataResponse{

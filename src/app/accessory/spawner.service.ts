@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { ConnectorService, IParams, IDataRequest, IDataResponse } from '../services/connector.service';
+import { IParams, IDataRequest, IDataResponse } from '../services/connector.service';
 import { Path } from '../models/path';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { filter, tap, map } from 'rxjs/operators';
 import { InventoryService } from './inventory.service';
 import { ConnectorWrapperService } from '../services/connector-wrapper.service';
@@ -48,7 +47,7 @@ export class SpawnerService {
   public getSpawnerById( id: string ): Observable<ISpawn>{
     if(!id) return;
     if(this.spawnCache && this.spawnCache.find((spawn: ISpawn) => spawn.id.toString() === id.toString()))
-      return Observable.of(this.spawnCache.find((spawn: ISpawn) => spawn.id.toString() === id.toString()));
+      return of(this.spawnCache.find((spawn: ISpawn) => spawn.id.toString() === id.toString()));
 
     return this.getAllSpawn()
       .pipe(

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../models/user-interface';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class UiService {

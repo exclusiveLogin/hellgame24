@@ -8,7 +8,7 @@ import {
   SimpleChanges, 
   ChangeDetectionStrategy, 
   ChangeDetectorRef } from '@angular/core';
-import {ChartObject} from 'highcharts';
+import {Chart} from 'highcharts';
 import {TopEventsService} from "../../../services/topevents.service";
 import { IUser, ITrendItem } from '../../../models/user-interface';
 import { UiService } from '../../../services/ui.service';
@@ -28,7 +28,7 @@ const HC = require('highcharts');
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserInfoCardComponent implements OnInit, AfterViewInit {
-  public emoChart: ChartObject;
+  public emoChart: Chart;
 
   @Input() public user: IUser;
   @ViewChild('trend', { static: true }) private trend: ElementRef;

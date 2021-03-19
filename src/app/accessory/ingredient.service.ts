@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
-import { Observable } from 'rxjs';
-import { ConnectorService, IParams } from '../services/connector.service';
-import { tap } from 'rxjs/operators/tap';
+import { Observable, of } from 'rxjs';
+import { IParams } from '../services/connector.service';
 import { ConnectorWrapperService } from '../services/connector-wrapper.service';
+import { map, tap } from 'rxjs/operators';
 
 
 export interface IIngredient{
@@ -52,8 +52,11 @@ export class IngredientService {
       mode: 'byid'
     };
 
-    if(this.itemCache[id]) return Observable.of(this.itemCache[id]);
-    return this.con.getData<IIngredient>(this.path, params).pipe(tap(l => this.itemCache[id] = l[0])).map(list => list[0]);
+    if(this.itemCache[id]) return of(this.itemCache[id]);
+    return this.con.getData<IIngredient>(this.path, params).pipe(
+      tap(l => this.itemCache[id] = l[0]),
+      map(list => list[0]),
+    );
   }
 
   public getIngredientbyName( name: string ): Observable<IIngredient>{
@@ -61,7 +64,9 @@ export class IngredientService {
       name,
       mode: 'byname'
     };
-    return this.con.getData<IIngredient>(this.path, params).map(list => list[0]);;
+    return this.con.getData<IIngredient>(this.path, params).pipe(
+        map(list => list[0])
+      );
   }
 
   public getAllIngredients(): Observable<IIngredient[]>{

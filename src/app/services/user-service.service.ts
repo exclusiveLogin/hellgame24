@@ -7,8 +7,7 @@ import {
 } from '../models/user-interface';
 import {HttpClient} from '@angular/common/http';
 import {ApiService} from './api.service';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+import {Observable, of} from 'rxjs';
 import {IUserState} from '../models/users-state-interface';
 import {DomSanitizer} from '@angular/platform-browser';
 import { IStatusBtn, IUserStatus } from '../dashboard/user-module/user-status/user-status.component';
@@ -62,10 +61,10 @@ export class UserServiceService {
   }
   public getUsersInit(): Observable<IUser[]> {
 
-    if( this.fetchedUsers ) return Observable.of( this.fetchedUsers );
+    if( this.fetchedUsers ) return of( this.fetchedUsers );
 
-    return this.http.get<IUserState[]>(this.apiservice.getApi() + 'users_state.php')
-      .map((users) => {
+    return this.http.get<IUserState[]>(this.apiservice.getApi() + 'users_state.php').pipe(
+      map((users) => {
         let users_result: IUser[] = users.map((user: IUserState) => {
           let st = 'Не играет';
           
@@ -109,12 +108,16 @@ export class UserServiceService {
         this.fetchedUsers = users_result;
       
         return users_result;
-      });
+      }),
+    );
+      
   }
 
   public getUser(id: string): Observable<IUser> {
-    if ( this.fetchedUsers ) return Observable.of( this.fetchedUsers.find( user => user.login === id) );
-    return this.getUsersInit().map(users => users.find(u => u.login === id));
+    if ( this.fetchedUsers ) return of( this.fetchedUsers.find( user => user.login === id) );
+    return this.getUsersInit().pipe(
+        map(users => users.find(u => u.login === id))
+      );
   }
 
   public setUser( user: IUser ): void {
@@ -146,7 +149,7 @@ export class UserServiceService {
 
     //console.log("CASHED:", cached);
 
-    if( cached ) return Observable.of( cached );
+    if( cached ) return of( cached );
 
     let path: Path = {
       segment: 'emo',

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Path } from '../models/path';
-import { ConnectorService, IDataRequest, IParams } from './connector.service';
+import { IDataRequest, IParams } from './connector.service';
 import { IMessangerData } from '../dashboard/messanger/messanger.component';
-import { Observable } from 'rxjs/Observable';
-import { tap } from 'rxjs/operators/tap';
 import { UiService } from './ui.service';
 import { AuthService } from './auth.service';
 import { ConnectorWrapperService } from './connector-wrapper.service';
+import { tap } from 'rxjs/operators';
 
 
 

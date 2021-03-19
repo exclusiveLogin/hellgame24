@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { IGlobalState } from '../models/global-state-interface';
 import { Observable, Subject } from 'rxjs';
 import { Path } from '../models/path';
-import { ConnectorService, IDataRequest, IParams } from './connector.service';
+import { IDataRequest, IParams } from './connector.service';
 import { AuthService } from './auth.service';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ConnectorWrapperService } from './connector-wrapper.service';
 
 let path: Path = {
@@ -22,7 +22,9 @@ export class GlobalService {
   ) { }
 
   public getState(): Observable<IGlobalState> {
-    return this.con.getData<IGlobalState>( path ).map( state => !!state && !!state[0] ? state[0] : [] );
+    return this.con.getData<IGlobalState>( path ).pipe(
+        map( state => !!state && !!state[0] ? state[0] : [] ),
+      );
   }
 
   public getStates( user: string, skip: number = null ): Observable<IGlobalState[]>{

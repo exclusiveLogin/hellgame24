@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import {Observable, of} from 'rxjs';
 
 @Injectable()
 export class ApiService {
@@ -29,19 +28,19 @@ export class ApiService {
   }
 
   public getWikiImagePathRx(): Observable<string>{
-    return Observable.of( this.WIKI_IMAGE );
+    return of( this.WIKI_IMAGE );
   }
 
   public getIconPathRx( type: string ): Observable<string> {
-    return Observable.of( this[type.toUpperCase()+'_ICONS'] );
+    return of( this[type.toUpperCase()+'_ICONS'] );
   }
 
   public getImagePathRx( type: string ): Observable<string> {
-    return Observable.of( this[type.toUpperCase()+'_IMAGE'] );
+    return of( this[type.toUpperCase()+'_IMAGE'] );
   }
 
   public getApiRx(): Observable<string> {
-    return Observable.of(this.MAINAPI);
+    return of(this.MAINAPI);
   }
 
 }
