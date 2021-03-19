@@ -55,7 +55,7 @@ const routes: Routes = [
     SystemCodeComponent,
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
