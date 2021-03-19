@@ -7,6 +7,9 @@
     "start": "ng serve",
     "build": "npm run doc && ng build --prod --stats-json && cp backend/ -r dist/",
     "doc": "rm src/wiki/* -rf && typedoc --out ./src/wiki ./src/app/ --options typedoc.json --exclude \"**/*+(node_modules|modules|libs)/**/*\" --excludeExternals --externalPattern \"**/*+(node_modules|modules|libs)/**/*\" --baseUrl /wiki/ ",
+    "docker:build": "sudo npm i && sudo docker build -t exclusivelogin/hellgame24-front .",
+    "docker:publish": "npm run docker:build && sudo docker login && sudo docker push exclusivelogin/hellgame24-front",
+    "docker:run": "sudo docker pull exclusivelogin/birthhelper-front && sudo docker run --rm -d -p 8094:80 exclusivelogin/hellgame24-front",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
