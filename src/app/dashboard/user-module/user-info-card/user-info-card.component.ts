@@ -31,7 +31,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
   public emoChart: ChartObject;
 
   @Input() public user: IUser;
-  @ViewChild('trend') private trend: ElementRef;
+  @ViewChild('trend', { static: true }) private trend: ElementRef;
 
   public usermail_shown: boolean = true;
   public userstatus_shown = false;

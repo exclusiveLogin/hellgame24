@@ -38,10 +38,10 @@ let dashboardRoutes: Routes = [
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
-  {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthguardGuard]},
-  {path: 'dashboard/:user', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthguardGuard]},
-  {path: 'logs', loadChildren: './logs/logs.module#LogsModule', canActivate: [AuthguardGuard]},
-  {path: 'logs/:user', loadChildren: './logs/logs.module#LogsModule', canActivate: [AuthguardGuard]},
+  {path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthguardGuard]},
+  {path: 'dashboard/:user', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthguardGuard]},
+  {path: 'logs', loadChildren: () => import('./logs/logs.module').then(m => m.LogsModule), canActivate: [AuthguardGuard]},
+  {path: 'logs/:user', loadChildren: () => import('./logs/logs.module').then(m => m.LogsModule), canActivate: [AuthguardGuard]},
   {path: 'login', component: LoginComponent},
   {path: '**', component: NotfoundComponent}
 ];

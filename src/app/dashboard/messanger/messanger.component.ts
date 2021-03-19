@@ -36,7 +36,7 @@ export class MessangerComponent implements OnInit {
     script: null,
   };
 
-  @ViewChild('text') private text: ElementRef;
+  @ViewChild('text', { static: true }) private text: ElementRef;
 
   public debug = false;
 
