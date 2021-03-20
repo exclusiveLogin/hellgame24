@@ -329,7 +329,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
   private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[][]{
     return trend
-      .sort((p: ITrendItem ,n: ITrendItem) => Number(p.id) - Number(n.id) )
+      .sort((p: ITrendItem ,n: ITrendItem) => Number(p.utc) - Number(n.utc) )
       .map((it:ITrendItem) => [Number(it.utc), Number(it.value)]);
   }
 
