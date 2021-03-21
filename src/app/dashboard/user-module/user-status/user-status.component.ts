@@ -7,22 +7,22 @@ import { UxEventerService } from '../../../services/ux-eventer.service';
 import { enterLeaveAnimationDefault } from '../../../models/enterLeaveAnimation';
 
 export interface IStatusBtn {
-  icon: string,
-  title: string,
-  class?: string,
+  icon: string;
+  title: string;
+  class?: string;
 }
 
-export interface IUserStatus{
-  mode?:string,
-  id?: string,
-  status: string,
-  login: string,
-  title?: string,
-  class?: string,
-  datetime_create?: string,
+export interface IUserStatus {
+  mode?: string;
+  id?: string;
+  status: string;
+  login: string;
+  title?: string;
+  class?: string;
+  datetime_create?: string;
 }
 
-let STATUS_BUTTONS_ACT: IStatusBtn[] = [
+const STATUS_BUTTONS_ACT: IStatusBtn[] = [
   { icon: 'fas fa-home', title: 'Дома' },
   { icon: 'fas fa-building', title: 'Работаю' },
   { icon: 'fas fa-eye', title: 'Мониторинг' },
@@ -47,7 +47,7 @@ let STATUS_BUTTONS_ACT: IStatusBtn[] = [
 
 ];
 
-let STATUS_BUTTONS_STATE: IStatusBtn[] = [
+const STATUS_BUTTONS_STATE: IStatusBtn[] = [
   { icon: 'fas fa-smile', title: 'Радуюсь' },
   { icon: 'fas fa-tired', title: 'Грущу' },
   { icon: 'fas fa-battery-empty', title: 'Батарея разряжена' },
@@ -63,7 +63,7 @@ let STATUS_BUTTONS_STATE: IStatusBtn[] = [
 
 ];
 
-let STATUS_BUTTONS_MONITORING: IStatusBtn[] = [
+const STATUS_BUTTONS_MONITORING: IStatusBtn[] = [
   { icon: 'fas fa-bolt', title: 'Гроза' },
   { icon: 'fas fa-cloud', title: 'Облачно' },
   { icon: 'fas fa-cloud-sun', title: 'Переменная облачность' },
@@ -77,7 +77,7 @@ let STATUS_BUTTONS_MONITORING: IStatusBtn[] = [
   selector: 'app-user-status',
   templateUrl: './user-status.component.html',
   styleUrls: ['./user-status.component.css'],
-  animations:[ enterLeaveAnimationDefault ]
+  animations: [ enterLeaveAnimationDefault ]
 })
 export class UserStatusComponent implements OnInit {
 
@@ -95,33 +95,33 @@ export class UserStatusComponent implements OnInit {
 
   }
 
-  public confirm( b: IStatusBtn ){
-    if (confirm("Устанавливаем статус : " + b.title + ' ?')){
+  public confirm( b: IStatusBtn ) {
+    if (confirm('Устанавливаем статус : ' + b.title + ' ?')) {
       // отправляем статус
-      let login = this.auth.authorizedAs();
+      const login = this.auth.authorizedAs();
       this.user.setUserStatus( b, login ).subscribe( () => {
         this.close();
         this.tes.refreshSegment('status');
         this.uxevent.setUserStatus( login, b.title );
       });
-      
+
     }
-  
+
   }
 
-  public get buttons_state(){
+  public get buttons_state() {
     return STATUS_BUTTONS_STATE;
   }
 
-  public get buttons_act(){
+  public get buttons_act() {
     return STATUS_BUTTONS_ACT;
   }
 
-  public get buttons_monitoring(){
+  public get buttons_monitoring() {
     return STATUS_BUTTONS_MONITORING;
   }
 
-  public close(){
+  public close() {
     this.ui.closeUserStatus();
   }
 

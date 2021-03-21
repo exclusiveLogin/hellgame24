@@ -3,14 +3,14 @@ import { IUser } from '../../../models/user-interface';
 import { AuthService } from '../../../services/auth.service';
 import { InventoryService } from '../../inventory.service';
 
-export interface ISlot{
-  id: string,
-  owner: string,
-  rgo_id: string,
-  type: string,
-  go_id: string,
-  newslotId?: string,
-  spawn?:string,
+export interface ISlot {
+  id: string;
+  owner: string;
+  rgo_id: string;
+  type: string;
+  go_id: string;
+  newslotId?: string;
+  spawn?: string;
 }
 
 @Component({
@@ -21,7 +21,7 @@ export interface ISlot{
 export class AccessoryInventoryComponent implements OnInit {
 
   public slots: ISlot[];
-  public showWiki: boolean = false;
+  public showWiki = false;
   public currentItemId: string;
 
   constructor(
@@ -31,20 +31,21 @@ export class AccessoryInventoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    let user: string = this.auth.authorizedAs();
+    const user: string = this.auth.authorizedAs();
 
-    if(user) this.inventory.getAllSlotsByUser( user )
-      .subscribe(( userSlots )=> this.slots = userSlots.sort((usp, usn) => !usn.rgo_id ? -1 : 0));
+    if (user) { this.inventory.getAllSlotsByUser( user )
+      .subscribe(( userSlots ) => this.slots = userSlots.sort((usp, usn) => !usn.rgo_id ? -1 : 0));
+    }
   }
 
 
-  public closeWiki(){
+  public closeWiki() {
     this.showWiki = false;
   }
 
-  public openWiki( item: ISlot ){
+  public openWiki( item: ISlot ) {
     this.showWiki = false;
     this.currentItemId = item.go_id;
-    if ( item.go_id ) setTimeout(()=>this.showWiki = true, 250);
+    if ( item.go_id ) { setTimeout(() => this.showWiki = true, 250); }
   }
 }

@@ -11,7 +11,7 @@ import { UserStatusItemComponent } from './user-status-item/user-status-item.com
     UserStatusComponent,
     UserStatusItemComponent
   ],
-  exports:[
+  exports: [
     UserStatusComponent,
     UserStatusItemComponent
   ]

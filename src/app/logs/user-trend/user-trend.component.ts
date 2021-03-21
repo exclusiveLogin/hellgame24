@@ -1,8 +1,8 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {filter, tap} from "rxjs/operators";
-import {Chart} from "highcharts";
-import {UserServiceService} from "app/services/user-service.service";
-import {ITrendItem} from "app/models/user-interface";
+import {filter, tap} from 'rxjs/operators';
+import {Chart} from 'highcharts';
+import {UserServiceService} from 'app/services/user-service.service';
+import {ITrendItem} from 'app/models/user-interface';
 
 const HC = require('highcharts');
 
@@ -217,7 +217,7 @@ export class UserTrendComponent implements OnInit, OnChanges {
         this.refreshTrend();
     }
 
-    private refreshTrend(){
+    private refreshTrend() {
 
         this.usersService.getFullTrend( this.author )
             .pipe(
@@ -228,18 +228,18 @@ export class UserTrendComponent implements OnInit, OnChanges {
 
     }
 
-    private prepareQuickUserEmoTrend( trend: ITrendItem[] ): any[]{
+    private prepareQuickUserEmoTrend( trend: ITrendItem[] ): any[] {
         return trend
-            .sort((p: ITrendItem ,n: ITrendItem) => Number(p.utc) - Number(n.utc) )
-            .map((it:ITrendItem) => ({ x: Number(it.utc), y: Number(it.value), title: it.title }));
+            .sort((p: ITrendItem , n: ITrendItem) => Number(p.utc) - Number(n.utc) )
+            .map((it: ITrendItem) => ({ x: Number(it.utc), y: Number(it.value), title: it.title }));
     }
 
-    private renderTrend( trend ){
-        if ( !trend ) return;
+    private renderTrend( trend ) {
+        if ( !trend ) { return; }
 
-        if( this.emoChart ) this.emoChart.destroy();
+        if ( this.emoChart ) { this.emoChart.destroy(); }
 
-        let tr: number[][] = this.prepareQuickUserEmoTrend( trend );
+        const tr: number[][] = this.prepareQuickUserEmoTrend( trend );
         this.emoChart = HC.chart( {
             chart: {
                 renderTo: this.trend.nativeElement
@@ -251,7 +251,7 @@ export class UserTrendComponent implements OnInit, OnChanges {
                 visible: false,
             },
             xAxis: {
-                //visible: false
+                // visible: false
                 type: 'datetime'
             },
             credits: {
@@ -265,7 +265,7 @@ export class UserTrendComponent implements OnInit, OnChanges {
             },
             plotOptions: {
                 series: {
-                    //pointStart: 2010,
+                    // pointStart: 2010,
                 },
                 spline: {
                     marker: {
@@ -287,8 +287,8 @@ export class UserTrendComponent implements OnInit, OnChanges {
         console.log('TRND: ', this.emoChart);
     }
 
-    ngOnChanges(sc: SimpleChanges){
-        if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
+    ngOnChanges(sc: SimpleChanges) {
+        if (!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue) {
             this.refreshTrend();
         }
     }

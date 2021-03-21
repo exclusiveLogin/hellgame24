@@ -32,26 +32,25 @@ export class UserMessageComponent implements OnInit {
     this._messageSubscripton = this.tes.getSegmentRefreshSignal( 'message' )
       .subscribe( refreshFlag => {
         console.log('devss message REFRESH FLAG', refreshFlag);
-        if( refreshFlag ) Promise.resolve().then(() => this.refreshMessages());
+        if ( refreshFlag ) { Promise.resolve().then(() => this.refreshMessages()); }
       });
     this.refreshMessages();
   }
 
   private refreshMessages(): void {
-    let params: IParams = (this.to_user) ?
+    const params: IParams = (this.to_user) ?
     {to_user: this.to_user, readed: this.isUnreadedOnly} :
-     null
+     null;
     this.messageService.getData( params ).subscribe(items => {
       console.log('devss messageService RefreshMessages get', items);
       this._messageItems = items;
     });
   }
 
-  public checkMessageAsReaded( id: string ){
+  public checkMessageAsReaded( id: string ) {
     console.log('devss check as readed', id);
 
-    this.messageService.markData( id, 'readed', '1').subscribe(result =>
-      {
+    this.messageService.markData( id, 'readed', '1').subscribe(result => {
         console.log('mark to readed result', result);
         this.tes.refreshSegment( 'message' );
         this.tes.refreshSegment( 'usermail' );
@@ -60,8 +59,8 @@ export class UserMessageComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    if(this._messageSubscripton) this._messageSubscripton.unsubscribe();
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
+    if (this._messageSubscripton) { this._messageSubscripton.unsubscribe(); }
   }
 }

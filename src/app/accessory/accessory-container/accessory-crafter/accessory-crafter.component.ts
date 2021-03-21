@@ -10,21 +10,21 @@ import { IIngredient } from '../../ingredient.service';
 export class AccessoryCrafterComponent implements OnInit {
 
   public reciepts: IRecieptList[] = [];
-  public showWiki: boolean = false;
-  public showLab: boolean = false;
-  public showRecieptsContainer: boolean = true;
+  public showWiki = false;
+  public showLab = false;
+  public showRecieptsContainer = true;
   public wikiIngredient: IRecieptList;
 
 
   constructor(
-    public reciept:ReceiptService,
+    public reciept: ReceiptService,
   ) { }
 
   ngOnInit() {
     this.reciept.getAllRecieptList().subscribe(r => this.reciepts = r);
   }
 
-  public closeWiki(){
+  public closeWiki() {
     this.showWiki = false;
     this.wikiIngredient = null;
     this.showRecieptsContainer = true;
@@ -32,7 +32,7 @@ export class AccessoryCrafterComponent implements OnInit {
     this.closeLab();
   }
 
-  public openWiki( ingredient ){
+  public openWiki( ingredient ) {
     this.showWiki = true;
     this.wikiIngredient = ingredient;
     this.showRecieptsContainer = false;
@@ -46,7 +46,7 @@ export class AccessoryCrafterComponent implements OnInit {
     this.showLab = true;
   }
 
-  public selectReciept(item: IIngredient){
+  public selectReciept(item: IIngredient) {
     this.openWiki(item);
   }
 

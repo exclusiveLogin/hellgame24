@@ -15,11 +15,11 @@ export class UserGlobalComponent implements OnInit, OnChanges {
   private _globalSubscripton: Subscription;
   private globalGetItemsSubscription: Subscription;
 
-  @Input() public height: number = 400;
+  @Input() public height = 400;
 
   @Input() public author: string;
 
-  public ownerMode: boolean = false;
+  public ownerMode = false;
 
   private skip = 0;
   public nomore = false;
@@ -34,40 +34,42 @@ export class UserGlobalComponent implements OnInit, OnChanges {
     this.refreshGlobalCodes();
   }
 
-  private refreshGlobalCodes(): void{
-    if( !!this.author )
+  private refreshGlobalCodes(): void {
+    if ( !!this.author ) {
       this.globalGetItemsSubscription = this.global.getStates( this.author ).subscribe(items => {
         console.log('devss loginservice get', items);
         this._items = items;
         this.skip = items.length;
       });
+    }
   }
 
-  public next(): void{
-    if( !!this.author )
+  public next(): void {
+    if ( !!this.author ) {
       this.globalGetItemsSubscription = this.global.getStates( this.author, this.skip ).subscribe( items => {
         items.length && this._items.push(...items);
         this.skip += items.length;
-        if(!items.length) this.nomore = true;
+        if (!items.length) { this.nomore = true; }
       });
+    }
   }
 
-  public removeBlogItem( id: string ){
-    
+  public removeBlogItem( id: string ) {
+
   }
 
-  ngOnChanges(sc: SimpleChanges){
-    if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
-      if( this.globalGetItemsSubscription ) this.globalGetItemsSubscription.unsubscribe();
+  ngOnChanges(sc: SimpleChanges) {
+    if (!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue) {
+      if ( this.globalGetItemsSubscription ) { this.globalGetItemsSubscription.unsubscribe(); }
       this.refreshGlobalCodes();
     }
     this.ownerMode = (this.auth.authorizedAs() === this.author) ? true : false;
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    if( this._globalSubscripton ) this._globalSubscripton.unsubscribe();
-    if( this.globalGetItemsSubscription ) this.globalGetItemsSubscription.unsubscribe();
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
+    if ( this._globalSubscripton ) { this._globalSubscripton.unsubscribe(); }
+    if ( this.globalGetItemsSubscription ) { this.globalGetItemsSubscription.unsubscribe(); }
   }
 }

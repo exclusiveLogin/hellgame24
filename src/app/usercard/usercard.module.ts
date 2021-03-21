@@ -11,7 +11,7 @@ import { UsercardledComponent } from './usercardled/usercardled.component';
     UsercardComponent,
     UsercardledComponent
   ],
-  exports:[
+  exports: [
     UsercardComponent,
     UsercardledComponent
   ]

@@ -13,7 +13,7 @@ import { UserMailItemComponent } from './user-mail-group/user-mail-item/user-mai
     UserMailGroupComponent,
     UserMailItemComponent
   ],
-  exports:[
+  exports: [
     UserMailComponent,
     UserMailGroupComponent,
     UserMailItemComponent

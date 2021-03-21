@@ -19,7 +19,7 @@ export class AccessoryLabItemComponent implements OnInit {
   @Output() public ready: EventEmitter<boolean> = new EventEmitter();
 
   public targetItem: IIngredient;
-  public inStock: number  = 0;
+  public inStock  = 0;
 
   constructor(
     private ingredient: IngredientService,
@@ -29,24 +29,24 @@ export class AccessoryLabItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if( this.itemID ){
+    if ( this.itemID ) {
         this.ingredient.getIngredientById( this.itemID )
         .pipe(filter<IIngredient>(it => !!it))
         .subscribe((i) => {
           this.targetItem = i;
 
-          this.getCountOfItemOfUser(this.targetItem.id)
+          this.getCountOfItemOfUser(this.targetItem.id);
         });
-    }else{
+    } else {
       this.ready.emit(true);
     }
   }
 
-  public getItemIcon(){
-    return this.targetItem && this.targetItem.image_min ? this.api.getIconPath('ingredient') +this.targetItem.image_min : this.api.getIconPath('ingredient') + 'no_icon.png'
+  public getItemIcon() {
+    return this.targetItem && this.targetItem.image_min ? this.api.getIconPath('ingredient') + this.targetItem.image_min : this.api.getIconPath('ingredient') + 'no_icon.png';
   }
 
-  private getCountOfItemOfUser(id: string){
+  private getCountOfItemOfUser(id: string) {
     this.inventory.getIngredientsOfUser(this.auth.authorizedAs(), id)
       .subscribe( (ingredients: ISlot[]) => {
         this.inStock = ingredients ? ingredients.length : 0;
@@ -54,9 +54,8 @@ export class AccessoryLabItemComponent implements OnInit {
     });
   }
 
-  private recalc(){
-    if( this.inStock >= this.reqNum ) this.ready.emit( true );
-    else this.ready.emit( false );
+  private recalc() {
+    if ( this.inStock >= this.reqNum ) { this.ready.emit( true ); } else { this.ready.emit( false ); }
   }
 
 }

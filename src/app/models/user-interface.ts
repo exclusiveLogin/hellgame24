@@ -28,38 +28,38 @@ export interface IUser {
   emo_trend$?: Observable<ITrendItem[]>;
   firstInit?: boolean;
   game_status?: IUserStatus;
-  last_emo_status?:string;
+  last_emo_status?: string;
   online?: boolean;
-  address?:string;
-  last_login?: ILoginLog
+  address?: string;
+  last_login?: ILoginLog;
 }
 
 export interface ILoginLog {
-  id: string,
-  login: string,
-  user_agent?: string,
-  battery?: string,
-  position_lat?: string,
-  position_lon?: string,
-  accuracy?: string,
-  network_equal?: string,
-  dlink?: string,
-  datetime_create?: string,
+  id: string;
+  login: string;
+  user_agent?: string;
+  battery?: string;
+  position_lat?: string;
+  position_lon?: string;
+  accuracy?: string;
+  network_equal?: string;
+  dlink?: string;
+  datetime_create?: string;
 }
 
-export interface ITrendItem{
-  id: string,
-  value: string,
-  datetime: string,
-  title: string,
-  utc: string,
+export interface ITrendItem {
+  id: string;
+  value: string;
+  datetime: string;
+  title: string;
+  utc: string;
 }
 
 export interface IUserEmo {
-  id?: string,
-  login?: string,
-  value: number,
-  title?: string,
-  datetime?: string,
-  mode?:string,
+  id?: string;
+  login?: string;
+  value: number;
+  title?: string;
+  datetime?: string;
+  mode?: string;
 }

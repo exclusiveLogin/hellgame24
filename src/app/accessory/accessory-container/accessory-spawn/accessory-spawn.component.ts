@@ -22,7 +22,7 @@ export class AccessorySpawnComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.spawnID) {
+    if (this.spawnID) {
       this.spawnService.getSpawnerById( this.spawnID ).subscribe(s => {
         this.spawn = s;
         this.checkArmedSlot();
@@ -30,19 +30,19 @@ export class AccessorySpawnComponent implements OnInit {
     }
   }
 
-  private checkArmedSlot(){
+  private checkArmedSlot() {
     this.spawn && this.spawn.armed_slot_id && this.inventory.getSlotById( this.spawn.armed_slot_id )
       .subscribe(slot => this.armedSlot = slot);
   }
 
   public clickAdditionalBtn(ab: IAdditionalButtons) {
-    if (ab.onClick) ab.onClick( this.spawn || this.spawnID );
+    if (ab.onClick) { ab.onClick( this.spawn || this.spawnID ); }
   }
 
-  public canShown( ab: IAdditionalButtons ): boolean{
-    if(!ab) return;
-    if(!!ab && !ab.if) return true;
-    if(!!ab && !!ab.if) return ab.if( this.spawn || this.spawnID );
+  public canShown( ab: IAdditionalButtons ): boolean {
+    if (!ab) { return; }
+    if (!!ab && !ab.if) { return true; }
+    if (!!ab && !!ab.if) { return ab.if( this.spawn || this.spawnID ); }
   }
 
 }

@@ -9,10 +9,10 @@ import { Title } from '@angular/platform-browser';
 import { MessageService } from '../../services/message.service';
 import { ConnectorWrapperService } from '../../services/connector-wrapper.service';
 
-export interface IMessangerData{
-  title?: string,
-  text?: string,
-  operation: string,
+export interface IMessangerData {
+  title?: string;
+  text?: string;
+  operation: string;
   /*etc в зависимости от  количество полей мессенджера*/
 }
 
@@ -25,9 +25,9 @@ export class MessangerComponent implements OnInit {
 
   @Input() private service4Work: string;
 
-  @Input() private useServices: boolean = false;
+  @Input() private useServices = false;
 
-  @Input() private mode: string = 'simple';
+  @Input() private mode = 'simple';
 
   @Input() title: string;
 
@@ -51,26 +51,26 @@ export class MessangerComponent implements OnInit {
     this.debug = this.state.getState().debug;
   }
 
-  public sendMessage(text_field: string): void{
-    if(text_field && text_field.length){
-      let data: IMessangerData = {
+  public sendMessage(text_field: string): void {
+    if (text_field && text_field.length) {
+      const data: IMessangerData = {
         title: 'Без заголовка',
         text: text_field,
         operation: 'add'
       };
 
-      if( this.useServices && this.service4Work ){
-        let service = this.services.getCoreService<MessageService>( this.service4Work );
+      if ( this.useServices && this.service4Work ) {
+        const service = this.services.getCoreService<MessageService>( this.service4Work );
         service.setData( data )
           .subscribe( result => this.service4Work ? this.tes.refreshSegment( this.service4Work ) : null );
-      } else if( this.path.segment && this.path.script ){
-        let request: IDataRequest = {
-          body:data
+      } else if ( this.path.segment && this.path.script ) {
+        const request: IDataRequest = {
+          body: data
         };
 
         this.con.setData( this.path, request )
-          .subscribe(result=> console.log('devss result: ', result));
-      } else{
+          .subscribe(result => console.log('devss result: ', result));
+      } else {
         console.error('Messanger Component не может обработать запрос');
       }
 
@@ -79,7 +79,7 @@ export class MessangerComponent implements OnInit {
   }
 
   public onKeydown(event) {
-    if ( event.key === "Enter" ) {
+    if ( event.key === 'Enter' ) {
       this.sendMessage( event.target.value );
     }
   }

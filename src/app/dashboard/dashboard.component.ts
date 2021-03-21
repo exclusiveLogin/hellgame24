@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   private userEmoShownSub: Subscription;
 
   private userStatusChangeSub: Subscription;
-  
+
 
   ngOnInit() {
     console.log('DASHBOARD INIT:');
@@ -53,12 +53,12 @@ export class DashboardComponent implements OnInit {
         this.v_users = users;
 
         // если переход по URL
-        if( this.router.snapshot.params['user'] ) {
+        if ( this.router.snapshot.params['user'] ) {
           this.cur_user = users.find(u => u.login === this.router.snapshot.params['user']);
-          if( this.cur_user ) this.ui.setCurrentUserSelect( this.cur_user );
+          if ( this.cur_user ) { this.ui.setCurrentUserSelect( this.cur_user ); }
         } else {
           this.cur_user = users.find( u => u.login === this.auth.authorizedAs() );
-          if( this.cur_user && !this.ui.getCurrentUserSelect()) {
+          if ( this.cur_user && !this.ui.getCurrentUserSelect()) {
             this.ui.setCurrentUserSelect( this.cur_user );
           }
         }
@@ -66,10 +66,10 @@ export class DashboardComponent implements OnInit {
 
       });
 
-    this.userStatusChangeSub = this.tes.getSegmentRefreshSignal('status').pipe( switchMap( ()=> this.users.refreshUsers()) ).subscribe( users => this.v_users = users);
+    this.userStatusChangeSub = this.tes.getSegmentRefreshSignal('status').pipe( switchMap( () => this.users.refreshUsers()) ).subscribe( users => this.v_users = users);
 
     this.userChangeSub = this.ui.getCurrentUserChangeEvent().subscribe(user => {
-      if( user ){
+      if ( user ) {
         this.cur_user = user;
       console.log('devss user changed on:', user.login);
       }
@@ -93,31 +93,31 @@ export class DashboardComponent implements OnInit {
     });*/
   }
 
-  public isUserOwner(user: IUser): boolean{
+  public isUserOwner(user: IUser): boolean {
     return user.login === this.auth.authorizedAs();
   }
 
-  public selectUser( user: IUser ){
+  public selectUser( user: IUser ) {
     this.ui.setCurrentUserSelect(user);
   }
 
-  public forMe( user: IUser ): boolean{
+  public forMe( user: IUser ): boolean {
     return this.auth.authorizedAs() === (user && user.login);
   }
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    if( this.routerSub ) this.routerSub.unsubscribe();
-    if( this.routerParamsSub ) this.routerParamsSub.unsubscribe();
-    if( this.userChangeSub ) this.userChangeSub.unsubscribe();
-    if( this.userMailShownSub ) this.userMailShownSub.unsubscribe();
-    if( this.userStatusShownSub ) this.userStatusShownSub.unsubscribe();
-    if( this.userStatusChangeSub ) this.userStatusChangeSub.unsubscribe();
-    if( this.userEmoShownSub ) this.userEmoShownSub.unsubscribe();
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
+    if ( this.routerSub ) { this.routerSub.unsubscribe(); }
+    if ( this.routerParamsSub ) { this.routerParamsSub.unsubscribe(); }
+    if ( this.userChangeSub ) { this.userChangeSub.unsubscribe(); }
+    if ( this.userMailShownSub ) { this.userMailShownSub.unsubscribe(); }
+    if ( this.userStatusShownSub ) { this.userStatusShownSub.unsubscribe(); }
+    if ( this.userStatusChangeSub ) { this.userStatusChangeSub.unsubscribe(); }
+    if ( this.userEmoShownSub ) { this.userEmoShownSub.unsubscribe(); }
     console.log('dashboard DESTROY');
   }
 
-  public trackByFn( index, item: IUser){
+  public trackByFn( index, item: IUser) {
     return item.login || index;
   }
 }

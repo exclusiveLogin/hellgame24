@@ -12,7 +12,7 @@ import { ReceiptService, IRecieptPartData } from '../../../receipt.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccessoryLabComponent implements OnInit {
-  private e_slot: boolean = false;
+  private e_slot = false;
   private e_parts: {idSlot: string, flag: boolean}[] = [];
 
   @Input() public targetId;
@@ -36,28 +36,29 @@ export class AccessoryLabComponent implements OnInit {
       .subscribe( (recParts: IRecieptPartData[]) => {
         this.receiptParts = recParts;
 
-        this.e_parts = recParts.map(i => { return{idSlot: i.require_ingredient, flag: false} })
+        this.e_parts = recParts.map(i => ({idSlot: i.require_ingredient, flag: false}));
         this.ds.markForCheck();
       });
   }
 
-  public emptySlotEstablished(flag: boolean){
+  public emptySlotEstablished(flag: boolean) {
     this.e_slot = flag;
     this.ds.markForCheck();
   }
 
-  public e_partEstablished( flag: boolean, index: number ){
-    Promise.resolve().then(()=>this.e_parts[index].flag = flag);
-    setTimeout(()=>this.ds.markForCheck(), 500);
+  public e_partEstablished( flag: boolean, index: number ) {
+    Promise.resolve().then(() => this.e_parts[index].flag = flag);
+    setTimeout(() => this.ds.markForCheck(), 500);
   }
 
-  public canCraft(): boolean{
+  public canCraft(): boolean {
     return this.e_slot && this.e_parts.every(p => !!p.flag);
   }
 
-  public craftThisItem(){
-    if(confirm('Создать?'))
+  public craftThisItem() {
+    if (confirm('Создать?')) {
       this.inventory.clearCache();
+    }
       this.inventory.craftNewInventoryItem( this.targetId, this.emptySlot.id, this.receiptParts );
     this.close.emit();
   }

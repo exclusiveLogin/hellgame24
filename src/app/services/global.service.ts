@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 import { map, tap } from 'rxjs/operators';
 import { ConnectorWrapperService } from './connector-wrapper.service';
 
-let path: Path = {
+const path: Path = {
   segment: 'state',
   script: 'state_handler.php'
 };
@@ -27,24 +27,24 @@ export class GlobalService {
       );
   }
 
-  public getStates( user: string, skip: number = null ): Observable<IGlobalState[]>{
+  public getStates( user: string, skip: number = null ): Observable<IGlobalState[]> {
 
-    let params: IParams = skip ? {
+    const params: IParams = skip ? {
       login: user,
       limit: 10,
       skip
-    }: {
+    } : {
       login: user,
       limit: 10
-    }
+    };
 
     return this.con.getData<IGlobalState[]>( path, params );
   }
-  
-  public setGlobalStatus(global_code: string, msg: string = ""): Observable<IGlobalState> {
-    let data: IDataRequest = {
+
+  public setGlobalStatus(global_code: string, msg: string = ''): Observable<IGlobalState> {
+    const data: IDataRequest = {
       body: {
-        mode: "add_state",
+        mode: 'add_state',
         global_code,
         login: this.auth.authorizedAs(),
         message: msg
@@ -56,11 +56,11 @@ export class GlobalService {
       );
   }
 
-  public getGlobalState(){
+  public getGlobalState() {
     return this.glState.asObservable();
   }
 
-  public updateGlobalState( state: any ): void{
+  public updateGlobalState( state: any ): void {
     this.glState.next( state );
   }
 }

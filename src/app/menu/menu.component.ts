@@ -32,15 +32,15 @@ export class MenuComponent implements OnInit {
       });
   }
 
-  public logout(){
+  public logout() {
     this.auth.logout();
   }
 
-  public logs(){
+  public logs() {
     this.router.navigate(['logs']);
   }
 
-  public dashboard(){
+  public dashboard() {
     this.router.navigate(['dashboard', this.auth.authorizedAs()]);
   }
 }

@@ -10,25 +10,25 @@ export class UserBlogItemComponent implements OnInit {
 
   @Output() removeMessageEvent = new EventEmitter<boolean>();
 
-  @Input() ownerMode: boolean = false;
+  @Input() ownerMode = false;
 
-  @Input() public useIconInBtns: boolean = true;
+  @Input() public useIconInBtns = true;
 
   @Input() public item: IBlogData =  {
-    title: "Заголовок не задан",
+    title: 'Заголовок не задан',
     text_field: '-',
     datetime: '--,--,--',
     id: '#unknown'
   };
 
   public _iconDeleteBtn = '<i class="fas fa-trash"></i>';
-  
+
   constructor() { }
 
   ngOnInit() {
   }
 
-  public removeThisMessage(){
-    if( confirm('Точно удалить?')) this.removeMessageEvent.emit(true);
-  };
+  public removeThisMessage() {
+    if ( confirm('Точно удалить?')) { this.removeMessageEvent.emit(true); }
+  }
 }

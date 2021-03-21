@@ -7,6 +7,6 @@ import { UserNotyfierComponent } from './user-notyfier.component';
     CommonModule
   ],
   declarations: [UserNotyfierComponent],
-  exports:[UserNotyfierComponent]
+  exports: [UserNotyfierComponent]
 })
 export class UserNotifierModule { }

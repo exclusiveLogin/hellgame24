@@ -16,11 +16,11 @@ export class UserLoginsComponent implements OnInit, OnChanges {
   private _loginsSubscripton: Subscription;
   private loginsGetItemsSubscription: Subscription;
 
-  @Input() public height: number = 400;
+  @Input() public height = 400;
 
   @Input() public author: string;
 
-  public ownerMode: boolean = false;
+  public ownerMode = false;
 
   private skip = 0;
   public nomore = false;
@@ -36,40 +36,42 @@ export class UserLoginsComponent implements OnInit, OnChanges {
     this.refreshLogins();
   }
 
-  private refreshLogins(): void{
-    if( !!this.author )
+  private refreshLogins(): void {
+    if ( !!this.author ) {
       this.loginsGetItemsSubscription = this.loginsService.getLoginsLog( this.author ).subscribe(items => {
         console.log('devss loginservice get', items);
         this._items = items;
         this.skip = items.length;
       });
+    }
   }
 
-  public next(): void{
-    if( !!this.author )
+  public next(): void {
+    if ( !!this.author ) {
       this.loginsGetItemsSubscription = this.loginsService.getLoginsLog(this.author, this.skip).subscribe( items => {
         items.length && this._items.push(...items);
         this.skip += items.length;
-        if(!items.length) this.nomore = true;
+        if (!items.length) { this.nomore = true; }
       });
+    }
   }
 
-  public removeBlogItem( id: string ){
-    
+  public removeBlogItem( id: string ) {
+
   }
 
-  ngOnChanges(sc: SimpleChanges){
-    if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
-      if( this.loginsGetItemsSubscription ) this.loginsGetItemsSubscription.unsubscribe();
+  ngOnChanges(sc: SimpleChanges) {
+    if (!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue) {
+      if ( this.loginsGetItemsSubscription ) { this.loginsGetItemsSubscription.unsubscribe(); }
       this.refreshLogins();
     }
     this.ownerMode = (this.auth.authorizedAs() === this.author) ? true : false;
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    if( this._loginsSubscripton ) this._loginsSubscripton.unsubscribe();
-    if( this.loginsGetItemsSubscription ) this.loginsGetItemsSubscription.unsubscribe();
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
+    if ( this._loginsSubscripton ) { this._loginsSubscripton.unsubscribe(); }
+    if ( this.loginsGetItemsSubscription ) { this.loginsGetItemsSubscription.unsubscribe(); }
   }
 }

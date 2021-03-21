@@ -9,10 +9,10 @@ import { UiService } from '../../../services/ui.service';
 import { enterLeaveAnimationDefault } from '../../../models/enterLeaveAnimation';
 
 
-export interface IGroupMessages{
-  author: string,
-  messages: IMessageData[],
-  user: Observable<IUser>,
+export interface IGroupMessages {
+  author: string;
+  messages: IMessageData[];
+  user: Observable<IUser>;
 }
 
 @Component({
@@ -25,7 +25,7 @@ export class UserMailComponent implements OnInit {
 
   @Input() public title: string;
   @Input() public user: string;
-  @Input() public useGroup: boolean = true;
+  @Input() public useGroup = true;
 
   @HostBinding('@Anima') public myStatusAnima = true;
 
@@ -41,11 +41,11 @@ export class UserMailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if( this.user ) {
-      
+    if ( this.user ) {
+
       this._messageSubscription = this.tes.getSegmentRefreshSignal( 'usermail' )
       .subscribe( refreshFlag => {
-        if( !!refreshFlag ) Promise.resolve().then(() => this.refreshMessages());
+        if ( !!refreshFlag ) { Promise.resolve().then(() => this.refreshMessages()); }
       });
 
       this.refreshMessages();
@@ -63,30 +63,30 @@ export class UserMailComponent implements OnInit {
       console.log('devss USERMAIL RefreshMessages get', items);
       this._messageItems = items;
 
-      if( this.useGroup ) this.groupMessages( items );
+      if ( this.useGroup ) { this.groupMessages( items ); }
     });
   }
 
   private groupMessages( messages: IMessageData[] ): void {
-    if( messages ){
-      let group: IGroupMessages[] = [];
+    if ( messages ) {
+      const group: IGroupMessages[] = [];
 
       messages.forEach((message: IMessageData) => {
-        let eg: IGroupMessages = group.find( existGroup => existGroup.author === message.author)
+        const eg: IGroupMessages = group.find( existGroup => existGroup.author === message.author);
 
-        if( eg ) eg.messages ? eg.messages.push( message ) : eg.messages = [];
-        else group.push({
+        if ( eg ) { eg.messages ? eg.messages.push( message ) : eg.messages = []; } else { group.push({
           author: message.author,
           messages: [message],
           user: this.userService.getUser( message.author )
         });
+        }
       });
 
       this._groupedItems = group;
     }
   }
 
-  public closeMail(){
+  public closeMail() {
     this.ui.closeUsermail();
   }
 

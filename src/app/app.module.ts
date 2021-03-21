@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 
@@ -31,8 +31,8 @@ import { UxEventerService } from './services/ux-eventer.service';
 import { LsService } from './services/ls.service';
 import { ConnectorWrapperService } from './services/connector-wrapper.service';
 
-let dashboardRoutes: Routes = [
-  { path: '', redirectTo:'default', pathMatch: 'full' },
+const dashboardRoutes: Routes = [
+  { path: '', redirectTo: 'default', pathMatch: 'full' },
   { path: ':user', component: DashboardComponent },
 ];
 

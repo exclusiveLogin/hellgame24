@@ -14,9 +14,9 @@ export class UserLoginsItemComponent implements OnInit {
 
   @Output() removeMessageEvent = new EventEmitter<boolean>();
 
-  @Input() ownerMode: boolean = false;
+  @Input() ownerMode = false;
 
-  @Input() public useIconInBtns: boolean = true;
+  @Input() public useIconInBtns = true;
 
   @Input() public item: ILoginLog =  {
     id: '',
@@ -32,37 +32,38 @@ export class UserLoginsItemComponent implements OnInit {
 
   public _address: string = null;
 
-  public getUASystem(u: string){
-    let userAgent = ua(u);
-    return `${userAgent.os.name ? userAgent.os.name :''} ${userAgent.os.version ? userAgent.os.version :''}`;
+  public getUASystem(u: string) {
+    const userAgent = ua(u);
+    return `${userAgent.os.name ? userAgent.os.name : ''} ${userAgent.os.version ? userAgent.os.version : ''}`;
   }
 
-  public getUABrowser(u: string){
-    let userAgent = ua(u);
-    return `${userAgent.browser.name ? userAgent.browser.name :''} ${userAgent.browser.version ? userAgent.browser.version :''}`;
+  public getUABrowser(u: string) {
+    const userAgent = ua(u);
+    return `${userAgent.browser.name ? userAgent.browser.name : ''} ${userAgent.browser.version ? userAgent.browser.version : ''}`;
   }
 
-  public getUADevice(u: string){
-    let userAgent = ua(u);
-    return `${userAgent.device.model ? userAgent.device.model :''} ${userAgent.device.type ? userAgent.device.type :''} ${userAgent.device.vendor ? userAgent.device.vendor :''}`;
-  } 
+  public getUADevice(u: string) {
+    const userAgent = ua(u);
+    return `${userAgent.device.model ? userAgent.device.model : ''} ${userAgent.device.type ? userAgent.device.type : ''} ${userAgent.device.vendor ? userAgent.device.vendor : ''}`;
+  }
 
-  public getUADeviceType(u: string){
-    let userAgent = ua(u);
+  public getUADeviceType(u: string) {
+    const userAgent = ua(u);
     return userAgent.device.type ? userAgent.device.type : null;
-  } 
+  }
 
-  
+
   constructor(
     private dadata: DadataService
   ) { }
 
   ngOnInit() {
-    if(this.item.position_lat && this.item.position_lon ) this.dadata.getAddressesFromLocation( this.item.position_lat, this.item.position_lon, this.item.accuracy )
+    if (this.item.position_lat && this.item.position_lon ) { this.dadata.getAddressesFromLocation( this.item.position_lat, this.item.position_lon, this.item.accuracy )
       .subscribe( address => this._address = address );
+    }
   }
 
-  public removeThisMessage(){
-    if( confirm('Точно удалить?')) this.removeMessageEvent.emit(true);
-  };
+  public removeThisMessage() {
+    if ( confirm('Точно удалить?')) { this.removeMessageEvent.emit(true); }
+  }
 }

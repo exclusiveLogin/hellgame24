@@ -16,11 +16,11 @@ export class UserEmoComponent implements OnInit, OnChanges {
   private _emoSubscripton: Subscription;
   private emoGetItemsSubscription: Subscription;
 
-  @Input() public height: number = 400;
+  @Input() public height = 400;
 
   @Input() public author: string;
 
-  public ownerMode: boolean = false;
+  public ownerMode = false;
 
   private skip = 0;
   public nomore = false;
@@ -36,7 +36,7 @@ export class UserEmoComponent implements OnInit, OnChanges {
     this._emoSubscripton = this.tes.getSegmentRefreshSignal( 'emo' )
       .subscribe( refreshFlag => {
         console.log('devss REFRESH FLAG', refreshFlag);
-        Promise.resolve().then(()=>this.refreshEmo());
+        Promise.resolve().then(() => this.refreshEmo());
       } );
 
 
@@ -44,40 +44,42 @@ export class UserEmoComponent implements OnInit, OnChanges {
     this.refreshEmo();
   }
 
-  private refreshEmo(): void{
-    if( !!this.author )
+  private refreshEmo(): void {
+    if ( !!this.author ) {
       this.emoGetItemsSubscription = this.emoService.getUserTrend( this.author ).subscribe(items => {
         console.log('devss emoservice get', items);
         this._items = items;
         this.skip = items.length;
       });
+    }
   }
 
-  public next(): void{
-    if( !!this.author )
+  public next(): void {
+    if ( !!this.author ) {
       this.emoGetItemsSubscription = this.emoService.getUserTrend(this.author, this.skip).subscribe( items => {
         items.length && this._items.push(...items);
         this.skip += items.length;
-        if(!items.length) this.nomore = true;
+        if (!items.length) { this.nomore = true; }
       });
+    }
   }
 
-  public removeBlogItem( id: string ){
-    
+  public removeBlogItem( id: string ) {
+
   }
 
-  ngOnChanges(sc: SimpleChanges){
-    if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
-      if( this.emoGetItemsSubscription ) this.emoGetItemsSubscription.unsubscribe();
+  ngOnChanges(sc: SimpleChanges) {
+    if (!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue) {
+      if ( this.emoGetItemsSubscription ) { this.emoGetItemsSubscription.unsubscribe(); }
       this.refreshEmo();
     }
     this.ownerMode = (this.auth.authorizedAs() === this.author) ? true : false;
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    if( this._emoSubscripton ) this._emoSubscripton.unsubscribe();
-    if( this.emoGetItemsSubscription ) this.emoGetItemsSubscription.unsubscribe();
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
+    if ( this._emoSubscripton ) { this._emoSubscripton.unsubscribe(); }
+    if ( this.emoGetItemsSubscription ) { this.emoGetItemsSubscription.unsubscribe(); }
   }
 }

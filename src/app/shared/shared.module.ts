@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
     Ng5SliderModule,
     FormsModule
   ],
-  exports:[
+  exports: [
     Ng5SliderModule,
     FormsModule
   ]

@@ -11,7 +11,7 @@ import { UserLoginsItemComponent } from './user-logins-item/user-logins-item.com
     UserLoginsComponent,
     UserLoginsItemComponent
   ],
-  exports:[
+  exports: [
     UserLoginsComponent,
     UserLoginsItemComponent
   ]

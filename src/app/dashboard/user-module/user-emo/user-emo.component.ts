@@ -11,52 +11,52 @@ import { TopEventsService } from '../../../services/topevents.service';
   selector: 'app-user-emo',
   templateUrl: './user-emo.component.html',
   styleUrls: ['./user-emo.component.css'],
-  animations:[ enterLeaveAnimationDefault]
+  animations: [ enterLeaveAnimationDefault]
 })
 export class UserEmoComponent implements OnInit {
 
-  @HostBinding('@Anima') public myStatusAnima = true;
-  @Input() oldEmo: number;
-
-  constructor( 
+  constructor(
     private ui: UiService,
     private auth: AuthService,
     private user: UserServiceService,
     private uxevent: UxEventerService,
     private tes: TopEventsService,
      ) { }
-     
+
+  @HostBinding('@Anima') public myStatusAnima = true;
+  @Input() oldEmo: number;
+
   public sliderValue;
   public emo_title = '';
 
-  ngOnInit() {
-    this.sliderValue = this.oldEmo || 5;
-  }
-  
   public sliderOptions: Options = {
     floor: 0,
     ceil: 10,
     showTicks: true,
+  };
+
+  ngOnInit() {
+    this.sliderValue = this.oldEmo || 5;
   }
 
-  public close(){
+  public close() {
     this.ui.closeEmoStatus();
   }
 
-  public submitEmo(){
-    let login = this.auth.authorizedAs();
+  public submitEmo() {
+    const login = this.auth.authorizedAs();
 
-    let o = {
+    const o = {
       login,
       value: this.sliderValue,
       title: this.emo_title,
-    }
+    };
 
     this.user.setUserEmo( o ).subscribe( () => {
       this.close();
       this.tes.refreshSegment('emo');
       this.uxevent.setUserEmo( login, this.sliderValue, this.emo_title);
     });
-    
+
   }
 }

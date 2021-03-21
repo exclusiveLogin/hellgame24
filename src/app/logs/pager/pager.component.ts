@@ -17,10 +17,10 @@ export class PagerComponent implements OnInit {
   constructor( private ui: UiService) { }
 
   ngOnInit() {
-    this.ui.getCurrentUserChangeEvent().subscribe((c_user: IUser)=>{
+    this.ui.getCurrentUserChangeEvent().subscribe((c_user: IUser) => {
       console.log('current user changed: ', c_user);
       this.currentUser = c_user;
-    })
+    });
   }
 
 }

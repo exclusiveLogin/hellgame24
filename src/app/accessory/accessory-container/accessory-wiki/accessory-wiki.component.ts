@@ -10,9 +10,9 @@ import { ApiService } from '../../../services/api.service';
 export class AccessoryWikiComponent implements OnInit {
 
   @Input() target: string;
-  @Input() inCrafter: boolean = false;
+  @Input() inCrafter = false;
   public item: IIngredient;
-  public canShown: boolean = false;
+  public canShown = false;
   @Output() close: EventEmitter<void> = new EventEmitter();
   @Output() inlab: EventEmitter<void> = new EventEmitter();
 
@@ -22,21 +22,21 @@ export class AccessoryWikiComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.target){
+    if (this.target) {
       this.ingredient.getIngredientById( this.target ).subscribe(ingredientFromApi => this.item = ingredientFromApi);
       this.canShown = true;
     }
   }
 
-  public closeMe(){
+  public closeMe() {
     this.close.emit();
   }
 
-  public goInLab(){
+  public goInLab() {
     this.inlab.emit();
   }
 
-  public getItemImage(){
+  public getItemImage() {
     return this.item && this.item.image_big && this.api.getWikiImagePath() + this.item.image_big;
   }
 

@@ -1,4 +1,4 @@
 export interface Path {
-    segment: string,
-    script: string,
+    segment: string;
+    script: string;
 }

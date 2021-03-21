@@ -5,6 +5,6 @@ export interface MenuStateInterface {
   meteo_upd: boolean;
   settings_upd: boolean;
 }
-export interface IMenustate{
+export interface IMenustate {
   [key: string]: boolean;
 }

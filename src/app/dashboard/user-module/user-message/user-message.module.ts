@@ -11,7 +11,7 @@ import { UserMessageItemComponent } from './user-message-item/user-message-item.
     UserMessageComponent,
     UserMessageItemComponent
   ],
-  exports:[
+  exports: [
     UserMessageComponent,
     UserMessageItemComponent
   ]

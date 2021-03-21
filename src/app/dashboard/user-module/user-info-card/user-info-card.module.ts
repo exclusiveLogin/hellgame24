@@ -7,6 +7,6 @@ import { UserInfoCardComponent } from './user-info-card.component';
     CommonModule
   ],
   declarations: [UserInfoCardComponent],
-  exports:[UserInfoCardComponent],
+  exports: [UserInfoCardComponent],
 })
 export class UserInfoCardModule { }

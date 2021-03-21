@@ -10,13 +10,13 @@ import { IGlobalState } from '../../../models/global-state-interface';
 })
 export class UserGlobalItemComponent implements OnInit {
 
-  public cls: string = 'grey';
+  public cls = 'grey';
 
   @Output() removeMessageEvent = new EventEmitter<boolean>();
 
-  @Input() ownerMode: boolean = false;
+  @Input() ownerMode = false;
 
-  @Input() public useIconInBtns: boolean = true;
+  @Input() public useIconInBtns = true;
 
   @Input() public item: IGlobalState =  {
     id: '',
@@ -26,31 +26,31 @@ export class UserGlobalItemComponent implements OnInit {
   };
 
   public _iconDeleteBtn = '<i class="fas fa-trash"></i>';
-  
+
   constructor(
-    
+
   ) { }
 
   ngOnInit() {
     this.getGlobalCodeTitle();
   }
 
-  public getGlobalCodeTitle(): string{
+  public getGlobalCodeTitle(): string {
     let str: string = null;
 
-    switch( this.item && this.item.global_code ){
+    switch ( this.item && this.item.global_code ) {
       case 'red':
         str = 'Красный код';
-        this.cls = 'red'
-        break; 
+        this.cls = 'red';
+        break;
       case 'orange':
         str = 'Оранжевый код';
         this.cls = 'orange';
-        break; 
+        break;
       case 'green':
         str = 'Зеленый код';
         this.cls = 'green';
-        break; 
+        break;
       default:
         str = this.item.global_code;
         this.cls = 'grey';
@@ -59,7 +59,7 @@ export class UserGlobalItemComponent implements OnInit {
     return str;
   }
 
-  public removeThisMessage(){
-    if( confirm('Точно удалить?')) this.removeMessageEvent.emit(true);
-  };
+  public removeThisMessage() {
+    if ( confirm('Точно удалить?')) { this.removeMessageEvent.emit(true); }
+  }
 }

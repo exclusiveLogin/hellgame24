@@ -25,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     UserCardModule,
   ],
   declarations: [
-  
+
   ],
   exports: [
     UserBlogModule,

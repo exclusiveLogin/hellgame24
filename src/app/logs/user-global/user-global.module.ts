@@ -11,7 +11,7 @@ import { UserGlobalItemComponent } from './user-global-item/user-global-item.com
     UserGlobalComponent,
     UserGlobalItemComponent
   ],
-  exports:[
+  exports: [
     UserGlobalComponent,
     UserGlobalItemComponent
   ]

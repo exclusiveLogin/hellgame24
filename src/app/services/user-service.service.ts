@@ -15,7 +15,7 @@ import {IParams} from './connector.service';
 import {Path} from '../models/path';
 import {TopEventsService} from './topevents.service';
 import {filter, map, take} from 'rxjs/operators';
-import * as moment from "moment";
+import * as moment from 'moment';
 import {DadataService} from './dadata.service';
 import {ConnectorWrapperService} from './connector-wrapper.service';
 
@@ -34,7 +34,7 @@ export class UserServiceService {
         private tes: TopEventsService,
         private dadata: DadataService,
     ) {
-        console.log("USERS SERVICE", this);
+        console.log('USERS SERVICE', this);
         this.tes.getSegmentRefreshSignal('emo').subscribe(state => {
             !!state && this.clearTrendCache();
         });
@@ -52,7 +52,7 @@ export class UserServiceService {
             this.tes.refreshSegment('status');
         }, 60000);
 
-        this.tes.refreshSegment("status");
+        this.tes.refreshSegment('status');
     }
 
     public oldDate(date: string): boolean {
@@ -62,11 +62,11 @@ export class UserServiceService {
 
     public getUsersInit(): Observable<IUser[]> {
 
-        if (this.fetchedUsers) return of(this.fetchedUsers);
+        if (this.fetchedUsers) { return of(this.fetchedUsers); }
 
         return this.http.get<IUserState[]>(this.apiservice.getApi() + 'users_state.php').pipe(
             map((users) => {
-                let users_result: IUser[] = users.map((user: IUserState) => {
+                const users_result: IUser[] = users.map((user: IUserState) => {
                     let st = 'Не играет';
 
                     if (user.upd && !this.oldDate(user.upd)) {
@@ -78,7 +78,7 @@ export class UserServiceService {
                     }
 
 
-                    let returned_user: IUser = {
+                    const returned_user: IUser = {
                         login: user.login,
                         title: user.title,
                         message: {
@@ -92,7 +92,7 @@ export class UserServiceService {
                         avatar_min_url: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_min}`),
                         avatar_big: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_big}`),
                         last_change_datetime: user.upd,
-                        last_change_datetime_humanity: user.upd ? moment.utc(Number(user.upd)).utcOffset(3).format("DD.MM.YYYY HH:mm") : null,
+                        last_change_datetime_humanity: user.upd ? moment.utc(Number(user.upd)).utcOffset(3).format('DD.MM.YYYY HH:mm') : null,
                         last_change_status_datetime: user.status && user.status[0] && user.status[0].datetime_create,
                         emo_trend: null,
                         last_emo_status: null,
@@ -115,7 +115,7 @@ export class UserServiceService {
     }
 
     public getUser(id: string): Observable<IUser> {
-        if (this.fetchedUsers) return of(this.fetchedUsers.find(user => user.login === id));
+        if (this.fetchedUsers) { return of(this.fetchedUsers.find(user => user.login === id)); }
         return this.getUsersInit().pipe(
             map(users => users.find(u => u.login === id))
         );
@@ -124,7 +124,7 @@ export class UserServiceService {
     public setUser(user: IUser): void {
         let targetUserInCache = this.fetchedUsers && this.fetchedUsers.find(u => u.login === user.login);
 
-        if (targetUserInCache) targetUserInCache = JSON.parse(JSON.stringify(user));
+        if (targetUserInCache) { targetUserInCache = JSON.parse(JSON.stringify(user)); }
 
     }
 
@@ -133,11 +133,11 @@ export class UserServiceService {
     }
 
     public setUserTrendCache(user: string, trend: ITrendItem[]) {
-        if (this.usersTrends) this.usersTrends[user] = trend;
+        if (this.usersTrends) { this.usersTrends[user] = trend; }
     }
 
     public clearUserTrendCache(user: string): void {
-        if (this.usersTrends) delete this.usersTrends[user];
+        if (this.usersTrends) { delete this.usersTrends[user]; }
     }
 
     public clearTrendCache(): void {
@@ -150,31 +150,31 @@ export class UserServiceService {
 
     public getUserTrend(user: string, skip: number = null, limit = null) {
 
-        let cached = !skip && !limit && this.getUserTrendCache(user);
+        const cached = !skip && !limit && this.getUserTrendCache(user);
 
-        //console.log("CASHED:", cached);
+        // console.log("CASHED:", cached);
 
-        if (cached) return of(cached);
+        if (cached) { return of(cached); }
 
-        let path: Path = {
+        const path: Path = {
             segment: 'emo',
             script: 'emo_handler.php'
         };
 
-        let data: IParams = {
+        const data: IParams = {
             mode: 'get_trend',
             login: user,
         };
 
-        if (skip) data.skip = skip;
-        if (limit) data.limit = limit;
+        if (skip) { data.skip = skip; }
+        if (limit) { data.limit = limit; }
 
 
         return this.con.getData<ITrendItem[]>(path, data).pipe(
             filter(trend => !!trend),
             map(t => {
                 t.sort((tip: ITrendItem, tin: ITrendItem) => Number(tin.id) - Number(tip.id));
-                //console.log("SORTED 1:", t);
+                // console.log("SORTED 1:", t);
                 this.setUserTrendCache(user, [].concat(t));
                 return t;
             }));
@@ -182,12 +182,12 @@ export class UserServiceService {
     }
 
     public setUserStatus(status: IStatusBtn, user: string) {
-        let path: Path = {
+        const path: Path = {
             segment: 'status',
             script: 'status_handler.php'
         };
 
-        let body: IUserStatus = {
+        const body: IUserStatus = {
             login: user,
             status: status.icon,
             title: status.title,
@@ -200,12 +200,12 @@ export class UserServiceService {
     }
 
     public getUserStatus(user: string, skip: number = null): Observable<IUserStatus[]> {
-        let path: Path = {
+        const path: Path = {
             segment: 'status',
             script: 'status_handler.php'
         };
 
-        let params: IParams = (!!skip) ? {
+        const params: IParams = (!!skip) ? {
             login: user,
             mode: 'get_status',
             limit: 10,
@@ -216,22 +216,22 @@ export class UserServiceService {
             limit: 10
         };
 
-        return this.con.getData<IUserStatus[]>(path, params)
+        return this.con.getData<IUserStatus[]>(path, params);
     }
 
     public setUserEmo(o: { value: number, title: string, login: string }) {
 
-        let path: Path = {
+        const path: Path = {
             segment: 'emo',
             script: 'emo_handler.php'
         };
 
-        let body: IUserEmo = {
+        const body: IUserEmo = {
             value: o.value,
             title: o.title,
             login: o.login,
             mode: 'add_emo',
-        }
+        };
 
         return this.con.setData(path, {body});
     }
@@ -252,7 +252,7 @@ export class UserServiceService {
         const path: Path = {
             segment: 'login',
             script: 'loginhandler.php'
-        }
+        };
 
         const params: IParams = skip ? {
             login,
@@ -261,8 +261,8 @@ export class UserServiceService {
         } : {
             login,
             mode: 'get_logins'
-        }
+        };
 
-        return this.con.getData<ILoginLog[]>(path, params)
+        return this.con.getData<ILoginLog[]>(path, params);
     }
 }

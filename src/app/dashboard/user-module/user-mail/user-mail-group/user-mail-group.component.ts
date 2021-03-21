@@ -9,24 +9,24 @@ import { IGroupMessages } from '../user-mail.component';
 export class UserMailGroupComponent implements OnInit {
 
   @Input() public group: IGroupMessages;
-  @Input() public useGroup: boolean = true;
+  @Input() public useGroup = true;
 
-  public _groupShown: boolean = false;
+  public _groupShown = false;
 
   constructor() { }
 
   ngOnInit() {
     console.log('GROUP INIT:', this.group);
-    if( this.group && this.group.messages ) this._groupShown = this.group.messages.some(message => !message.readed);
+    if ( this.group && this.group.messages ) { this._groupShown = this.group.messages.some(message => !message.readed); }
   }
 
-  public toggleGroupShown(): void{
+  public toggleGroupShown(): void {
     this._groupShown = !this._groupShown;
   }
 
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
     console.log('GROUP DESTROY:', this.group);
   }
 }

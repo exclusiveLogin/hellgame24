@@ -11,7 +11,7 @@ import { UserBlogItemComponent } from './user-blog-item/user-blog-item.component
     UserBlogComponent,
     UserBlogItemComponent
   ],
-  exports:[
+  exports: [
     UserBlogComponent,
     UserBlogItemComponent
   ]

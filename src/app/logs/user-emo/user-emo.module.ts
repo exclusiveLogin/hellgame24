@@ -11,7 +11,7 @@ import { UserEmoItemComponent } from './user-emo-item/user-emo-item.component';
     UserEmoComponent,
     UserEmoItemComponent
   ],
-  exports:[
+  exports: [
     UserEmoComponent,
     UserEmoItemComponent
   ]

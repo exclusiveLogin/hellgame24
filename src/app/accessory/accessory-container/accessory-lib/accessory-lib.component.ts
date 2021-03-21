@@ -10,7 +10,7 @@ export class AccessoryLibComponent implements OnInit {
 
   public itemsLib: IIngredient[];
   public currentItemID: string;
-  public shownWiki: boolean = false;
+  public shownWiki = false;
 
 
   constructor(
@@ -21,13 +21,13 @@ export class AccessoryLibComponent implements OnInit {
     this.ingredientService.getAllIngredients().subscribe(list => this.itemsLib = list);
   }
 
-  public openWiki( item: IIngredient){
+  public openWiki( item: IIngredient) {
     this.shownWiki = false;
     this.currentItemID = item.id;
-    setTimeout(()=>this.shownWiki = true, 250);
+    setTimeout(() => this.shownWiki = true, 250);
   }
 
-  public closeWiki(){
+  public closeWiki() {
     this.shownWiki = false;
   }
 }

@@ -9,6 +9,6 @@ import { SharedModule } from '../../../shared/shared.module';
     SharedModule,
   ],
   declarations: [UserEmoComponent],
-  exports:[UserEmoComponent]
+  exports: [UserEmoComponent]
 })
 export class UserEmoModule { }

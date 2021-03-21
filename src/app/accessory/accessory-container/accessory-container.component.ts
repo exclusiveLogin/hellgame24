@@ -22,8 +22,8 @@ export class AccessoryContainerComponent implements OnInit {
 
   }
 
-  toggleHeader(event){
-    if( event ) this.toggle = event;
+  toggleHeader(event) {
+    if ( event ) { this.toggle = event; }
   }
 
 }

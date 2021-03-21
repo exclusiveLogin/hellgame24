@@ -15,7 +15,7 @@ export class InventoryService {
   private slotsCache: ISlot[][] = [];
   private allSlotsCache: ISlot[] = [];
 
-  private path:Path = {
+  private path: Path = {
     segment: 'accessory',
     script: 'inventory.php'
   };
@@ -29,20 +29,22 @@ export class InventoryService {
     this.tes.getSegmentRefreshSignal( 'accessory' ).subscribe( s => this.clearCache());
   }
 
-  public getAllSlots(){
-    if (this.allSlotsCache.length)
+  public getAllSlots() {
+    if (this.allSlotsCache.length) {
       return of(this.allSlotsCache);
+    }
 
-    let params: IParams = { mode: 'all_slots' };
+    const params: IParams = { mode: 'all_slots' };
     return this.con.getData<ISlot[]>(this.path, params)
-      .pipe(filter( slots => !!slots),tap(slots => this.allSlotsCache = [...slots]));
+      .pipe(filter( slots => !!slots), tap(slots => this.allSlotsCache = [...slots]));
 
   }
 
   // получение слотов без владельца(drop нутые объекты)
-  public getNonOwnerSlots(){
-    if (this.allSlotsCache.length)
+  public getNonOwnerSlots() {
+    if (this.allSlotsCache.length) {
       return of(this.allSlotsCache.filter(s => !s.owner && !!s.rgo_id));
+    }
 
     return this.getAllSlots()
       .pipe(
@@ -54,9 +56,10 @@ export class InventoryService {
   }
 
   // получение слотов без владельца и без предмета (аномалии)
-  public getNonOwnerEmptySlots(){
-    if (this.allSlotsCache.length)
+  public getNonOwnerEmptySlots() {
+    if (this.allSlotsCache.length) {
       return of(this.allSlotsCache.filter(s => !s.owner && !s.rgo_id));
+    }
 
     return this.getAllSlots()
       .pipe(
@@ -67,33 +70,36 @@ export class InventoryService {
 
   }
 
-  public getAllSlotsByUser( userId: string | number ){
-    let params: IParams = { mode: 'slots_by_user', owner: userId };
+  public getAllSlotsByUser( userId: string | number ) {
+    const params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params).pipe(tap(slots => this.slotsCache[userId] = slots));
   }
 
-  public getSlotByIdByUser( userId: string, slotId: string ): Observable<ISlot>{
-    if (this.slotsCache[userId])
+  public getSlotByIdByUser( userId: string, slotId: string ): Observable<ISlot> {
+    if (this.slotsCache[userId]) {
       return of(this.slotsCache[userId].find((s: ISlot) => s.id === slotId));
+    }
 
     return this.getAllSlotsByUser( userId ).pipe(
       map(slots => slots.find( s => s.id === slotId )));
   }
 
-  public getSlotById( slotId: string ): Observable<ISlot>{
-    if (this.allSlotsCache.length)
+  public getSlotById( slotId: string ): Observable<ISlot> {
+    if (this.allSlotsCache.length) {
       return of(this.allSlotsCache.find((s: ISlot) => s.id === slotId));
+    }
 
     return this.getAllSlots().pipe(
       map(slots => slots.find( s => s.id === slotId )));
   }
 
 
-  public getEmptySlotByUser( userId: string | number ): Observable<ISlot>{
-    if (this.slotsCache[userId])
+  public getEmptySlotByUser( userId: string | number ): Observable<ISlot> {
+    if (this.slotsCache[userId]) {
       return of(this.slotsCache[userId].find((s: ISlot) => !s.rgo_id));
+    }
 
-    let params: IParams = { mode: 'slots_by_user', owner: userId };
+    const params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
       .pipe(
         tap(slots => this.slotsCache[userId] = slots),
@@ -101,11 +107,12 @@ export class InventoryService {
       );
   }
 
-  public getEmptySlotsByUser( userId: string | number ): Observable<ISlot[]>{
-    if (this.slotsCache[userId])
+  public getEmptySlotsByUser( userId: string | number ): Observable<ISlot[]> {
+    if (this.slotsCache[userId]) {
       return of(this.slotsCache[userId].filter((s: ISlot) => !s.rgo_id));
+    }
 
-    let params: IParams = { mode: 'slots_by_user', owner: userId };
+    const params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
       .pipe(
           tap(slots => this.slotsCache[userId] = slots),
@@ -113,11 +120,12 @@ export class InventoryService {
     );
   }
 
-  public getNonEmptySlotsByUser( userId: string | number ){
-    if (this.slotsCache[userId])
+  public getNonEmptySlotsByUser( userId: string | number ) {
+    if (this.slotsCache[userId]) {
       return of(this.slotsCache[userId].filter((s: ISlot) => !!s.rgo_id));
+    }
 
-    let params: IParams = { mode: 'slots_by_user', owner: userId };
+    const params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
       .pipe(
         tap(slots => this.slotsCache[userId] = [...slots]),
@@ -125,10 +133,10 @@ export class InventoryService {
       );
   }
 
-  public getIngredientsOfUser( userId: string, idIngredient: string ){
-    if (this.slotsCache[userId]) return of(this.slotsCache[userId].filter((s: ISlot) => s.go_id && s.go_id.toString() === idIngredient.toString()));
+  public getIngredientsOfUser( userId: string, idIngredient: string ) {
+    if (this.slotsCache[userId]) { return of(this.slotsCache[userId].filter((s: ISlot) => s.go_id && s.go_id.toString() === idIngredient.toString())); }
 
-    let params: IParams = { mode: 'slots_by_user', owner: userId };
+    const params: IParams = { mode: 'slots_by_user', owner: userId };
     return this.con.getData<ISlot[]>(this.path, params)
       .pipe(
         tap(slots => this.slotsCache[userId] = slots),
@@ -136,22 +144,22 @@ export class InventoryService {
       );
   }
 
-  public craftNewInventoryItem( targetID: string, toSlot: string, recParts: IRecieptPartData[] ){
-    if(targetID && toSlot){
-      let data: IDataRequest = {
+  public craftNewInventoryItem( targetID: string, toSlot: string, recParts: IRecieptPartData[] ) {
+    if (targetID && toSlot) {
+      const data: IDataRequest = {
         body: {
           mode: 'craft_new_item',
           object_id: targetID,
           slot: toSlot,
           creator_name: this.auth.authorizedAs()
         }
-      }
+      };
 
       this.con.setData( this.path, data )
-        .subscribe(() =>{
+        .subscribe(() => {
 
-          let rxIngredients = forkJoin([...recParts.map((rp: IRecieptPartData) => {
-            if( rp.quantity ){
+          const rxIngredients = forkJoin([...recParts.map((rp: IRecieptPartData) => {
+            if ( rp.quantity ) {
                 return this.getIngredientsOfUser( this.auth.authorizedAs(), rp.require_ingredient ).pipe(
                   map(items => items.slice(0, Number(rp.quantity)))
                 );
@@ -160,11 +168,11 @@ export class InventoryService {
 
           rxIngredients.subscribe(result => {
 
-            let flat: ISlot[] = [];
+            const flat: ISlot[] = [];
             result.forEach(slots => flat.push( ...slots ));
 
             flat.forEach(s => {
-              //this.con.getData(this.path, {mode: 'utilization_item', item_id: s.rgo_id }).subscribe();
+              // this.con.getData(this.path, {mode: 'utilization_item', item_id: s.rgo_id }).subscribe();
               this.utilizationInventoryItem( s.rgo_id ).subscribe();
             });
 
@@ -176,45 +184,45 @@ export class InventoryService {
     }
   }
 
-  public spawnNewItem( objectId: string ){
-    if( objectId ){
-      let data: IDataRequest = {
+  public spawnNewItem( objectId: string ) {
+    if ( objectId ) {
+      const data: IDataRequest = {
         body: {
           mode: 'spawn_new_rgo',
           object_id: objectId,
         }
-      }
+      };
       this.clearCache();
       return this.con.setData( this.path, data );
     }
   }
 
-  public removeSlot( id: string ){
-    let req: IDataRequest = {
-      body:{
-        mode: "remove_slot",
+  public removeSlot( id: string ) {
+    const req: IDataRequest = {
+      body: {
+        mode: 'remove_slot',
         slot_id: id,
       }
-    }
-  
+    };
+
     this.clearCache();
     return this.con.setData(this.path, req);
   }
 
   public creatNewSlotByUser(): Observable<ISlot> {
-    let data: IDataRequest = {
+    const data: IDataRequest = {
       body: {
         mode: 'create_new_slot_by_user',
         owner: this.auth.authorizedAs()
       }
-    }
+    };
 
     this.clearCache();
     return <Observable<ISlot>> this.con.setData( this.path, data );
 
   }
 
-  public utilizationRGO( id: string ){
+  public utilizationRGO( id: string ) {
     const data: IDataRequest = {
       body: { mode: 'utilization_rgo', item_id: id }
     };
@@ -222,7 +230,7 @@ export class InventoryService {
     return this.con.setData( this.path, data );
   }
 
-  public utilizationInventoryItem( id: string ){
+  public utilizationInventoryItem( id: string ) {
     const data: IDataRequest = {
       body: { mode: 'utilization_item', item_id: id }
     };
@@ -231,7 +239,7 @@ export class InventoryService {
     return this.con.setData( this.path, data );
   }
 
-  public wrapRGOInSlot( rgoId: string ){
+  public wrapRGOInSlot( rgoId: string ) {
 
     const data: IDataRequest = {
       body: { mode: 'wrap_rgo_in_slot', item_id: rgoId }
@@ -241,49 +249,49 @@ export class InventoryService {
     return this.con.setData( this.path, data );
   }
 
-  public dropItemFromInventory( slotId: string ){
-    let data: IDataRequest = {
+  public dropItemFromInventory( slotId: string ) {
+    const data: IDataRequest = {
       body: {
         mode: 'drop_item',
         slot_id: slotId
       }
-    }
+    };
     this.clearCache();
     return this.con.setData( this.path, data );
   }
 
-  public grindItemInSlot( slotId: string ){
-    let data: IDataRequest = {
+  public grindItemInSlot( slotId: string ) {
+    const data: IDataRequest = {
       body: {
         mode: 'grind_item',
         owner: this.auth.authorizedAs(),
         slot_id: slotId
       }
-    }
+    };
 
     this.clearCache();
     return this.con.setData( this.path, data );
   }
 
-  public grindItemFromSpawn( slotId: string, spawnId: string ){
-    let data: IDataRequest = {
+  public grindItemFromSpawn( slotId: string, spawnId: string ) {
+    const data: IDataRequest = {
       body: {
         mode: 'grind_item',
         owner: this.auth.authorizedAs(),
         slot_id: slotId,
         spawn_id: spawnId
       }
-    }
+    };
 
     this.clearCache();
     return this.con.setData( this.path, data );
   }
 
-  public clearCacheByUser( id ){
+  public clearCacheByUser( id ) {
     delete this.slotsCache[id];
   }
 
-  public clearCache(){
+  public clearCache() {
     this.slotsCache = [];
     this.allSlotsCache = [];
   }

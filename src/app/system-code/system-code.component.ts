@@ -23,19 +23,19 @@ export class SystemCodeComponent implements OnInit, OnChanges {
     if (changes && changes['_global']) {
       this.calculate(changes['_global'].currentValue);
     }
-    
+
   }
   private calculate(type: IGlobalState): void {
-    if (!type) return;
+    if (!type) { return; }
     switch ( type.global_code ) {
       case 'red':
         this.color = '#dd3333';
-        this.system_text = `${this._global.login ? "Пользователем "+this._global.login : ' '} Введен красный уровень опасности ${this._global.message ? " С сообщением: "+this._global.message : ''}`;
+        this.system_text = `${this._global.login ? 'Пользователем ' + this._global.login : ' '} Введен красный уровень опасности ${this._global.message ? ' С сообщением: ' + this._global.message : ''}`;
         this.hide = false;
         break;
       case 'orange':
         this.color = '#dd9933';
-        this.system_text = `${this._global.login ? "Пользователем "+this._global.login : ' '} Введен оранжевый уровень опасности. ${this._global.message ? " С сообщением: "+this._global.message : ''}`;
+        this.system_text = `${this._global.login ? 'Пользователем ' + this._global.login : ' '} Введен оранжевый уровень опасности. ${this._global.message ? ' С сообщением: ' + this._global.message : ''}`;
         this.hide = false;
         break;
       case 'night':

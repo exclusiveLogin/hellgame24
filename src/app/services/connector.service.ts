@@ -6,17 +6,17 @@ import { ApiService } from './api.service';
 import { tap } from 'rxjs/operators';
 
 
-export interface IDataResponse{
+export interface IDataResponse {
 
-};
+}
 
 export interface IParams {
-  [name: string]: any
+  [name: string]: any;
 }
-export interface IDataRequest{
-  params?: IParams,
-  body?: any
-};
+export interface IDataRequest {
+  params?: IParams;
+  body?: any;
+}
 
 
 @Injectable()
@@ -30,12 +30,12 @@ export class ConnectorService {
   public getData<T>(path: Path, params?: IParams): Observable<T> {
     return this.http.get<T>(`${this.api.getApi()}${path.segment}/${path.script}`, { params })
     .pipe(
-      tap(htr => {console.log('htr get:', htr)})
+      tap(htr => {console.log('htr get:', htr); })
     );
   }
 
   public setData<T extends IDataResponse>(path: Path, data: IDataRequest ): Observable<T> {
-    let dbody: IDataRequest = data.body || {};
+    const dbody: IDataRequest = data.body || {};
     return this.http.post<T>(`${this.api.getApi()}${path.segment}/${path.script}`, dbody,
     {
       params: data.params

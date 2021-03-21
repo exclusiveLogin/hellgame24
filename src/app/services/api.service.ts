@@ -15,28 +15,28 @@ export class ApiService {
     return this.MAINAPI;
   }
 
-  public getIconPath( type: string ){
-    return this[type.toUpperCase()+'_ICONS'];
+  public getIconPath( type: string ) {
+    return this[type.toUpperCase() + '_ICONS'];
   }
 
-  public getImagePath( type: string ){
-    return this[type.toUpperCase()+'_IMAGE'];
+  public getImagePath( type: string ) {
+    return this[type.toUpperCase() + '_IMAGE'];
   }
 
-  public getWikiImagePath(){
+  public getWikiImagePath() {
     return this.WIKI_IMAGE;
   }
 
-  public getWikiImagePathRx(): Observable<string>{
+  public getWikiImagePathRx(): Observable<string> {
     return of( this.WIKI_IMAGE );
   }
 
   public getIconPathRx( type: string ): Observable<string> {
-    return of( this[type.toUpperCase()+'_ICONS'] );
+    return of( this[type.toUpperCase() + '_ICONS'] );
   }
 
   public getImagePathRx( type: string ): Observable<string> {
-    return of( this[type.toUpperCase()+'_IMAGE'] );
+    return of( this[type.toUpperCase() + '_IMAGE'] );
   }
 
   public getApiRx(): Observable<string> {

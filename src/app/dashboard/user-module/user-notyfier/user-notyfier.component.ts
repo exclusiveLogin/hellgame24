@@ -20,16 +20,16 @@ export class UserNotyfierComponent implements OnInit {
   }
 
 
-  public setGlobalStatus(code: string): void{
-    let msg = "";
-    switch(code){
+  public setGlobalStatus(code: string): void {
+    let msg = '';
+    switch (code) {
       case 'red':
-        msg = prompt("Причина установки Красного кода");
+        msg = prompt('Причина установки Красного кода');
         this.global.setGlobalStatus('red', msg).subscribe();
         this.uxevent.setRedCode(this.auth.authorizedAs(), msg);
         break;
       case 'orange':
-        msg = prompt("Причина установки Оранжевого кода");
+        msg = prompt('Причина установки Оранжевого кода');
         this.global.setGlobalStatus('orange', msg).subscribe();
         this.uxevent.setOrangeCode(this.auth.authorizedAs(), msg);
         break;
@@ -38,5 +38,5 @@ export class UserNotyfierComponent implements OnInit {
         this.uxevent.setGreenCode(this.auth.authorizedAs());
         break;
     }
-  };
+  }
 }

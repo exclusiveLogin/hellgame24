@@ -39,39 +39,39 @@ export class LogsComponent implements OnInit {
         this.v_users = users;
 
         // если переход по URL
-        if( this.router.snapshot.params['user'] ) {
+        if ( this.router.snapshot.params['user'] ) {
           this.cur_user = users.find(u => u.login === this.router.snapshot.params['user']);
-          if( this.cur_user ) this.ui.setCurrentUserSelect( this.cur_user );
+          if ( this.cur_user ) { this.ui.setCurrentUserSelect( this.cur_user ); }
         } else {
           this.cur_user = users.find( u => u.login === this.auth.authorizedAs() );
-          if( (this.cur_user && this.cur_user.login) ) {
+          if ( (this.cur_user && this.cur_user.login) ) {
             this.ui.setCurrentUserSelect( this.cur_user );
           }
         }
       });
 
     this.userStatusChangeSub = this.tes.getSegmentRefreshSignal('status')
-      .pipe( switchMap( ()=> this.users.refreshUsers()) )
+      .pipe( switchMap( () => this.users.refreshUsers()) )
       .subscribe( users => this.v_users = users);
 
     this.userChangeSub = this.ui.getCurrentUserChangeEvent()
       .subscribe(user => {
-        if( user ){
+        if ( user ) {
           this.cur_user = user;
           console.log('devss user changed on:', user.login);
         }
       });
     }
 
-  public isUserOwner(user: IUser): boolean{
+  public isUserOwner(user: IUser): boolean {
     return user.login === this.auth.authorizedAs();
   }
 
-  public selectUser( user: IUser ){
+  public selectUser( user: IUser ) {
     this.ui.setCurrentUserSelect(user);
   }
 
-  public forMe( user: IUser ): boolean{
+  public forMe( user: IUser ): boolean {
     return this.auth.authorizedAs() === (user && user.login);
   }
 

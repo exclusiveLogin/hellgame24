@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  public submitEnter(login: string, password: string){
+  public submitEnter(login: string, password: string): void {
     console.log('попытка входа с login: ', login, ' password: ', password);
-    this.auth.login({ login, password });
+    this.auth.login({ login, password }).subscribe();
   }
 }

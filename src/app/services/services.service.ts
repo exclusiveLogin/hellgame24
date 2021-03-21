@@ -14,7 +14,7 @@ export class ServicesService {
   ) { }
 
   public getCoreService<T>( serviceName: string ): T {
-    let service = this[ `core_service_${serviceName}` ];
+    const service = this[ `core_service_${serviceName}` ];
     return service;
   }
 }

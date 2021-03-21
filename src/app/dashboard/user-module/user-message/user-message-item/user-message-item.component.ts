@@ -11,7 +11,7 @@ export class UserMessageItemComponent implements OnInit {
   @Output() readThisMessage = new EventEmitter<boolean>();
 
   @Input() public item: IMessageData =  {
-    subject: "Заголовок не задан",
+    subject: 'Заголовок не задан',
     text_field: '-',
     datetime: '--,--,--',
     id: '#unknown'
@@ -22,7 +22,7 @@ export class UserMessageItemComponent implements OnInit {
   }
 
   public i_read_it(): void {
-    if( true || confirm('Вы уверены что прочитали?')) this.readThisMessage.emit(true);
+    if ( true || confirm('Вы уверены что прочитали?')) { this.readThisMessage.emit(true); }
   }
 
 }

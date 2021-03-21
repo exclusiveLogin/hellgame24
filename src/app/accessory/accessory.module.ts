@@ -37,7 +37,7 @@ import { LockerService } from './locker.service';
   exports: [
     AccessoryContainerComponent
   ],
-  providers:[
+  providers: [
     ReceiptService,
     IngredientService,
     InventoryService,

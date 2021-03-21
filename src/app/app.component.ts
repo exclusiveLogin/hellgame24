@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   ) {}
   public hidemenu = false;
   public hidemenuToggler = false;
-  public global_status:IGlobalState = null;
+  public global_status: IGlobalState = null;
   @HostListener('document:scroll')
   private winScroll(): void {
     // избегаем не нужного перезаписывания и обновления события
@@ -34,9 +34,9 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    
+
     // быстрая шина
-    this.global.getGlobalState().subscribe((state)=>{
+    this.global.getGlobalState().subscribe((state) => {
       this.global_status = state;
     });
 
@@ -63,12 +63,6 @@ export class AppComponent implements OnInit {
     this.refreshGlobalStatus();
 
     this.tes.getSegmentRefreshSignal('global').subscribe( state => !!state && this.refreshGlobalStatus());
-
-    const cu =  this.ls.getUserCredential();
-    if( cu ) this.auth.login( cu );
-
-    //this.auth.login({login: 'ssv', password: 'ddd'});
-
     if (window && window.matchMedia) {
       window.matchMedia('(max-width: 600px)')
         .addListener((match) => {
@@ -79,9 +73,10 @@ export class AppComponent implements OnInit {
   }
 
   private refreshGlobalStatus(): void {
-    this.global.getState().pipe(first()).subscribe((global)=>{
-      if(global && global.global_code)
+    this.global.getState().pipe(first()).subscribe((global) => {
+      if (global && global.global_code) {
         this.global_status = global;
-    },(e)=> console.log('error State: ', global));
+      }
+    }, (e) => console.log('error State: ', global));
   }
 }

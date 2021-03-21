@@ -13,9 +13,9 @@ export class UserStatusItemComponent implements OnInit {
 
   @Output() removeMessageEvent = new EventEmitter<boolean>();
 
-  @Input() ownerMode: boolean = false;
+  @Input() ownerMode = false;
 
-  @Input() public useIconInBtns: boolean = true;
+  @Input() public useIconInBtns = true;
 
   @Input() public item: IUserStatus =  {
     id: '',
@@ -24,15 +24,15 @@ export class UserStatusItemComponent implements OnInit {
   };
 
   public _iconDeleteBtn = '<i class="fas fa-trash"></i>';
-  
+
   constructor(
   ) { }
 
   ngOnInit() {
-  
+
   }
 
-  public removeThisMessage(){
-    if( confirm('Точно удалить?')) this.removeMessageEvent.emit(true);
-  };
+  public removeThisMessage() {
+    if ( confirm('Точно удалить?')) { this.removeMessageEvent.emit(true); }
+  }
 }

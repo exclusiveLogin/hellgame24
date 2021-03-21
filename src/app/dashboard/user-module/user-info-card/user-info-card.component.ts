@@ -10,7 +10,7 @@ import {
     ChangeDetectorRef
 } from '@angular/core';
 import {Chart} from 'highcharts';
-import {TopEventsService} from "../../../services/topevents.service";
+import {TopEventsService} from '../../../services/topevents.service';
 import {IUser, ITrendItem} from '../../../models/user-interface';
 import {UiService} from '../../../services/ui.service';
 import {Subscription, from} from 'rxjs';
@@ -34,7 +34,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     @Input() public user: IUser;
     @ViewChild('trend', {static: true}) private trend: ElementRef;
 
-    public usermail_shown: boolean = true;
+    public usermail_shown = true;
     public userstatus_shown = false;
     public useremo_shown = false;
 
@@ -70,17 +70,17 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
         this.usersService.clearTrendCache();
         this.mailSub = this.ui.getUsermailShownChangeEvent().subscribe(state => {
             this.usermail_shown = state;
-            if (!this.userstatus_shown) this.scroll('body');
+            if (!this.userstatus_shown) { this.scroll('body'); }
             this.cd.detectChanges();
         });
         this.statusSub = this.ui.getUserStatusShownChangeEvent().subscribe(status => {
             this.userstatus_shown = status;
-            if (!this.userstatus_shown) this.scroll('body');
+            if (!this.userstatus_shown) { this.scroll('body'); }
             this.cd.detectChanges();
         });
         this.emoSub = this.ui.getUserEmoShownChangeEvent().subscribe(status => {
             this.useremo_shown = status;
-            if (!this.userstatus_shown) this.scroll('body');
+            if (!this.userstatus_shown) { this.scroll('body'); }
             this.cd.detectChanges();
         });
 
@@ -93,13 +93,14 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
         this.userStatusChangeSub = this.tes.getSegmentRefreshSignal('status').subscribe(
             state => {
-                if (!!state)
+                if (!!state) {
                     setTimeout(() => {
                         this.usersService.getUser(this.user.login).subscribe(user => {
                             this.user = user;
                             this.cd.detectChanges();
                         });
                     }, 500);
+                }
 
             }
         );
@@ -318,7 +319,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
                             prev_value: trend[1].value,
                             datetime: trend[0].datetime,
                             prev_datetime: trend[1].datetime,
-                        }
+                        };
                     } else {
                         this.userEmoStatus = null;
                     }
@@ -338,11 +339,11 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     }
 
     private renderTrend(trend) {
-        if (!trend) return;
+        if (!trend) { return; }
 
-        if (this.emoChart) this.emoChart.destroy();
+        if (this.emoChart) { this.emoChart.destroy(); }
 
-        let tr: number[][] = this.prepareQuickUserEmoTrend(trend);
+        const tr: number[][] = this.prepareQuickUserEmoTrend(trend);
         this.emoChart = HC.chart({
             chart: {
                 height: '125px',
@@ -355,7 +356,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
                 visible: false,
             },
             xAxis: {
-                //visible: false
+                // visible: false
                 type: 'datetime'
             },
             credits: {
@@ -372,7 +373,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
             },
             plotOptions: {
                 series: {
-                    //pointStart: 2010,
+                    // pointStart: 2010,
                 },
                 spline: {
                     marker: {
@@ -411,7 +412,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
     public closeUserStatus() {
         this.ui.closeUserStatus();
-        //this.scroll( 'body' );
+        // this.scroll( 'body' );
     }
 
     // Emo
@@ -426,12 +427,13 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
     private scroll(_target: string) {
         setTimeout(() => {
-            let target = document.getElementsByTagName(_target);
-            if (_target === 'body') target && target.length && target[0].scrollIntoView({
+            const target = document.getElementsByTagName(_target);
+            if (_target === 'body') { target && target.length && target[0].scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
-            else target && target.length && target[0].scrollIntoView({behavior: 'smooth'});
+            }
+            else { target && target.length && target[0].scrollIntoView({behavior: 'smooth'}); }
         }, 500);
 
     }
@@ -442,29 +444,29 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
         this.tes.getMenuEvent()
             .subscribe(() => {
-                if (this.emoChart) this.emoChart.reflow();
+                if (this.emoChart) { this.emoChart.reflow(); }
             });
 
     }
 
     public getUASystem(u: string) {
-        let userAgent = ua(u);
+        const userAgent = ua(u);
         return `${userAgent.os.name ? userAgent.os.name : ''} ${userAgent.os.version ? userAgent.os.version : ''}`;
     }
 
     public getUABrowser(u: string) {
-        let userAgent = ua(u);
+        const userAgent = ua(u);
         return `${userAgent.browser.name ? userAgent.browser.name : ''} ${userAgent.browser.version ? userAgent.browser.version : ''}`;
     }
 
     public getUADevice(u: string) {
-        let userAgent = ua(u);
+        const userAgent = ua(u);
         return `${userAgent.device.model ? userAgent.device.model : ''} ${userAgent.device.type ? userAgent.device.type : ''} ${userAgent.device.vendor ? userAgent.device.vendor : ''}`;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-        //Add '${implements OnChanges}' to the class.
+        // Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+        // Add '${implements OnChanges}' to the class.
 
         if (
             changes['user'] &&
@@ -477,14 +479,14 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
     }
 
     ngOnDestroy(): void {
-        //Called once, before the instance is destroyed.
-        //Add 'implements OnDestroy' to the class.
+        // Called once, before the instance is destroyed.
+        // Add 'implements OnDestroy' to the class.
 
-        if (this.mailSub) this.mailSub.unsubscribe();
-        if (this.statusSub) this.statusSub.unsubscribe();
-        if (this.emoSub) this.emoSub.unsubscribe();
-        if (this.emoChangeSub) this.emoChangeSub.unsubscribe();
-        if (this.userTrendSub) this.userTrendSub.unsubscribe();
-        if (this.userStatusChangeSub) this.userStatusChangeSub.unsubscribe();
+        if (this.mailSub) { this.mailSub.unsubscribe(); }
+        if (this.statusSub) { this.statusSub.unsubscribe(); }
+        if (this.emoSub) { this.emoSub.unsubscribe(); }
+        if (this.emoChangeSub) { this.emoChangeSub.unsubscribe(); }
+        if (this.userTrendSub) { this.userTrendSub.unsubscribe(); }
+        if (this.userStatusChangeSub) { this.userStatusChangeSub.unsubscribe(); }
     }
 }
