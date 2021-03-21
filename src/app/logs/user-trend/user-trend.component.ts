@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {filter, tap} from "rxjs/operators";
 import {Chart} from "highcharts";
 import {UserServiceService} from "app/services/user-service.service";
@@ -11,7 +11,7 @@ const HC = require('highcharts');
     templateUrl: './user-trend.component.html',
     styleUrls: ['./user-trend.component.css']
 })
-export class UserTrendComponent implements OnInit {
+export class UserTrendComponent implements OnInit, OnChanges {
 
     public emoChart: Chart;
     @Input() public author: string;
@@ -285,6 +285,12 @@ export class UserTrendComponent implements OnInit {
         });
         setTimeout(() => this.emoChart.reflow(), 100);
         console.log('TRND: ', this.emoChart);
+    }
+
+    ngOnChanges(sc: SimpleChanges){
+        if(!!sc['author'].currentValue && sc['author'].currentValue !== sc['author'].previousValue){
+            this.refreshTrend();
+        }
     }
 
 }
