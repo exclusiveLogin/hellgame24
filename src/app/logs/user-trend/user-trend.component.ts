@@ -228,10 +228,10 @@ export class UserTrendComponent implements OnInit {
 
     }
 
-    private prepareQuickUserEmoTrend( trend: ITrendItem[] ): number[][]{
+    private prepareQuickUserEmoTrend( trend: ITrendItem[] ): any[]{
         return trend
             .sort((p: ITrendItem ,n: ITrendItem) => Number(p.utc) - Number(n.utc) )
-            .map((it:ITrendItem) => [Number(it.utc), Number(it.value)]);
+            .map((it:ITrendItem) => ({ x: Number(it.utc), y: Number(it.value), title: it.title }));
     }
 
     private renderTrend( trend ){
@@ -273,6 +273,9 @@ export class UserTrendComponent implements OnInit {
                     },
                     color: '#995555'
                 }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>Настроение: {point.y}</b><br/> Причина: {point.title}',
             },
             series: [{
                 type: 'spline',
