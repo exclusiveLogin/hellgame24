@@ -12,9 +12,15 @@
 }
 .page_info {
   background-color: #353535;
-  flex: 1 1 30%;
+  flex: 1 1;
   min-width: 370px;
 }
+
+.trend_info{
+    width: 100%;
+    flex-basis: 100%;
+}
+
 .page_accessory {
   background-color: #444;
   flex-basis: 470px;

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-const authHeaders: HttpHeaders = new HttpHeaders({Authorization: 'Token efb8f551b4e183a7d73c02c07b48cab65b6b5e71'});
+const authHeaders: HttpHeaders = new HttpHeaders({Authorization: 'Token a778bc907289afb630ad4e6a14d99e6f58ba8e47'});
 //authHeaders.append('Authorization', 'Token efb8f551b4e183a7d73c02c07b48cab65b6b5e71');
 
 interface IDadataSuggestion{

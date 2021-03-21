@@ -1,25 +1,26 @@
 <div class="card_panel">
-  <ng-container *ngIf="v_users.length; else emptyUserList">
-    <app-usercard
-    *ngFor="let user of v_users; let i = index"
-    [user]="user"
-    [_owner]="isUserOwner(user)"
-    (click)="selectUser(user)"
-    ></app-usercard>
-  </ng-container>
-  <ng-template #emptyUserList>
-    <span>Не удалось загрузить список пользователей</span>
-  </ng-template>
-  <a target="_blank" href="https://github.com/exclusiveLogin/hellgame24/commits/master">
-    <img src="/assets/gitlogo.png" alt="Обновления проекта" title="Что нового в проекте" height="100px"/>
-  </a>
+    <ng-container *ngIf="v_users.length; else emptyUserList">
+        <app-usercard
+                *ngFor="let user of v_users; let i = index"
+                [user]="user"
+                [_owner]="isUserOwner(user)"
+                (click)="selectUser(user)"
+        ></app-usercard>
+    </ng-container>
+    <ng-template #emptyUserList>
+        <span>Не удалось загрузить список пользователей</span>
+    </ng-template>
+    <a target="_blank" href="https://github.com/exclusiveLogin/hellgame24/commits/master">
+        <img src="/assets/gitlogo.png" alt="Обновления проекта" title="Что нового в проекте" height="100px"/>
+    </a>
 </div>
 <div class="dashboard_workplace">
-  <app-pager>
-    <app-user-blog class="blog-content" [author]="cur_user && cur_user.login"></app-user-blog>
-    <app-user-logins-log class="login-content" [author]="cur_user && cur_user.login"></app-user-logins-log>
-    <app-user-emo-log class="emo-content" [author]="cur_user && cur_user.login"></app-user-emo-log>
-    <app-user-status-log class="status-content" [author]="cur_user && cur_user.login"></app-user-status-log>
-    <app-user-global-log class="global-content" [author]="cur_user && cur_user.login"></app-user-global-log>
-  </app-pager>
+    <app-pager>
+        <app-user-trend class="trend-content" [author]="cur_user && cur_user.login"></app-user-trend>
+        <app-user-blog class="blog-content" [author]="cur_user && cur_user.login"></app-user-blog>
+        <app-user-logins-log class="login-content" [author]="cur_user && cur_user.login"></app-user-logins-log>
+        <app-user-emo-log class="emo-content" [author]="cur_user && cur_user.login"></app-user-emo-log>
+        <app-user-status-log class="status-content" [author]="cur_user && cur_user.login"></app-user-status-log>
+        <app-user-global-log class="global-content" [author]="cur_user && cur_user.login"></app-user-global-log>
+    </app-pager>
 </div>
