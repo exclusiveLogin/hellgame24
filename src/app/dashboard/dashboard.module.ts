@@ -8,19 +8,21 @@ import { DashMapComponent } from './dash-map/dash-map.component';
 import { ChartModule } from 'angular-highcharts';
 import { UserModuleModule } from './user-module/user-module.module';
 import { MessangerComponent } from './messanger/messanger.component';
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule.forChild( routes ),
-    AccessoryModule,
-    ChartModule,
-    UserModuleModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        AccessoryModule,
+        ChartModule,
+        UserModuleModule,
+        LeafletModule,
+    ],
   exports: [
     UserModuleModule,
     RouterModule

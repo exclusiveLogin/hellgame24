@@ -3,7 +3,7 @@ import {Observable, of} from 'rxjs';
 
 @Injectable()
 export class ApiService {
-  private MAINAPI = 'http://hellgame24.ru/hgapi/';
+  private MAINAPI = 'https://hellgame24.ru/hgapi/';
   private RECIEPT_ICONS = 'assets/accessory/demo_pack/';
   private INGREDIENT_ICONS = 'assets/accessory/demo_pack/';
   private NATIVE_ICONS = 'assets/accessory/native/';
