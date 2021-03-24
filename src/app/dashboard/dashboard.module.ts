@@ -8,7 +8,7 @@ import { DashMapComponent } from './dash-map/dash-map.component';
 import { ChartModule } from 'angular-highcharts';
 import { UserModuleModule } from './user-module/user-module.module';
 import { MessangerComponent } from './messanger/messanger.component';
-import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -32,6 +32,6 @@ const routes: Routes = [
     PagerComponent,
     DashMapComponent,
     MessangerComponent,
-  ]
+  ],
 })
 export class DashboardModule { }
