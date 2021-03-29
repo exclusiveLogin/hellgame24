@@ -15,7 +15,7 @@ export interface ISegment {
   comment: string;
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UpdaterService {
 
   constructor(

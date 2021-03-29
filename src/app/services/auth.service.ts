@@ -22,7 +22,7 @@ export interface ILoginResponse {
     msg: string;
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
 
     constructor(

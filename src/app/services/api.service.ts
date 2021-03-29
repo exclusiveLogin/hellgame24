@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable, of} from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ApiService {
   private MAINAPI = 'https://hellgame24.ru/hgapi/';
   private RECIEPT_ICONS = 'assets/accessory/demo_pack/';

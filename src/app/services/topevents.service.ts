@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {BehaviorSubject} from 'rxjs';
 import {IMenustate, MenuStateInterface} from '../models/menu-state-interface';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class TopEventsService {
   private mainMenuToggleStateEvent: BehaviorSubject<boolean> = new BehaviorSubject(true);
 

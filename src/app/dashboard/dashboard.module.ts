@@ -32,6 +32,6 @@ const routes: Routes = [
     PagerComponent,
     DashMapComponent,
     MessangerComponent,
-  ],
+  ]
 })
 export class DashboardModule { }

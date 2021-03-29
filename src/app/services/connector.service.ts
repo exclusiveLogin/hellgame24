@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
 
 
 export interface IDataResponse {
-
+    [key: string]: any;
 }
 
 export interface IParams {
@@ -19,7 +19,7 @@ export interface IDataRequest {
 }
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ConnectorService {
 
   constructor(

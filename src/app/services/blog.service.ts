@@ -18,7 +18,7 @@ export interface IBlogData {
   id?: string;
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class BlogService implements IService {
 
   private path: Path = {

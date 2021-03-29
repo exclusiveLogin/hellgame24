@@ -5,7 +5,7 @@ import { Path } from '../models/path';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ConnectorWrapperService {
 
     constructor(

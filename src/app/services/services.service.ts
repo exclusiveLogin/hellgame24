@@ -4,7 +4,7 @@ import { IService } from '../models/services-interface';
 import { MessageService } from './message.service';
 import { UpdaterService } from './updater.service';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ServicesService {
 
   constructor(

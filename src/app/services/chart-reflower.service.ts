@@ -1,7 +1,7 @@
 import {ElementRef, Injectable} from '@angular/core';
 import {Chart} from 'highcharts';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ChartReflowerService {
 
   constructor() { }

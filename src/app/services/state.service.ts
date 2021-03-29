@@ -6,7 +6,7 @@ export interface IGlobalState {
 }
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class StateService {
 
   private state: IGlobalState = {

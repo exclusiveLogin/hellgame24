@@ -19,7 +19,7 @@ export interface IMessageData {
   readed?: boolean;
 }
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class MessageService {
   private path: Path = {
     segment: 'message',

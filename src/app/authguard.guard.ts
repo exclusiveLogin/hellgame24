@@ -5,7 +5,7 @@ import {AuthService} from './services/auth.service';
 import {LsService} from 'app/services/ls.service';
 import {map, tap} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthguardGuard implements CanActivate {
     constructor(
         private auth: AuthService,

@@ -3,7 +3,7 @@ import { IUser } from '../models/user-interface';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UiService {
 
   private currentUserSelect: IUser;

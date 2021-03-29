@@ -28,6 +28,7 @@ import {UxEventerService} from './services/ux-eventer.service';
 import {LsService} from './services/ls.service';
 import {ConnectorWrapperService} from './services/connector-wrapper.service';
 import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {UnitsService} from 'app/services/units.service';
 
 const dashboardRoutes: Routes = [
     {path: '', redirectTo: 'default', pathMatch: 'full'},
@@ -74,26 +75,6 @@ const routes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         LeafletModule
-    ],
-    providers: [
-        AuthService,
-        ApiService,
-        AuthguardGuard,
-        UserServiceService,
-        TopEventsService,
-        ChartReflowerService,
-        GlobalService,
-        StateService,
-        ConnectorService,
-        ConnectorWrapperService,
-        ServicesService,
-        BlogService,
-        MessageService,
-        UiService,
-        MailServiceService,
-        UpdaterService,
-        UxEventerService,
-        LsService
     ],
     bootstrap: [AppComponent]
 })

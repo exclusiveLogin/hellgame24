@@ -20,7 +20,7 @@ import {DadataService} from './dadata.service';
 import {ConnectorWrapperService} from './connector-wrapper.service';
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class UserServiceService {
 
     private fetchedUsers: IUser[];

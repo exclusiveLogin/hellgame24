@@ -12,7 +12,7 @@ const path: Path = {
   script: 'state_handler.php'
 };
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class GlobalService {
   public glState = new Subject<IGlobalState>();
 
