@@ -94,6 +94,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.ui.setCurrentUserSelect(user);
   }
 
+  public silentUser(): boolean {
+      return this.auth.authorizedUser()?.silent;
+  }
+
   public forMe( user: IUser ): boolean {
     return this.auth.authorizedAs() === (user && user.login);
   }

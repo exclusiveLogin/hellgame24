@@ -33,11 +33,12 @@
         [service4Work]="'message'"
         [path]="{segment: 'message', script: 'messagehandler.php'}"
         *ngIf="!forMe(cur_user)"
+        [class.disabled_block]="silentUser()"
       ></app-messanger>
 
       <app-user-status *ngIf="userstatus_shown" class="microcard"></app-user-status>
       <app-user-emo *ngIf="useremo_shown" class="microcard"></app-user-emo>
-      <app-user-notyfier class="microcard"></app-user-notyfier>
+      <app-user-notyfier class="microcard" [class.disabled_block]="silentUser()"></app-user-notyfier>
 
       <app-user-message class="microcard"
       [to_user]="cur_user && cur_user.login"
