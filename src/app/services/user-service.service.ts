@@ -66,7 +66,7 @@ export class UserServiceService {
 
         return this.http.get<IUserState[]>(this.apiservice.getApi() + 'users_state.php').pipe(
             map((users) => {
-                const users_result: IUser[] = users.map((user: IUserState) => {
+                const users_result: IUser[] = users.filter(u => !u.silent).map((user: IUserState) => {
                     let st = 'Не играет';
 
                     if (user.upd && !this.oldDate(user.upd)) {
@@ -81,6 +81,7 @@ export class UserServiceService {
                     const returned_user: IUser = {
                         login: user.login,
                         title: user.title,
+                        silent: !!user.silent,
                         message: {
                             text: user.status && user.status[0] && user.status[0].title,
                             datetime: user.status && user.status[0] && user.status[0].datetime_create,
@@ -92,7 +93,8 @@ export class UserServiceService {
                         avatar_min_url: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_min}`),
                         avatar_big: this.sanitizer.bypassSecurityTrustUrl(`assets/${user.img_big}`),
                         last_change_datetime: user.upd,
-                        last_change_datetime_humanity: user.upd ? moment.utc(Number(user.upd)).utcOffset(3).format('DD.MM.YYYY HH:mm') : null,
+                        last_change_datetime_humanity: user.upd ? moment.utc(Number(user.upd)).utcOffset(3)
+                            .format('DD.MM.YYYY HH:mm') : null,
                         last_change_status_datetime: user.status && user.status[0] && user.status[0].datetime_create,
                         emo_trend: null,
                         last_emo_status: null,
@@ -115,7 +117,10 @@ export class UserServiceService {
     }
 
     public getUser(id: string): Observable<IUser> {
-        if (this.fetchedUsers) { return of(this.fetchedUsers.find(user => user.login === id)); }
+        const targetUser = this.fetchedUsers && this.fetchedUsers.find(user => user.login === id);
+        if (targetUser) {
+            return of( targetUser );
+        }
         return this.getUsersInit().pipe(
             map(users => users.find(u => u.login === id))
         );

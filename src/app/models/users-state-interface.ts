@@ -16,4 +16,5 @@ export interface IUserState {
   emo_current_datetime: string;
   status: IUserStatus[];
   last_login: any[];
+  silent?: boolean;
 }

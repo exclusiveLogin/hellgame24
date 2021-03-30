@@ -7,7 +7,7 @@ import {UserServiceService} from './user-service.service';
 import {LsService} from './ls.service';
 import {TopEventsService} from './topevents.service';
 import {LoginService} from './login.service';
-import {tap} from 'rxjs/operators';
+import {filter, tap} from 'rxjs/operators';
 
 export interface ILogin {
     login: string;
@@ -59,7 +59,9 @@ export class AuthService {
                         this.currentAuthorizedLogin = response && response.login;
                     }
                     if (response.auth) {
-                        this.user.getUser(response.login).subscribe(user => this.uxevent.setLoginEvent(user));
+                        this.user.getUser(response.login).pipe(
+                            filter(user => !user.silent)
+                        ).subscribe(user => this.uxevent.setLoginEvent(user));
                         this.ls.setUserCredential(login);
                         this.tes.refreshSegmentWithData('login', response.login);
                     } else {
@@ -90,7 +92,9 @@ export class AuthService {
     }
 
     public logout() {
-        this.user.getUser(this.currentAuthorizedLogin).subscribe(user => this.uxevent.setLogoutEvent(user));
+        this.user.getUser(this.currentAuthorizedLogin).pipe(
+            filter(user => !user.silent)
+        ).subscribe(user => this.uxevent.setLogoutEvent(user));
         this.isLoggedSuccess = false;
         this.currentAuthorizedLogin = null;
         this.ls.unsetUserCredential();
