@@ -8,6 +8,7 @@ import {LsService} from './ls.service';
 import {TopEventsService} from './topevents.service';
 import {LoginService} from './login.service';
 import {filter, tap} from 'rxjs/operators';
+import {IUser} from 'app/models/user-interface';
 
 export interface ILogin {
     login: string;
@@ -40,6 +41,7 @@ export class AuthService {
 
     private isLoggedSuccess = false;
     private currentAuthorizedLogin: string = null;
+    private currentAuthorizedUser: IUser = null;
 
     public login(login: ILogin) {
         if (login && login.login && login.password) {
@@ -60,7 +62,7 @@ export class AuthService {
                     }
                     if (response.auth) {
                         this.user.getUser(response.login).pipe(
-                            filter(user => !user.silent)
+                            tap(user => this.currentAuthorizedUser = user),
                         ).subscribe(user => this.uxevent.setLoginEvent(user));
                         this.ls.setUserCredential(login);
                         this.tes.refreshSegmentWithData('login', response.login);
@@ -107,5 +109,9 @@ export class AuthService {
 
     public authorizedAs(): string {
         return this.currentAuthorizedLogin;
+    }
+
+    public authorizedUser(): IUser {
+        return this.currentAuthorizedUser as IUser;
     }
 }

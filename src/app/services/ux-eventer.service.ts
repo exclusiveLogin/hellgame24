@@ -29,6 +29,9 @@ export class UxEventerService {
     }
 
     public setLoginEvent(user: IUser) {
+        if (user.silent) {
+            return;
+        }
         const body: IUXEvent = {
             title: `Пользователь ${user.name}(${user.login}) вошел в систему HG24`,
             description: 'Для подробностей можете посетить сайт игры Hellgame24',
@@ -41,6 +44,10 @@ export class UxEventerService {
     }
 
     public setLogoutEvent(user: IUser) {
+        if (user.silent) {
+            return;
+        }
+        ;
         const body: IUXEvent = {
             title: `Пользователь ${user.name}(${user.login}) вышел из системы HG24`,
             description: 'Ждем вновь на сайте игры Hellgame24',
@@ -64,9 +71,12 @@ export class UxEventerService {
         this.updateEvent(body);
     }
 
-    public setUserEmo(user: string, emo: number, title?: string,) {
+    public setUserEmo(user: IUser, emo: number, title?: string) {
+        if (user.silent) {
+            return;
+        }
         const body: IUXEvent = {
-            title: `Пользователь ${user} установил настроение`,
+            title: `Пользователь ${user.login} установил настроение`,
             description: `Новое настроение: ${emo}, ( ${title} )`,
             author: 'system',
             level: 'info',
@@ -76,9 +86,12 @@ export class UxEventerService {
         this.updateEvent(body);
     }
 
-    public setUserStatus(user: string, status: string) {
+    public setUserStatus(user: IUser, status: string) {
+        if (user.silent) {
+            return;
+        }
         const body: IUXEvent = {
-            title: `Пользователь ${user} установил новый статус`,
+            title: `Пользователь ${user.login} установил новый статус`,
             description: `Статус: ${status}`,
             author: 'system',
             level: 'info',
@@ -88,9 +101,12 @@ export class UxEventerService {
         this.updateEvent(body);
     }
 
-    public setRedCode(user: string, description?: string) {
+    public setRedCode(user: IUser, description?: string) {
+        if (user.silent) {
+            return;
+        }
         const body: IUXEvent = {
-            title: `Пользователь ${user} установил Красный код`,
+            title: `Пользователь ${user.login} установил Красный код`,
             description: `${description ? 'По причине: ' + description : ' Без объяснения причины'}`,
             author: 'system',
             level: 'danger',
@@ -100,9 +116,12 @@ export class UxEventerService {
         this.updateEvent(body);
     }
 
-    public setOrangeCode(user: string, description?: string) {
+    public setOrangeCode(user: IUser, description?: string) {
+        if (user.silent) {
+            return;
+        }
         const body: IUXEvent = {
-            title: `Пользователь ${user} установил Оранжевый код`,
+            title: `Пользователь ${user.login} установил Оранжевый код`,
             description: `${description ? 'По причине: ' + description : ' Без объяснения причины'}`,
             author: 'system',
             level: 'warning',
@@ -112,9 +131,12 @@ export class UxEventerService {
         this.updateEvent(body);
     }
 
-    public setGreenCode(user: string) {
+    public setGreenCode(user: IUser) {
+        if (user.silent) {
+            return;
+        }
         const body: IUXEvent = {
-            title: `Пользователь ${user} снял код опасности`,
+            title: `Пользователь ${user.login} снял код опасности`,
             description: `Опасность миновала, однако стоит помнить о правилах и технике безопасности. Будьте бдительны и аккуратны, это залог выживания`,
             author: 'system',
             level: 'info',

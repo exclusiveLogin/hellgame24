@@ -98,11 +98,11 @@ export class UserStatusComponent implements OnInit {
   public confirm( b: IStatusBtn ) {
     if (confirm('Устанавливаем статус : ' + b.title + ' ?')) {
       // отправляем статус
-      const login = this.auth.authorizedAs();
-      this.user.setUserStatus( b, login ).subscribe( () => {
+      const user = this.auth.authorizedUser();
+      this.user.setUserStatus( b, user.login ).subscribe( () => {
         this.close();
         this.tes.refreshSegment('status');
-        this.uxevent.setUserStatus( login, b.title );
+        this.uxevent.setUserStatus( user, b.title );
       });
 
     }

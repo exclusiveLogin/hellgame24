@@ -26,16 +26,16 @@ export class UserNotyfierComponent implements OnInit {
       case 'red':
         msg = prompt('Причина установки Красного кода');
         this.global.setGlobalStatus('red', msg).subscribe();
-        this.uxevent.setRedCode(this.auth.authorizedAs(), msg);
+        this.uxevent.setRedCode(this.auth.authorizedUser(), msg);
         break;
       case 'orange':
         msg = prompt('Причина установки Оранжевого кода');
         this.global.setGlobalStatus('orange', msg).subscribe();
-        this.uxevent.setOrangeCode(this.auth.authorizedAs(), msg);
+        this.uxevent.setOrangeCode(this.auth.authorizedUser(), msg);
         break;
       case 'green':
         this.global.setGlobalStatus('green').subscribe();
-        this.uxevent.setGreenCode(this.auth.authorizedAs());
+        this.uxevent.setGreenCode(this.auth.authorizedUser());
         break;
     }
   }

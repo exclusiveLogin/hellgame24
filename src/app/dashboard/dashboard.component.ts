@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserServiceService} from '../services/user-service.service';
 import {IUser} from '../models/user-interface';
 import { AuthService } from '../services/auth.service';
 import { UiService } from '../services/ui.service';
 import { Route, ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { TopEventsService } from '../services/topevents.service';
-import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {merge, of, Subscription} from 'rxjs';
+import {map, switchMap, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private users: UserServiceService,
@@ -23,8 +23,6 @@ export class DashboardComponent implements OnInit {
     private r: Router,
     private tes: TopEventsService,
     ) { }
-
-  public v_users: IUser[] = [];
 
   public cur_user: IUser;
 
@@ -44,30 +42,25 @@ export class DashboardComponent implements OnInit {
 
   private userStatusChangeSub: Subscription;
 
+  userCards$ = this.tes.getSegmentRefreshSignal('status').pipe(
+      switchMap(() => this.users.getUsersInit()),
+      map(users => users.filter(u => !u.silent || this.isUserOwner(u))),
+      tap((users: IUser[]) => {
+          console.log('users:', users);
+          // если переход по URL
+          if ( this.router.snapshot.params['user'] ) {
+              this.cur_user = users.find(u => u.login === this.router.snapshot.params['user']);
+              if ( this.cur_user ) { this.ui.setCurrentUserSelect( this.cur_user ); }
+          } else {
+              this.cur_user = users.find( u => u.login === this.auth.authorizedAs() );
+              if ( this.cur_user && !this.ui.getCurrentUserSelect()) {
+                  this.ui.setCurrentUserSelect( this.cur_user );
+              }
+          }
+      }),
+  );
 
   ngOnInit() {
-    console.log('DASHBOARD INIT:');
-    this.users.getUsersInit()
-      .subscribe((users: IUser[]) => {
-        console.log('users:', users);
-        this.v_users = users;
-
-        // если переход по URL
-        if ( this.router.snapshot.params['user'] ) {
-          this.cur_user = users.find(u => u.login === this.router.snapshot.params['user']);
-          if ( this.cur_user ) { this.ui.setCurrentUserSelect( this.cur_user ); }
-        } else {
-          this.cur_user = users.find( u => u.login === this.auth.authorizedAs() );
-          if ( this.cur_user && !this.ui.getCurrentUserSelect()) {
-            this.ui.setCurrentUserSelect( this.cur_user );
-          }
-        }
-
-
-      });
-
-    this.userStatusChangeSub = this.tes.getSegmentRefreshSignal('status').pipe( switchMap( () => this.users.refreshUsers()) ).subscribe( users => this.v_users = users);
-
     this.userChangeSub = this.ui.getCurrentUserChangeEvent().subscribe(user => {
       if ( user ) {
         this.cur_user = user;

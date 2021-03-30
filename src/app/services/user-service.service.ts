@@ -62,11 +62,13 @@ export class UserServiceService {
 
     public getUsersInit(): Observable<IUser[]> {
 
-        if (this.fetchedUsers) { return of(this.fetchedUsers); }
+        if (this.fetchedUsers) {
+            return of(this.fetchedUsers);
+        }
 
         return this.http.get<IUserState[]>(this.apiservice.getApi() + 'users_state.php').pipe(
             map((users) => {
-                const users_result: IUser[] = users.filter(u => !u.silent).map((user: IUserState) => {
+                const users_result: IUser[] = users.map((user: IUserState) => {
                     let st = 'Не играет';
 
                     if (user.upd && !this.oldDate(user.upd)) {
@@ -119,7 +121,7 @@ export class UserServiceService {
     public getUser(id: string): Observable<IUser> {
         const targetUser = this.fetchedUsers && this.fetchedUsers.find(user => user.login === id);
         if (targetUser) {
-            return of( targetUser );
+            return of(targetUser);
         }
         return this.getUsersInit().pipe(
             map(users => users.find(u => u.login === id))
@@ -129,7 +131,9 @@ export class UserServiceService {
     public setUser(user: IUser): void {
         let targetUserInCache = this.fetchedUsers && this.fetchedUsers.find(u => u.login === user.login);
 
-        if (targetUserInCache) { targetUserInCache = JSON.parse(JSON.stringify(user)); }
+        if (targetUserInCache) {
+            targetUserInCache = JSON.parse(JSON.stringify(user));
+        }
 
     }
 
@@ -138,11 +142,15 @@ export class UserServiceService {
     }
 
     public setUserTrendCache(user: string, trend: ITrendItem[]) {
-        if (this.usersTrends) { this.usersTrends[user] = trend; }
+        if (this.usersTrends) {
+            this.usersTrends[user] = trend;
+        }
     }
 
     public clearUserTrendCache(user: string): void {
-        if (this.usersTrends) { delete this.usersTrends[user]; }
+        if (this.usersTrends) {
+            delete this.usersTrends[user];
+        }
     }
 
     public clearTrendCache(): void {
@@ -159,7 +167,9 @@ export class UserServiceService {
 
         // console.log("CASHED:", cached);
 
-        if (cached) { return of(cached); }
+        if (cached) {
+            return of(cached);
+        }
 
         const path: Path = {
             segment: 'emo',
@@ -171,8 +181,12 @@ export class UserServiceService {
             login: user,
         };
 
-        if (skip) { data.skip = skip; }
-        if (limit) { data.limit = limit; }
+        if (skip) {
+            data.skip = skip;
+        }
+        if (limit) {
+            data.limit = limit;
+        }
 
 
         return this.con.getData<ITrendItem[]>(path, data).pipe(
