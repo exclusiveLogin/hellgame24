@@ -84,6 +84,7 @@ export class UserServiceService {
                         login: user.login,
                         title: user.title,
                         silent: !!user.silent,
+                        admin: !!user.admin,
                         message: {
                             text: user.status && user.status[0] && user.status[0].title,
                             datetime: user.status && user.status[0] && user.status[0].datetime_create,

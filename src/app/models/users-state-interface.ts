@@ -17,4 +17,5 @@ export interface IUserState {
   status: IUserStatus[];
   last_login: any[];
   silent?: boolean;
+  admin?: boolean;
 }

@@ -13,6 +13,7 @@ export interface IUser {
     datetime?: string;
   };
   silent?: boolean;
+  admin?: boolean;
   avatar_min?: SafeStyle;
   avatar_big?: SafeStyle;
   avatar_min_url?: SafeUrl;

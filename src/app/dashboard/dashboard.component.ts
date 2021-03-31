@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   userCards$ = this.tes.getSegmentRefreshSignal('status').pipe(
       switchMap(() => this.users.getUsersInit()),
-      map(users => users.filter(u => !u.silent || this.isUserOwner(u))),
+      map(users => users.filter(u => !u.silent || this.isUserOwner(u) || this.auth.adminMode())),
       tap((users: IUser[]) => {
           console.log('users:', users);
           // если переход по URL

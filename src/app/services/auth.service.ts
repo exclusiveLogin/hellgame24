@@ -114,4 +114,8 @@ export class AuthService {
     public authorizedUser(): IUser {
         return this.currentAuthorizedUser as IUser;
     }
+
+    public adminMode(): boolean {
+        return this.currentAuthorizedUser?.admin;
+    }
 }
