@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private userStatusChangeSub: Subscription;
 
   userCards$ = this.tes.getSegmentRefreshSignal('status').pipe(
-      switchMap(() => this.users.getUsersInit()),
+      switchMap(() => this.users.refreshUsers()),
       map(users => users.filter(u => !u.silent || this.isUserOwner(u) || this.auth.adminMode())),
       tap((users: IUser[]) => {
           console.log('users:', users);
