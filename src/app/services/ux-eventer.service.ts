@@ -12,6 +12,10 @@ export interface IUXEvent {
     segment?: string;
     level?: string;
     description?: string;
+    desktop_notify?: boolean;
+    push_notify?: boolean;
+    telegram_notify?: boolean;
+    img?: string;
 }
 
 const path: Path = {
@@ -37,7 +41,8 @@ export class UxEventerService {
             description: 'Для подробностей можете посетить сайт игры Hellgame24',
             author: user.login,
             level: 'info',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
         };
 
         this.updateEvent(body);
@@ -53,7 +58,8 @@ export class UxEventerService {
             description: 'Ждем вновь на сайте игры Hellgame24',
             author: user.login,
             level: 'info',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
         };
 
         this.updateEvent(body);
@@ -65,7 +71,10 @@ export class UxEventerService {
             description: 'Если это не Вы Просьба сообщить администратору Hellgame24',
             author: 'system',
             level: 'error',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
+            telegram_notify: true,
+            push_notify: true,
         };
 
         this.updateEvent(body);
@@ -80,7 +89,9 @@ export class UxEventerService {
             description: `Новое настроение: ${emo}, ( ${title} )`,
             author: 'system',
             level: 'info',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
+            telegram_notify: true,
         };
 
         this.updateEvent(body);
@@ -95,7 +106,9 @@ export class UxEventerService {
             description: `Статус: ${status}`,
             author: 'system',
             level: 'info',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
+            telegram_notify: true,
         };
 
         this.updateEvent(body);
@@ -110,7 +123,10 @@ export class UxEventerService {
             description: `${description ? 'По причине: ' + description : ' Без объяснения причины'}`,
             author: 'system',
             level: 'danger',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
+            telegram_notify: true,
+            push_notify: true,
         };
 
         this.updateEvent(body);
@@ -125,7 +141,10 @@ export class UxEventerService {
             description: `${description ? 'По причине: ' + description : ' Без объяснения причины'}`,
             author: 'system',
             level: 'warning',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
+            telegram_notify: true,
+            push_notify: true,
         };
 
         this.updateEvent(body);
@@ -140,7 +159,10 @@ export class UxEventerService {
             description: `Опасность миновала, однако стоит помнить о правилах и технике безопасности. Будьте бдительны и аккуратны, это залог выживания`,
             author: 'system',
             level: 'info',
-            mode: 'add_event'
+            mode: 'add_event',
+            desktop_notify: true,
+            telegram_notify: true,
+            push_notify: true,
         };
 
         this.updateEvent(body);
