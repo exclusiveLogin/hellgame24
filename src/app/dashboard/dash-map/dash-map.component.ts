@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {icon, latLng, Layer, MapOptions, marker, tileLayer} from 'leaflet';
 import {UnitsService} from '../../services/units.service';
+import {Unit} from '../../models/unit.model';
 
 @Component({
     selector: 'app-dash-map',
@@ -8,6 +9,7 @@ import {UnitsService} from '../../services/units.service';
     styleUrls: ['./dash-map.component.css']
 })
 export class DashMapComponent implements OnInit {
+    selected: Unit;
     LLlayers: Layer[] = [];
 
     options: MapOptions = {
@@ -19,10 +21,11 @@ export class DashMapComponent implements OnInit {
             })
         ],
         zoom: 10,
-        center: latLng(53.160976, 48.458633)
+        center: latLng(53.160976, 48.458633),
     };
     constructor(
         private unitsService: UnitsService,
+        private cdr: ChangeDetectorRef,
     ) {
 
     }
@@ -31,13 +34,27 @@ export class DashMapComponent implements OnInit {
 
     ngOnInit() {
         this.allUnits$.subscribe(units => {
-            units.forEach(unit => this.LLlayers.push(marker( [unit.lat, unit.lon ], {
-                icon: icon({
-                    iconUrl: 'assets/icons/unit_map1.png',
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 16],
-                })
-            })));
+            units.forEach(unit => {
+                const monster = marker( [unit.lat, unit.lon ], {
+                    icon: icon({
+                        iconUrl: 'assets/icons/unit_map1.png',
+                        iconSize: [32, 32],
+                        iconAnchor: [16, 16],
+                    }),
+                });
+                monster['entity'] = unit;
+                monster.on('click', (event) => {
+                    console.log('LL Click', event);
+                    this.selected = event.target.entity;
+                    setTimeout(() => {
+                        this.selected = event.target.entity;
+                        this.cdr.detectChanges();
+                    }, 100);
+                    console.log('LL Click after', this.selected);
+                });
+
+                this.LLlayers.push(monster);
+            });
         });
 
 

@@ -75,6 +75,7 @@ export class Unit implements IUnit {
         this.requires.snow = !!json.snow;
         this.requires.overcast = !!json.overcast;
         this.requires.day = !!json.day;
+        this.requires.night = !!json.night;
         this.requires.clearsky = !!json.clearsky;
         this.requires.temperatureMin = +json.temperature_min;
         this.requires.temperatureMax = +json.temperature_max;

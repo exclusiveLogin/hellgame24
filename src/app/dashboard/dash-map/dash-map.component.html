@@ -7,3 +7,19 @@
      [leafletLayers]="LLlayers"
 >
 </div>
+<div class="microcard" *ngIf="selected; else unselect">
+    <h2 class="full">{{selected.name}}</h2>
+    <p class="full">{{selected.description}}</p>
+    <div class="microcard">
+        <h3 class="full">Зависимости</h3>
+        <p class="full"><span>Дождь: </span><span class="mapModeStatus">{{selected.requires.rain | json}}</span></p>
+        <p class="full"><span>Снег: </span><span class="mapModeStatus">{{selected.requires.snow | json}}</span></p>
+        <p class="full"><span>День: </span><span class="mapModeStatus">{{selected.requires.day | json}}</span></p>
+        <p class="full"><span>Ночь: </span><span class="mapModeStatus">{{selected.requires.night | json}}</span></p>
+    </div>
+
+</div>
+
+<ng-template #unselect>
+    <div class="full mapModeStatus">Выбери монстра на карте</div>
+</ng-template>
