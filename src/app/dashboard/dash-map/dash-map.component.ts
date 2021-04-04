@@ -46,11 +46,9 @@ export class DashMapComponent implements OnInit {
                 monster.on('click', (event) => {
                     console.log('LL Click', event);
                     this.selected = event.target.entity;
-                    setTimeout(() => {
-                        this.selected = event.target.entity;
-                        this.cdr.detectChanges();
-                    }, 100);
-                    console.log('LL Click after', this.selected);
+                    this.LLlayers.forEach(mkr => mkr['_icon']?.classList.remove('llmarker_selected'));
+                    this.cdr.detectChanges();
+                    event.target['_icon']?.classList.add('llmarker_selected');
                 });
 
                 this.LLlayers.push(monster);

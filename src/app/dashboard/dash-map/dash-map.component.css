@@ -5,3 +5,12 @@
     border: 1px #540 dotted;
     padding: 5px;
 }
+.map_container{
+    height: 90vh;
+}
+
+@media screen and (max-width: 568px){
+    .map_container{
+        height: 60vh;
+    }
+}

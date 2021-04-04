@@ -15,8 +15,8 @@
   </a>
 </div>
 <div class="dashboard_workplace">
-  <app-pager>
-    <div class="info-content">
+  <app-pager class="col-12">
+    <div class="info-content col-12">
       <app-user-info-card class="microcard" *ngIf="cur_user; else emptyuser" [user]="cur_user"></app-user-info-card>
 
       <app-user-mail *ngIf="usermail_shown"  class="microcard" [user]="cur_user && cur_user.login"></app-user-mail>
@@ -46,10 +46,10 @@
 
       <app-user-blog class="microcard" [author]="cur_user && cur_user.login"></app-user-blog>
     </div>
-    <div class="map-content">
+    <div class="map-content col-12">
       <app-dash-map></app-dash-map>
     </div>
-    <div class="accessory-content">
+    <div class="accessory-content col-12">
       <app-accessory-container class="microcard"></app-accessory-container>
     </div>
   </app-pager>

@@ -1,13 +1,13 @@
-<div class="page_info">
+<div class="page_info col-sm-12 col-md-4">
   <div class="microcard">
     <span>Страница информации {{currentUser && currentUser.name || ' *пользователь не задан*'}}</span>
   </div>
   <ng-content select=".info-content"></ng-content>
 </div>
-<div class="page_accessory">
+<div class="page_accessory  col-sm-12 col-md-4">
   <ng-content select=".accessory-content"></ng-content>
 </div>
-<div class="page_map">
+<div class="page_map  col-sm-12 col-md-4">
   <div class="microcard">
     <span>Страница карты</span>
   </div>

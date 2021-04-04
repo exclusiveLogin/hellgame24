@@ -1,62 +1,58 @@
-<div class="userinfo_btns" *ngIf="isOwner()">
-
-  <!-- Почта (кнопка) -->
-  <button
-    class="btn"
-    [ngClass]="{'pressed': usermail_shown}"
-    (click)="usermail_shown ? closeMail() : openMail()"
-    >
-      <i class="fas fa-envelope fa-2x icon"></i>
-  </button>
-
-  <!-- Настроение (кнопка) -->
-  <button
-    class="btn"
-    [ngClass]="{'pressed': useremo_shown}"
-    (click)="useremo_shown ? closeUserEmo() : openUserEmo()"
-    >
-      <i class="fas fa-chart-line fa-2x icon"></i>
-  </button>
-
-  <!-- Статус (кнопка) -->
-  <button
-    class="btn"
-    [ngClass]="{'pressed': userstatus_shown}"
-    (click)="userstatus_shown ? closeUserStatus() : openUserStatus()"
-    >
-      <i class="fas fa-comment-alt fa-2x icon"></i>
-  </button>
-
-</div>
-<div class="userinfo_left">
+<div class="userinfo_left col-md-12 col-lg-6">
   <img [attr.src]="user.avatar_big" class="userinfo_avatar"/>
-  <div class="userinfo_emotion_block">
-    <div class="usercard_emotion_led"></div>
-  </div>
 </div>
-<div class="userinfo_right">
-  <span class="user_title">{{ user.login.toUpperCase() }} ({{user.title}})</span>
-  <span class="user_address">Визит:<strong>{{user.last_change_datetime_humanity}}</strong></span>
-  <span class="user_address" *ngIf="user.last_login && user.last_login.battery">Батарея:<strong>{{user.last_login.battery}} %</strong></span>
-  <span class="user_address" *ngIf="user.address">Откуда:<strong>{{user.address}}</strong></span>
 
-  <ng-container *ngIf="user.last_login && user.last_login.user_agent">
-    <span class="user_address" >ОC:<strong> {{ getUASystem(user.last_login.user_agent) }} </strong></span>
-    <span class="user_address" >Браузер:<strong> {{ getUABrowser(user.last_login.user_agent) }} </strong></span>
-    <span class="user_address" >Девайс:<strong> {{ getUADevice(user.last_login.user_agent) }} </strong></span>
-  </ng-container>
-  
-  
+<div class="userinfo_right col-md-12 col-lg-6">
+    <span class="user_title col-md-12">{{ user.login.toUpperCase() }} ({{user.title}})</span>
+    <span class="user_address col-md-12">Визит:<strong>{{user.last_change_datetime_humanity}}</strong></span>
+    <span class="user_address col-md-12" *ngIf="user.last_login && user.last_login.battery">Батарея:<strong>{{user.last_login.battery}} %</strong></span>
+    <span class="user_address col-md-12" *ngIf="user.address">Откуда:<strong>{{user.address}}</strong></span>
 
+    <ng-container *ngIf="user.last_login && user.last_login.user_agent">
+        <span class="user_address col-md-12" >ОC:<strong> {{ getUASystem(user.last_login.user_agent) }} </strong></span>
+        <span class="user_address col-md-12" >Браузер:<strong> {{ getUABrowser(user.last_login.user_agent) }} </strong></span>
+        <span class="user_address col-md-12" >Девайс:<strong> {{ getUADevice(user.last_login.user_agent) }} </strong></span>
+    </ng-container>
 
-  <span class="user_lastsystem">Изменения статуса:<br><strong>{{user.last_change_status_datetime}}</strong></span>
-  <div class="user_lastsystem">Статус:<i [ngClass]="user.message.icon" class="fas"></i> <span>( {{user.message.text}} )</span></div>
-
+    <span class="user_lastsystem col-md-12">Изменения статуса:<br><strong>{{user.last_change_status_datetime}}</strong></span>
+    <div class="user_lastsystem col-md-12">Статус:<i [ngClass]="user.message.icon" class="fas"></i> <span>( {{user.message.text}} )</span></div>
 </div>
-<div id="infocardEmo_hc" class="user_emotrend" #trend></div>
+
+<div class="userinfo_btns col-md-12" *ngIf="isOwner()">
+    <!-- Почта (кнопка) -->
+    <button
+            class="btn"
+            [ngClass]="{'pressed': usermail_shown}"
+            (click)="usermail_shown ? closeMail() : openMail()"
+    >
+        <i class="fas fa-envelope fa-2x icon"></i>
+    </button>
+
+    <!-- Настроение (кнопка) -->
+    <button
+            class="btn"
+            [ngClass]="{'pressed': useremo_shown}"
+            (click)="useremo_shown ? closeUserEmo() : openUserEmo()"
+    >
+        <i class="fas fa-chart-line fa-2x icon"></i>
+    </button>
+
+    <!-- Статус (кнопка) -->
+    <button
+            class="btn"
+            [ngClass]="{'pressed': userstatus_shown}"
+            (click)="userstatus_shown ? closeUserStatus() : openUserStatus()"
+    >
+        <i class="fas fa-comment-alt fa-2x icon"></i>
+    </button>
+</div>
+
+
+
+<div id="infocardEmo_hc" class="user_emotrend col-md-12" #trend></div>
 <ng-container *ngIf="userEmoStatus">
-  <div class="userinfo_left" *ngIf="userEmoStatus.prev_value">Настроение было: {{ userEmoStatus.prev_value }} <br> {{ userEmoStatus.prev_datetime }}</div>
-  <div class="userinfo_right" *ngIf="userEmoStatus.value">Стало: {{ userEmoStatus.value }} <br> {{ userEmoStatus.datetime }}</div>
+  <div class="userinfo_left col-sm-6" *ngIf="userEmoStatus.prev_value">Настроение было: {{ userEmoStatus.prev_value }} <br> {{ userEmoStatus.prev_datetime }}</div>
+  <div class="userinfo_right col-sm-6" *ngIf="userEmoStatus.value">Стало: {{ userEmoStatus.value }} <br> {{ userEmoStatus.datetime }}</div>
   <ng-container *ngIf="userEmoStatus.title"><div class="full lastEmoStatus">Cтатус: {{ userEmoStatus.title }}</div></ng-container>
 </ng-container>
 

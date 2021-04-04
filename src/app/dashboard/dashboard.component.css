@@ -34,3 +34,8 @@ app-usercard:hover{
     pointer-events: none;
     opacity: 0.3;
 }
+@media screen and (max-width: 568px){
+    .info-content{
+        padding: 0;
+    }
+}

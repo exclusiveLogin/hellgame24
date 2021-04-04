@@ -1,31 +1,10 @@
 :host{
-  flex-direction: row;
-  padding: 5px;
-  justify-content: space-around;
-}
-.userinfo_left{
-  display: flex;
-  flex-direction: column;
-  flex-grow: 0;
-  flex-basis: 40%;
 }
 .icon{
   color: #ccc;
 }
-.userinfo_left .userinfo_avatar{
+.userinfo_avatar{
   width: 100%;
-  max-width: 200px;
-}
-
-.userinfo_right{
-  flex-direction: column;
-  display: flex;
-  justify-content: space-between;
-  flex-basis: 40%;
-  flex-grow: 0;
-}
-.userinfo_right #infocardEmo_hc{
-  flex: 1 0 auto;
 }
 .userinfo_right .user_title{
   font-size: 120%;
@@ -47,23 +26,23 @@
 .userinfo_right span{
   color: #999;
   font-size: 90%;
+    display: block;
 }
-.userinfo_send_msg{
-  margin: 5px 0;
+.userinfo_right {
+    text-align: center;
 }
 .user_emotrend{
   max-width: 100%;
 }
-.userinfo_btns{
-  display: flex;
-  flex-wrap: wrap;
-  flex-basis: 50px;
-}
-
 .lastEmoStatus{
   color: orange;
   font-size: small;
   margin-top: 10px;
   border: 1px #540 dotted;
   padding: 5px;
+}
+.userinfo_btns{
+    background-color: #444;
+    box-shadow: 5px 5px 14px 0 rgba(0, 0, 0, 0.5);
+    margin-bottom: 15px;
 }
