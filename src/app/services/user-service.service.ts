@@ -56,7 +56,7 @@ export class UserServiceService {
     }
 
     public oldDate(date: string): boolean {
-        const old = moment().isAfter(moment.utc(Number(date)).add(20, 'second'));
+        const old = moment().isAfter(moment.utc(Number(date)).add(60, 'second'));
         return old;
     }
 
