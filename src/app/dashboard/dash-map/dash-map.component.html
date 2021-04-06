@@ -1,7 +1,8 @@
 <ng-container>
     <div class="full mapModeStatus">Режим карты: Разработка</div>
 </ng-container>
-<div class="map_container"
+<div class="map_container full"
+     [class.half_height]="half"
      leaflet
      [leafletOptions]="options"
      [leafletLayers]="LLlayers"

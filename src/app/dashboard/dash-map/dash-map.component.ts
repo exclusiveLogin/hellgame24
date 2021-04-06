@@ -13,6 +13,8 @@ export class DashMapComponent implements OnInit {
     LLlayers: Layer[] = [];
     map: L.Map;
 
+    half = false;
+
     options: MapOptions = {
         layers: [
             tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=f72ed756-8e30-42c9-818a-945f09747ce8', {
@@ -55,6 +57,9 @@ export class DashMapComponent implements OnInit {
                     this.LLlayers.forEach(mkr => mkr['_icon']?.classList.remove('llmarker_selected'));
                     this.cdr.detectChanges();
                     event.target['_icon']?.classList.add('llmarker_selected');
+                    this.half = true;
+                    this.cdr.detectChanges();
+                    setTimeout(() => this.map.invalidateSize(true), 500);
                 });
 
                 this.LLlayers.push(monster);

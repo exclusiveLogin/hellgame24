@@ -7,10 +7,18 @@
 }
 .map_container{
     height: 90vh;
+    transition: height 0.5s ease-out;
 }
+.map_container.half_height{
+    height: 40vh;
+}
+
 
 @media screen and (max-width: 568px){
     .map_container{
         height: 60vh;
+    }
+    .map_container.half_height{
+        height: 30vh;
     }
 }
