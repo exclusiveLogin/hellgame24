@@ -11,6 +11,7 @@ import {Unit} from '../../models/unit.model';
 export class DashMapComponent implements OnInit {
     selected: Unit;
     LLlayers: Layer[] = [];
+    map: L.Map;
 
     options: MapOptions = {
         layers: [
@@ -31,6 +32,11 @@ export class DashMapComponent implements OnInit {
     }
 
     allUnits$ = this.unitsService.getAllUnits();
+
+    onMapReady(map: L.Map) {
+        this.map = map;
+        this.map.panTo(latLng(53.160976, 48.458633));
+    }
 
     ngOnInit() {
         this.allUnits$.subscribe(units => {

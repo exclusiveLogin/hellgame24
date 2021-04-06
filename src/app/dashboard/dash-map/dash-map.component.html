@@ -5,6 +5,7 @@
      leaflet
      [leafletOptions]="options"
      [leafletLayers]="LLlayers"
+     (leafletMapReady)="onMapReady($event)"
 >
 </div>
 <div class="microcard" *ngIf="selected; else unselect">
