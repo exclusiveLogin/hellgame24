@@ -158,11 +158,15 @@ export class UserServiceService {
         this.usersTrends = [];
     }
 
-    public getFullTrend(user: string) {
+    public getFullTrend(user: string): Observable<ITrendItem[]> {
         return this.getUserTrend(user, null, 5000);
     }
 
-    public getUserTrend(user: string, skip: number = null, limit = null) {
+    public getMiniTrendByUser(user: string): Observable<ITrendItem[]> {
+        return this.getUserTrend(user, null, null, 'get_mini_trend');
+    }
+
+    public getUserTrend(user: string, skip: number = null, limit = null, mode = 'get_trend'): Observable<ITrendItem[]> {
 
         const cached = !skip && !limit && this.getUserTrendCache(user);
 
@@ -178,7 +182,7 @@ export class UserServiceService {
         };
 
         const data: IParams = {
-            mode: 'get_trend',
+            mode,
             login: user,
         };
 

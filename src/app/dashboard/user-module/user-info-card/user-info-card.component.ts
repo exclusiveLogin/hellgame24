@@ -306,7 +306,7 @@ export class UserInfoCardComponent implements OnInit, AfterViewInit {
 
     private refreshTrend() {
 
-        this.userTrendSub = this.usersService.getUserTrend(this.user.login)
+        this.userTrendSub = this.usersService.getMiniTrendByUser(this.user.login)
             .pipe(
                 filter(trend => !!trend),
                 tap(trend => {
