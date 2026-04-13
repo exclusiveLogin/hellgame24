@@ -1,27 +1,81 @@
-# Hg24
+# HellGame 24 — Геолокационная MMO-платформа
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.3.
+Full-stack веб-платформа на Angular с геолокационной привязкой юнитов, крафтовой системой, встроенным мессенджером, блогом и dashboardʼом пользователя. Фронтенд геолокационной MMO-игры, работающей через погодные условия реального мира.
 
-## Development server
+> Проект двух друзей. Составная часть 4 эпохи Цифрового присутствия.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Ключевые модули
 
-## Code scaffolding
+### Dashboard
+- **Карта (Leaflet)** — отображение юнитов на реальной карте (тёмная тема Stadia Maps), клик по маркерам для просмотра деталей
+- **Мессенджер** — внутренний IM между игроками
+- **Блог** — пользовательский блог с постами
+- **Статусы / Эмоции** — микростатусы пользователей, эмоции
+- **Уведомления** — push-нотификации + notifier
+- **Почта** — внутренняя почтовая система
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Accessory System (Крафтинг)
+- **Инвентарь** — предметы пользователя (`inventory.service.ts`)
+- **Рецепты** — система крафтинга из ингредиентов (`receipt.service.ts`)
+- **Спавнер** — появление объектов по геолокации (`spawner.service.ts`), привязанных к позиции (lat/lon) и условиям
+- **Лаборатория** — accessory-lab, крафтинг через UI
+- **Вики** — описание предметов с иллюстрациями
 
-## Build
+### Units (Юниты)
+- Привязаны к реальной геолокации (lat/lon)
+- Условия активации: погода (rain, snow, overcast, clearsky), время суток (night, bluehour, goldhour, day), температура, ветер
+- Уровни, статусы, классы юнитов
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+### Сервисный слой
+- **AuthService** — авторизация (login/password), guards
+- **ConnectorService** — типизированный HTTP-клиент (GET/POST с path-based routing)
+- **StateService / GlobalService** — управление состоянием
+- **UpdaterService** — real-time обновления
+- **UxEventerService** — event bus для UX-событий
 
-## Running unit tests
+## Архитектура
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+hellgame24/src/app/
+├── dashboard/           # Dashboard: карта, мессенджер, блог, статусы
+│   ├── dash-map/        # Leaflet-карта с юнитами
+│   ├── messanger/       # IM-мессенджер
+│   ├── pager/           # Пагинация
+│   └── user-module/     # Блог, статусы, почта, эмоции, уведомления
+├── accessory/           # Крафтинг: инвентарь, рецепты, спавнер, вики, лаборатория
+├── logs/                # Логи: тренды, глобальные события, логины, статусы
+├── login/               # Авторизация
+├── services/            # 15+ сервисов: auth, api, connector, state, units, blog, message...
+├── models/              # TypeScript-модели: Unit, User, GlobalState, animations
+└── menu/                # Навигация
+```
 
-## Running end-to-end tests
+## Стек технологий
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+| Технология | Назначение |
+|-----------|-----------|
+| Angular | SPA-фреймворк, lazy-loaded модули |
+| TypeScript | Строгая типизация, интерфейсы, модели |
+| Leaflet | Интерактивная карта с маркерами |
+| RxJS | Reactive services, Observable-based API |
+| Docker | Контейнеризация (Dockerfile + Nginx) |
+| PHP backend | API: [hg24_back_php](https://github.com/exclusivelogin/hg24_back_php) |
 
-## Further help
+## Связанные репозитории
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+| Репозиторий | Назначение |
+|------------|-----------|
+| [hg24_back_php](https://github.com/exclusivelogin/hg24_back_php) | PHP-бэкенд: accessory, blog, events, login, messaging, orders |
+| [hg24bot](https://github.com/exclusivelogin/hg24bot) | Telegram-бот для игровых уведомлений |
+| [hellgame](https://github.com/exclusivelogin/hellgame) | v1 — оригинальная версия (jQuery, PHP, GCM push) |
+
+## Запуск
+
+```bash
+npm install
+ng serve                    # localhost:4200
+
+# Docker
+docker build -t hellgame24 .
+docker run -p 80:80 hellgame24
+```
